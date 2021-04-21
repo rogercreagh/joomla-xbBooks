@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/views/tags/tmpl/default.xml v0.8.3 17th March 2021 -->
+<metadata>
+	<layout title="Category Counts">
+		<message>Displays counts of items assigned to each category. Links to list views filtered by category</message>
+	</layout>
+	<fields name="params">
+		<!-- Basic options. -->
+  		<fieldset name="basic" label="Options">
+			<field name="show_empty"
+				type="radio"
+				default="1"
+				label="COM_XBBOOKS_SHOW_EMPTY_LABEL"
+				description="COM_XBBOOKS_SHOW_EMPTY_DESC"
+	  			class="btn-group btn-group-yesno btn-small radiotop"
+	  			useglobal="true"
+				>
+					<option value="0" >No</option>
+					<option value="1">Yes</option>
+			</field>	
+			<field name="show_parent"
+				type="radio"
+				default="1"
+				label="COM_XBBOOKS_SHOW_PARENT_LABEL"
+				description="COM_XBBOOKS_SHOW_PARENT_DESC"
+	  			class="btn-group btn-group-yesno btn-small radiotop"
+	  			useglobal="true"
+				>
+					<option value="0" >No</option>
+					<option value="1">Yes</option>
+			</field>	
+		</fieldset>
+  		<!-- Additional page display options (added above the standard Page Display options) -->
+		<fieldset name="page-options" label="Page Headings">
+			<field name="list_title" type="text" class="inputbox w400" size="40" 
+				label="XBCULTURE_PAGETITLE_LBL" description="XBCULTURE_PAGETITLE_DESC"
+				default=""  
+			/>
+			<field name="list_subtitle" type="text" class="inputbox w400" size="160" 
+				label="XBCULTURE_PAGESUBTITLE_LBL" description="XBCULTURE_PAGESUBTITLE_DESC"
+				default=""
+              	showon="list_title!:"
+			/>
+			<field name="list_headtext" type="textarea" 
+				label="XBCULTURE_PAGEHEADER_LBL" description="XBCULTURE_PAGEHEADER_DESC"
+				rows="6" cols="40"
+				default=""
+				filter="raw"
+              />       
+		</fieldset>
+	</fields>
+</metadata>

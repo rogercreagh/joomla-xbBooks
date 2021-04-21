@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/models/forms/filter_blog.xml v0.8.0 6th March 2021 -->
+<form>
+    <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+        <field name="search"
+            type="text"
+            label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description=""
+            hint="JSEARCH_FILTER"
+        /> 
+        <field	name="reviewer"
+			type="sql"
+			label="COM_XBBOOKS_REVIEWER_LABEL"
+			description="COM_XBBOOKS_REVIEWER_DESC"
+			query="SELECT DISTINCT reviewer AS text, reviewer AS value FROM `#__xbbookreviews` WHERE reviewer&lt;&gt;''  ORDER BY  reviewer"
+  			key_field="value"
+  			value_field="text"
+			onchange="this.form.submit();"
+			>
+			<option value="">COM_XBBOOKS_ENTIRE_TREE</option>
+		</field>
+        
+		<field name="ratfilt" type="rating" 
+			label="COM_XBBOOKS_RATFILT_LBL" description="COM_XBBOOKS_RATFILT_DESC" 
+			default=""
+			onchange="this.form.submit();"
+		>
+			<option value="">COM_XBBOOKS_RATFILT_HINT</option>
+		</field>
+		<field
+			name="bookfilt"
+			type="books"
+			label="XBCULTURE_CAPBOOK"
+			description="COM_XBBOOKS_BOOKFILT_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">COM_XBBOOKS_BOOKFILT_HINT</option>
+		</field>
+		<field
+			name="category_id"
+			type="category"
+			label="COM_XBBOOKS_FILTER_CATEGORY_LBL"
+			extension="com_xbbooks"
+			description="COM_XBBOOKS_FILTER_CATEGORY_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="subcats"
+			type="radio"
+			default=""
+			label="COM_XBBOOKS_SUBCATS_LBL"
+			description="COM_XBBOOKS_SUBCATS_DESC"
+  			class="btn-group btn-small radiotop"
+  			showon="category_id!:"
+		>
+			<option value="" onchange="this.form.submit();">XBCULTURE_CAPEXCLUDE</option>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPINCLUDE</option>
+		</field>	
+       
+		<field
+			name="tagfilt"
+			type="tag"
+			label="COM_XBBOOKS_CAPTAGS"
+			description="COM_XBBOOKS_TAGFILT_DESC"
+			multiple="true"
+			class="multipleTags"
+			mode="ajax"
+			onchange="this.form.submit();"
+		/>
+		<field name="taglogic"
+			type="radio"
+			default="0"
+			label="COM_XBBOOKS_MULTITAG_LBL"
+			description="COM_XBBOOKS_MULTITAG_DESC"
+  			class="btn-group btn-small radiotop"
+		>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+			<option value="2" onchange="this.form.submit();">None</option>
+		</field>	
+		
+				
+    </fields>
+
+</form>

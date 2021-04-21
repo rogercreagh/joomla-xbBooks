@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks admin/models/forms/book.xml v0.8.1 9th March 2021 -->
+<form>
+
+	<fieldset addfieldpath="/administrator/components/com_xbbooks/models/fields">
+
+		<field 
+			name="id"  type="number" 
+			label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" 
+			readonly="true" class="readonly" 
+			size="10" default="0" />
+
+		<field name="title" type="text"
+			label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC"
+			class="inputbox input-xxlarge input-large-text" size="30" required="true" />
+
+		<field name="alias" type="text"
+			label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC"
+			hint="JFIELD_ALIAS_PLACEHOLDER"
+			class="inputbox" size="45" />
+
+		<field name="subtitle" type="text"
+			label="COM_XBBOOKS_SUBTITLE" description="COM_XBBOOKS_SUBTITLE_DESC"
+			class="inputbox input-xxlarge " size="30" />
+
+ 		<field name="qratnote" type="note"
+			description="Quick Rating will display once film has been saved"
+			class="info"
+			showon="id:0"
+		/>
+		<field name="quick_rating" type="rating" 
+			label="COM_XBBOOKS_QRATING_LABEL" description="COM_XBBOOKS_QRATING_DESC" 
+			default=""
+			showon="id!:0"
+			>
+			<option value="">Create an instant rating</option>
+		</field>
+		
+		<field name="summary" type="textarea" rows="6" cols="50"  
+			label="XBCULTURE_CAPSUMMARY"  description="COM_XBBOOKS_BOOK_SUMMARY_DESC" />
+
+		<field name="fiction" type="radio"
+			default="0"
+			label="COM_XBBOOKS_FICT_NON_LABEL" description="COM_XBBOOKS_FICT_NON_DESC"
+			class="btn-group btn-small" 
+		>
+			<option value="0">COM_XBBOOKS_CAPNONFICTION</option>
+			<option value="1">COM_XBBOOKS_CAPFICTION</option>
+		</field>
+
+		<field name="publisher" type="publisher"
+			label="COM_XBBOOKS_PUBLISHER_LABEL" description="COM_XBBOOKS_PUBLISHER_DESC"
+			class="inputbox" maxlength="99" />
+
+		<field name="edition" type="text"
+			label="COM_XBBOOKS_CAPEDITION" description="COM_XBBOOKS_EDITION_DESC"
+			class="inputbox" maxlength="49" />
+
+		<field name="format" type="bookformat" 
+			label="COM_XBBOOKS_CAPFORMAT" description="COM_XBBOOKS_FORMAT_DESC"
+			class="inputbox" maxlength="49"  >
+			<option value="Hardback">COM_XBBOOKS_CAPHARDBACK</option>
+			<option value="Paperback">COM_XBBOOKS_CAPPAPERBACK</option>
+			<option value="Kindle">COM_XBBOOKS_CAPKINDLE</option>
+			<option value="eBook">COM_XBBOOKS_CAPEBOOK</option>
+			<option value="other">XBCULTURE_OTHER</option>
+		</field>
+
+
+		<field name="pubyear" type="number" min="-2000" max="2052"
+  			hint="XBCULTURE_YEAR_HINT"
+			label="COM_XBBOOKS_PUBYEAR" description="COM_XBBOOKS_PUBYEAR_DESC"
+			class="inputbox" size="5" maxlength="4" />
+
+		<field name="cat_date" type="calendar"
+			label="COM_XBBOOKS_DATE_READ_LABEL" description="COM_XBBOOKS_DATE_READ_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
+			showtime="false" translateformat="true" />
+
+		<field name="orig_lang" type="origlang"
+			label="COM_XBBOOKS_OLANG_LABEL" description="COM_XBBOOKS_OLANG_DESC"
+			class="inputbox" maxlength="99" 
+			default=""/>
+
+		<field name="cover_img" type="media"
+			label="COM_XBBOOKS_FIELD_COVER_LABEL" description="COM_XBBOOKS_FIELD_COVER_DESC" />
+		
+		<field name="catid" type="category" extension="com_xbbooks" class="chzn-custom-value"
+			required="true"
+			label="JCATEGORY" description="COM_XBBOOKS_CATEGORY_DESC" >
+			<option value="0">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="state" type="list"
+			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"
+			class="chzn-color-state" filter="intval" size="1" default="1">
+				<option value="1">JPUBLISHED</option>
+				<option value="0">JUNPUBLISHED</option>
+				<option value="2">JARCHIVED</option>
+				<option value="-2">JTRASHED</option>
+		</field>
+		<field 
+				name="tags" 
+				type="tag"
+				label="JTAG" 
+				description="JTAG_DESC"
+				multiple="true"
+		>
+		</field>
+
+		<field name="note" type="textarea" rows="3" cols="50"
+			label="XBCULTURE_CAPNOTE" description="XBCULTURE_NOTE_DESC"
+		 />
+
+		<field name="synopsis" type="editor"
+			class="inputbox" label="XBCULTURE_CAPSYNOPSIS" description="COM_XBBOOKS_FIELD_SYNOPSIS_DESC" 
+			filter="JComponentHelper::filterText"  buttons="true" hide="article,pagebreak,readmore"  
+		/>
+
+		<field name= "authorlist"
+			type= "subform"
+			label= "COM_XBBOOKS_FIELD_AUTHOR_LABEL"
+			description="COM_XBBOOKS_FIELD_AUTHOR_DESC"
+			min= "0"
+			max= "10"
+			multiple= "true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" >
+			<form>
+				<field name="person_id" type="people" label="COM_XBBOOKS_FIELD_ADDPERSON_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
+				/>
+			</form>
+		</field>			
+			
+		<field name= "editorlist"
+			type= "subform"
+			label= "COM_XBBOOKS_FIELD_EDITOR_LABEL"
+			description="COM_XBBOOKS_FIELD_EDITOR_DESC"
+			min= "0"
+			max= "10"
+			multiple= "true"
+			buttons= "add,remove"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" >
+			<form>
+				<field name="person_id" type="people" label="COM_XBBOOKS_FIELD_ADDPERSON_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
+				/>
+			</form>
+		</field>						
+			
+		<field name= "otherlist"
+			type= "subform"
+			label= "COM_XBBOOKS_FIELD_OTHERS_LABEL"
+			description="COM_XBBOOKS_FIELD_OTHERS_DESC"
+			min= "0"
+			max= "10"
+			multiple= "true"
+			buttons= "add,remove"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" >
+			<form>
+				<field name="person_id" type="people" label="COM_XBBOOKS_FIELD_ADDPERSON_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="role_note" type="otherrole" label="Role" size="20" maxlength="50"
+				/>
+			</form>
+		</field>						
+			
+		<field name= "menlist"
+			type= "subform"
+			label= "COM_XBBOOKS_FIELD_MEN_LABEL"
+			description="COM_XBBOOKS_FIELD_MEN_DESC"
+			min= "0"
+			max= "10"
+			multiple= "true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" >
+			<form>
+				<field name="person_id" type="people" label="COM_XBBOOKS_FIELD_ADDPERSON_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
+				/>
+			</form>
+		</field>						
+
+		<field name= "charlist"
+			type= "subform"
+			label= "COM_XBBOOKS_FIELD_CHAR_LABEL"
+			description="COM_XBBOOKS_FIELD_CHAR_DESC"
+			min= "0"
+			max= "10"
+			multiple= "true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" >
+			<form>
+				<field name="char_id" type="characters" label="COM_XBBOOKS_FIELD_ADDPERSON_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="char_note" type="text" label="Note" size="20" maxlength="50"
+				/>
+			</form>
+		</field>						
+
+		<field name="ext_links" type="subform" 
+			label="XBCULTURE_EXTLINK_LBL" description="COM_XBBOOKS_FIELD_EXTLINKS_DESC"
+			min="0" max="10" multiple="true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			>
+				<form>
+					<field
+						name="link_text" type="text"
+						label="COM_XBBOOKS_FIELD_LINKTEXT_LABEL" size="20" maxlength="25"
+						/>
+					<field
+						name="link_url" type="url"
+						label="COM_XBBOOKS_FIELD_URL_LABEL"
+						size="40"
+  					/>
+					<field
+						name="link_desc" type="text"
+						label="Description" size="40" maxlength="190"
+						/>
+				</form>
+			</field>
+			
+                
+		<field name="created" type="calendar"
+			label="XBCULTURE_CREATED_LBL" description="XBCULTURE_CREATED_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+
+		<field name="created_by" type="user"
+			label="XBCULTURE_CREATED_BY_LBL" description="XBCULTURE_CREATED_BY_DESC" />
+		
+		<field name="created_by_alias" type="text"
+			label="XBCULTURE_CREATED_BY_ALIAS_LBL" description="XBCULTURE_CREATED_BY_ALIAS_DESC"
+			class="inputbox" size="20" />
+
+		<field name="modified" type="calendar"
+			label="XBCULTURE_FIELD_MODIFIED_LBL" description="XBCULTURE_FIELD_MODIFIED_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+
+		<field name="modified_by" type="user"
+			label="XBCULTURE_FIELD_MODIFIED_BY_LBL" description="XBCULTURE_FIELD_MODIFIED_BY_DESC" />
+		
+	</fieldset>
+	
+	<fields name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+		<fieldset name="jmetadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+
+			<field name="metakey" type="textarea"
+				label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
+				rows="3" cols="30" 
+			/>
+
+			<field name="metadesc" type="textarea"
+				label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+				rows="3" cols="30" 
+			/>
+
+			<field name="robots"
+				type="list"
+				label="JFIELD_METADATA_ROBOTS_LABEL"
+				description="JFIELD_METADATA_ROBOTS_DESC" >
+					<option value="">JGLOBAL_USE_GLOBAL</option>
+					<option value="index, follow">JGLOBAL_INDEX_FOLLOW</option>
+					<option value="noindex, follow">JGLOBAL_NOINDEX_FOLLOW</option>
+					<option value="index, nofollow">JGLOBAL_INDEX_NOFOLLOW</option>
+					<option value="noindex, nofollow">JGLOBAL_NOINDEX_NOFOLLOW</option>
+			</field>
+
+			<field 
+				name="author" 
+				type="text"
+				label="JAUTHOR"
+				description="JFIELD_METADATA_AUTHOR_DESC"
+				size="20" 
+			/>
+
+			<field 
+				name="rights" 
+				type="textarea" 
+				label="JFIELD_META_RIGHTS_LABEL"
+				description="JFIELD_META_RIGHTS_DESC" 
+				filter="string"
+				cols="30" 
+				rows="2" 
+			/>
+
+			<field 
+				name="xreference" 
+				type="text"
+				label="XBCULTURE_XREFERENCE_LBL"
+				description="XBCULTURE_XREFERENCE_DESC"
+				size="20" 
+			/>
+
+		</fieldset>
+	</fields>
+
+
+	<!-- 
+        <fields name="params" label="COM_XBBOOKS_ATTRIBS_FIELDSET_LABEL">
+               	<fieldset name="basic"
+                      	label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
+               	>
+			<field
+                        name="show_author"
+                        type="list"
+                        label="COM_XBBOOKS_SHOW_AUTHOR"
+                        description="COM_XBBOOKS_TIPS_SHOW_AUTHOR"
+                        >
+                                <option value="">JGLOBAL_USE_GLOBAL</option>
+                                <option value="0">JHIDE</option>
+                                <option value="1">JSHOW</option>
+                        </field>
+			<field
+                        name="author_order" type="list"
+                        label="COM_XBBOOKS_AUTHOR_ORDER" description="COM_XBBOOKS_TIPS_AUTHOR_ORDER">
+                        <option value="">JGLOBAL_USE_GLOBAL</option>
+                        <option value="a.lastname ASC">COM_XBBOOKS_ASCENDING</option>
+                        <option value="a.lastname DESC">COM_XBBOOKS_DESCENDING</option>
+                        <option value="b.ordering ASC">COM_XBBOOKS_BY_ORDERING</option>
+                	</field>
+			<field
+                        name="view_date"
+                        type="list"
+                        default=""
+                        menu="hide"
+                        label="COM_XBBOOKS_DATEINSERT"
+                        description="COM_XBBOOKS_TIPS_DATEINSERT"
+	                >
+                                <option value="">JGLOBAL_USE_GLOBAL</option>
+                                <option value="0">JHIDE</option>
+                                <option value="1">JSHOW</option>
+                </field>
+                <field
+                        name="show_icons"
+                        type="list"
+                        label="COM_XBBOOKS_ICONS"
+                        description="COM_XBBOOKS_TIPS_ICONS"
+                >
+                                <option value="">JGLOBAL_USE_GLOBAL</option>
+                                <option value="0">JHIDE</option>
+                                <option value="1">JSHOW</option>
+                </field>
+                <field
+                        name="show_print_icon"
+                        type="list"    
+                        label="COM_XBBOOKS_PRINT_ICON"
+                        description="COM_XBBOOKS_TIPS_PRINT_ICON"
+                >
+                                <option value="">JGLOBAL_USE_GLOBAL</option>
+                                <option value="0">JHIDE</option>
+                                <option value="1">JSHOW</option>
+                </field>
+                <field
+                        name="show_hits" type="list"
+                        label="COM_XBBOOKS_HITS" description="COM_XBBOOKS_TIPS_HITS">
+                        <option value="">JGLOBAL_USE_GLOBAL</option>
+                        <option value="0">JHIDE</option>
+                        <option value="1">JSHOW</option>
+                </field>
+		<field
+                        name="breadcrumb"
+                        type="list"
+                        label="COM_XBBOOKS_BREADCRUMB"
+                        description="COM_XBBOOKS_TIPS_BREADCRUMB"
+                >
+                                <option value="">JGLOBAL_USE_GLOBAL</option>
+                                <option value="0">JHIDE</option>
+                                <option value="1">Joomla breadcrumb</option>
+                                <option value="2">Xbbooks breadcrumb</option>
+
+                </field>
+                <field
+                        name="search" type="list" label="COM_XBBOOKS_SEARCH" description="COM_XBBOOKS_TIPS_SEARCH">
+                        <option value="">JGLOBAL_USE_GLOBAL</option>
+                        <option value="0">JHIDE</option>
+                        <option value="1">JSHOW</option>
+                </field>
+                <field
+                        name="view_rate"
+                        type="list"
+                        label="COM_XBBOOKS_VOTING"
+                        description="COM_XBBOOKS_TIPS_VOTING"
+                >
+                                <option value="">JGLOBAL_USE_GLOBAL</option>
+                                <option value="0">JHIDE</option>
+                                <option value="1">JSHOW</option>
+                </field>
+
+		<field name="book_layout" type="componentlayout"
+			label="JFIELD_ALT_LAYOUT_LABEL"
+                        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
+                        useglobal="true"
+                        extension="com_xbbooks" view="book" />
+		<field
+                        name="view_pag_index"
+                        type="list"
+                        label="COM_XBBOOKS_PAG_INDEX"
+                        description="COM_XBBOOKS_TIPS_PAG_INDEX"
+                >
+                                <option value="">JGLOBAL_USE_GLOBAL</option>
+                                <option value="0">JHIDE</option>
+                                <option value="1">JSHOW</option>
+                </field>
+		</fieldset>
+	</fields>
+	 -->
+</form>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbFilms site/views/blog/tmpl/default.xml v0.8.1 15th March 2021 -->
+<metadata>
+	<layout title="Reviews Blog">
+		<message>Displays a blog of reviews. Options to restrict to single category and filter by tag(s).</message>
+	</layout>
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="Options">
+	 			    
+			<field name="show_bcat" type="radio"
+				label="Show Book Category"
+				description="If both Show Category and Show Tag are hidden the column will be hidden."
+				class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Yes - not linked</option>
+				<option value="2">Yes - linked</option>
+			</field>	
+	 		<field name="show_btags" type="radio"
+				label="Show Book Tags"
+				description="If both Show Category and Show Tag are hidden the the column will be hidden"
+				class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>	
+			<field name="show_rcat" type="radio"
+				label="Show Review Category"
+				description="Show category under the review"
+				class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>	
+	 		<field name="show_rtags" type="radio"
+				label="Show Review Tags"
+				description="Show tags under the review"
+				class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>
+		</fieldset>
+					    
+<!-- Filter options. -->
+		<fieldset name="filter" label="Filters">
+	 		<field name="search_bar" type="radio"
+				label="XBCULTURE_SHOWSEARCH_LBL"
+				description="XBCULTURE_SHOWSEARCH_DESC"
+				class="btn-group btn-group-yesno btn-small"
+				>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+			</field>	
+
+			<field
+				name="menu_category_id"
+				type="category"
+				label="XBCULTURE_CAPCATEGORY"
+				extension="com_xbbooks"
+				description="COM_XBBOOKS_CATEGORY_DESC"
+				>
+					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
+			</field>
+			<field name="menu_subcats"
+				type="radio"
+				default=""
+				label="COM_XBBOOKS_SUBCATS_LBL"
+				description="COM_XBBOOKS_SUBCATS_DESC"
+	  			class="btn-group btn-small radiotop"
+	  			showon="menu_category_id!:0"
+				>
+					<option value="" >XBCULTURE_CAPEXCLUDE</option>
+					<option value="1">XBCULTURE_CAPINCLUDE</option>
+			</field>	
+			<field
+				name="menu_tag"
+				type="tag"
+				label="COM_XBBOOKS_MENUTAG_LBL"
+				description="COM_XBBOOKS_MENUTAG_DESC"
+				multiple="true"
+				mode="nested"
+			/>
+		<field name="menu_taglogic"
+			type="radio"
+			default="0"
+			label="COM_XBBOOKS_MULTITAG_LBL"
+			description="COM_XBBOOKS_MULTITAG_DESC"
+  			class="btn-group btn-small radiotop"
+		>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+			<option value="2" onchange="this.form.submit();">None</option>
+		</field>	
+	</fieldset>
+		
+<!-- Additional page display options (added above the standard Page Display options) -->
+		<fieldset name="page-options" label="Page Headings">
+			<field name="list_title" type="text" class="inputbox w400" size="40" 
+				label="XBCULTURE_PAGETITLE_LBL" description="XBCULTURE_PAGETITLE_DESC"
+				default=""  
+			/>
+			<field name="list_subtitle" type="text" class="inputbox w400" size="160" 
+				label="XBCULTURE_PAGESUBTITLE_LBL" description="XBCULTURE_PAGESUBTITLE_DESC"
+				default=""
+              	showon="list_title!:"
+			/>
+			<field name="list_headtext" type="textarea" 
+				label="XBCULTURE_PAGEHEADER_LBL" description="XBCULTURE_PAGEHEADER_DESC"
+				rows="6" cols="40"
+				default=""
+				filter="raw"
+              />       
+		</fieldset>
+	</fields>
+
+</metadata>

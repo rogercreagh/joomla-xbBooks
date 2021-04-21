@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/views/person/tmpl/default.xml v0.8.3 18th March 2021 -->
+<metadata>
+	<layout title="Person View">
+		<message>Display a single person details</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" addfieldpath="/administrator/components/com_xbbooks/models/fields">	
+			<field 
+				name="id"  type="bookpeople"
+				label="Select person"
+				description="Choose person to display."
+				required="true"
+	  		>
+	  			<option value="">Select person</option>
+			</field>
+		</fieldset>
+	</fields>
+	
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="Options">
+	 		<field name="hide_empty"
+				type="radio"
+				label="Hide empty fields"
+				description="Hide empty fields or show labels for them. Showing empty fields will display labels and placeholders for unavailable content"
+	 			class="chzn-color"
+				useglobal="true"
+				>
+					<option value="0" >JSHOW</option>
+					<option value="1">JHIDE</option>
+			</field>	
+			<field name="show_pimage"
+		        type="list"
+		        label="Show Picture"
+		        description="Show picture of person with their name"
+				class="btn-group btn-group-yesno"
+				useglobal="true"
+		    	>
+				<option value="0" >JHIDE</option>
+				<option value="1">Show to left of name</option>
+				<option value="2">Show to right of name</option>
+			</field>       
+	 		<field name="show_pcat" type="list"
+				label="Show Person Category"
+				description="If both Show Category and Show Tag are no the the column will be hidden in list view"
+					useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Yes - not linked</option>
+				<option value="2">Yes - linked</option>
+			</field>	
+	 		<field name="show_ptags" type="radio"
+				label="Show Person Tags"
+				description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"
+				class="btn-group btn-group-yesno"
+					useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>	
+			
+		</fieldset>
+	</fields>
+</metadata>

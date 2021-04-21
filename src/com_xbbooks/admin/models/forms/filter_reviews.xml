@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks admin/models/forms/filter_reviews.xml v0.6.8 24th January 2021 -->
+<form>
+	<fields name="filter"  addfieldpath="administrator/components/com_xbbooks/models/fields">
+		<field
+			name="search"
+			type="text"
+			label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description="COM_XBBOOKS_SEARCH_REVIEW"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string"
+		/>
+		<field
+			name="published"
+			type="status"
+			label="JOPTION_SELECT_PUBLISHED"
+			description="JOPTION_SELECT_PUBLISHED_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_PUBLISHED</option>
+		</field>
+		<field
+			name="bookfilt"
+			type="books"
+			label="Book"
+			description="Filter by book"
+			query="SELECT id,title FROM #__xbbooks"
+			onchange="this.form.submit();"
+			key_field="id"
+			value_field="title"
+			>
+			<option value="">Filter by Book</option>
+		</field>
+		<field
+			name="ratfilt" type="list" 
+			label="COM_XBBOOKS_RATING_LABEL" description="COM_XBBOOKS_RATING_DESC" 
+			default="" first="0" last="7" step="1" 
+			onchange="this.form.submit();">
+			<option value="">Filter by Rating</option>
+			<option value="0">COM_XBBOOKS_NOSTAR<i class="icon-smiley-sad-2"></i></option>
+			<option value="1">COM_XBBOOKS_1STAR</option>
+			<option value="2">COM_XBBOOKS_2STAR</option>
+			<option value="3">COM_XBBOOKS_3STAR</option>
+			<option value="4">COM_XBBOOKS_4STAR</option>
+			<option value="5">COM_XBBOOKS_5STAR</option>
+			<option value="6">COM_XBBOOKS_6STAR</option>
+			<option value="7">COM_XBBOOKS_7STAR</option>
+		</field>
+		<field
+			name="category_id"
+			type="category"
+			label="JOPTION_FILTER_CATEGORY"
+			extension="com_xbbooks"
+			description="JOPTION_FILTER_CATEGORY_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+ 		<field name="show_all"
+			type="radio"
+			label="XBCULTURE_SHOWSEARCH_LBL"
+			description="XBCULTURE_SHOWSEARCH_DESC"
+			class="btn-group btn-group-yesno btn-small"
+			default="1"
+			>
+			<option value="0" onchange="this.form.submit();">Untagged</option>
+			<option value="1" onchange="this.form.submit();">All Items</option>
+		</field>	
+		<field
+			name="tagfilt"
+			type="tag"
+			label="JOPTION_FILTER_TAG"
+			description="JOPTION_FILTER_TAG_DESC"
+			multiple="true"
+			class="multipleTags"
+			mode="nested"
+			onchange="this.form.submit();"
+			showon="show_all:1"
+		/>
+		<field name="taglogic"
+			type="radio"
+			default="0"
+			label="COM_XBBOOKS_MULTITAG_LBL"
+			description="COM_XBBOOKS_MULTITAG_DESC"
+  			class="btn-group btn-small radiotop"
+			showon="show_all:1"
+		>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+			<option value="2" onchange="this.form.submit();">None</option>
+		</field>	
+	</fields>
+		<field
+			name="fullordering"
+			type="list"
+			label="COM_CONTENT_LIST_FULL_ORDERING"
+			description="COM_CONTENT_LIST_FULL_ORDERING_DESC"
+			onchange="this.form.submit();"
+			default="a.title ASC"
+			>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<option value="a.ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
+			<option value="a.ordering DESC">JGRID_HEADING_ORDERING_DESC</option>
+			<option value="a.state ASC">JSTATUS_ASC</option>
+			<option value="a.state DESC">JSTATUS_DESC</option>
+			<option value="a.title ASC">JGLOBAL_TITLE_ASC</option>
+			<option value="a.title DESC">JGLOBAL_TITLE_DESC</option>
+			<option value="category_title ASC">JCATEGORY_ASC</option>
+			<option value="category_title DESC">JCATEGORY_DESC</option>
+			<option value="a.created ASC">COM_XBBOOKS_DATE_INSERT_ASC</option>
+            <option value="a.created DESC">COM_XBBOOKS_DATE_INSERT_DESC</option>
+			<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
+			<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
+		</field>
+	<fields name="list">
+  		<field name="fullordering" type="hidden" default="" />
+		<field
+			name="limit"
+			type="limitbox"
+			class="input-mini"
+			default="25"
+			label="COM_CONTENT_LIST_LIMIT"
+			description="COM_CONTENT_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

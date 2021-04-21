@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<field name="person_id" type="people" label="COM_XBBOOKS_FIELD_ADDPERSON_LABEL" >
+		<option value="">JSELECT</option>	
+	</field>
+</form>

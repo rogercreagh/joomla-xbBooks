@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/views/booklist/default.xml v0.8.1 15th March 2021 -->
+<metadata>
+	<layout title="Book List">
+		<message>Displays a list (table) of books. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
+	</layout>
+	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">
+<!-- Basic options. -->
+		<fieldset name="basic" label="Options">
+			<field name="show_bpiccol" type="radio"
+				label="Cover Column"
+				description="Show image column"
+				class="btn-group btn-group-yesno btn-small"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>	
+	 
+	 		<field name="show_bsumcol" type="radio"
+				label="Summary Column"
+				description="Show summary column"
+				class="btn-group btn-group-yesno btn-small"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>	
+	 
+	 		<field name="show_brevcol" type="list"
+				label="Rating &amp; Review Column"
+				description="Show rating &amp; reviews column."
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Show Average Rating only</option>
+				<option value="2">Show Rating and Review Links</option>
+			</field>	
+
+			<field name="show_bcat" type="radio"
+				label="Show Book Category"
+				description="If both Category and Tag are hidden the column will be hidden."
+				class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+					<option value="1">Show without link</option>
+					<option value="2">Show with link</option>
+			</field>	
+	 		<field name="show_btags" type="radio"
+				label="Show Tags"
+				description="If both Category and Tag are hidden the column will be hidden."
+				class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>	
+		</fieldset>
+			    
+<!-- Search and Filter options. -->
+		<fieldset name="filters" label="Filters">
+
+	 		<field name="search_bar" type="radio"
+				label="XBCULTURE_SHOWSEARCH_LBL"
+				description="XBCULTURE_SHOWSEARCH_DESC"
+				class="btn-group btn-group-yesno btn-small"
+			>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+			</field>	
+			<field
+				name="menu_perfilt" type="bookpeople"
+				label="XBCULTURE_CAPPERSON"
+				description="COM_XBBOOKS_PERFILT_DESC"
+				>
+				<option value="">COM_XBBOOKS_PERFILT_HINT</option>
+			</field>
+			<field name="menu_prole" type="list"
+				default=""
+				label="COM_XBBOOKS_PROLE_LBL"
+				description="COM_XBBOOKS_PROLE_DESC"
+				showon="menu_perfilt!:"			
+			>
+	  			<option value="">COM_XBBOOKS_PROLE_DEF</option>
+				<option value="1">XBCULTURE_CAPAUTHOR</option>
+				<option value="2">COM_XBBOOKS_CAPEDITOR</option>
+				<option value="3">COM_XBBOOKS_CHAR_IN</option>
+				<option value="4">COM_XBBOOKS_MENTION_IN</option>
+			</field>	
+			<field
+				name="menu_charfilt"
+				type="characters"
+				label="XBCULTURE_CAPCHARACTERS"
+				description="COM_XBBOOKS_CHARFILT_DESC"
+				>
+				<option value="">COM_XBBOOKS_PERFILT_HINT</option>
+			</field>
+			<field 
+  				name="menu_fiction"
+				type="list"
+				label="COM_XBBOOKS_FILT_FICT_LBL"
+				description="COM_XBBOOKS_FILT_FICT_LBL"
+				>
+					<option value="0" >COM_XBBOOKS_FILT_BOTH</option>
+					<option value="1">COM_XBBOOKS_CAPNONFICTION</option>
+					<option value="2">COM_XBBOOKS_CAPFICTION</option>
+			</field>	
+			<field
+				name="menu_category_id"
+				type="category"
+				label="XBCULTURE_CAPCATEGORY"
+				extension="com_xbbooks"
+				description="COM_XBBOOKS_CATEGORY_DESC"
+				>
+					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
+			</field>
+			<field name="menu_subcats" type="radio"
+				default=""
+				label="COM_XBBOOKS_SUBCATS_LBL"
+				description="COM_XBBOOKS_SUBCATS_DESC"
+	  			class="btn-group btn-small radiotop"
+	  			showon="menu_category_id!:0"
+				>
+					<option value="" >XBCULTURE_CAPEXCLUDE</option>
+					<option value="1">XBCULTURE_CAPINCLUDE</option>
+			</field>	
+			<field
+				name="menu_tag" type="tag"
+				label="COM_XBBOOKS_MENUTAG_LBL"
+				description="COM_XBBOOKS_MENUTAG_DESC"
+				multiple="true"
+				mode="nested"
+			/>
+			<field name="taglogic" type="radio"
+				default="0"
+				label="COM_XBFILMS_MULTITAG_LBL"
+				description="COM_XBFILMS_MULTITAG_DESC"
+	  			class="btn-group btn-small radiotop"
+			>
+				<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
+				<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+				<option value="2" onchange="this.form.submit();">None</option>
+			</field>	
+		</fieldset>
+		
+<!-- Additional page display options (added above the standard Page Display options) -->
+		<fieldset name="page-options" label="Page Headings">
+			<field name="list_title" type="text" class="inputbox w400" size="40" 
+				label="XBCULTURE_PAGETITLE_LBL" description="XBCULTURE_PAGETITLE_DESC"
+				default=""  
+			/>
+			<field name="list_subtitle" type="text" class="inputbox w400" size="160" 
+				label="XBCULTURE_PAGESUBTITLE_LBL" description="XBCULTURE_PAGESUBTITLE_DESC"
+				default=""
+              	showon="list_title!:"
+			/>
+			<field name="list_headtext" type="textarea" 
+				label="XBCULTURE_PAGEHEADER_LBL" description="XBCULTURE_PAGEHEADER_DESC"
+				rows="6" cols="40"
+				default=""
+				filter="raw"
+              />       
+		</fieldset>
+	</fields>
+
+</metadata>

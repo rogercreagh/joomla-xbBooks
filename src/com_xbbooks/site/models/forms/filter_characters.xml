@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/models/forms/filter_characters.xml v0.8.3 17th March 2021 -->
+<form>
+    <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+        <field name="search"
+            type="text"
+            label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description=""
+            hint="JSEARCH_FILTER"
+        /> 
+		<field
+			name="category_id"
+			type="category"
+			label="COM_XBBOOKS_FILTER_CATEGORY_LBL"
+			extension="com_xbpeople"
+			description="COM_XBBOOKS_FILTER_CATEGORY_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="subcats"
+			type="radio"
+			default=""
+			label="COM_XBBOOKS_SUBCATS_LBL"
+			description="COM_XBBOOKS_SUBCATS_DESC"
+  			class="btn-group btn-small radiotop"
+  			showon="category_id!:"
+		>
+			<option value="" onchange="this.form.submit();">XBCULTURE_CAPEXCLUDE</option>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPINCLUDE</option>
+		</field>	
+       
+		<field
+			name="tagfilt"
+			type="tag"
+			label="COM_XBBOOKS_CAPTAGS"
+			description="COM_XBBOOKS_TAGFILT_DESC"
+			multiple="true"
+			class="multipleTags"
+			mode="ajax"
+			onchange="this.form.submit();"
+		/>
+		<field name="taglogic"
+			type="radio"
+			default=""
+			label="COM_XBBOOKS_MULTITAG_LBL"
+			description="COM_XBBOOKS_MULTITAG_DESC"
+  			class="btn-group btn-small radiotop"
+			showon="tagfilt!:"
+		>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
+			<option value="" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+		</field>	
+				
+    </fields>
+
+</form>

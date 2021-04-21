@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/models/forms/filter_categories.xml v0.6.1a 11th November 2020 -->
+<form>
+	<fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+		<field
+			name="search"
+			type="text"
+			label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description="COM_XBBOOKS_SEARCH_TAGS"
+			hint="JSEARCH_FILTER"
+		/>
+		<field
+			name="branch"
+			type="sql"
+			label="COM_XBBOOKS_BRANCH_LABEL"
+			description="COM_XBBOOKS_BRANCH_DESC"
+			query="SELECT id, alias, path, title FROM `#__categories` WHERE extension = 'com_xbbooks' ORDER BY  path, title ASC"
+  			key_field="alias"
+  			value_field="title"
+			onchange="this.form.submit();"
+			>
+			<option value="">COM_XBBOOKS_ENTIRE_TREE</option>
+		</field>
+	</fields>
+</form>

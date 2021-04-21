@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/views/characters/tmpl/default.xml v0.8.3 17th March 2021 -->
+<metadata>
+	<layout title="Characters List View">
+		<message>Displays a list (table) of characters. Option to restrict to single category and filter by tags.</message>
+	</layout>
+	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">
+<!-- Basic options. -->
+		<fieldset name="basic" label="Options">
+			<field name="show_cpiccol" type="radio"
+				label="Image Column"
+				description="Show image column by default - can override in menu options"
+				class="btn-group btn-group-yesno btn-small"
+				useglobal="true"
+				>
+				<option value="0" >Hide</option>
+				<option value="1">Show</option>
+			</field>	
+	 
+	 		<field name="show_csumcol" type="radio"
+				label="Summary Column"
+				description="Show summary column by default - can override in menu options"
+				class="btn-group btn-group-yesno btn-small"
+				useglobal="true"
+				>
+				<option value="0" >Hide</option>
+				<option value="1">Show</option>
+			</field>	
+			
+			<field name="show_ccat" type="radio"
+		        class="btn-group btn-group-yesno"
+		        label="Show Category"
+		        description="Category will remain hidden if the global Show Category option is No (on General Tab)"
+				useglobal="true"
+		        >
+					<option value="0" >JNO</option>
+					<option value="1">Yes - not linked</option>
+					<option value="2">Yes - linked</option>
+			</field>
+			<field name="show_ctags" type="radio"
+		        class="btn-group btn-group-yesno"
+		        label="Show Tags"
+		        description="If both Category and Tag are hidden the the column will be hidden"
+				useglobal="true"
+		        >
+					<option value="0" >JNO</option>
+					<option value="1">JYES</option>
+			</field>
+			    
+		</fieldset>
+
+<!-- Filtering options -->			    
+		<fieldset name="filters" label="Filters">			    
+	 		<field name="search_bar"
+				type="radio"
+				label="XBCULTURE_SHOWSEARCH_LBL"
+				description="XBCULTURE_SHOWSEARCH_DESC"
+				class="btn-group btn-group-yesno btn-small"
+				>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+			</field>	
+			<field
+				name="menu_category_id" type="category"
+				label="XBCULTURE_CAPCATEGORY"
+				extension="com_xbpeople"
+				description="COM_XBBOOKS_CATEGORY_DESC"
+				>
+					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
+			</field>
+			<field name="menu_subcats" type="radio"
+				default=""
+				label="COM_XBBOOKS_SUBCATS_LBL"
+				description="COM_XBBOOKS_SUBCATS_DESC"
+	  			class="btn-group btn-small radiotop"
+	  			showon="menu_category_id!:0"
+				>
+					<option value="" >XBCULTURE_CAPEXCLUDE</option>
+					<option value="1">XBCULTURE_CAPINCLUDE</option>
+			</field>	
+			<field
+				name="menu_tag" type="tag"
+				label="COM_XBBOOKS_MENUTAG_LBL"
+				description="COM_XBBOOKS_MENUTAG_DESC"
+				multiple="true"
+				mode="nested"
+			/>
+			<field name="menu_taglogic" type="radio"
+				default=""
+				label="COM_XBBOOKS_MENUTAG_LBL"
+				description=""
+	  			class="btn-group btn-small radiotop"
+				showon="menu_tag!:"
+			>
+				<option value="1">XBCULTURE_CAPALL</option>
+				<option value="">XBCULTURE_CAPANY</option>
+			</field>	
+		</fieldset>
+		
+<!-- Additional page display options (added above the standard Page Display options) -->
+		<fieldset name="page-options" label="Page Headings">
+			<field name="list_title" type="text" class="inputbox w400" size="40" 
+				label="XBCULTURE_PAGETITLE_LBL" description="XBCULTURE_PAGETITLE_DESC"
+				default=""  
+			/>
+			<field name="list_subtitle" type="text" class="inputbox w400" size="160" 
+				label="XBCULTURE_PAGESUBTITLE_LBL" description="XBCULTURE_PAGESUBTITLE_DESC"
+				default=""
+              	showon="list_title!:"
+			/>
+			<field name="list_headtext" type="textarea" 
+				label="XBCULTURE_PAGEHEADER_LBL" description="XBCULTURE_PAGEHEADER_DESC"
+				rows="6" cols="40"
+				default=""
+				filter="raw"
+              />       
+		</fieldset>
+	</fields>
+
+</metadata>

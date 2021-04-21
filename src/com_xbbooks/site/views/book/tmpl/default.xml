@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/views/book/default.xml v0.8.1 15th March 2021 -->
+<metadata>
+	<layout title="Book View">
+		<message>Display a single book details</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request"
+			addfieldpath="/administrator/components/com_xbbooks/models/fields">	
+			<field 
+				name="id"  type="books"
+				label="Select book"
+				description="Choose book to display. NB published state shown in brackets after the title - you can select unpublished items which will not display!"
+				required="true"
+	  		>
+	  			<option value="">Select book</option>
+			</field>
+		</fieldset>
+	</fields>
+	<fields name="params">
+
+		<!-- Basic options. -->
+		<fieldset name="basic" label="Options" >
+	 		<field name="hide_empty" type="radio"
+				label="Hide empty fields"
+				description="Hide empty fields or show labels for them. Showing empty fields will display labels and placeholders for unavailable content"
+	 			class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+					<option value="0" >JSHOW</option>
+					<option value="1">JHIDE</option>
+			</field>
+	 		<field name="show_bimage" type="list"
+				label="Show Image"
+				description="Show image, and in which position"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Show to left of title</option>
+				<option value="2">Show to right of title</option>
+			</field>	
+	 		<field name="show_bcat" type="list"
+				label="Show Book Category"
+				description="Show category, optionally with link to category items list"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Show without link</option>
+				<option value="2">Show with link</option>
+			</field>	
+	 		<field name="show_btags" type="list"
+				label="Show Film Tags"
+				description="Show category, optionally with link to category items list"
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Show without link</option>
+				<option value="2">Show with link</option>
+			</field>	
+	 		<field name="show_brevs"
+				type="list"
+				label="Show Ratings/Reviews"
+				description="Show rating &amp; reviews. Show rating only will make review details inaccessible from this page."
+				useglobal="true"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Rating only</option>
+				<option value="2">Show Ratings and Reviews</option>
+			</field>	
+	 		<field name="show_rcat" type="list"
+				label="Show Review Category"
+				description="Show category, optionally with link to category items list"
+				useglobal="true"
+				showon="show_brevs:2"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Show without link</option>
+				<option value="2">Show with link</option>
+			</field>	
+	 		<field name="show_rtags" type="list"
+				label="Show Review Tags"
+				description="Show category, optionally with link to category items list"
+				useglobal="true"
+				showon="show_brevs:2"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1">Show without link</option>
+			</field>	
+	    
+		</fieldset>
+	</fields>
+
+</metadata>

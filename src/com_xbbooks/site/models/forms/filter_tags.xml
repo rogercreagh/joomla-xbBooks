@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/models/forms/filter_tags.xml v0.8.6.1 6th April 2021 -->
+<form>
+	<fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+		<field
+			name="search"
+			type="text"
+			label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description="COM_XBBOOKS_SEARCH_TAGS"
+			hint="JSEARCH_FILTER"
+		/>
+		<field
+			name="branch"
+			type="sql"
+			label="COM_XBBOOKS_BRANCH_LABEL"
+			description="COM_XBBOOKS_BRANCH_DESC"
+			query="SELECT DISTINCT t.id, t.path, t.alias AS alias, t.title AS title FROM `#__tags` AS t LEFT JOIN `#__contentitem_tag_map` AS m ON m.tag_id = t.id WHERE m.type_alias IN ('com_xbbooks.book','com_xbpeople.person','com_xbpeople.character','com_xbbooks.review') ORDER BY t.title"
+  			key_field="alias"
+  			value_field="title"
+			onchange="this.form.submit();"
+			>
+			<option value="">COM_XBBOOKS_ENTIRE_TREE</option>
+		</field>
+			<field name="tagtype"
+				type="radio"
+				default="" required="true"
+				label="COM_XBBOOKS_GROUP_LBL"
+				description="COM_XBBOOKS_GROUP_DESC"
+	  			class="btn-group btn-small"				>
+					<option value="" onchange="this.form.submit();">COM_XBBOOKS_CAPALLTAGS</option>
+					<option value="book" onchange="this.form.submit();">COM_XBBOOKS_CAPTAGBOOKS</option>
+					<option value="person" onchange="this.form.submit();">COM_XBBOOKS_CAPTAGPERSONS</option>
+					<option value="review" onchange="this.form.submit();">COM_XBBOOKS_CAPTAGREVIEWS</option>
+			</field>	
+	</fields>
+</form>

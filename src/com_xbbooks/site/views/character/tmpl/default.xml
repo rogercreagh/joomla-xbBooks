@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/views/character/tmpl/default.xml v0.8.3 17th March 2021 -->
+<metadata>
+	<layout title="Character View">
+		<message>Display a single character details</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" addfieldpath="/administrator/components/com_xbbooks/models/fields">	
+			<field 
+				name="id" 
+				type="characters"
+				label="Select person"
+				description="Choose character to display."
+				required="true"
+	  		>
+	  			<option value="">Select character</option>
+			</field>
+		</fieldset>
+	</fields>
+	
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="Options">
+	 		<field name="hide_empty"
+				type="radio"
+				label="Hide empty fields"
+				description="Hide empty fields or show labels for them. Showing empty fields will display labels and placeholders for unavailable content"
+	 			class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+					<option value="0" >JSHOW</option>
+					<option value="1">JHIDE</option>
+			</field>	
+			<field name="show_cimage" type="list" 
+		        label="Show Picture"
+		        description="Show picture of character with their name"
+				useglobal="true"
+		    	>
+				<option value="0" >JHIDE</option>
+				<option value="1">Show to left of name</option>
+				<option value="2">Show to right of name</option>
+			</field>
+			<field name="show_ccat" type="radio"
+		        class="btn-group btn-group-yesno"
+		        label="Show Category"
+		        description="Category will remain hidden if the global Show Category option is No (on General Tab)"
+				useglobal="true"
+		        >
+					<option value="0" >JNO</option>
+					<option value="1">Yes - not linked</option>
+					<option value="2">Yes - linked</option>
+			</field>
+			<field name="show_ctags" type="radio"
+		        class="btn-group btn-group-yesno"
+		        label="Show Tags"
+		        description=""
+				useglobal="true"
+		        >
+					<option value="0" >JNO</option>
+					<option value="1">JYES</option>
+			</field>
+
+		</fieldset>
+	</fields>
+</metadata>

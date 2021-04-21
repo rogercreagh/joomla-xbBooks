@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks admin/models/forms/filter_tags.xml v0.8.6.1 5th April 2021 -->
+<form>
+	<fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+		<field
+			name="search"
+			type="text"
+			label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description="COM_XBBOOKS_SEARCH_TAGS"
+			hint="JSEARCH_FILTER"
+		/>
+		<field
+			name="published"
+			type="status"
+			label="COM_CONTENT_FILTER_PUBLISHED"
+			description="COM_CONTENT_FILTER_PUBLISHED_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_PUBLISHED</option>
+		</field>
+		<field
+			name="branch"
+			type="sql"
+			label="COM_XBBOOKS_TAGBRANCH_LABEL"
+			description="COM_XBBOOKS_TAGBRANCH_DESC"
+			query="SELECT DISTINCT t.id, t.path, t.alias AS alias, t.title AS title FROM `#__tags` AS t LEFT JOIN `#__contentitem_tag_map` AS m ON m.tag_id = t.id WHERE m.type_alias IN ('com_xbbooks.book','com_xbpeople.person','com_xbpeople.character','com_xbbooks.review') ORDER BY t.title"
+  			key_field="id"
+  			value_field="title"
+			onchange="this.form.submit();"
+			>
+			<option value="">COM_XBBOOKS_ENTIRE_TREE</option>
+		</field>
+	</fields>
+	<fields name="list">
+		<field
+			name="limit"
+			type="limitbox"
+			class="inputbox input-mini"
+			default="20"
+			label="COM_CONTENT_LIST_LIMIT"
+			description="COM_CONTENT_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

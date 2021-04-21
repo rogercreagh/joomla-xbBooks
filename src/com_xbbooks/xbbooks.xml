@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.1" method="upgrade">
+	<name>xbbooks</name>
+	<creationDate>17th April 2021</creationDate>
+	<version>0.9.4</version>
+	<author>Roger C-O</author>
+	<authorEmail>roger@crosborne.uk</authorEmail>
+	<authorUrl>www.crosborne.uk</authorUrl>
+	<copyright>(c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<description>COM_XBBOOKS_XML_DESCRIPTION</description>
+
+	<scriptfile>script.xbbooks.php</scriptfile>	
+
+	<files folder="site">
+	    <filename>index.html</filename>
+	    <filename>xbbooks.php</filename>
+	    <filename>controller.php</filename>
+	    <filename>router.php</filename>
+	    <folder>helpers</folder>
+	    <folder>controllers</folder>
+	    <folder>models</folder>
+	    <folder>views</folder>
+	    <folder>layouts</folder>
+	</files>
+
+	<languages folder="site/language">
+		<language tag="en-GB">en-GB/en-GB.com_xbbooks.ini</language>
+	</languages>
+
+	<media destination="com_xbbooks" folder="media">
+		<filename>index.html</filename>
+		<folder>images</folder>
+		<folder>samples</folder>
+	</media>
+	
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+	
+	<administration>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>xbbooks.php</filename>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>uploads</folder>
+			<folder>views</folder>
+		</files>
+
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_xbbooks.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_xbbooks.sys.ini</language>
+		</languages>
+		
+		<menu img="class:xbbooks" link="option=com_xbbooks" view="cpanel">xbBooks</menu>
+		<submenu>
+			<menu link="option=com_xbbooks" 
+				view="cpanel" img="class:xbbooks-cpanel"
+				alt="Xbbooks/Cpanel">
+					com_xbbooks_control_panel
+			</menu>
+			<menu link="option=com_xbbooks&amp;view=books" 
+				view="books" img="class:xbbooks-books" 
+				alt="Xbbooks/Books">
+					com_xbbooks_books
+			</menu>
+			<menu link="option=com_xbbooks&amp;view=reviews" 
+				view="reviews" img="class:xbbooks-reviews" 
+				alt="Xbbooks/Reviews">
+					com_xbbooks_reviews
+			</menu>
+			<menu link="option=com_xbbooks&amp;view=persons" 
+				view="persons" img="class:xbbooks-persons" 
+				alt="Xbbooks/Persons">
+					com_xbbooks_people
+			</menu>
+			<menu link="option=com_xbbooks&amp;view=characters" 
+				view="characters" img="class:xbbooks-persons" 
+				alt="Xbbooks/Characters">
+					com_xbbooks_characters
+			</menu>
+			<menu link="option=com_xbbooks&amp;view=bcategories" 
+				view="bcategories" img="class:xbbooks-categories" 
+				alt="Xbbooks/Bcategories">
+					com_xbbooks_categories
+			</menu>
+			<menu link="option=com_xbbooks&amp;view=tags" 
+				view="tags" img="class:xbbooks-tags" 
+				alt="Xbbooks/Tags">
+					com_xbbooks_tags
+			</menu>
+			<menu link="option=com_xbbooks&amp;view=importexport" 
+			view="importexport" img="class:xbbooks-importexport" 
+			alt="Xbbooks/Importexport">
+				com_xbbooks_dataman
+			</menu>
+		</submenu>
+	</administration>
+	
+	<updateservers>
+		<server type="extension" priority="1" name="xbBooks Updates">
+			http://www.crosborne.co.uk/jupdates/update_com_xbbooks.xml
+		</server>
+	 </updateservers>
+</extension>

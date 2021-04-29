@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/characters/tmpl/default.xml v0.8.3 17th March 2021 -->
+<!-- xbBooks site/views/characters/tmpl/default.xml v0.9.4.1 29th April 2021 -->
 <metadata>
 	<layout title="Characters List View">
 		<message>Displays a list (table) of characters. Option to restrict to single category and filter by tags.</message>
@@ -27,7 +27,7 @@
 				<option value="1">Show</option>
 			</field>	
 			
-			<field name="show_ccat" type="radio"
+			<field name="show_ccat" type="list"
 		        class="btn-group btn-group-yesno"
 		        label="Show Category"
 		        description="Category will remain hidden if the global Show Category option is No (on General Tab)"
@@ -51,23 +51,24 @@
 
 <!-- Filtering options -->			    
 		<fieldset name="filters" label="Filters">			    
-	 		<field name="search_bar"
-				type="radio"
-				label="XBCULTURE_SHOWSEARCH_LBL"
-				description="XBCULTURE_SHOWSEARCH_DESC"
+	 		<field name="search_bar" type="radio"
+				label="Show Search Bar"
+				description="Show the search and filter tools above the list"
 				class="btn-group btn-group-yesno btn-small"
-				>
+				useglobal="true"
+			>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>
 			</field>	
 			<field
 				name="menu_category_id" type="category"
-				label="XBCULTURE_CAPCATEGORY"
+				label="Category"
 				extension="com_xbpeople"
 				description="COM_XBBOOKS_CATEGORY_DESC"
 				>
 					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
 			</field>
+			<!-- 
 			<field name="menu_subcats" type="radio"
 				default=""
 				label="COM_XBBOOKS_SUBCATS_LBL"
@@ -75,9 +76,10 @@
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
-					<option value="" >XBCULTURE_CAPEXCLUDE</option>
-					<option value="1">XBCULTURE_CAPINCLUDE</option>
+					<option value="" >Exclude</option>
+					<option value="1">Include</option>
 			</field>	
+			 -->
 			<field
 				name="menu_tag" type="tag"
 				label="COM_XBBOOKS_MENUTAG_LBL"
@@ -92,8 +94,8 @@
 	  			class="btn-group btn-small radiotop"
 				showon="menu_tag!:"
 			>
-				<option value="1">XBCULTURE_CAPALL</option>
-				<option value="">XBCULTURE_CAPANY</option>
+				<option value="1">All</option>
+				<option value="">Any</option>
 			</field>	
 		</fieldset>
 		

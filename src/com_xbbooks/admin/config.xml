@@ -276,7 +276,7 @@
 <!-- LIST LAYOUTS TAB -->				
 	<fieldset name="list" 
 		label="JGLOBAL_LIST_LAYOUT_OPTIONS" 
-		description="Options for front-end list views. Most of these global options can be overridden by specific menu settings."
+		description="Options for front-end list and blog views. Most of these global options can be overridden by specific menu settings."
 		>		
  		<field name="listnote" type="note"
 			label="COM_XBBOOKS_LIST_SHOW_SEARCH_LBL"

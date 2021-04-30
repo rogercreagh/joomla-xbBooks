@@ -118,7 +118,7 @@
 	
 	<updateservers>
 		<server type="extension" priority="1" name="xbBooks Updates">
-			http://www.crosborne.co.uk/jupdates/update_com_xbbooks.xml
+			http://www.crosborne.co.uk/jupdates/update_xbbooks.xml
 		</server>
 	 </updateservers>
 </extension>

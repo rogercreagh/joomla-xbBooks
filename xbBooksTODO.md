@@ -1,6 +1,6 @@
 ###  xbBooks ToDo List
 
-version: 0.9.xyz
+version: 0.9.5
 
 
 
@@ -14,7 +14,7 @@ version: 0.9.xyz
 
 -------------------------------------
 
-#### Other Changes (not on roadmap)
+#### Other Features (not on roadmap)
 
 **General**
 

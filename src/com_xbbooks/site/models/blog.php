@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/blog.php
- * @version 0.8.5 25th March 2021
+ * @version 0.9.5 8th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -222,7 +222,7 @@ class XbbooksModelBlog extends JModelList {
 		$app->setUserState('bookreviews.sortorder', $bks);
 
 		foreach ($items as $i=>$item) {			
-			$auts = XbbooksGeneral::getBookRolesArray($item->id,'author');
+			$auts = XbbooksGeneral::getBookRolesArray($item->book_id,'author');
 			$item->acnt = count($auts);
 			if ($item->acnt==0){
 				$item->alist = ''; 

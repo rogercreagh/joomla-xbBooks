@@ -123,9 +123,14 @@ version: 0.9.5
 
 - ​		
 
+**Site Book Blog**
+
+- blog: author name is wrong (using wrong id?)
+- blog: default page length 10 items
+
 **Site Book Details ** 
 
-- ​		
+- book details: *COM_XBFILMS_NO_REV_TEXT* missing
 
 **Site Review list**
 

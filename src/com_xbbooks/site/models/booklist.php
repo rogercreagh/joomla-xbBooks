@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.8.3 18th March 2021
+ * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,8 +18,11 @@ class XbbooksModelBooklist extends JModelList {
 	
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
-			$config['filter_fields'] = array ('title', 'pubyear',
-					'category_title', 'averat', 'lastread' );
+			$config['filter_fields'] = array ('title', 'a.title',
+					'pubyear','a.pubyear',
+					'averat', 'lastread',
+					'catid', 'a.catid', 'category_id',
+					'category_title' );
 		}
 		parent::__construct($config);
 	}
@@ -104,7 +107,7 @@ class XbbooksModelBooklist extends JModelList {
             if ($categoryId > 0) {
             	if ($dosubcats) {
             		$catlist = $categoryId;
-            		$subcatlist = XbbooksHelper::getChildCats($categoryId);
+            		$subcatlist = XbbooksHelper::getChildCats($categoryId,'com_xbbooks');
             		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
             		$query->where('a.catid IN ('.$catlist.')');
             	} else {

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views//tmpl/edit.php
- * @version 0.6.5c 28th December 2020
+ * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,6 +18,9 @@ JHtml::_('formbehavior.chosen', 'select');
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
+	<?php if(empty($this->item->id)) : ?>
+		<p><i>If you leave title, summary and synopsis blank this will be treated as a quick rating only</i></p>
+	<?php endif; ?>
 	<div class="row-fluid">
 		<div class="span11">
 			<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>

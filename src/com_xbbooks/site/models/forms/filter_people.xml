@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/models/forms/filter_people.xml v0.8.3 17th March 2021 -->
+<!-- xbBooks site/models/forms/filter_people.xml v0.9.5 10th May 2021 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
         <field name="search"
@@ -8,8 +8,7 @@
 			description=""
             hint="JSEARCH_FILTER"
         /> 
-		<field name="prole"
-			type="list"
+		<field name="prole" type="list"
 				default="1"
 				label="Person role"
 				description="Filter by person role. Appearances means subjects of a book or mentioned in a book, Other roles include translator, illustrator, ghost writer..."
@@ -22,17 +21,17 @@
 					<option value="5">Other Roles</option>
 		</field>	
 		<field
-			name="category_id"
-			type="category"
+			name="category_id" type="catsubtree"
 			label="COM_XBBOOKS_FILTER_CATEGORY_LBL"
 			extension="com_xbpeople"
+			itemtype="person"
+			published="1"
 			description="COM_XBBOOKS_FILTER_CATEGORY_DESC"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
-		<field name="subcats"
-			type="radio"
+		<field name="subcats" type="radio"
 			default=""
 			label="COM_XBBOOKS_SUBCATS_LBL"
 			description="COM_XBBOOKS_SUBCATS_DESC"
@@ -44,8 +43,7 @@
 		</field>	
        
 		<field
-			name="tagfilt"
-			type="tag"
+			name="tagfilt" type="tag"
 			label="COM_XBBOOKS_CAPTAGS"
 			description="COM_XBBOOKS_TAGFILT_DESC"
 			multiple="true"
@@ -53,8 +51,7 @@
 			mode="ajax"
 			onchange="this.form.submit();"
 		/>
-		<field name="taglogic"
-			type="radio"
+		<field name="taglogic" type="radio"
 			default=""
 			label="COM_XBBOOKS_MULTITAG_LBL"
 			description="COM_XBBOOKS_MULTITAG_DESC"

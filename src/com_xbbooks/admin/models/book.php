@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 0.9.3 12th April 2021
+ * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -236,6 +236,7 @@ class XbbooksModelBook extends JModelAdmin {
             $this->storeBookChars($this->getState('book.id'), $data['charlist']);
 
             if ($data['quick_rating'] !='')  {
+            	$params = ComponentHelper::getParams('com_xbbooks');
             	$date = Factory::getDate();
             	$db = $this->getDbo();
             	//need to create a title (unique from rev cnt), alias, filmid, catid (uncategorised), reviewer
@@ -244,13 +245,18 @@ class XbbooksModelBook extends JModelAdmin {
             	->where('r.book_id = '.$bid);
             	$db->setQuery($query);
             	$revs=$db->loadResult()+1;
-            	
-            	$rtitle = 'Rating only "'.$data['title'].'" -'.$revs;
-            	$ralias = OutputFilter::stringURLSafe($rtitle);
+            	$revs = $revs==0 ? '' : ' ('.($revs+1).')';
+            	$rtitle = 'Rating "'.$data['title'].'"';
+            	$ralias = OutputFilter::stringURLSafe($rtitle.'-'.$revs);
+            	$reviewer = Factory::getUser()->name;
+            	if ($params->get('def_new_revcat')>0) {
+            		$catid=$params->get('def_new_ratcat');
+            	} else {
+            		$catid = XbfilmsHelper::getIdFromAlias('#__categories', 'uncategorised');
+            	}
             	$qry = 'INSERT INTO '.$db->quoteName('#__xbbookreviews').' (title, alias, book_id, catid, reviewer, rating, rev_date, created, created_by, state ) ';
-            	$qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$bid.','.$data['catid'].','.$db->quote($data['created_by_alias']).','.
+              	$qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$fid.','.$catid.','.$db->quote($reviewer).','.
               	$data['quick_rating'].','.$db->quote($data['cat_date']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
-              	//Factory::getApplication()->enqueueMessage($qry);
               	$db->setQuery($qry);
               	$db->execute();
             }

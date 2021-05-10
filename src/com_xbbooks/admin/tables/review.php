@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/review.php
- * @version 0.7.0 23rd February 2021
+ * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,41 +28,70 @@ class XbbooksTableReview extends JTable
     public function check() {
     	$params = ComponentHelper::getParams('com_xbbooks');
     	
+    	//get count of existing reviews +1 for this review to use in default alias
+    	$db = $this->getDbo();
+    	$query= $db->getQuery(true);
+    	$query->select('COUNT(r.id) as revcnt')->from('#__xbbookreviews AS r')
+    	->where('r.book_id = '.$this->book_id);
+    	$db->setQuery($query);
+    	$revno = $db->loadResult()+1;
+    	//get film title for default review/rating title
+    	$btitle = '"'.XbbooksHelper::getBookTitleById($this->book_id).'"';
+    	
     	$title = trim($this->title);
     	//check title and create default if none supplied
-    	if ($title == '') {
-    		$this->title = 'Review of "'.XbbooksHelper::getBookTitleById($this->book_id);
-    		Factory::getApplication()->enqueueMessage('No review title supplied; default created - please check and change as necessary','Warning');
-    	}
-    	
-    	if (($this->id == 0) && (XbbooksHelper::checkTitleExists($title,'#__xbbookreviews'))) {
-    		$this->setError(JText::_('Review "'.$title.'" already exists; if this is a different review with the same title please append something to the title to distinguish them'));
-    		return false;
-    	}
+    	$qr = false;
+    	if (($title == '') && (trim($this->summary)=='') && (trim($this->synopsis==''))) {
+    		//do quick rating
+    		$qr=true;
+    		$title = 'Rating '.$btitle;
+    		if (trim($this->alias) == '') {
+    			$this->alias = 'rating-'.$revno.'-'.$btitle;
+    		}
+    	} else {
+    		if ($title == '') {
+    			$title = 'Review of '.$btitle;
+    			Factory::getApplication()->enqueueMessage('No review title supplied; default created - please check and change as necessary','Warning');
+    		}
+    		if (($this->id == 0) && (XbbooksHelper::checkTitleExists($title,'#__xbbookreviews'))) {
+    			$this->setError(JText::_('Review "'.$title.'" already exists; if this is a different review with the same title please append something to the title to distinguish them'));
+    			return false;
+    		}
+    		if (trim($this->alias) == '') {
+    			$this->alias = 'review-'.$revno.'-'.$title;
+    		}
+       	}
     	
     	$this->title = $title;
     	
-    	if (trim($this->alias) == '') {
-    	    $this->alias = $title;
-    	}
     	$this->alias = OutputFilter::stringURLSafe($this->alias);
     	
-         //set category
+    	//set reviewer if not set (default to current user)
+    	if (trim($this->reviewer) == '') {
+    		$user = Factory::getUser($this->item->created_by);
+    		$name = ($params->get('rev_auth') == 0) ? $user->name : $user->username;
+    		$this->reviewer = $name;
+    	}
+    	//set date reviewed
+    	if ($this->rev_date == '') {
+    		$this->rev_date = Factory::getDate()->toSql();
+    	}
+    	
     	if (!$this->catid>0) {
-    	    $defcat=0;
-    	    if ($params->get('def_new_revcat')>0) {
-    	        $defcat=$params->get('def_new_revcat');
-    	    } else {
-    	        $defcat = XbbooksHelper::getIdFromAlias('#__categories', 'uncategorised');
-    	    }
-    	    if ($defcat>0) {
-    	        $this->catid = $defcat;
-    	        Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
-    	    } else {
-    	    	// this shouldn't happen unless uncategorised has been deleted
-    	    	$this->setError(JText::_('Please set a category'));
-    	        return false;
-    	    }
+    		$defcat=0;
+    		if ($params->get('def_new_revcat')>0) {
+    			$defcat=($qr) ? $params->get('def_new_ratcat') : $params->get('def_new_revcat');
+    		} else {
+    			$defcat = XbbooksHelper::getIdFromAlias('#__categories', 'uncategorised');
+    		}
+    		if ($defcat>0) {
+    			$this->catid = $defcat;
+    			Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
+    		} else {
+    			// this shouldn't happen unless uncategorised has been deleted
+    			$this->setError(JText::_('XBCULTURE_CATEGORY_MISSING'));
+    			return false;
+    		}
     	}
     	
         //warn re missing summary, create from review if missing
@@ -71,19 +100,7 @@ class XbbooksTableReview extends JTable
         		Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_MISSING_SUMMARY'));
         	}
         }
-        
-        //set reviewer if not set (default to current user)
-        if (trim($this->reviewer) == '') {
-        	$user = Factory::getUser($this->item->created_by);
-        	$name = ($params->get('rev_auth') == 0) ? $user->name : $user->username;
-        	$this->reviewer = $name;
-        }
-
-        //set date reviewed
-        if ($this->rev_date == '') {
-        	$this->rev_date = Factory::getDate()->toSql();
-        }
-        
+                
         //set metadata to defaults
         $metadata = json_decode($this->metadata,true);
         //meta.author will be set to reviewer if blank. Will only be created on page display (view.html.php)

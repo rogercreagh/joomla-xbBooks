@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/helpers/xbbooks.php
- * @version 0.7.0 24th February 2021
+ * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -34,8 +34,9 @@ class XbbooksHelper {
 		return $list;
 	}
 	
-	public static function getChildCats($pid) {
-		$childarr = array();
+	public static function getChildCats($pid, $ext, $incroot = true) {
+/* 		
+ 		$childarr = array();
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('id')->from('#__categories')->where('parent_id = '.$db->quote($pid));
@@ -49,6 +50,18 @@ class XbbooksHelper {
 			}
 			return $childarr;
 		}
+ */		
+		$db    = Factory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select('*')->from('#__categories')->where('id='.$pid);
+		$db->setQuery($query);
+		$pcat=$db->loadObject();
+		$start = $incroot ? '>=' : '>';
+		$query->clear();
+		$query->select('id')->from('#__categories')->where('extension = '.$db->quote($ext));
+		$query->where(' lft'.$start.$pcat->lft.' AND rgt <='.$pcat->rgt);
+		$db->setQuery($query);
+		return $db->loadColumn();
 	}
 	
 	public static function sitePageheader($displayData) {

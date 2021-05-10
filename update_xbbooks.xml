@@ -6,7 +6,7 @@
 		<element>com_xbbooks</element>
 		<type>component</type>
 		<client>administrator</client>
-		<version>0.9.4</version>
+		<version>0.9.5</version>
 		<infourl>
 			https://www.crosborne.co.uk/xbbooks/changelog
 		</infourl>

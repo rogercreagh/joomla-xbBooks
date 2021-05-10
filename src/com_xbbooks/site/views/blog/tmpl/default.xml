@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/blog/tmpl/default.xml v0.9.4.1 29th April 2021 -->
+<!-- xbFilms site/views/blog/tmpl/default.xml v0.9.5 10th May 2021 -->
 <metadata>
 	<layout title="Reviews Blog">
 		<message>Displays a blog of reviews. Options to restrict to single category and filter by tag(s).</message>
@@ -60,27 +60,34 @@
 			</field>	
 
 			<field
-				name="menu_category_id"
+				name="menu_bcategory_id"
 				type="category"
-				label="Category"
+				label="Book Category"
 				extension="com_xbbooks"
 				description="COM_XBBOOKS_CATEGORY_DESC"
 				>
 					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
 			</field>
-			<!-- 
+			<field
+				name="menu_category_id"
+				type="category"
+				label="Review Category"
+				extension="com_xbbooks"
+				description="COM_XBBOOKS_CATEGORY_DESC"
+				>
+					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
+			</field>
 			<field name="menu_subcats"
 				type="radio"
 				default=""
 				label="COM_XBBOOKS_SUBCATS_LBL"
 				description="COM_XBBOOKS_SUBCATS_DESC"
 	  			class="btn-group btn-small radiotop"
-	  			showon="menu_category_id!:0"
+	  			showon="menu_category_id!:0[OR]menu_bcategory_id!:0"
 				>
 					<option value="" >Exclude</option>
 					<option value="1">Include</option>
 			</field>	
-			 -->
 			<field
 				name="menu_tag"
 				type="tag"

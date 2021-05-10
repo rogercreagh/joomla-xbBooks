@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 0.9.2 12th April 2021
+ * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,6 +32,8 @@ class XbbooksModelBooks extends JModelList
         }
         parent::__construct($config);
     }
+    
+    //??? should there be a populateState function ???
 
     protected function getListQuery() {
 	

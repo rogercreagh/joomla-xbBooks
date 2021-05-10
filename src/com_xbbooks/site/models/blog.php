@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/blog.php
- * @version 0.9.5 8th May 2021
+ * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,8 +18,16 @@ class XbbooksModelBlog extends JModelList {
 	
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
-			$config['filter_fields'] = array ('title','category_title','rating', 
-			'book_title','rev_date' );
+			$config['filter_fields'] = array(
+					'id', 'a.id',
+					'title', 'a.title',
+					'ordering','a.ordering',
+					'category_title', 'c.title',
+					'catid', 'a.catid', 'category_id',
+					'bcatid', 'b.catid', 'bcategory_id',
+					'cat_date', 'a.cat_date',
+					'published','a.state',
+					'rel_year','a.rel_year');
 		}
 		parent::__construct($config);
 	}
@@ -40,7 +48,7 @@ class XbbooksModelBlog extends JModelList {
 		parent::populateState($ordering, $direction);
 		
 		//pagination limit
-		$limit = $this->getUserStateFromRequest($this->context.'.limit', 'limit', 25 );
+		$limit = $this->getUserStateFromRequest($this->context.'.limit', 'limit', 5 );
 		$this->setState('limit', $limit);
 		$this->setState('list.limit', $limit);
 		$limitstart = $app->getUserStateFromRequest('limitstart', 'limitstart', $app->get('start'));
@@ -59,21 +67,22 @@ class XbbooksModelBlog extends JModelList {
             a.rev_date AS rev_date, a.reviewer AS reviewer,
             a.ordering AS ordering, a.params AS params');
 		$query->from('#__xbbookreviews AS a');
+		$query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.book_id) AS averat');
+		$query->select('(SELECT COUNT(fr.rating) FROM #__xbbookreviews AS fr WHERE fr.book_id=a.book_id) AS ratcnt');
+		
 		$query->select('c.title AS category_title');
 		$query->join('LEFT', '#__categories AS c ON c.id = a.catid');
-		$query->join('LEFT', '#__xbbooks AS f ON f.id = a.book_id');
-		$query->select('f.title AS book_title, f.subtitle AS subtitle, f.cover_img AS cover_img,f.summary AS book_summary, 
-			f.synopsis AS synopsis, f.pubyear AS pubyear, f.orig_lang AS orig_lang');
-		$query->join('LEFT', '#__categories AS fc ON fc.id = f.catid');
+		$query->join('LEFT', '#__xbbooks AS b ON b.id = a.book_id');
+		$query->select('b.title AS book_title, b.subtitle AS subtitle, b.cover_img AS cover_img,b.summary AS book_summary, 
+			b.synopsis AS synopsis, b.pubyear AS pubyear, b.orig_lang AS orig_lang');
+		$query->join('LEFT', '#__categories AS fc ON fc.id = b.catid');
 		$query->select('fc.title AS bcat_title');
 		
-		//ignore ones without review
-		$query->where("a.review !=''");
 		// Filter by published state 
 		// 	`category and book must both be published state=1 as well 
 		$query->where('a.state = 1');
 		$query->where('c.published = 1');
-		$query->where('f.state = 1');
+		$query->where('b.state = 1');
 		
 		// Filter by search in title/sum/rev
 		$search = $this->getState('filter.search');
@@ -90,28 +99,51 @@ class XbbooksModelBlog extends JModelList {
 		$searchbar = (int)$this->getState('params',0)['search_bar'];
 		//if a menu filter is set this takes priority and serch filter field is hidden
  
-		// Filter by category.
-        $categoryId = $this->getState('categoryId');
-        $this->setState('categoryId','');
-        $dosubcats = 0;
-        if (empty($categoryId)) {
-            $categoryId = $this->getState('params',0,'int')['menu_category_id'];
-            $dosubcats=$this->getState('params',0)['menu_subcats'];
-        }
-        if (($searchbar==1) && ($categoryId==0)){
+		// Filter by review category.
+		$categoryId = $this->getState('categoryId');
+		$this->setState('categoryId','');
+		$dosubcats = 0;
+		if (empty($categoryId)) {
+			$categoryId = $this->getState('params',0,'int')['menu_category_id'];
+			$dosubcats=$this->getState('params',0)['menu_subcats'];
+		}
+		if (($searchbar==1) && ($categoryId==0)){
 			$categoryId = $this->getState('filter.category_id');
 			$dosubcats=$this->getState('filter.subcats');
 		}
 		if ($categoryId > 0) {
 			if ($dosubcats) {
 				$catlist = $categoryId;
-				$subcatlist = XbbooksHelper::getChildCats($categoryId);
+				$subcatlist = XbbooksHelper::getChildCats($categoryId,'com_xbbooks');
 				if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
 				$query->where('a.catid IN ('.$catlist.')');
 			} else {
 				$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
 			}
-		}		
+		}
+		
+		// Filter by book category.
+		$bcategoryId = $this->getState('bcategoryId');
+		$this->setState('bcategoryId','');
+		$dosubcats = 0;
+		if (empty($bcategoryId)) {
+			$bcategoryId = $this->getState('params',0,'int')['menu_bcategory_id'];
+			$dosubcats=$this->getState('params',0)['menu_subcats'];
+		}
+		if (($searchbar==1) && ($bcategoryId==0)){
+			$bcategoryId = $this->getState('filter.bcategory_id');
+			$dosubcats=$this->getState('filter.subcats');
+		}
+		if ($bcategoryId > 0) {
+			if ($dosubcats) {
+				$catlist = $bcategoryId;
+				$subcatlist = XbbooksHelper::getChildCats($bcategoryId,'com_xbbooks');
+				if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
+				$query->where('b.catid IN ('.$catlist.')');
+			} else {
+				$query->where($db->quoteName('b.catid') . ' = ' . (int) $bcategoryId);
+			}
+		}
 		
 		//filter by tag
 		$tagfilt = $this->getState('tagId');
@@ -182,11 +214,16 @@ class XbbooksModelBlog extends JModelList {
 			$query->where('a.rating = '.$db->quote($ratfilt));
 		}
 		
-		//filter by reviewer
-		$reviewer = $this->getState('filter.reviewer');
-		if (!empty($reviewer)) {
-			$query->where('a.reviewer = '.$db->quote($reviewer));
+		//filter by review date
+		$yearfilt = $this->getState('filter.rev_year');
+		if ($yearfilt != '') {
+			$query->where('YEAR(rev_date) = '.$db->quote($yearfilt));
+			$monthfilt = $this->getState('filter.rev_month');
+			if ($monthfilt != '') {
+				$query->where('MONTH(rev_date) = '.$db->quote($monthfilt));
+			}
 		}
+		
 		
 		// Add the list ordering clause.
 		$orderCol       = $this->state->get('list.ordering', 'rev_date');

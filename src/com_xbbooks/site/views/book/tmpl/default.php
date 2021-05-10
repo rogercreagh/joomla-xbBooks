@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 0.8.6 2nd April 2021
+ * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -271,7 +271,7 @@ if ($imgok) {
 							<?php if ($this->show_brevs==2) : ?>
 								<?php if (empty($rev->review)) {
 									if (empty($rev->summary)) {
-										echo '<span class="xbnit">'.Text::_('COM_XBFILMS_NO_REV_TEXT').'</span>';
+										echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NO_REV_TEXT').'</span>';
 									} else {
 										echo $rev->summary;
 									}

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.5.1 12th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -129,7 +129,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo Text::_('XBCULTURE_CAPREVIEWS'); ?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','COM_XBBOOKS_CAPDATE','cat_date',$listDirn,$listOrder ).', '.
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPDATE','cat_date',$listDirn,$listOrder ).', '.
 										HTMLHelper::_('searchtools.sort','XBCULTURE_CAPCATS','category_title',$listDirn,$listOrder ).' &amp; '.
 						Text::_( 'Tags' ); ?>
 					</th>

@@ -51,7 +51,7 @@ version: 0.9.5
 
 **admin books view -** 
 
-- ​admin books: COM_XBBOOKS_CAPDATE missing (should be XBCULTURE_CAPDATE)	
+- ​~~admin books: COM_XBBOOKS_CAPDATE missing (should be XBCULTURE_CAPDATE)~~
 
 **admin book edit -** 
 
@@ -97,7 +97,7 @@ version: 0.9.5
 
 **admin importexport -**
 
-- ​import: clarify what is happening with notes - keep & ignore new, keep & append new (may get truncated), blank & import new, prepend import date & file, blank and insert import date & file  
+- ​~~import: clarify what is happening with notes - keep & ignore new, keep & append new (may get truncated), blank & import new, prepend import date & file, blank and insert import date & file~~
 
 **language file -** 
 

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/importexport.php
- * @version 0.9.4 16th April 2021
+ * @version 0.9.5.1 12th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -357,8 +357,8 @@ class XbbooksModelImportexport extends JModelAdmin {
 	    $portrait_path = $post['portrait_path'];
 	    $reviewer = ($post['reviewer']=='' ? Factory::getUser()->username : $post['reviewer']);
 	    $postprependnote = $post['prependnote'];
-	    if (($postprependnote==1) || ($postprependnote==3)) {
-	    	$prependnote = "Imported from ".$filename." on " .Factory::getDate()->format('Y-m-d H:i')." ";
+	    if ($postprependnote > 1) {
+	    	$prependnote = "Imported from ".$filename." on " .Factory::getDate()->format('Y H:i')." ";
 	    } else {
 	    	$prependnote = '';
 	    }
@@ -521,7 +521,7 @@ class XbbooksModelImportexport extends JModelAdmin {
                      		$qryarr['created_by']= Factory::getUser()->id;
                      		
 //                     		$qryarr['note'] = "'".trim($qryarr['note'],"'"). " Import ".$filename." on ". Factory::getDate()->format('Y-m-d H:i').". '";
-                     		if ($postprependnote>1) {
+                     		if (($postprependnote == 1) || ($postprependnote==2)) {
                      			$qryarr['note'] = "'".$prependnote." ".trim($qryarr['note'],"'")." '";
                      		} else {
                      			$qryarr['note'] = "''";
@@ -1292,8 +1292,8 @@ class XbbooksModelImportexport extends JModelAdmin {
 		$poststate = $post['setpub']; //for csv we are not keeping any existing state info
 		$postreviewer = ($post['reviewer']=='' ? Factory::getUser()->username : $post['reviewer']);
 		$postprependnote = $post['prependnote'];		
-		if (($postprependnote==1) || ($postprependnote==3)) {
-			$prependnote = "Import from ".$csvfile." on " .Factory::getDate()->format('Y-m-d H:i')." ";
+		if ($postprependnote > 1) {
+			$prependnote = "Imported from ".$csvfile." on " .Factory::getDate()->format('d-m-Y H:i')." ";
 		} else {
 			$prependnote = '';
 		}
@@ -1396,7 +1396,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						
 						$sqlbook .= $prependnote;
 						if (key_exists('book_note',$row)) {
-							if ($postprependnote>1) {
+							if (($postprependnote==1) || ($postprependnote==2)) {
 								$sqlbook .= $db->escape($row['book_note']);
 							}
 						}
@@ -1452,7 +1452,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						$sqlperson .= (key_exists('year_died',$row) ? $row['year_died'] : '').$qcq;
 						$sqlperson .= $prependnote;
 						if (key_exists('person_note',$row)) {
-							if ($postprependnote>1) {
+							if (($postprependnote == 1) || ($postprependnote==2)) {
 								$sqlperson .= $db->escape($row['person_note']);
 							}
 						}
@@ -1504,7 +1504,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						$sqlperson .= $qcq;
 						$sqlperson .= $prependnote;
 						if (key_exists('character_note',$row)) {
-							if ($postprependnote>1) {
+							if (($postprependnote == 1) || ($postprependnote==2)) {
 								$sqlperson .= $db->escape($row['character_note']);
 							}
 						}
@@ -1637,7 +1637,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 							$sqlrev .= (int)$row['rating'].$qcq;
 							$sqlrev .= $prependnote;
 							if (key_exists('review_note',$row)) {
-								if ($postprependnote>1) {
+								if (($postprependnote == 1) || ($postprependnote==2)) {
 									$sqlrev .= $db->escape($row['review_note']);
 								}
 							}

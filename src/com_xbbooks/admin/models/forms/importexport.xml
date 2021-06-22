@@ -2,7 +2,7 @@
 <!-- */*****
  * @package xbBooks
  * @filesource admin/models/forms/importexport.xml
- * @version 0.6.7.1 20th January 2021
+ * @version 0.9.5.1 12th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -70,13 +70,13 @@
          
          <field name="prependnote" type="list"
          	label="Admin notes"
-         	description="Whether to keep existing admin notes (if found), and whether to prepend import file and date. NB if this makes note too long it will be truncated"
+         	description="What to do with admin notes in file. NB if adding date makes note too long it will be truncated"
          	default="0"
          	>
-         		<option value="0">Ignore existing (blank)</option>
-         		<option value="1">Set to import file and date</option>
-         		<option value="2">Keep existing only</option>
-         		<option value="3">Keep and prepend file and date</option>
+         		<option value="0">Ignore (note will be blank)</option>
+         		<option value="1">Import file note</option>
+         		<option value="2">Prepend date to file note</option>
+         		<option value="3">Set to import date and filename (ignore file note)</option>
          </field>
 	
 		<field name="import_file"

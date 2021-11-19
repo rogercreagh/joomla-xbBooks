@@ -7,7 +7,7 @@
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
@@ -136,7 +136,7 @@ class XbbooksModelBooks extends JModelList
         }
         
         if (($taglogic === '2') && (empty($tagfilt))) {
-        	//if if we select tagged=excl and no tags specified then only show untagged items
+        	//if we select tagged=excl and no tags specified then only show untagged items
         	$subQuery = '(SELECT content_item_id FROM #__contentitem_tag_map
  					WHERE type_alias = '.$db->quote('com_xbbooks.book').')';
         	$query->where('a.id NOT IN '.$subQuery);

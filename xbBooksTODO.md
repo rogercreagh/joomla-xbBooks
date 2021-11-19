@@ -18,7 +18,7 @@ version: 0.9.5
 
 **General**
 
- - 
+ - replace CAP langauge strings with ucfirst()
 
 
 -----------------------------------------------

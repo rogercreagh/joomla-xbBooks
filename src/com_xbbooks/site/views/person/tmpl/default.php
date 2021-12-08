@@ -112,7 +112,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				<?php if ((empty($item->biography)) && (trim($item->summary) == '')) : ?>
 					<p class="xbnit"><?php echo JText::_('COM_XBBOOKS_NO_BIOG'); ?></p>
 				<?php else : ?>
-					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_CAPBIOGRAPHY');?></div>
+					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_BIOGRAPHY');?></div>
 					<div class="xbbox xbboxgrn">
 						<?php if (!empty($item->biography)) {
 					    	echo $item->biography;

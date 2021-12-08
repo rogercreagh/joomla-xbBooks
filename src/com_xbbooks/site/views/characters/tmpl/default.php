@@ -24,7 +24,7 @@ if (!$listOrder) {
     $listOrder='name';
     $orderDrn = 'asscending';
 }
-$orderNames = array('name'=>Text::_('XBCULTURE_CAPNAME'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+$orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -149,7 +149,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
                     <?php if (!empty($item->description)) : ?>
                         <p class="xbnit xb09">   
                             <?php 
-                             echo Text::_('XBCULTURE_CAPDESCRIPTION').' '.str_word_count(strip_tags($item->description)).' '.Text::_('XBCULTURE_WORDS'); 
+                             echo Text::_('XBCULTURE_DESCRIPTION').' '.str_word_count(strip_tags($item->description)).' '.Text::_('XBCULTURE_WORDS'); 
                              ?>
 						</p>
 					<?php endif; ?>

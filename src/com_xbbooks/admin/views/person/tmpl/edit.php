@@ -91,7 +91,7 @@ JHtml::_('formbehavior.chosen', 'select');
 			</div>
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'biog', JText::_('XBCULTURE_CAPBIOGRAPHY')); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'biog', JText::_('XBCULTURE_BIOGRAPHY')); ?>
 			<fieldset class="form-horizontal">
 				<div style="max-width:1200px;"><?php echo $this->form->renderField('biography'); ?></div>
 			</fieldset>

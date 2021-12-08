@@ -48,7 +48,7 @@ if (!$this->xbpeople_ok) : ?>
 						      }?>
 						      
 					</p>
-					<p><b><?php echo JText::_( 'XBCULTURE_CAPCLIENT' ); ?></b>
+					<p><b><?php echo JText::_( 'XBCULTURE_CLIENT' ); ?></b>
 						<br/><?php echo $this->client['platform'].'<br/>'.$this->client['browser']; ?>
 					</p>
         		<?php echo JHtml::_('bootstrap.endSlide'); ?>
@@ -86,7 +86,7 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span6">
 							<span class="badge <?php echo $this->bookStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->bookStates['archived']; ?></span>
-							<?php echo JText::_('XBCULTURE_CAPARCHIVED'); ?>
+							<?php echo JText::_('XBCULTURE_ARCHIVED'); ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->bookStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->bookStates['trashed']; ?></span>
@@ -136,7 +136,7 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span6">
 							<span class="badge <?php echo $this->revStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->revStates['archived']; ?></span>
-							<?php echo JText::_('XBCULTURE_CAPARCHIVED'); ?>
+							<?php echo JText::_('XBCULTURE_ARCHIVED'); ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->revStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->revStates['trashed']; ?></span>
@@ -192,7 +192,7 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span6">
 							<span class="badge <?php echo $this->perStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->perStates['archived']; ?></span>
-							<?php echo JText::_('XBCULTURE_CAPARCHIVED'); ?>
+							<?php echo JText::_('XBCULTURE_ARCHIVED'); ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->perStates['archived']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->perStates['trashed']; ?></span>
@@ -274,7 +274,7 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span6">
 							<span class="badge <?php echo $this->charStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->charStates['archived']; ?></span>
-							<?php echo JText::_('XBCULTURE_CAPARCHIVED'); ?>
+							<?php echo JText::_('XBCULTURE_ARCHIVED'); ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->charStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->charStates['trashed']; ?></span>
@@ -339,7 +339,7 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span6">
 							<span class="badge <?php echo $this->catStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->catStates['archived']; ?></span>
-							<?php echo JText::_('XBCULTURE_CAPARCHIVED'); ?>
+							<?php echo JText::_('XBCULTURE_ARCHIVED'); ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->catStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->catStates['trashed']; ?></span>
@@ -373,7 +373,7 @@ if (!$this->xbpeople_ok) : ?>
  					<div class="row-fluid">
 						<div class="span6">
 							<span class="badge <?php echo $this->pcatStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->pcatStates['archived']; ?></span>
-							<?php echo JText::_('XBCULTURE_CAPARCHIVED'); ?>
+							<?php echo JText::_('XBCULTURE_ARCHIVED'); ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->pcatStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->pcatStates['trashed']; ?></span>

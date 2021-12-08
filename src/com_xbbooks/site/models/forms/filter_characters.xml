@@ -26,8 +26,8 @@
   			class="btn-group btn-small radiotop"
   			showon="category_id!:"
 		>
-			<option value="" onchange="this.form.submit();">XBCULTURE_CAPEXCLUDE</option>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPINCLUDE</option>
+			<option value="" onchange="this.form.submit();">XBCULTURE_EXCLUDE</option>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_INCLUDE</option>
 		</field>	
        
 		<field
@@ -46,8 +46,8 @@
   			class="btn-group btn-small radiotop"
 			showon="tagfilt!:"
 		>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
-			<option value="" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
+			<option value="" onchange="this.form.submit();">XBCULTURE_ANY</option>
 		</field>	
 				
     </fields>

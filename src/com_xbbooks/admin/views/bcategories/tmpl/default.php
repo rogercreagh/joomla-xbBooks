@@ -82,7 +82,7 @@ $prevext ='';
 				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPCATEGORY', 'path', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo Text::_('XBCULTURE_CAPDESCRIPTION') ;?>
+				<?php echo Text::_('XBCULTURE_DESCRIPTION') ;?>
 			</th>
 			<th>
 				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?>

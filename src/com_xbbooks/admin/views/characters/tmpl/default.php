@@ -25,7 +25,7 @@ if (!$listOrder) {
 	$listOrder='name';
 	$listDirn = 'ascending';
 }
-$orderNames = array('name'=>Text::_('XBCULTURE_CAPNAME'),'id'=>'id',
+$orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'id'=>'id',
 		'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_CAPORDERING'));
 
@@ -114,14 +114,14 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_FIRSTNAME', 'name', $listDirn, $listOrder); ?>
     			</th>
     			<th>
-    				<?php echo Text::_('XBCULTURE_CAPDETAILS'); ?>
+    				<?php echo Text::_('XBCULTURE_DETAILS'); ?>
     			</th>
     			<th >
     				<?php echo Text::_('XBCULTURE_CAPBOOKS') ;?>
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php if ($this->xbpeople_ok!==false) {
-							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPCATS','category_title',$listDirn,$listOrder ).' &amp; ';
+							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
 						}
 						echo Text::_( 'Tags' ); ?>
 				</th>

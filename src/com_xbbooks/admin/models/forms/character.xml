@@ -7,7 +7,7 @@
 			readonly="true" class="readonly" />
 
 		<field name="name" type="text"
-			label="XBCULTURE_CAPNAME"
+			label="XBCULTURE_NAME"
 			description="COM_XBBOOKS_FIRSTNAME_DESC"
 			required="true"
 			size="40" class="inputbox input-xxlarge input-large-text"

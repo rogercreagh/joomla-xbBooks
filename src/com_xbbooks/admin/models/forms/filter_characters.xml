@@ -17,7 +17,7 @@
 			class="btn-group btn-group-yesno btn-small"
 			default="1"
 			>
-			<option value="all" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
+			<option value="all" onchange="this.form.submit();">XBCULTURE_ALL</option>
 			<option value="book" onchange="this.form.submit();">COM_XBBOOKS_BOOKPEOPLE</option>
 			<option value="notbook" onchange="this.form.submit();">COM_XBBOOKS_NOTINBOOKS</option>
 			<option value="orphans" onchange="this.form.submit();">XBCULTURE_CAPORPHANS</option>
@@ -58,8 +58,8 @@
 			description="COM_XBBOOKS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 		>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
-			<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
 			<option value="2" onchange="this.form.submit();">None</option>
 		</field>	
 	</fields>

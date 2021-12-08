@@ -24,8 +24,8 @@ if (!$listOrder) {
     $listOrder='lastname';
     $listDirn = 'ascending';
 }
-$orderNames = array('firstname'=>Text::_('XBCULTURE_CAPFIRSTNAME'),'lastname'=>Text::_('XBCULTURE_CAPLASTNAME'),
-    'sortdate'=>Text::_('XBCULTURE_CAPDATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),'bcnt'=>'Number of books');
+$orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
+    'sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),'bcnt'=>'Number of books');
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -176,7 +176,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
                         <?php if (!empty($item->biography)) : ?>
                             <p class="xbnit xb09">   
                                  <?php 
-                                 	echo Text::_('XBCULTURE_CAPBIOGRAPHY').' '.str_word_count(strip_tags($item->biography)).' '.Text::_('XBCULTURE_WORDS'); 
+                                 	echo Text::_('XBCULTURE_BIOGRAPHY').' '.str_word_count(strip_tags($item->biography)).' '.Text::_('XBCULTURE_WORDS'); 
                                  ?>
     						</p>
     					<?php endif; ?>

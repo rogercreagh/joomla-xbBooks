@@ -25,8 +25,8 @@ if (!$listOrder) {
 	$listOrder='lastname';
 	$listDirn = 'ascending';
 }
-$orderNames = array('firstname'=>Text::_('XBCULTURE_CAPFIRSTNAME'),'lastname'=>Text::_('XBCULTURE_CAPLASTNAME'),
-	'id'=>'id','sortdate'=>Text::_('XBCULTURE_CAPDATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
+$orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
+	'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
 	'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_CAPORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
@@ -123,16 +123,16 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
     			<th >
 					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_FIRSTNAME', 'firstname', $listDirn, $listOrder); ?>
 					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_LASTNAME', 'lastname', $listDirn, $listOrder); ?>					
-					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_CAPDATES', 'year_born', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_DATES', 'year_born', $listDirn, $listOrder); ?>
     			</th>
     			<th>
-    				<?php echo Text::_('XBCULTURE_CAPBIOGRAPHY'); ?>
+    				<?php echo Text::_('XBCULTURE_BIOGRAPHY'); ?>
     			</th>
     			<th >
     				<?php echo Text::_('XBCULTURE_CAPBOOKS') ;?>
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPCATS','category_title',$listDirn,$listOrder ).' &amp; '.
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
 						Text::_( 'Tags' ); ?>
 					</th>
     			
@@ -244,7 +244,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
                         <?php if ((!empty($item->biography)) && (strlen(strip_tags($item->biography))>200)) : ?>
                         	<p class="xbnit xb09">   
                              <?php 
-                             echo Text::_('XBCULTURE_CAPBIOGRAPHY').' '.str_word_count(strip_tags($item->biography)).' '.Text::_('XBCULTURE_WORDS'); 
+                             echo Text::_('XBCULTURE_BIOGRAPHY').' '.str_word_count(strip_tags($item->biography)).' '.Text::_('XBCULTURE_WORDS'); 
                              ?>
 							</p>
 						<?php endif; ?>

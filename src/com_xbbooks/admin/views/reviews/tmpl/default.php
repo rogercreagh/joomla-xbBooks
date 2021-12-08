@@ -26,7 +26,7 @@ if (!$listOrder) {
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'booktitle'=>Text::_('COM_XBBOOKS_BOOKTITLE'),
-		'id'=>'id','rev_date'=>Text::_('XBCULTURE_CAPDATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
+		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_CAPORDERING'),
 		'rating'=>Text::_('XBCULTURE_CAPRATING')
 );
@@ -117,13 +117,13 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         		<th>
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_CAPRATING', 'rating', $listDirn, $listOrder); ?>
         			&amp;
-        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_CAPDATE', 'rev_date', $listDirn, $listOrder); ?>
+        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_DATE', 'rev_date', $listDirn, $listOrder); ?>
         		</th>
         		<th class="hidden-phone">
         			<?php echo Text::_('COM_XBBOOKS_REVIEW_SUMMARY_LABEL');?>
         		</th>
  					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPCATS','category_title',$listDirn,$listOrder ).' &amp; '.
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
 						Text::_( 'Tags' ); ?>
 					</th>
         		

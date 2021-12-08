@@ -27,7 +27,7 @@ if (!$listOrder) {
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'pubyear'=>Text::_('COM_XBBOOKS_PUBYEARCOL'),
-		'id'=>'id','cat_date'=>Text::_('XBCULTURE_CAPDATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
+		'id'=>'id','cat_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_CAPORDERING'));
 /* ' ,'pubyear',''*/
 
@@ -129,8 +129,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo Text::_('XBCULTURE_CAPREVIEWS'); ?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPDATE','cat_date',$listDirn,$listOrder ).', '.
-										HTMLHelper::_('searchtools.sort','XBCULTURE_CAPCATS','category_title',$listDirn,$listOrder ).' &amp; '.
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','cat_date',$listDirn,$listOrder ).', '.
+										HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
 						Text::_( 'Tags' ); ?>
 					</th>
 					<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">

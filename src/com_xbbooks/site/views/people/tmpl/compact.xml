@@ -88,8 +88,8 @@
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
-					<option value="" >XBCULTURE_CAPEXCLUDE</option>
-					<option value="1">XBCULTURE_CAPINCLUDE</option>
+					<option value="" >XBCULTURE_EXCLUDE</option>
+					<option value="1">XBCULTURE_INCLUDE</option>
 			</field>	
 			<field
 				name="menu_tag"
@@ -107,8 +107,8 @@
 	  			class="btn-group btn-small radiotop"
 				showon="menu_tag!:"
 			>
-				<option value="1">XBCULTURE_CAPALL</option>
-				<option value="">XBCULTURE_CAPANY</option>
+				<option value="1">XBCULTURE_ALL</option>
+				<option value="">XBCULTURE_ANY</option>
 			</field>	
 		</fieldset>
   		<!-- Additional page display options (added above the standard Page Display options) -->

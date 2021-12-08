@@ -24,8 +24,8 @@ if (!$listOrder) {
     $listOrder='lastname';
     $listDirn = 'ascending';
 }
-$orderNames = array('firstname'=>Text::_('XBCULTURE_CAPFIRSTNAME'),'lastname'=>Text::_('XBCULTURE_CAPLASTNAME'),
-    'sortdate'=>Text::_('XBCULTURE_CAPDATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),'bcnt'=>'Number of books');
+$orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
+    'sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),'bcnt'=>'Number of books');
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 

@@ -32,7 +32,7 @@ $xblink = 'index.php?option=com_xbbooks';
 					<h2><?php echo $item->title; ?></h2>
 				</a></div>
             <div class="span2">
-                <p><?php echo '<i>'.JText::_('XBCULTURE_CAPALIAS').'</i>: '.$item->alias; ?></p>
+                <p><?php echo '<i>'.JText::_('XBCULTURE_ALIAS').'</i>: '.$item->alias; ?></p>
             </div>
 			<div class= "span2">
 				<p><?php echo '<i>'.JText::_('JGRID_HEADING_ID').'</i>: '.$item->id; ?></p>
@@ -52,7 +52,7 @@ $xblink = 'index.php?option=com_xbbooks';
 		</div>
 		<div class="row-fluid xbmb8">
 			<div class= "span2">
-				<p><i><?php echo JText::_('XBCULTURE_CAPDESCRIPTION'); ?>:</i></p>
+				<p><i><?php echo JText::_('XBCULTURE_DESCRIPTION'); ?>:</i></p>
 			</div>
    			<div class="span10">
 			<?php if ($item->description != '') : ?>

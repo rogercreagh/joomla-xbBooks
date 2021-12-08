@@ -140,8 +140,8 @@
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_tag!:"
 			>
-				<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
-				<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+				<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
+				<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
 				<option value="2" onchange="this.form.submit();">None</option>
 			</field>	
 		</fieldset>

@@ -44,8 +44,8 @@
 			label="COM_XBBOOKS_FICT_NON_LABEL" description="COM_XBBOOKS_FICT_NON_DESC"
 			class="btn-group btn-small" 
 		>
-			<option value="0">COM_XBBOOKS_CAPNONFICTION</option>
-			<option value="1">COM_XBBOOKS_CAPFICTION</option>
+			<option value="0">XBCULTURE_NONFICTION</option>
+			<option value="1">XBCULTURE_FICTION</option>
 		</field>
 
 		<field name="publisher" type="publisher"
@@ -53,16 +53,16 @@
 			class="inputbox" maxlength="99" />
 
 		<field name="edition" type="text"
-			label="COM_XBBOOKS_CAPEDITION" description="COM_XBBOOKS_EDITION_DESC"
+			label="XBCULTURE_EDITION" description="COM_XBBOOKS_EDITION_DESC"
 			class="inputbox" maxlength="49" />
 
 		<field name="format" type="bookformat" 
-			label="COM_XBBOOKS_CAPFORMAT" description="COM_XBBOOKS_FORMAT_DESC"
+			label="XBCULTURE_FORMAT" description="COM_XBBOOKS_FORMAT_DESC"
 			class="inputbox" maxlength="49"  >
-			<option value="Hardback">COM_XBBOOKS_CAPHARDBACK</option>
-			<option value="Paperback">COM_XBBOOKS_CAPPAPERBACK</option>
-			<option value="Kindle">COM_XBBOOKS_CAPKINDLE</option>
-			<option value="eBook">COM_XBBOOKS_CAPEBOOK</option>
+			<option value="Hardback">XBCULTURE_HARDBACK</option>
+			<option value="Paperback">XBCULTURE_PAPERBACK</option>
+			<option value="Kindle">XBCULTURE_KINDLE</option>
+			<option value="eBook">XBCULTURE_EBOOK</option>
 			<option value="other">XBCULTURE_OTHER</option>
 		</field>
 

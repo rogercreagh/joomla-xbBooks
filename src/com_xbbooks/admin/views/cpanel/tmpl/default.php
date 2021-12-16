@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/cpanel/tmpl/default.php
- * @version 0.9.0 8th April 2021
+ * @version 0.9.6 15th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
 
 jimport('joomla.html.html.bootstrap');
 
@@ -35,31 +36,34 @@ if (!$this->xbpeople_ok) : ?>
 		<?php echo $this->sidebar; ?>
 		<p> </p>
 		<div class="row-fluid hidden-phone">
-        	<?php echo JHtml::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => 'sysinfo')); ?>
-        		<?php echo JHtml::_('bootstrap.addSlide', 'slide-cpanel', JText::_('COM_XBBOOKS_SYSINFO'), 'sysinfo'); ?>
+        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => 'sysinfo')); ?>
+        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('COM_XBBOOKS_SYSINFO'), 'sysinfo'); ?>
         			<p><b><?php echo JText::_( 'COM_XBBOOKS_COMPONENT' ); ?></b>
 						<br /><?php echo JText::_('XBCULTURE_VERSION').': '.$this->xmldata['version'].'<br/>'.
 							$this->xmldata['creationDate'];?>
 						<br /><?php if ($this->xbpeople_ok) {
-						          echo Text::_('COM_XBBOOKS_PEOPLEOK') ;
+						          echo 'xbPeople Component ' . XbcultureHelper::getExtensionVersion('com_xbpeople') ;
 						      }?>
 						<br /><?php if ($this->xbfilms_ok) {
-						          echo Text::_('COM_XBBOOKS_FILMSOK') ;
-						      }?>
+							echo 'xbFilms Component ' . XbcultureHelper::getExtensionVersion('com_xbfilms') ;
+						}?>
+						<br /><?php if ($this->xblive_ok) {
+							echo 'xbLive Component ' . XbcultureHelper::getExtensionVersion('com_xblive') ;
+						}?>
 						      
 					</p>
 					<p><b><?php echo JText::_( 'XBCULTURE_CLIENT' ); ?></b>
 						<br/><?php echo $this->client['platform'].'<br/>'.$this->client['browser']; ?>
 					</p>
-        		<?php echo JHtml::_('bootstrap.endSlide'); ?>
-        		<?php echo JHtml::_('bootstrap.addSlide', 'slide-cpanel', JText::_('COM_XBBOOKS_ABOUT'), 'about'); ?>
+        		<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('COM_XBBOOKS_ABOUT'), 'about'); ?>
         			<p><?php echo JText::_( 'COM_XBBOOKS_ABOUT_INFO' ); ?></p>
-        		<?php echo JHtml::_('bootstrap.endSlide'); ?>
-        		<?php echo JHtml::_('bootstrap.addSlide', 'slide-cpanel', JText::_('COM_XBBOOKS_LICENSE'), 'license'); ?>
+        		<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('COM_XBBOOKS_LICENSE'), 'license'); ?>
         			<p><?php echo JText::_( 'COM_XBBOOKS_LICENSE_INFO' ); ?>
         				<br /><?php echo $this->xmldata['copyright']; ?>
         			</p>
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
+				<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
 		</div>
 	</div>
 </div>
@@ -96,11 +100,11 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span6">
 							<span class="badge xbml10"><?php echo $this->books['fiction']; ?></span>
-							<?php echo JText::_('COM_XBBOOKS_CAPFICTION'); ?>
+							<?php echo JText::_('XBCULTURE_FICTION'); ?>
 						</div>
 						<div class="span6">
 							<span class="badge badge-inverse xbml10"><?php echo $this->books['nonfiction']; ?></span>
-							<?php echo JText::_('COM_XBBOOKS_CAPNONFICTION'); ?>
+							<?php echo JText::_('XBCULTURE_NONFICTION'); ?>
 						</div>
 					</div>
 					<div class="row-fluid">
@@ -215,7 +219,7 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span1"></div><div class="span11">
 							<span class="badge badge-info xbmr10"><?php echo $this->people['editpub']+$this->people['editunpub'];?></span>
-							<?php echo JText::_('COM_XBBOOKS_CAPEDITORS'); ?>
+							<?php echo JText::_('XBCULTURE_EDITORS'); ?>
 							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
 							 	<?php echo JText::_('XBCULTURE_PUBCOLON'); ?> 				
 							 	<span class="badge badge-success xbmr10"><?php echo $this->people['editpub'];?></span>
@@ -227,7 +231,7 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span1"></div><div class="span11">
 							<span class="badge badge-info xbmr10"><?php echo $this->people['menpub']+$this->people['menunpub'];?></span>
-							<?php echo JText::_('COM_XBBOOKS_CAPMENTIONED'); ?>
+							<?php echo JText::_('XBCULTURE_MENTIONED'); ?>
 							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
 							 	<?php echo JText::_('XBCULTURE_PUBCOLON'); ?> 				
 							 	<span class="badge badge-success xbmr10"><?php echo $this->people['menpub'];?></span>
@@ -430,7 +434,7 @@ if (!$this->xbpeople_ok) : ?>
 	</div>
 </div>
 	<input type="hidden" name="task" value="" />
-	<?php echo JHtml::_('form.token'); ?>
+	<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>
 

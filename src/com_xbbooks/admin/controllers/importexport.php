@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controllers/importexport.php
- * @version 0.6.7.1 20th January 2021
+ * @version 0.9.6 15th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,11 +10,12 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Session\Session;
 
 class XbbooksControllerImportexport extends JControllerForm
 {
 	function export() {
-		JSession::checkToken() or die( 'Invalid Token' );
+		Session::checkToken() or die( 'Invalid Token' );
 		$jinput = Factory::getApplication()->input;
 		$post   = $jinput->get('jform', array(), 'ARRAY');
 		$link = 'index.php?option=com_xbbooks&view=importexport&format=raw';

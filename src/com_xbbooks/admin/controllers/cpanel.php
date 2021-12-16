@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controllers/cpanel.php
- * @version 0.9.0 5th April 2021
+ * @version 0.9.6 15th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,15 +32,15 @@ class XbbooksControllerCpanel extends JControllerAdmin {
         }
     }
     
-    function gigs() {
-        $status = XbcultureHelper::checkComponent('com_xbgigs');
+    function live() {
+        $status = XbcultureHelper::checkComponent('com_xblive');
         if ($status == true) {
-            $this->setRedirect('index.php?option=com_xbgigs');
+            $this->setRedirect('index.php?option=com_xblive');
         } elseif ($status === 0) {
-            Factory::getApplication()->enqueueMessage('xbGigs'.JText::_('COM_XBBOOKS_COMP_DISABLED'), 'warning');
-            $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbgigs');
+            Factory::getApplication()->enqueueMessage('xbLive'.JText::_('COM_XBBOOKS_COMP_DISABLED'), 'warning');
+            $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xblive');
         } else {
-            Factory::getApplication()->enqueueMessage('xbGigs '.JText::_('COM_XBBOOKS_XBLIVE_COMP_MISSING'), 'info');
+            Factory::getApplication()->enqueueMessage('xbLive '.JText::_('COM_XBBOOKS_XBLIVE_COMP_MISSING'), 'info');
             $this->setRedirect('index.php?option=com_xbbooks&view=cpanel');
         }
     }

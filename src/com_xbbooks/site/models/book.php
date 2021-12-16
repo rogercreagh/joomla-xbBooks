@@ -90,13 +90,13 @@ class XbbooksModelBook extends JModelItem {
 				if ($item->authcnt==0){
 					$item->alist = ''; //'<i>'.JText::_( 'COM_XBBOOKS_NOAUTHOR' ).'</i>';
 				} else {
-//					$item->alist = ($item->authcnt==1) ? JText::_( 'XBCULTURE_CAPAUTHOR' ) : JText::_( 'XBCULTURE_CAPAUTHORS' ).':';
+//					$item->alist = ($item->authcnt==1) ? JText::_( 'XBCULTURE_AUTHOR' ) : JText::_( 'XBCULTURE_CAPAUTHORS' ).':';
 					$item->alist = XbbooksGeneral::makeLinkedNameList($item->people,'author',',', (($item->editcnt)==0)? true:false);
 				}
 				if (($item->editcnt)==0){
 					$item->elist = '';
 				} else {
-//					$item->elist = ($item->editcnt==1)? JText::_( 'COM_XBBOOKS_CAPEDITOR' ) : JText::_( 'COM_XBBOOKS_CAPEDITORS' );
+//					$item->elist = ($item->editcnt==1)? JText::_( 'XBCULTURE_EDITOR' ) : JText::_( 'XBCULTURE_EDITORS' );
 					$item->elist = ': '.XbbooksGeneral::makeLinkedNameList($item->people,'editor',',');
 					//XbbooksHelper::getBookRoleList($item->id,'editor');
 				}

@@ -52,7 +52,7 @@ $prevext ='';
 	<div class="pull-right span2">
 		<p style="text-align:right;">
 			<?php $fnd = $this->pagination->total;
-			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_CATEGORY':'XBCULTURE_CATEGORIES').' '.Text::_('XBCULTURE_FOUND'); ?>
+			echo $fnd .' '. lcfirst(Text::_(($fnd==1)?'XBCULTURE_CATEGORY':'XBCULTURE_CATEGORIES')).' '.Text::_('XBCULTURE_FOUND'); ?>
 		</p>
 	</div>
 	<div class="clearfix"></div>

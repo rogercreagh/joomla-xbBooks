@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/importexport.php
- * @version 0.9.5.1 12th May 2021
+ * @version 0.9.6.a 16th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -129,7 +129,11 @@ class XbbooksModelImportexport extends JModelAdmin {
 		    //only get our own categories
             $query->select('a.alias, a.extension, a.title, a.note, a.description,a.language,a.published,a.params,
                 a.metadata,a.metakey,a.metadesc');
-		    $query->where('a.extension IN ('.$db->quote('com_xbbooks').','.$db->quote('com_xbpeople').')');
+            if ($expcat>0) {
+            	$query->where('a.id = '. $db->quote($expcat));
+            } else {
+            	$query->where('a.extension IN ('.$db->quote('com_xbbooks').','.$db->quote('com_xbpeople').')');
+            }
 		} else {
             $query->select('DISTINCT a.*'); 
 		}
@@ -140,30 +144,40 @@ class XbbooksModelImportexport extends JModelAdmin {
 		    // books are simple - just need to match the catid if supplied
 			if ($expcat>0) { $query->where('a.catid = '. $db->quote($expcat));}		    
 		} elseif ($table === '#__xbbookreviews') {
-		    // export all reviews in the selected category ????and all reviews of books in the selected category
-			//TODO make using the books category an option
 			if ($expcat>0) { 
+				// only get reviews of books in the selected category
 				$query->join('LEFT','#__xbbooks AS b ON b.id = a.book_id');
-				$query->where('a.catid = '. $db->quote($expcat).' OR b.catid = '. $db->quote($expcat));					
+				$query->where('b.catid = '. $db->quote($expcat));					
 			}		    
-		} elseif (($table === '#__xbpersons') || ($table ==='#__xbcharacters')) {
-			//for people/chars get all people in the category 
-			if ($exppcat>0) { $query->where('a.catid = '. $db->quote($exppcat));}
+		} elseif ($table === '#__xbpersons') {
 			//only get book people
 			$query->join('RIGHT', '#__xbbookperson AS bp ON bp.person_id = a.id');
+			if ($expcat>0) { 
+				// only get people linked to books in selected category
+				$query->join('LEFT', '#__xbbooks AS b ON b.id = bp.book_id');
+				$query->where('b.catid = '. $db->quote($expcat));
+			}
+			//otherwise get all people attached to books
+		} elseif ($table === '#__xbcharacters') {
+			//only get book chars
+			$query->join('RIGHT', '#__xbbookcharacter AS bc ON bc.char_id = a.id');
+			if ($expcat>0) {
+				// only get chars linked to books in selected category
+				$query->join('LEFT', '#__xbbooks AS b ON b.id = bc.book_id');
+				$query->where('b.catid = '. $db->quote($expcat));
+			}
+			//otherwise get all chars attached to books			
 		} elseif ($table === '#__xbbookperson') {
-			//we'll filter on book has catid OR person has catid
+			//we'll filter on book has catid
 			if ($expcat>0) {
 				$query->join('LEFT','#__xbbooks AS b ON b.id = a.book_id');
-				$query->join('LEFT','#__xbpersons AS p ON p.id = a.person_id');
-				$query->where('b.catid = '. $db->quote($expcat).' OR p.catid = '. $db->quote($expcat));
+				$query->where('b.catid = '. $db->quote($expcat));
 			}
 		} elseif ($table === '#__xbbookcharacter') {
-			//we'll filter on book has catid OR person has catid
+			//we'll filter on book has catid
 			if ($expcat>0) {
 				$query->join('LEFT','#__xbbooks AS b ON b.id = a.book_id');
-				$query->join('LEFT','#__xbcharacters AS p ON p.id = a.char_id');
-				$query->where('b.catid = '. $db->quote($expcat).' OR p.catid = '. $db->quote($expcat));
+				$query->where('b.catid = '. $db->quote($expcat));
 			}
 		}
 	
@@ -993,7 +1007,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 		
 		//now clean up the ucm rubbish
 	    $query->clear();
-		$subq = "(select type_id from `#__content_types` where type_alias in ".$types;
+		$subq = "(select type_id from '.$db->quoteName('#__content_types').' where type_alias in ".$types;
 	    $query->delete('#__ucm_history')->where('ucm_type_id in '.$subq);
 	    try {
 	        $db->setQuery($query);
@@ -1069,7 +1083,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 		$qstr = 'DELETE a FROM '.$db->quoteName('#__xbpersons').' AS a';
 		if ($this->xbfilmsStatus!==false) {
 			//check not used in films
-			$qstr .= ' LEFT JOIN `#__xbfilmperson` AS fp ON fp.person_id =  a.id';
+			$qstr .= ' LEFT JOIN '.$db->quoteName('#__xbfilmperson').' AS fp ON fp.person_id =  a.id';
 			$qstr .= ' WHERE fp.id IS NULL';
 		}
 		if ($statelist != '') {
@@ -1109,7 +1123,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 		$qstr = 'DELETE a FROM '.$db->quoteName('#__xbcharacters').' AS a';
 		if ($this->xbfilmsStatus!==false) {
 		    //check not used in films
-		    $qstr .= ' LEFT JOIN `#__xbfilmcharacter` AS fp ON fp.char_id =  a.id';
+		    $qstr .= ' LEFT JOIN '.$db->quoteName('#__xbfilmcharacter').' AS fp ON fp.char_id =  a.id';
 		    $qstr .= ' WHERE fp.id IS NULL';
 		}
 		if ($statelist != '') {

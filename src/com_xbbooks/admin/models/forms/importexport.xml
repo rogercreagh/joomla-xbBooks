@@ -2,7 +2,7 @@
 <!-- */*****
  * @package xbBooks
  * @filesource admin/models/forms/importexport.xml
- * @version 0.9.5.1 12th May 2021
+ * @version 0.9.6 15th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -118,7 +118,7 @@
 			
 		<field name="expcat" type="category" extension="com_xbbooks" class="chzn-custom-value"
 			label="COM_XBBOOKS_EXP_CATEGORY_LABEL" description="COM_XBBOOKS_EXP_CATEGORY_DESC" 
-			showon="exptables:xbbooks[AND]exptype:2[OR]exptables:xbbookreviews[AND]exptype:2" 
+			showon="exptables:xbbooks[AND]exptype:2[OR]exptables:xbbookreviews[AND]exptype:2[OR]exptype:1" 
   		>
 				<option value="0">COM_XBBOOKS_OPT_CATEGORY_ALL</option>
 		</field>

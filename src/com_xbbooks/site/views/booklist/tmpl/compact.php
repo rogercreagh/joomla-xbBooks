@@ -108,7 +108,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                               echo '<span>';
                             } ?>
                        	<span class="xbnit">
-                        		<?php echo Text::_($item->editcnt>1 ? 'COM_XBBOOKS_CAPEDITORS' : 'COM_XBBOOKS_CAPEDITOR' ); ?>
+                        		<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
                         	</span></span>: 
                         	<?php echo $item->elist; ?>
                         <?php else : ?>
@@ -116,7 +116,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         		echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_CAPAUTHOR' ); ?>
+	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->alist; 
                         	} ?>                          	

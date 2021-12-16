@@ -128,7 +128,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 							<div class="span9">
 		                        <?php if ($item->acnt>0) : ?>
 									<h4><span class="xbnit xbmr10">
-										<?php echo Text::_(($item->acnt==1) ? 'XBCULTURE_CAPAUTHOR' : 'XBCULTURE_CAPAUTHORS'); ?>
+										<?php echo Text::_(($item->acnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_CAPAUTHORS'); ?>
 									: </span>
 									<?php echo $item->alist; ?>                          
 									</h4>

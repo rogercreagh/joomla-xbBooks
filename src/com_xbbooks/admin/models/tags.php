@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/tags.php
- * @version 0.8.6.1 5th April 2021
+ * @version 0.9.6.a 16th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,9 +28,9 @@ class XbbooksModelTags extends JModelList {
 		// Initialize variables.
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('DISTINCT t.`id` AS id, t.`path` AS path, t.level AS level, t.`title` AS title, t.`description` AS description,
-		 t.`note` AS note, t.`published` AS published,  t.`checked_out` AS checked_out, 
-         t.`checked_out_time` AS checked_out_time, t.`lft`');
+		$query->select('DISTINCT t.id AS id, t.path AS path, t.level AS level, t.title AS title, t.description AS description,
+		 t.note AS note, t.published AS published,  t.checked_out AS checked_out, 
+         t.checked_out_time AS checked_out_time, t.lft');
 		$query->from('#__tags AS t');
 		$query->join('LEFT','#__contentitem_tag_map AS m ON m.tag_id = t.id');
 		$query->where("m.type_alias IN ('com_xbbooks.book','com_xbpeople.person','com_xbbooks.review','com_xbpeople.character')");

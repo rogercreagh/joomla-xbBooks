@@ -64,8 +64,8 @@ if ($imgok) {
 						      echo Text::_('COM_XBBOOKS_FIRSTPUB').': '.$item->pubyear; 
 						} ?></h4>
 						<p>
-                    		<?php echo ($item->fiction==1) ? '<span class="label">'.Text::_('COM_XBBOOKS_CAPFICTION').'</span>' : 
-                                '<span class="label label-inverse">'.Text::_('COM_XBBOOKS_CAPNONFICTION').'</span>'; ?>
+                    		<?php echo ($item->fiction==1) ? '<span class="label">'.Text::_('XBCULTURE_FICTION').'</span>' : 
+                                '<span class="label label-inverse">'.Text::_('XBCULTURE_NONFICTION').'</span>'; ?>
 						</p>
 					</div>
 					<h2><?php echo $item->title; ?></h2>
@@ -75,7 +75,7 @@ if ($imgok) {
 					<div class="row-fluid">
           			     <?php if ($item->editcnt>0) : ?>
 							<div class="span5">
-								<h4><span class="xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPEDITOR').': '; ?></span>: 
+								<h4><span class="xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITOR').': '; ?></span>: 
 					                <?php  echo $item->elist; ?> 
                 	             </h4> 
 							</div>
@@ -84,7 +84,7 @@ if ($imgok) {
 	                        <?php if ($item->authcnt>0) : ?>
     	                        <h4>
     								<span class="xbnit xbmr10">
-    									<?php echo Text::_(($item->authcnt==1) ? 'XBCULTURE_CAPAUTHOR' : 'XBCULTURE_CAPAUTHORS').': '; ?>
+    									<?php echo Text::_(($item->authcnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_CAPAUTHORS').': '; ?>
     								</span> 
     								<?php echo $item->alist; ?> 
 								</h4>
@@ -116,14 +116,14 @@ if ($imgok) {
 			<div class="span1"></div>
 			<div class= "span6">
 	           	<?php if ((!$item->edition=='') || (!$hide_empty)) : ?>
-	 				<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPEDITION').': '; ?></div>
+	 				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITION').': '; ?></div>
        				<div class="pull-left" style="margin:2px 0 0 0;">
        					<?php echo (!$item->edition=='') ? $item->edition : '<span class="xbnit">'.Text::_('COM_XBBOOKS_UNKNOWN').'</span>'; ?>
                     </div>
 					<div class="clearfix"></div> 
            		<?php endif; ?>
 	           	<?php if ((!$item->format=='') || (!$hide_empty)) : ?>
-	 				<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPFORMAT').': '; ?></div>
+	 				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_FORMAT').': '; ?></div>
        				<div class="pull-left" style="margin:2px 0 0 0;">
        					<?php echo (!$item->format=='') ? $item->format : '<span class="xbnit">'.Text::_('COM_XBBOOKS_UNKNOWN').'</span>'; ?>
                     </div>

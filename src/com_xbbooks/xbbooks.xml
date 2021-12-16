@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbbooks</name>
-	<creationDate>12th May 2021</creationDate>
-	<version>0.9.5.1</version>
+	<creationDate>16th December 2021</creationDate>
+	<version>0.9.6.a</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>
@@ -74,43 +74,35 @@
 		<menu img="class:xbbooks" link="option=com_xbbooks" view="cpanel">xbBooks</menu>
 		<submenu>
 			<menu link="option=com_xbbooks" 
-				view="cpanel" img="class:xbbooks-cpanel"
-				alt="Xbbooks/Cpanel">
+				view="cpanel" img="class:xbbooks-cpanel" >
 					com_xbbooks_control_panel
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=books" 
-				view="books" img="class:xbbooks-books" 
-				alt="Xbbooks/Books">
+				view="books" img="class:xbbooks-books" >
 					com_xbbooks_books
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=reviews" 
-				view="reviews" img="class:xbbooks-reviews" 
-				alt="Xbbooks/Reviews">
+				view="reviews" img="class:xbbooks-reviews" >
 					com_xbbooks_reviews
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=persons" 
-				view="persons" img="class:xbbooks-persons" 
-				alt="Xbbooks/Persons">
+				view="persons" img="class:xbbooks-persons" >
 					com_xbbooks_people
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=characters" 
-				view="characters" img="class:xbbooks-persons" 
-				alt="Xbbooks/Characters">
+				view="characters" img="class:xbbooks-persons" >
 					com_xbbooks_characters
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=bcategories" 
-				view="bcategories" img="class:xbbooks-categories" 
-				alt="Xbbooks/Bcategories">
+				view="bcategories" img="class:xbbooks-categories" >
 					com_xbbooks_categories
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=tags" 
-				view="tags" img="class:xbbooks-tags" 
-				alt="Xbbooks/Tags">
+				view="tags" img="class:xbbooks-tags" >
 					com_xbbooks_tags
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=importexport" 
-			view="importexport" img="class:xbbooks-importexport" 
-			alt="Xbbooks/Importexport">
+			view="importexport" img="class:xbbooks-importexport" >
 				com_xbbooks_dataman
 			</menu>
 		</submenu>

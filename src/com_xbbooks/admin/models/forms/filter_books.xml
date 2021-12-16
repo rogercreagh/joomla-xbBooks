@@ -57,8 +57,8 @@
 			onchange="this.form.submit();"
 			>
 				<option value="" >COM_XBBOOKS_FILT_BOTH</option>
-				<option value="0">COM_XBBOOKS_CAPNONFICTION</option>
-				<option value="1">COM_XBBOOKS_CAPFICTION</option>
+				<option value="0">XBCULTURE_NONFICTION</option>
+				<option value="1">XBCULTURE_FICTION</option>
 		</field>	
 		<field
 			name="category_id"

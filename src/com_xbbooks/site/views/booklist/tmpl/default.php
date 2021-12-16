@@ -90,7 +90,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                 <?php endif; ?>
 				<th>
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_CAPTITLE','title',$listDirn,$listOrder).				
-    						', '.Text::_('XBCULTURE_CAPAUTHOR').', '.
+    						', '.Text::_('XBCULTURE_AUTHOR').', '.
     						HtmlHelper::_('searchtools.sort','COM_XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );				
 					?>
 				</th>					
@@ -154,7 +154,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                               echo '<span>';
                             } ?>
                        	<span class="xbnit">
-                        		<?php echo Text::_($item->editcnt>1 ? 'COM_XBBOOKS_CAPEDITORS' : 'COM_XBBOOKS_CAPEDITOR' ); ?>
+                        		<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
                         	</span></span>: 
                         	<?php echo $item->elist; ?>
                         <?php else : ?>
@@ -162,7 +162,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         		echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_CAPAUTHOR' ); ?>
+	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->alist; 
                         	} ?>                          	

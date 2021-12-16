@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooks.php
- * @version 0.9.4 14th April 2021
+ * @version 0.9.6.a 16th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -131,7 +131,7 @@ class XbbooksHelper extends ContentHelper
 				);
 		} else {
 			JHtmlSidebar::addEntry(
-					Text::_('xbBooks cPanel'),
+					Text::_('xbBooks Dashboard'),
 					'index.php?option=com_xbbooks&view=cpanel',
 					$vName == 'cpanel'
 					);

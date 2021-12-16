@@ -31,8 +31,8 @@
 				showon="menu_perfilt!:"			
 			>
 	  			<option value="">COM_XBBOOKS_PROLE_DEF</option>
-				<option value="1">XBCULTURE_CAPAUTHOR</option>
-				<option value="2">COM_XBBOOKS_CAPEDITOR</option>
+				<option value="1">XBCULTURE_AUTHOR</option>
+				<option value="2">XBCULTURE_EDITOR</option>
 				<option value="3">COM_XBBOOKS_CHAR_IN</option>
 				<option value="4">COM_XBBOOKS_MENTION_IN</option>
 			</field>	
@@ -51,8 +51,8 @@
 				description="COM_XBBOOKS_FILT_FICT_LBL"
 				>
 					<option value="0" >COM_XBBOOKS_FILT_BOTH</option>
-					<option value="1">COM_XBBOOKS_CAPNONFICTION</option>
-					<option value="2">COM_XBBOOKS_CAPFICTION</option>
+					<option value="1">XBCULTURE_NONFICTION</option>
+					<option value="2">XBCULTURE_FICTION</option>
 			</field>	
 			<field
 				name="menu_category_id"

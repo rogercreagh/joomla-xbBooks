@@ -223,15 +223,15 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<br /><span class="xb09">
 						<?php if ($item->editcnt>0) : ?>
 							<span class="xbnit">
-								<?php echo JText::_($item->editcnt>1 ? 'COM_XBBOOKS_CAPEDITORS' : 'COM_XBBOOKS_CAPEDITOR' ); ?>
+								<?php echo JText::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
 							: </span>
 							<span class="hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo ($item->editcnt>0)? JText::_('XBCULTURE_CAPAUTHOR').': '.strip_tags($item->alist) : ''; ?>
+								<?php echo ($item->editcnt>0)? JText::_('XBCULTURE_AUTHOR').': '.strip_tags($item->alist) : ''; ?>
 								"> 
 								<?php echo $item->elist; ?>
 							</span>						
 						<?php elseif ($item->authcnt>0) : ?>
-							<span class="xbnit"><?php echo JText::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_CAPAUTHOR' ); ?>: </span>
+							<span class="xbnit"><?php echo JText::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>: </span>
 							<?php echo $item->alist; ?>
 						<?php endif; ?>
 						<?php if($item->othcnt>0) :?>

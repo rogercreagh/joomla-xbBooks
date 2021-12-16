@@ -26,8 +26,8 @@
 			showon="perfilt!:"			
 		>
   			<option value="" onchange="this.form.submit();">COM_XBBOOKS_PROLE_DEF</option>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPAUTHOR</option>
-			<option value="2" onchange="this.form.submit();">COM_XBBOOKS_CAPEDITOR</option>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_AUTHOR</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_EDITOR</option>
 			<option value="4" onchange="this.form.submit();">COM_XBBOOKS_MENTION_IN</option>
 		</field>	
 		<field
@@ -48,8 +48,8 @@
 			onchange="this.form.submit();"
 			>
 				<option value="0" >COM_XBBOOKS_CAPBOTH</option>
-				<option value="1">COM_XBBOOKS_CAPNONFICTION</option>
-				<option value="2">COM_XBBOOKS_CAPFICTION</option>
+				<option value="1">XBCULTURE_NONFICTION</option>
+				<option value="2">XBCULTURE_FICTION</option>
 		</field>	
 		<field
 			name="category_id" type="catsubtree"

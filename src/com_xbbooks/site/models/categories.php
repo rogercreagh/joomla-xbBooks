@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/categories.php
- * @version 0.8.3 19th March 2021
+ * @version 0.9.6.a 16th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,8 +42,8 @@ class XbbooksModelCategories extends JModelList {
 	protected function getListQuery() {
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('DISTINCT c.`id` AS id, c.`path` AS path, c.level AS level, c.`title` AS title, 
-            c.`description` AS description, c.extension AS extension, c.`lft`');
+		$query->select('DISTINCT c.id AS id, c.path AS path, c.level AS level, c.title AS title, 
+            c.description AS description, c.extension AS extension, c.lft');
 		$query->from('#__categories AS c');
 		
 		$query->select('(SELECT COUNT(*) FROM #__xbbooks AS tb WHERE tb.catid = c.id ) AS bcnt');

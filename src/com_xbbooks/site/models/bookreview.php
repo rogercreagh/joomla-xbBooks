@@ -65,11 +65,11 @@ class XbbooksModelBookreview extends JModelItem {
 					if ($item->authcnt == 0){
 						$item->edauths .= JText::_( 'COM_XBBOOKS_NOAUTHOR' ).'</i>';
 					} else {
-						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_CAPAUTHORS'):JText::_('XBCULTURE_CAPAUTHOR');
+						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_CAPAUTHORS'):JText::_('XBCULTURE_AUTHOR');
 						$item->edauths .= '</i>: '.XbbooksGeneral::makeLinkedNameList($item->people,'author',',',false);
 					}
 				} else {
-					$item->edauths .= JText::_('COM_XBBOOKS_CAPEDITOR').'</i>: '.
+					$item->edauths .= JText::_('XBCULTURE_EDITOR').'</i>: '.
 							XbbooksGeneral::makeLinkedNameList($item->people,'editor',',',false);
 				}
 				

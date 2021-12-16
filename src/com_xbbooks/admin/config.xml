@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks config.xml v0.9.5 10th May 2021 -->
+<!-- xbBooks config.xml v0.9.6.a 16th December 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -250,7 +250,7 @@
 		/>	
   		<field name="xbpeoplenote" type="note"
 			label="xbPeople Reminder"
-			description="Setting this to 'No' will simply hide the reminder on the Control Panel."
+			description="Setting this to 'No' will simply hide the reminder on the Dashboard."
 			class="info"
 		/>	
  		<field name="show_sample" type="radio"

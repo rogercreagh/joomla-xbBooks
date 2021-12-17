@@ -11,7 +11,7 @@
 		<field
 			name="perfilt"
 			type="bookpeople"
-			label="XBCULTURE_CAPPERSON"
+			label="XBCULTURE_PERSON_U"
 			description="COM_XBBOOKS_PERFILT_DESC"
 			onchange="this.form.submit();"
 			>
@@ -33,7 +33,7 @@
 		<field
 			name="charfilt"
 			type="bookchars"
-			label="XBCULTURE_CAPCHARACTERS"
+			label="XBCULTURE_CHARACTERS_U"
 			description="COM_XBBOOKS_CHARFILT_DESC"
 			onchange="this.form.submit();"
 			>

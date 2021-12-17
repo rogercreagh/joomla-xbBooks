@@ -20,7 +20,7 @@
 			<option value="all" onchange="this.form.submit();">XBCULTURE_ALL</option>
 			<option value="book" onchange="this.form.submit();">COM_XBBOOKS_BOOKPEOPLE</option>
 			<option value="notbook" onchange="this.form.submit();">COM_XBBOOKS_NOTINBOOKS</option>
-			<option value="orphans" onchange="this.form.submit();">XBCULTURE_CAPORPHANS</option>
+			<option value="orphans" onchange="this.form.submit();">XBCULTURE_ORPHANS</option>
 		</field>	
 		<field
 			name="published"

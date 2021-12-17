@@ -103,7 +103,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			</div>
 			<div class="span6">
 				<?php if (($item->summary != '' ) && (!empty($item->biography))) : ?>
-					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_CAPSUMMARY'); ?></div>
+					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_SUMMARY'); ?></div>
 					<div class="xbbox xbboxwht">
 					 	<?php echo $item->summary; ?>
 					</div>

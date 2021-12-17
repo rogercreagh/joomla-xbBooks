@@ -26,9 +26,9 @@ if (!$listOrder) {
     $listOrder='cat_date';
     $listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'pubyear'=>Text::_('COM_XBBOOKS_PUBYEARCOL'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_PUBYEARCOL'),
 		'id'=>'id','cat_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_CAPORDERING'));
+		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 /* ' ,'pubyear',''*/
 
 $saveOrder      = $listOrder == 'ordering';
@@ -115,7 +115,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo Text::_( 'COM_XBBOOKS_COVER' ); ?>
 					</th>			
 					<th>
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPTITLE','title',$listDirn,$listOrder).
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).
     						' <span style="font-size:0.9em;">'.
      						'Author, '.
      						HTMLHelper::_('searchtools.sort','COM_XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder ).' '.
@@ -123,10 +123,10 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						?>
 					</th>					
 					<th>
-						<?php echo Text::_('XBCULTURE_CAPSUMMARY');?>
+						<?php echo Text::_('XBCULTURE_SUMMARY');?>
 					</th>
 					<th class="hidden-phone" style="width:15%;">
-						<?php echo Text::_('XBCULTURE_CAPREVIEWS'); ?>
+						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','cat_date',$listDirn,$listOrder ).', '.
@@ -176,7 +176,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<div class="btn-group">
 							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'book.', $canChange, 'cb'); ?>
 							<?php if ($item->note!=""){ ?>
-								<span class="btn btn-micro active hasTooltip" title="" data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+								<span class="btn btn-micro active hasTooltip" title="" data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>

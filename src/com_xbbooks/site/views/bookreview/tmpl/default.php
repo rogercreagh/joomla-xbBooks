@@ -61,7 +61,7 @@ if ($imgok) {
     	</div>
    		<div class="row-fluid"><!-- rating -->
     		<div class="span12 xbmt16 center">
-    			<span class="xbnit"><?php echo Text::_('XBCULTURE_CAPRATING'); ?>: </span>
+    			<span class="xbnit"><?php echo Text::_('XBCULTURE_RATING'); ?>: </span>
     	        <?php if (($this->zero_rating) && ($item->rating==0)) : ?>
     	            <span class="<?php echo $this->zero_class; ?>" ></span>
     	        <?php else: ?>
@@ -74,7 +74,7 @@ if ($imgok) {
         <?php if ((!empty($item->summary)) && (!empty($item->review))) : ?>
         	<div class="row-fluid">
         		<div class="span2">
-        			<div class="pull-right xbnit"><?php echo Text::_('XBCULTURE_CAPSUMMARY'); ?>
+        			<div class="pull-right xbnit"><?php echo Text::_('XBCULTURE_SUMMARY'); ?>
         			</div>					
         		</div>
         		<div class="span9">
@@ -96,7 +96,7 @@ if ($imgok) {
     				<div class="xbbox xbboxmag"><?php echo $item->summary; ?></div>
     			<?php endif; ?>
     		<?php else : ?>
-    			<p class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_CAPREVIEW');?></p>
+    			<p class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_REVIEW_U');?></p>
     			<div class="xbbox xbboxmag"><?php echo $item->review; ?></div>
             <?php endif; ?>
     	</div>

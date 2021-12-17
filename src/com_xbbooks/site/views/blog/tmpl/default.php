@@ -23,8 +23,8 @@ if (!$listOrder) {
     $listOrder='rev_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'book_title'=>Text::_('COM_XBBOOKS_BOOK_TITLE'),
-    'rating'=>Text::_('XBCULTURE_CAPRATING'), 'rev_date'=>Text::_('COM_XBBOOKS_DATE_READ'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'book_title'=>Text::_('COM_XBBOOKS_BOOK_TITLE'),
+    'rating'=>Text::_('XBCULTURE_RATING'), 'rev_date'=>Text::_('COM_XBBOOKS_DATE_READ'),
     'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
@@ -152,7 +152,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				}
 				if ( $sumtext != '') : ?>
 					<div class="xbbox xbboxwht">
-						<div class="pull-left"><span class="xbnit"><?php echo Text::_('XBCULTURE_CAPSUMMARY'); ?> 
+						<div class="pull-left"><span class="xbnit"><?php echo Text::_('XBCULTURE_SUMMARY'); ?> 
 						: </span></div>
 					 	<div><?php echo $sumtext; ?></div> 
 					</div>

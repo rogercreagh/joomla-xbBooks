@@ -52,12 +52,12 @@ $prevext ='';
 		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbcats">	
 			<thead>
 				<tr>
-					<th><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPTITLE', 'title', $listDirn, $listOrder );?></th>
+					<th><?php echo JHTML::_('grid.sort', 'XBCULTURE_TITLE', 'title', $listDirn, $listOrder );?></th>
 					<th class="hidden-phone"><?php echo JText::_('XBCULTURE_DESCRIPTION');?></th>
 					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPREVIEWS', 'rccnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPPEOPLE', 'bpcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'bchcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rccnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'bpcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'bchcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>
 			<tbody>

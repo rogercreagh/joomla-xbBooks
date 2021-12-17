@@ -87,7 +87,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 				</th>					
 				<?php if($this->show_sum) : ?>
 				<th>
-					<?php echo JText::_('XBCULTURE_CAPSUMMARY');?>
+					<?php echo JText::_('XBCULTURE_SUMMARY');?>
 				</th>
                 <?php endif; ?>
 				<th class="hidden-phone">

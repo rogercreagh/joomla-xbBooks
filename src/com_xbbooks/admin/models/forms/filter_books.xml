@@ -33,7 +33,7 @@
 		<field
 			name="perfilt"
 			type="people"
-			label="XBCULTURE_CAPPEOPLE"
+			label="XBCULTURE_PEOPLE_U"
 			description="Filter by peson"
 			onchange="this.form.submit();"
 			>
@@ -42,7 +42,7 @@
 		<field
 			name="charfilt"
 			type="characters"
-			label="XBCULTURE_CAPCHARACTERS"
+			label="XBCULTURE_CHARACTERS_U"
 			description="Filter by peson"
 			onchange="this.form.submit();"
 			>

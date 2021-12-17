@@ -41,7 +41,7 @@ $xblink = 'index.php?option=com_xbbooks';
 		</div>
 		<div class="row-fluid xbmb8">
 			<div class= "span6">
-					<p class="xb11"><i><?php echo JText::_('XBCULTURE_CAPTAG').' '.Jtext::_('XBCULTURE_CAPHEIRARCHY'); ?>: </i>
+					<p class="xb11"><i><?php echo JText::_('XBCULTURE_TAG_U').' '.Jtext::_('XBCULTURE_HEIRARCHY_U'); ?>: </i>
 					<?php $path = str_replace('/', ' - ', $item->path);
 						echo 'root - '.$path; ?>
 					</p>

@@ -62,14 +62,14 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbtags">	
 			<thead>
 				<tr>
-					<th><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPTAG', 'title', $listDirn, $listOrder );?></th>
+					<th><?php echo JHTML::_('grid.sort', 'XBCULTURE_TAG_U', 'title', $listDirn, $listOrder );?></th>
 				<?php  if ($this->show_desc != 0) : ?>      
 					<th class="hidden-phone"><?php echo JText::_('XBCULTURE_DESCRIPTION');?></th>
 				<?php endif; ?>
 				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?></th>
-				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPREVIEWS', 'rcnt', $listDirn, $listOrder );?></th>
-				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPPEOPLE', 'pcnt', $listDirn, $listOrder );?></th>
-				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'chcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>
 			<tbody>

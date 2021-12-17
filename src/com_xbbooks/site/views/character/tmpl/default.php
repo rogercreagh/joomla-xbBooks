@@ -57,7 +57,7 @@ if ($imgok) {
 			<?php endif; ?>	
 			<?php if ($item->summary != '') : ?>
 				<div class="span6">
-					<div class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_CAPSUMMARY'); ?></div>
+					<div class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_SUMMARY'); ?></div>
 					<div class="xbbox xbboxwht">
 					 	<div class="xbsubtitle"><?php echo $item->summary; ?></div> 
 					</div>

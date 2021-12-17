@@ -71,7 +71,7 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
 				<?php echo JHtml::_('grid.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPTAG', 'path', $listDirn, $listOrder );?>
+				<?php echo JHTML::_('grid.sort', 'XBCULTURE_TAG_U', 'path', $listDirn, $listOrder );?>
 			</th>
 			<th>
 				<?php echo JText::_('XBCULTURE_DESCRIPTION') ;?>
@@ -80,16 +80,16 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
 				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPREVIEWS', 'rcnt', $listDirn, $listOrder );?>
+				<?php echo JHTML::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPPEOPLE', 'pcnt', $listDirn, $listOrder );?>
+				<?php echo JHTML::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'chcnt', $listDirn, $listOrder );?>
+				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JText::_('XBCULTURE_CAPOTHERS') ;?>
+				<?php echo JText::_('XBCULTURE_OTHERS') ;?>
 			</th>
 			<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
 				<?php echo JHTML::_('grid.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
@@ -116,7 +116,7 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
 						<?php echo JHtml::_('jgrid.published', $item->published, $i, 'tag.', false, 'cb'); ?>
 							<?php if ($item->note!=''){ ?>
 								<span class="btn btn-micro active hasTooltip" title="" 
-									data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+									data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>

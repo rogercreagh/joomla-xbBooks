@@ -25,10 +25,10 @@ if (!$listOrder) {
 	$listOrder='rev_date';
 	$listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'booktitle'=>Text::_('COM_XBBOOKS_BOOKTITLE'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'booktitle'=>Text::_('COM_XBBOOKS_BOOKTITLE'),
 		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_CAPORDERING'),
-		'rating'=>Text::_('XBCULTURE_CAPRATING')
+		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
+		'rating'=>Text::_('XBCULTURE_RATING')
 );
 
 $saveOrder      = $listOrder == 'ordering';
@@ -115,7 +115,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         			<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_REVIEW_CAPBOOK', 'booktitle', $listDirn, $listOrder); ?>
         		</th>
         		<th>
-        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_CAPRATING', 'rating', $listDirn, $listOrder); ?>
+        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_RATING', 'rating', $listDirn, $listOrder); ?>
         			&amp;
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_DATE', 'rev_date', $listDirn, $listOrder); ?>
         		</th>
@@ -175,7 +175,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 								<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'review.', true, 'cb'); ?>
 								<?php if ($item->note!=''){ ?>
 									<span class="btn btn-micro active hasTooltip" title="" 
-										data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+										data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 										<i class="icon- xbinfo"></i>
 									</span>
 								<?php } else {?>

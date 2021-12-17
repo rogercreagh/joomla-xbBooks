@@ -21,7 +21,7 @@
 			
 		<field
 			name="summary" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPSUMMARY"
+			label="XBCULTURE_SUMMARY"
 			description="COM_XBBOOKS_REVSUMMARY_DESC"
 			size="40" class="inputbox"
 			default="" />
@@ -90,7 +90,7 @@
 			class="inputbox" size="20" maxlength="40"/>
 
 		<field name="note" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPNOTE" description="XBCULTURE_NOTE_DESC" />
+			label="XBCULTURE_NOTE" description="XBCULTURE_NOTE_DESC" />
 
 		<field name="created" type="calendar"
 			label="XBCULTURE_CREATED_LBL" description="XBCULTURE_CREATED_DESC"

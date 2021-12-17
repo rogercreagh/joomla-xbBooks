@@ -88,13 +88,13 @@ $prevext ='';
 				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPREVIEWS', 'rcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPPEOPLE', 'pcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'chcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?>
 			</th>
 			<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
 				<?php echo HTMLHelper::_('grid.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
@@ -136,7 +136,7 @@ $prevext ='';
 						<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'category.', false, 'cb'); ?>
 							<?php if ($item->note!=''){ ?>
 								<span class="btn btn-micro active hasTooltip" title="" 
-									data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+									data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>

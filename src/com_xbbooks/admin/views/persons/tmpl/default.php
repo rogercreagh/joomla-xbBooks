@@ -27,7 +27,7 @@ if (!$listOrder) {
 }
 $orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
 	'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-	'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_CAPORDERING'));
+	'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbbooks.book');
@@ -118,7 +118,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 					<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
     			</th>
     			<th class="center" style="width:80px">
-    				<?php echo Text::_('XBCULTURE_CAPPORTRAIT') ;?>
+    				<?php echo Text::_('XBCULTURE_PORTRAIT') ;?>
     			</th>
     			<th >
 					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_FIRSTNAME', 'firstname', $listDirn, $listOrder); ?>
@@ -180,7 +180,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'person.', true, 'cb'); ?>
 							<?php if ($item->note!=''){ ?>
 								<span class="btn btn-micro active hasTooltip" title="" 
-									data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+									data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>

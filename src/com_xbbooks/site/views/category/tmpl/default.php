@@ -48,7 +48,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
           
 		<?php if ((!$this->hide_empty) && (strpos($item->path,'/')!==false)) : ?>
 			<div class="xb11 pull-left" style="padding-top:20px;margin-left:40px;">
-				<i><?php echo Text::_('XBCULTURE_CAPHEIRARCHY'); ?>:</i> 
+				<i><?php echo Text::_('XBCULTURE_HEIRARCHY_U'); ?>:</i> 
 				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
 					$path = str_replace('/', ' - ', $path);
 					echo $path; ?>

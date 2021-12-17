@@ -24,7 +24,7 @@ if (!$listOrder) {
     $listOrder='cat_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'pubyear'=>'Year Published', 'averat'=>'Average Rating', 'cat_date'=>'Last Read','category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>'Year Published', 'averat'=>'Average Rating', 'cat_date'=>'Last Read','category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -89,14 +89,14 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 					</th>	
                 <?php endif; ?>
 				<th>
-					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_CAPTITLE','title',$listDirn,$listOrder).				
+					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.Text::_('XBCULTURE_AUTHOR').', '.
     						HtmlHelper::_('searchtools.sort','COM_XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );				
 					?>
 				</th>					
                 <?php if($this->show_sum) : ?>
 				<th class="hidden-phone">
-					<?php echo Text::_('XBCULTURE_CAPSUMMARY');?>
+					<?php echo Text::_('XBCULTURE_SUMMARY');?>
 				</th>
                 <?php endif; ?>
                 <?php if ($this->show_rev != 0 ) : ?>

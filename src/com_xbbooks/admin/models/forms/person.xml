@@ -25,7 +25,7 @@
 			class="inputbox" size="45" />
 		
 		<field name="summary" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPSUMMARY" description="COM_XBBOOKS_PERSUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY" description="COM_XBBOOKS_PERSUMMARY_DESC" />
 			
 		<field name="year_born" type="number" min="-4000" max="2052"
   			hint="XBCULTURE_YEAR_HINT"
@@ -75,7 +75,7 @@
 		</field>
 
 		<field name="note" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPNOTE" description="XBCULTURE_NOTE_DESC" />
+			label="XBCULTURE_NOTE" description="XBCULTURE_NOTE_DESC" />
 
 		<field name= "bookauthorlist"
 			type= "subform"

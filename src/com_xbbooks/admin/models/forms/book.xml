@@ -37,7 +37,7 @@
 		</field>
 		
 		<field name="summary" type="textarea" rows="6" cols="50"  
-			label="XBCULTURE_CAPSUMMARY"  description="COM_XBBOOKS_BOOK_SUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY"  description="COM_XBBOOKS_BOOK_SUMMARY_DESC" />
 
 		<field name="fiction" type="radio"
 			default="0"
@@ -109,11 +109,11 @@
 		</field>
 
 		<field name="note" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPNOTE" description="XBCULTURE_NOTE_DESC"
+			label="XBCULTURE_NOTE" description="XBCULTURE_NOTE_DESC"
 		 />
 
 		<field name="synopsis" type="editor"
-			class="inputbox" label="XBCULTURE_CAPSYNOPSIS" description="COM_XBBOOKS_FIELD_SYNOPSIS_DESC" 
+			class="inputbox" label="XBCULTURE_SYNOPSIS" description="COM_XBBOOKS_FIELD_SYNOPSIS_DESC" 
 			filter="JComponentHelper::filterText"  buttons="true" hide="article,pagebreak,readmore"  
 		/>
 

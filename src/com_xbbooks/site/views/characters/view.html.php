@@ -54,7 +54,7 @@ class XbbooksViewCharacters extends JViewLegacy {
 		
 		//set metadata
 		$document=$this->document;
-		$document->setMetaData('title', Text::_('XBCULTURE_CHAR_CATALOGUE').': '.$document->title);
+		$document->setMetaData('title', Text::_('XBCULTURE_CHARS_CATALOGUE').': '.$document->title);
 		$metadesc = $this->params->get('menu-meta_description');
 		if (!empty($metadesc)) { $document->setDescription($metadesc); }
 		$metakey = $this->params->get('menu-meta_keywords');

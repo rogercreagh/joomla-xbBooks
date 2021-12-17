@@ -19,7 +19,7 @@
 			class="inputbox" size="45" />
 		
 		<field name="summary" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPSUMMARY" description="COM_XBBOOKS_CHARSUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY" description="COM_XBBOOKS_CHARSUMMARY_DESC" />
 						
 		<field name="description" type="editor"
 			class="inputbox" label="COM_XBBOOKS_FIELD_DESC_LABEL" description="COM_XBBOOKS_FIELD_DESC_DESC"
@@ -53,7 +53,7 @@
 		</field>
 
 		<field name="note" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPNOTE" description="XBCULTURE_NOTE_DESC" />
+			label="XBCULTURE_NOTE" description="XBCULTURE_NOTE_DESC" />
 
 		<field name= "bookcharlist"
 			type= "subform"

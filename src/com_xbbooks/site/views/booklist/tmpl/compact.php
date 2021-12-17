@@ -24,7 +24,7 @@ if (!$listOrder) {
     $listOrder='cat_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'), 'averat'=>'Average Rating', 'cat_date'=>'Last Read');
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 'cat_date'=>'Last Read');
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -72,14 +72,14 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 		<thead>
 			<tr>
 				<th>
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPTITLE','title',$listDirn,$listOrder);				
+					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder);				
 					?>
 				</th>					
 				<th>
 					<?php echo Text::_('Editor/Author');?>
 				</th>
 				<th class="xbtc">
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPRATING','averat',$listDirn,$listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
 				</th>
 				<th class="hidden-phone">
 					<?php echo HTMLHelper::_('searchtools.sort','COM_XBBOOKS_DATE_READ','cat_date',$listDirn,$listOrder ); ?>

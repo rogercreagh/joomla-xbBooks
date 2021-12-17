@@ -80,7 +80,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			<tr>
 				<?php if($this->show_pic) : ?>
 					<th class="center" style="width:80px">
-						<?php echo Text::_( 'XBCULTURE_CAPPORTRAIT' ); ?>
+						<?php echo Text::_( 'XBCULTURE_PORTRAIT' ); ?>
 					</th>	
                 <?php endif; ?>
 				<th>
@@ -95,7 +95,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
                 <?php endif; ?>
 				<?php if($this->show_sum) : ?>
 				<th>
-					<?php echo Text::_('XBCULTURE_CAPSUMMARY');?>
+					<?php echo Text::_('XBCULTURE_SUMMARY');?>
 				</th>
                 <?php endif; ?>
 				<?php if($this->show_books != 0) : ?>

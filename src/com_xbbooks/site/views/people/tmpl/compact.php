@@ -101,7 +101,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
     					    echo ' &amp; ';
     					}
     					if($this->show_tags) {
-    					    echo Text::_( 'XBCULTURE_CAPTAGS' ); 
+    					    echo Text::_( 'XBCULTURE_TAGS_U' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>

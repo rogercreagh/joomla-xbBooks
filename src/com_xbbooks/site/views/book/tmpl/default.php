@@ -132,7 +132,7 @@ if ($imgok) {
            		<!-- insert reading notes here -->
 				<?php if ((trim($item->summary) != '') && (!empty($item->synopsis))) : ?>
 					<div class="xbbox xbboxwht">
-						<div class="pull-left"><span class="xbnit"><?php echo Text::_('XBCULTURE_CAPSUMMARY'); ?> 
+						<div class="pull-left"><span class="xbnit"><?php echo Text::_('XBCULTURE_SUMMARY'); ?> 
 						: </span></div>
 					 	<div><?php echo $item->summary; ?></div> 
 					</div>
@@ -242,7 +242,7 @@ if ($imgok) {
 	</div>
 	<?php if ($this->show_brevs>0) : ?>
 		<div class="span6 xbmb12">
-			<h4><?php echo Text::_('XBCULTURE_CAPREVIEWS'); ?></h4>
+			<h4><?php echo Text::_('XBCULTURE_REVIEWS_U'); ?></h4>
 			<?php if(empty($item->reviews)) : ?>
 				<p><i><?php echo Text::_( 'COM_XBBOOKS_NOREVIEW' ); ?></i></p>
 			<?php else : ?>

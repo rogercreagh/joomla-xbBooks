@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/view.html.php
- * @version 0.8.3 18th March 2021
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -58,7 +58,7 @@ class XbbooksViewPeople extends JViewLegacy {
 		
 		//set metadata
 		$document=$this->document;
-		$document->setMetaData('title', JText::_('People catalogue').': '.$document->title);
+		$document->setMetaData('title', JText::_('XBCULTURE_PEOPLE_CATALOGUE').': '.$document->title);
 		$metadesc = $this->params->get('menu-meta_description');
 		if (!empty($metadesc)) { $document->setDescription($metadesc); }
 		$metakey = $this->params->get('menu-meta_keywords');

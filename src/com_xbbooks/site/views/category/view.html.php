@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/category/view.html.php
- * @version 0.6.1g 15th November 2020
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 class XbbooksViewCategory extends JViewLegacy {
 	
@@ -29,7 +30,7 @@ class XbbooksViewCategory extends JViewLegacy {
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle('Category view: '.$this->item->title);
-		$document->setMetaData('title', JText::_('Category details').' '.$this->item->title);
+		$document->setMetaData('title', Text::_('XBCULTURE_TITLE_CATMANAGER').' '.$this->item->title);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

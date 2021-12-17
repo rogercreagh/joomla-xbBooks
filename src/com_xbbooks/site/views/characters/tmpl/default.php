@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/characters/tmpl/default.php
- * @version 0.8.3 17th March 2021
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -142,7 +142,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
     						<?php if (!empty($item->description)) : ?>
     							<?php echo XbcultureHelper::makeSummaryText($item->description,0); ?>
     						<?php else : ?>
-    							<span class="xbnit xb09"><?php echo Text::_('No description available'); ?></span>
+    							<span class="xbnit xb09"><?php echo Text::_('XBCULTURE_NO_DESCRIPTION'); ?></span>
     						<?php endif; ?>
     					<?php endif; ?>
                     </p>
@@ -158,7 +158,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 				<td class="hidden-phone" >
 					<?php 
 					if ($item->ccnt > 0) {
-					    echo '<p><span class="xbnit">'.Text::_('Character in').'</span>: '.$item->clist.'</p>';
+					    echo '<p><span class="xbnit">'.Text::_('XBCULTURE_CHAR_IN').'</span>: '.$item->clist.'</p>';
 					}
 					?>
 				</td>

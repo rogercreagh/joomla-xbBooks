@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/characters/view.html.php
- * @version 0.8.3 18th March 2021
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 class XbbooksViewCharacters extends JViewLegacy {
 	
@@ -53,7 +54,7 @@ class XbbooksViewCharacters extends JViewLegacy {
 		
 		//set metadata
 		$document=$this->document;
-		$document->setMetaData('title', JText::_('Characters catalogue').': '.$document->title);
+		$document->setMetaData('title', Text::_('XBCULTURE_CHAR_CATALOGUE').': '.$document->title);
 		$metadesc = $this->params->get('menu-meta_description');
 		if (!empty($metadesc)) { $document->setDescription($metadesc); }
 		$metakey = $this->params->get('menu-meta_keywords');

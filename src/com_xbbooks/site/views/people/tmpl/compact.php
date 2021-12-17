@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.8.0 7th March 2021
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -95,13 +95,13 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->show_cat) {
-    						echo JHTML::_('searchtools.sort','COM_XBFILMS_CAPCATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
+    						echo JHTML::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
     					}
     					if (($this->show_cat) && ($this->show_tags)) {
     					    echo ' &amp; ';
     					}
     					if($this->show_tags) {
-    					    echo Text::_( 'COM_XBFILMS_CAPTAGS' ); 
+    					    echo Text::_( 'XBCULTURE_CAPTAGS' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -132,7 +132,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				<?php if ($this->show_cbooks == '4') : ?>
 				<td>
 					<td>
-    					<p><?php echo Text::_('Listed with').' '.$item->bcnt.' '.Text::_(($item->bcnt ==1) ? 'book' : 'books'); ?>
+    					<p><?php echo Text::_('XBCULTURE_LISTED_WITH').' '.$item->bcnt.' '.Text::_(($item->bcnt ==1) ? 'XBCULTURE_BOOK' : 'XBCULTURE_BOOKS'); ?>
     					</p>
 					</td>
 				<?php endif; ?>

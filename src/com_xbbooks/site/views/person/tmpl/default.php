@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/person/tmpl/default.php
- * @version 0.8.3 18th March 2021
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -91,7 +91,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 	<?php endif; ?>	
 	<?php if ($item->filmcnt>0) : ?>
 		<p class="xbnit">
-		<?php echo Text::_('listed with ').$item->filmcnt.Text::_(' films'); ?>
+		<?php echo Text::_('XBCULTURE_LISTED_WITH').' '.$item->filmcnt.' '.Text::_('XBCULTURE_FILMS'); ?>
 		</p>
 	<?php endif; ?>
 	<?php if ($item->ext_links_cnt > 0) : ?>

@@ -2,13 +2,15 @@
 /*******
  * @package xbBooks
  * @filesource site/views/character/view.html.php
- * @version 0.8.3 17th March 2021
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
+
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 class XbbooksViewCharacter extends JViewLegacy {
 	
@@ -55,7 +57,7 @@ class XbbooksViewCharacter extends JViewLegacy {
 
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle($this->item->name);
-		$document->setMetaData('title', JText::_('Character catalogue entry for').' '.$this->item->name);
+		$document->setMetaData('title', Text::_('XBCULTURE_CHAR_CATALOGUE').' '.$this->item->name);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

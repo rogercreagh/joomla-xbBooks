@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/default.php
- * @version 0.8.3 18th March 2021
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,7 +15,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
@@ -72,7 +72,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
         	<div class="span12">		
 	<?php if (empty($this->items)) { ?>
 	<div class="alert alert-no-items">
-		<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+		<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 	</div>
 <?php } else { ?>
 		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbpeople">	
@@ -80,7 +80,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			<tr>
 				<?php if($this->show_pic) : ?>
 					<th class="center" style="width:80px">
-						<?php echo JText::_( 'XBCULTURE_CAPPORTRAIT' ); ?>
+						<?php echo Text::_( 'XBCULTURE_CAPPORTRAIT' ); ?>
 					</th>	
                 <?php endif; ?>
 				<th>
@@ -95,7 +95,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
                 <?php endif; ?>
 				<?php if($this->show_sum) : ?>
 				<th>
-					<?php echo JText::_('XBCULTURE_CAPSUMMARY');?>
+					<?php echo Text::_('XBCULTURE_CAPSUMMARY');?>
 				</th>
                 <?php endif; ?>
 				<?php if($this->show_books != 0) : ?>
@@ -146,10 +146,10 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 					<td>
 					<p class="xb095">
 					<?php if ($item->year_born > 0) {						
-							echo '<span class="xbnit">'.JText::_('COM_XBBOOKS_CAPBORN').'</span>: '.$item->year_born.'<br />'; 
+							echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_CAPBORN').'</span>: '.$item->year_born.'<br />'; 
 						}
 						if ($item->year_died > 0) {						
-							echo '<span class="xbnit">'.JText::_('COM_XBBOOKS_CAPDIED').'</span>: '.$item->year_died; 
+							echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_CAPDIED').'</span>: '.$item->year_died; 
 						}              
 					?>					
 					</p>
@@ -221,7 +221,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 								data-content="<?php echo strip_tags($item->olist); ?>"
 						<?php endif; ?>
 						>
-						<?php echo Text::_('Other role in').' ';
+						<?php echo Text::_('XBCULTURE_OTHER_ROLE_IN').' ';
 						if ($this->show_books == '3') {
 							echo $item->olist;
 						} else { //implies show_books=cnt
@@ -245,7 +245,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 						</span></p>
 					<?php endif; ?>
     					<?php if ($item->filmcnt > 0) {
-    						echo '<p><span>'.JText::_('Listed with').'</span>: '.$item->filmcnt.' films</p>';
+    						echo '<p><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->filmcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
     					}
     					?>
 				</td>

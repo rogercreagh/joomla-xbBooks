@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/character/tmpl/default.php
- * @version 0.8.3 17th March 2021
+ * @version 0.9.6.a 17th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,7 +48,7 @@ if ($imgok) {
 			<?php if ($item->bcnt>0) : ?>
 				<div class="span6">
 					<div class="xbnit">
-						<?php echo JText::_('XBCULTURE_CAPBOOKS'); ?><
+						<?php echo Text::_('XBCULTURE_CAPBOOKS'); ?><
 					</div>	
 					<div class="xbml20">		
 						<p><?php echo $item->clist; ?></p>
@@ -57,7 +57,7 @@ if ($imgok) {
 			<?php endif; ?>	
 			<?php if ($item->summary != '') : ?>
 				<div class="span6">
-					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_CAPSUMMARY'); ?></div>
+					<div class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_CAPSUMMARY'); ?></div>
 					<div class="xbbox xbboxwht">
 					 	<div class="xbsubtitle"><?php echo $item->summary; ?></div> 
 					</div>
@@ -75,9 +75,9 @@ if ($imgok) {
 <div class="row-fluid">
 	<div class="span12">
 		<?php if(trim($item->description)=='') : ?>
-			<p><i><?php echo JText::_('No description available');?></i></p>
+			<p><i><?php echo Text::_('XBCULTURE_NO_DESCRIPTION');?></i></p>
 		<?php else: ?>
-			<div class="xbnit xbmb8"><?php echo JText::_('Description');?></div>
+			<div class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_DESCRIPTION');?></div>
 			<div class="xbbox xbboxcyan">
 				<?php echo $item->description; ?>
 			</div>
@@ -87,7 +87,7 @@ if ($imgok) {
 <div class="row-fluid">
 	<?php if ($this->show_cat) : ?>
 		<div class="span5">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBCULTURE_CAPCATEGORY'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_CAPCATEGORY'); ?></div>
 			<div class="pull-left label label-success">
 				<?php if ($this->show_cat==2) : ?>
 					<a href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
@@ -100,7 +100,7 @@ if ($imgok) {
 	<?php endif; ?>
 	<?php if(($this->show_tags) && (!empty($item->tags))) : ?>
 		<div class="span<?php $this->showcat ? '7' : '12';?>">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('COM_XBBOOKS_CAPTAGS'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPTAGS'); ?></div>
 			<div class="pull-left">
 				<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
 			    	echo $tagLayout->render($item->tags);
@@ -115,22 +115,22 @@ if ($imgok) {
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="hasTooltip xbinfo" title 
-					data-original-title="<?php echo JText::_('COM_XBBOOKS_INFO_PREVNEXT'); ?>" >
+					data-original-title="<?php echo Text::_('COM_XBBOOKS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
 					<a href="index.php?option=com_xbbooks&view=character&id=<?php echo $item->prev ?>" class="btn btn-small">
-						<?php echo JText::_('COM_XBBOOKS_CAPPREV'); ?></a>
+						<?php echo Text::_('COM_XBBOOKS_CAPPREV'); ?></a>
 			    <?php endif; ?>
 			</div>
 			<div class="span8"><center>
 				<a href="index.php?option=com_xbbooks&view=characters" class="btn btn-small">
-					<?php echo JText::_('Character List'); ?></a></center>
+					<?php echo Text::_('XBCULTURE_CHAR_LIST'); ?></a></center>
 			</div>
 			<div class="span2">
 			<?php if($item->next > 0) : ?>
 				<a href="index.php?option=com_xbbooks&view=character&id=<?php echo $item->next ?>" class="btn btn-small pull-right">
-					<?php echo JText::_('COM_XBBOOKS_CAPNEXT'); ?></a>
+					<?php echo Text::_('COM_XBBOOKS_CAPNEXT'); ?></a>
 		    <?php endif; ?>
 			</div>
 	      </div>

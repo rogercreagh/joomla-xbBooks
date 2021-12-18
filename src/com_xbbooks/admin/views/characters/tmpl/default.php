@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.9.2 9th April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -74,7 +74,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<?php if ($search) {
 		echo '<p>Searched for <b>'; 
 		if (stripos($search, 'i:') === 0) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBBOOKS_AS_PERSONID');
+            echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_AS_ID');
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'd:') === 0)) {
             echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBBOOKS_AS_INBIOG');
         } else {
@@ -123,7 +123,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php if ($this->xbpeople_ok!==false) {
 							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
 						}
-						echo Text::_( 'Tags' ); ?>
+						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 				</th>
     			
     			<th class="nowrap hidden-phone" style="width:45px;">
@@ -196,7 +196,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<p class="xbtitlelist">
 							<?php if ($item->checked_out) {
 							    $couname = Factory::getUser($item->checked_out)->username;
-							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENED_BY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
+							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
 							} ?>
 							
 							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('COM_XBBOOKS_EDIT_PERSON'); ?>">
@@ -232,7 +232,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<td>
 						<?php if (count($item->books)>0) { 
 						    echo '<span class="xb09 xbnorm"><i>';
-						    echo Text::_('Appers in').' '.count($item->books).' ';
+						    echo Text::_('XBCULTURE_APPEARS_IN').' '.count($item->books).' ';
 						    echo Text::_((count($item->books)==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS'); 
 						    echo '</i><br />';
 						    echo XbbooksGeneral::makeLinkedNameList($item->books,'','<br />',true).'</span><br />';

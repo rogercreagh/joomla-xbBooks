@@ -458,7 +458,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	                 		$query->clear();
 	                 		$db->setQuery($newqry);
 	                 		if (!$db->execute()) {
-	                 			Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+	                 			Factory::getApplication()->enqueueMessage('JDatabase::query: '.Text::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 	                 			$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 	                 		} else {
 	                 			$importcnts[$table] ++;
@@ -1424,7 +1424,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 							$db->setQuery($sqlbook);
 							$db->execute();
 						} catch (Exception $e) {
-							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+							Factory::getApplication()->enqueueMessage('JDatabase::query: '.Text::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 							$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 							return $importcnts;
 						}
@@ -1480,7 +1480,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 							$db->setQuery($sqlperson);
 							$db->execute();
 						} catch (Exception $e) {
-							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+							Factory::getApplication()->enqueueMessage('JDatabase::query: '.Text::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 							$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 							return $importcnts;
 						}
@@ -1532,7 +1532,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 							$db->setQuery($sqlperson);
 							$db->execute();
 						} catch (Exception $e) {
-							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+							Factory::getApplication()->enqueueMessage('JDatabase::query: '.Text::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 							$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 							return $importcnts;
 						}
@@ -1570,7 +1570,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 								$db->setQuery($sqllink);
 								$db->execute();
 							} catch (Exception $e) {
-								Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+								Factory::getApplication()->enqueueMessage('JDatabase::query: '.Text::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 								$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 								return $importcnts;
 							}
@@ -1604,7 +1604,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 								$db->setQuery($sqllink);
 								$db->execute();
 							} catch (Exception $e) {
-								Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+								Factory::getApplication()->enqueueMessage('JDatabase::query: '.Text::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 								$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 								return $importcnts;
 							}
@@ -1664,7 +1664,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 								$db->setQuery($sqlrev);
 								$db->execute();
 							} catch (Exception $e) {
-								Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+								Factory::getApplication()->enqueueMessage('JDatabase::query: '.Text::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 								$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 								return $importcnts;
 							}

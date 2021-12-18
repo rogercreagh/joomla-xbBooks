@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Language\Text;
 
 
 class XbbooksModelBook extends JModelAdmin {
@@ -166,7 +167,7 @@ class XbbooksModelBook extends JModelAdmin {
             foreach ($pks as $i=>$item) {
                 $table->load($item);
                 if (!$table->delete($item)) {
-                	$bookword = ($cnt == 1)?  JText::_('ONEBOOK') : JText::_('MANYBOOKS');
+                	$bookword = ($cnt == 1)?  Text::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');
                     Factory::getApplication()->enqueueMessage($cnt.$bookword.' deleted');
                     $this->setError($table->getError());
                     return false;
@@ -174,7 +175,7 @@ class XbbooksModelBook extends JModelAdmin {
                 $table->reset();
                 $cnt++;
             }
-            $bookword = ($cnt == 1)? JText::_('ONEBOOK') : JText::_('MANYBOOKS');
+            $bookword = ($cnt == 1)? Text::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');
             Factory::getApplication()->enqueueMessage($cnt.$bookword.' deleted');
             return true;
         }

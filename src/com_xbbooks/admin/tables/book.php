@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/book.php
- * @version 0.7.0 23rd February 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Language\Text;
 
 class XbbooksTableBook extends JTable
 {
@@ -29,12 +30,12 @@ class XbbooksTableBook extends JTable
 	    $title = trim($this->title);
 	    //require title
 	    if ($title == '') {
-	        $this->setError(JText::_('XBCULTURE_PROVIDE_VALID_TITLE'));
+	        $this->setError(Text::_('XBCULTURE_PROVIDE_VALID_TITLE'));
 	        return false;
 	    }
 	    
 	    if (($this->id == 0) && (XbbooksHelper::checkTitleExists($title,'#__xbbooks'))) {
-	    	$this->setError(JText::_('Book "'.$title.'" already exists; if this is a different book with the same title please append something to the title to distinguish them'));
+	    	$this->setError(Text::_('Book "'.$title.'" already exists; if this is a different book with the same title please append something to the title to distinguish them'));
 	    	return false;
 	    }
 	    
@@ -55,10 +56,10 @@ class XbbooksTableBook extends JTable
 	        }
 	        if ($defcat>0) {
 	            $this->catid = $defcat;
-	            Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
+	            Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
 	        } else {
 	        	// this shouldn't happen unless uncategorised has been deleted
-	        	$this->setError(JText::_('Please set a category'));
+	        	$this->setError(Text::_('XBCULTURE_CATEGORY_MISSING'));
 	            return false;
 	        }
 	    }
@@ -66,7 +67,7 @@ class XbbooksTableBook extends JTable
 	    //require summary, warn if missing
 	    if ((trim($this->summary)=='')) {
 	        if (trim($this->synopsis)=='' ) {
-	            Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_MISSING_SUMMARY'));
+	            Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_MISSING_SUMMARY'));
 	        }
 	    }
 	    

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.9.4 14th April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -133,7 +133,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
-						Text::_( 'Tags' ); ?>
+						Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
     			
     			<th class="nowrap hidden-phone" style="width:45px;">
@@ -206,7 +206,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 						<p class="xbtitlelist">
 							<?php if ($item->checked_out) {
 							    $couname = JFactory::getUser($item->checked_out)->username;
-							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENED_BY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
+							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
 							} ?>
 							
 							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('COM_XBBOOKS_EDIT_PERSON'); ?>">
@@ -277,13 +277,13 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 						}?>
 						<?php if ($item->ocnt>0) { 
 							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->olist.'">';
-							echo Text::_('Other role in').' '.$item->ocnt.' ';
+							echo Text::_('XBCULTURE_OTHER_ROLE_IN').' '.$item->ocnt.' ';
                             echo Text::_(($item->ocnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS'); 
                             echo '</span><br />';
 						}?>
 						<?php if ($item->filmcnt>0) {
 							echo '<span class="xbnit">';
-							echo Text::_('also with').' <a href="'.$fplink.$item->id.'">'.$item->filmcnt.' ';
+							echo Text::_('XBCULTURE_ALSO_WITH').' <a href="'.$fplink.$item->id.'">'.$item->filmcnt.' ';
 							echo Text::_(($item->filmcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');
 							echo '</a></span>';
 						}?>

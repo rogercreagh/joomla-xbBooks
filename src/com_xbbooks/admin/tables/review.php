@@ -16,6 +16,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Table\Observer\Tags;
 use Joomla\Registry\Registry;
+use Joomla\CMS\Language\Text;
 
 class XbbooksTableReview extends JTable
 {
@@ -54,7 +55,7 @@ class XbbooksTableReview extends JTable
     			Factory::getApplication()->enqueueMessage('No review title supplied; default created - please check and change as necessary','Warning');
     		}
     		if (($this->id == 0) && (XbbooksHelper::checkTitleExists($title,'#__xbbookreviews'))) {
-    			$this->setError(JText::_('Review "'.$title.'" already exists; if this is a different review with the same title please append something to the title to distinguish them'));
+    			$this->setError(Text::_('Review "'.$title.'" already exists; if this is a different review with the same title please append something to the title to distinguish them'));
     			return false;
     		}
     		if (trim($this->alias) == '') {
@@ -86,10 +87,10 @@ class XbbooksTableReview extends JTable
     		}
     		if ($defcat>0) {
     			$this->catid = $defcat;
-    			Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
+    			Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
     		} else {
     			// this shouldn't happen unless uncategorised has been deleted
-    			$this->setError(JText::_('XBCULTURE_CATEGORY_MISSING'));
+    			$this->setError(Text::_('XBCULTURE_CATEGORY_MISSING'));
     			return false;
     		}
     	}
@@ -97,7 +98,7 @@ class XbbooksTableReview extends JTable
         //warn re missing summary, create from review if missing
         if ((trim($this->summary)=='')) {
         	if (trim($this->review)=='' ) {
-        		Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_MISSING_SUMMARY'));
+        		Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_MISSING_SUMMARY'));
         	}
         }
                 

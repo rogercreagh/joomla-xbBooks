@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/view.html.php
- * @version 0.8.6 2nd April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -67,7 +67,7 @@ class XbbooksViewBook extends JViewLegacy {
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle($this->item->title);
-		$document->setMetaData('title', JText::_('Book catalogue entry for').' '.$this->item->title);
+		$document->setMetaData('title', JText::_('COM_XBBOOKS_BOOK_CATALOGUE_FOR').' '.$this->item->title);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

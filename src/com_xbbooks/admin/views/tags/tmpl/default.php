@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/tags/tmpl/default.php
- * @version 0.8.3 18th March 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -127,7 +127,7 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
  				<td>
 					<?php if ($item->checked_out) {
     					$couname = Factory::getUser($item->checked_out)->username;
-    					echo JHtml::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'tags.', false);
+    					echo JHtml::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENEDBY').': '.$couname, $item->checked_out_time, 'tags.', false);
     				} ?>
 					<span class="xbnote"> 
  					<?php 	$path = substr($item->path, 0, strrpos($item->path, '/'));

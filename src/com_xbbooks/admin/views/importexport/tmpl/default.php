@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/importexport/tmpl/default.php
- * @version 0.6.7.1 20th January 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -124,7 +124,7 @@ JHtml::_('formbehavior.chosen', 'select');
 					<div class="alert alert-success">
 					<b><?php echo JText::_('COM_XBBOOKS_OPT_MYSQL_FULL');?></b>: 
 						<?php echo JText::_('COM_XBBOOKS_EXP_MYSQL_FULL_TIP');?><br />
-					<b><?php echo JText::_('COM_XBBOOKS_OPT_SQL_TABLE');?></b>: 
+					<b><?php echo JText::_('COM_XBBOOKS_OPT_MYSQL_TABLE');?></b>: 
 						<?php echo JText::_('COM_XBBOOKS_EXP_MYSQL_TABLE_TIP');?><br />
 					<b><?php echo JText::_('COM_XBBOOKS_OPT_CSV_TABLE');?></b>: 
 						<?php echo JText::_('COM_XBBOOKS_EXP_CSV_TABLE_TIP');?><br />

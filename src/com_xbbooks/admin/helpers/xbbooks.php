@@ -147,7 +147,7 @@ class XbbooksHelper extends ContentHelper
 					$vName == 'reviews'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('Book Cat.Counts'),
+					Text::_('COM_XBBOOKS_BOOK_CAT_CNT'),
 					'index.php?option=com_xbbooks&view=bcategories',
 					$vName == 'bcategories'
 					);

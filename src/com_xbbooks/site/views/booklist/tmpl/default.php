@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,8 @@ if (!$listOrder) {
     $listOrder='cat_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>'Year Published', 'averat'=>'Average Rating', 'cat_date'=>'Last Read','category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
+		'cat_date'=>Text::_('COM_XBBOOKS_DATE_READ'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -203,7 +204,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 					<?php if ($this->show_rev != 0 ) : ?>
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'Not rated yet' ) : Text::_( 'COM_XBBOOKS_NOREVIEW' ); ?></i><br />
+    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
     						<?php else : ?> 
 	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
 	                            <div>
@@ -228,7 +229,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     											<?php echo $rev->rating;?><i class="<?php echo $this->star_class; ?>"></i> 
     			                            <?php endif; ?>
     	                                	<i>by</i> <?php echo $rev->reviewer; ?> 
-    	                                	<i>on</i> <?php  echo HtmlHelper::date($rev->rev_date , Text::_('d M Y')); ?>
+    	                                	<i>on</i> <?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
         								</div>
         							<?php endforeach; ?> 
         						<?php endif; ?>
@@ -237,9 +238,9 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     				<?php endif; ?>
     				<td>
     					<p><?php if($item->lastread=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date , Text::_('d M Y')).')</span>';
+    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date , 'M Y').')</span>';
     					} else {
-    						echo HtmlHelper::date($item->lastread , Text::_('d M Y')); 
+    						echo HtmlHelper::date($item->lastread , 'd M Y'); 
     					}?> </p>
      				</td>
                     <?php if($this->show_ctcol) : ?>

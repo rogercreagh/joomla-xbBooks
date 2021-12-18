@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/blog/tmpl/default.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -88,7 +88,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			$evenrow = !$evenrow;
 		?>
         <div class="xbbox xbboxwht">  
-        <h4><?php echo HtmlHelper::date($item->rev_date , Text::_('l jS F Y')); ?></h4>
+        <h4><?php echo HtmlHelper::date($item->rev_date , 'l jS F Y'); ?></h4>
 		<div class="row-fluid">
 			<div class="xbbox <?php echo $rowcol; ?>">
 				<div class="row-fluid">
@@ -128,12 +128,12 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 							<div class="span9">
 		                        <?php if ($item->acnt>0) : ?>
 									<h4><span class="xbnit xbmr10">
-										<?php echo Text::_(($item->acnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_CAPAUTHORS'); ?>
+										<?php echo Text::_(($item->acnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_AUTHORS'); ?>
 									: </span>
 									<?php echo $item->alist; ?>                          
 									</h4>
 								<?php else: ?>
-									<p class="xbnit"><?php echo Text::_('no author listed'); ?></p>
+									<p class="xbnit"><?php echo Text::_('COM_XBBOOKS_NOAUTHOR'); ?></p>
 		                        <?php endif; ?>
 							</div>
 						</div>   						
@@ -160,7 +160,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			</div>
 			<div class="span6">
 				<?php if ($this->show_bcat) : ?>
-					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Book category'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_BOOK_CATEGORY'); ?></div>
 					<div class="pull-left">
 					<?php if ($this->show_bcat == 2) : ?>
     					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
@@ -175,7 +175,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				<?php endif; ?>
 				<?php if ($this->show_btags) : ?>
 					<?php if (!empty($item->btags)) : ?>
-						<div class="pull-left xbnit xbmr10"><?php echo Text::_('Book Tags'); ?>
+						<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_BOOK_TAGS'); ?>
 						</div>
 						<div class="pull-left">
 							<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
@@ -190,16 +190,16 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 		<div class="row-fluid"><div class="span1"></div>
 			<div class="span5">
 				<p><span class="xbnit"> 
-					<?php echo Text::_(trim($item->review != '') ? 'Reviewed' : 'Rated').' by '; ?> </span>
+					<?php echo Text::_(trim($item->review != '') ? 'XBCULTURE_REVIEWED' : 'XBCULTURE_RATED').' by '; ?> </span>
 					<b><?php echo $item->reviewer; ?></b>,  
-					<?php echo Text::_('COM_XBBOOKS_ON').'&nbsp;'.HtmlHelper::date($item->rev_date , Text::_('d M Y')) ; ?> 
+					<?php echo Text::_('XBCULTURE_ON').'&nbsp;'.HtmlHelper::date($item->rev_date , 'd M Y') ; ?> 
 				</p> 
 			</div>
 			<div class="span6">
 				<?php $sumtext =  trim($item->summary);
 				if ( $sumtext != '') : ?>
 					<div class="xbbox xbboxwht">
-						<div class="pull-left"><span class="xbnit"><?php echo Text::_('Review Summary'); ?> 
+						<div class="pull-left"><span class="xbnit"><?php echo Text::_('XBCULTURE_REVIEW_SUMMARY'); ?> 
 						: </span></div>
 					 	<div><?php echo $sumtext; ?></div> 
 					</div>
@@ -229,7 +229,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			<div class="row-fluid">
 			<?php if($this->show_rcat) : ?>
 				<div class="span4">
-					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Review category'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_REVIEW_CATEGORY'); ?></div>
 					<div class="pull-left">
 						<?php if($this->show_rcat ==2) : ?>
 	    					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
@@ -246,7 +246,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			<?php if ($this->show_rtags) : ?>
 		       	<div class="span<?php echo ($this->show_fcat) ? '8' : '12'; ?>">
 				<?php if (!empty($item->tags)) : ?>
-					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Review Tags'); ?>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_REVIEW_TAGS'); ?>
 					</div>
 					<div class="pull-left">
 						<?php  $tagLayout = new JLayoutFile('joomla.content.tags');

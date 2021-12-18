@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/cpanel/tmpl/default.php
- * @version 0.9.6 15th December 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -327,7 +327,7 @@ if (!$this->xbpeople_ok) : ?>
 				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right">
 						<?php echo $this->catStates['total']; ?></span> 
-					<?php echo JText::_('Book Categories'); ?>
+					<?php echo JText::_('COM_XBBOOKS_BOOK_CATEGORIES'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">
@@ -361,7 +361,7 @@ if (!$this->xbpeople_ok) : ?>
  				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right">
 						<?php echo $this->pcatStates['total']; ?></span> 
-					<?php echo JText::_('People Categories'); ?>
+					<?php echo JText::_('XBCULTURE_PEOPLE_CATEGORIES'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">
@@ -396,7 +396,7 @@ if (!$this->xbpeople_ok) : ?>
 			<div class="xbbox xbboxgrey">
 				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right"><?php echo ($this->tags['tagcnts']['bkcnt'] + $this->tags['tagcnts']['percnt']   + $this->tags['tagcnts']['charcnt']  + $this->tags['tagcnts']['revcnt']) ; ?></span> 
-					<?php echo JText::_('Tagged Items'); ?>
+					<?php echo JText::_('XBCULTURE_TAGGED_ITEMS'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">

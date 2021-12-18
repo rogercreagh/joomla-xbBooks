@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.3 12th April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Text;
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
-HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => JText::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
+HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => Text::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $document = JFactory::getDocument();
@@ -41,15 +41,15 @@ $style = '.controls .btn-group > .btn  {'
                 	<div class="row-fluid xbbox xbboxgrey">
 						<div class="span6">
 							<?php if (($this->item->id > 0) && (!empty($this->item->lastrat))) { 
-                                echo Text::_('Last rated').' ';
+                                echo Text::_('XBCULTURE_LAST_RATED').' ';
                                 if ($this->item->lastrat['rate']>0) {
                                 	echo str_repeat('<i class="'.$this->star_class.' "></i>',(int)($this->item->lastrat['rate']));
                                 } else {
                                 	echo '<i class="'.$this->zero_class.' "></i>';
                                 }
-                                echo ' on '.HtmlHelper::date($this->item->lastrat['read_date'] , Text::_('d M Y'));
+                                echo ' on '.HtmlHelper::date($this->item->lastrat['read_date'] , 'd M Y');
                             } else { 
-                                echo Text::_('No rating yet');
+                                echo Text::_('XBCULTURE_NO_RATING');
                             } ?>
                         </div>
                         <div class="span6">
@@ -78,7 +78,7 @@ $style = '.controls .btn-group > .btn  {'
       <div class="span12">
 		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
 
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', JText::_('Details')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBCULTURE_DETAILS')); ?>
 		<div class="row-fluid">
     		<div class="span6">
           		<h4>Content</h4>
@@ -105,15 +105,15 @@ $style = '.controls .btn-group > .btn  {'
 			<?php echo $this->form->renderField('ext_links'); ?>
    		</div>
  		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', JText::_('People')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', Text::_('XBCULTURE_PEOPLE_U')); ?>
   		<div class="row-fluid">
 			<div class="span9">
-				<h4><?php echo Text::_('People and Characters associated with the film');?></h4>
+				<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_PEOPLE_AND_CHARS');?></h4>
 				<?php echo $this->form->renderField('editorlist'); ?>
 				<p class="xbnote">Use this section for additional roles in producing the book such as translator, illustratior, etc.</p>
 				<?php echo $this->form->renderField('otherlist'); ?>
 				<?php echo $this->form->renderField('menlist'); ?>
-				<p class="xbnote"><?php echo JText::_('COM_XBBOOKS_FIELD_CHARS_NOTE');?> </p>
+				<p class="xbnote"><?php echo Text::_('COM_XBBOOKS_FIELD_CHARS_NOTE');?> </p>
 				<?php echo $this->form->renderField('charlist'); ?>
 			</div>
     		<div class="span3">
@@ -129,7 +129,7 @@ $style = '.controls .btn-group > .btn  {'
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_XBBOOKS_FIELDSET_PUBLISHING')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('COM_XBBOOKS_FIELDSET_PUBLISHING')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
 				<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>

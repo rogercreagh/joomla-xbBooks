@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 0.9.2 9th April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -124,7 +124,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         		</th>
  					<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
-						Text::_( 'Tags' ); ?>
+						Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
         		
         		<th class="nowrap hidden-phone" style="width:45px;">
@@ -187,7 +187,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						<p class="xbtitlelist">
     						<?php if ($item->checked_out) {
     						    $couname = JFactory::getUser($item->checked_out)->username;
-    						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'review.', $canCheckin);
+    						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').': '.$couname, $item->checked_out_time, 'review.', $canCheckin);
     						} ?>
     						<a href="<?php echo JRoute::_($relink . $item->id); ?>" title="<?php echo Text::_('COM_XBBOOKS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
@@ -216,7 +216,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 								} 
 							 ?>
 							</div>
-							<p class="xb09"><i>on: </i><?php echo HtmlHelper::date($item->rev_date , Text::_('d M Y')); ?>
+							<p class="xb09"><i>on: </i><?php echo HtmlHelper::date($item->rev_date , 'd M Y'); ?>
 							</p>
 						</td>
 						<td class="hidden-phone">

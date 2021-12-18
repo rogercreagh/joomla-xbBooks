@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbBooks
- * @filesource site/views/book/tmpl/default.php
+ * @version 0.9.6.a 18th December 2021
  * @version 0.9.5 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -89,7 +89,7 @@ if ($imgok) {
     								<?php echo $item->alist; ?> 
 								</h4>
 							<?php else : ?>
-								<p class="xbnit"><?php echo JText::_('Author not listed'); ?></p>                         
+								<p class="xbnit"><?php echo Text::_('COM_XBBOOKS_NOAUTHOR'); ?></p>                         
 	                        <?php endif; ?>						
 						</div>
 					</div>   
@@ -193,10 +193,10 @@ if ($imgok) {
 	<?php endif; ?>
     
 </div>	
-<?php if ((!$hide_empty) || ($item->lastread>0)) : ?>
-	<div class="pull-left xbnit"><?php echo ($item->lastread>0) ? 'Last read: ' : JText::_('COM_XBFILMS_ADDED_CATALOGUE').': '; ?></div>
+<?php if ($item->lastread>0) : ?>
+	<div class="pull-left xbnit"><?php echo  Text::_('COM_XBBOOKS_DATE_READ').': '; ?></div>
 	<div class="pull-left">
-		<?php echo HtmlHelper::date($item->lastread , Text::_('D jS M Y')) ; ?>
+		<?php echo HtmlHelper::date($item->lastread , 'D jS M Y') ; ?>
     </div>
 	<div class="clearfix"></div> 
 	<hr />
@@ -265,7 +265,7 @@ if ($imgok) {
 							<?php endif; ?>
 							<?php if ($this->show_brevs>0) : ?>
 								<p><?php echo ' by '.$rev->reviewer;
-									echo ' on '.HtmlHelper::date($rev->rev_date , Text::_('D jS M Y')).'. '; ?>
+									echo ' on '.HtmlHelper::date($rev->rev_date ,'D jS M Y').'. '; ?>
 								</p>
 							<?php endif; ?>
 							<?php if ($this->show_brevs==2) : ?>

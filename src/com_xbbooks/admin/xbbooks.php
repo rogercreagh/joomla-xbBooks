@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/xbbooks.php
- * @version 0.9.0 7th April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,7 @@ $document->addStyleSheet($cssFile);
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 $document->addStyleSheet($cssFile);
 
-Factory::getLanguage()->load('com_xbculture');
+Factory::getLanguage()->load('com_xbculture', JPATH_ADMINISTRATOR);
 
 // Require helper file
 JLoader::register('XbbooksHelper', JPATH_ADMINISTRATOR . '/components/com_xbbooks/helpers/xbbooks.php');

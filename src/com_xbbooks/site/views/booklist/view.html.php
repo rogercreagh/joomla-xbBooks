@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/view.html.php
- * @version 0.8.6 2nd April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,7 +60,7 @@ class XbbooksViewBooklist extends JViewLegacy {
 		}
 		//set metadata
 		$document=$this->document;
-		$document->setMetaData('title', JText::_('Books catalogue listing').': '.$document->title);
+		$document->setMetaData('title', JText::_('COM_XBBOOKS_BOOK_CATALOGUE'));
 		$metadesc = $this->params->get('menu-meta_description');
 		if (!empty($metadesc)) { $document->setDescription($metadesc); }
 		$metakey = $this->params->get('menu-meta_keywords');

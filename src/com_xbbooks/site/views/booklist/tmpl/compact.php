@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 0.8.6 2nd April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -76,7 +76,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 					?>
 				</th>					
 				<th>
-					<?php echo Text::_('Editor/Author');?>
+					<?php echo Text::_('XBCULTURE_AUTHOR');?>
 				</th>
 				<th class="xbtc">
 					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
@@ -116,7 +116,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         		echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
+	                        		<?php // echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->alist; 
                         	} ?>                          	
@@ -145,7 +145,9 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 											
 					</td>
 					<td class="hidden-phone">
-						<p class="xb09"><?php echo $item->cat_date > 0 ? HtmlHelper::date($item->cat_date , Text::_('M Y')) : ''; ?></p>					
+    					<p><?php if($item->lastread) {
+    						echo HtmlHelper::date($item->lastread , 'd M Y'); 
+    					}?> </p>
 					</td>
 				</tr>
 				<?php endforeach;?>

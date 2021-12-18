@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/person.php
- * @version 0.8.6.1 5th April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Language\Text;
 
 class XbbooksModelPerson extends JModelAdmin {
  
@@ -150,15 +151,15 @@ class XbbooksModelPerson extends JModelAdmin {
 	        foreach ($pks as $i=>$item) {
 	            $table->load($item);	            
 	            if (!$table->delete($item)) {
-	                $personpeople = ($cnt == 1)? JText::_('ONEPERSON') : JText::_('MANYPEOPLE');
-	                Factory::getApplication()->enqueueMessage($cnt.$personpeople.' deleted');
+	                $personpeople = ($cnt == 1)? Text::_('XBCULTURE_PERSON') : Text::_('XBCULTURE_PEOPLE');
+	                Factory::getApplication()->enqueueMessage($cnt.' '.$personpeople.' deleted');
 	                $this->setError($table->getError());
 	                return false;
 	            }
 	            $table->reset();
 	            $cnt++;
 	        }
-	        $personpeople = ($cnt == 1)? JText::_('ONEPERSON') : JText::_('MANYPEOPLE');
+	        $personpeople = ($cnt == 1)? Text::_('XBCULTURE_PERSON') : Text::_('XBCULTURE_PEOPLE');
 	        Factory::getApplication()->enqueueMessage($cnt.$personpeople.' deleted');
 	        return true;
 	    }

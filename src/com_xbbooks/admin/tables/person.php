@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/person.php
- * @version 0.8.6.1 5th April 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,6 +17,7 @@ use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Table\Observer\Tags;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Language\Text;
 
 class XbbooksTablePerson extends JTable
 {
@@ -42,12 +43,12 @@ class XbbooksTablePerson extends JTable
     	$lastname = trim($this->lastname);
     	
     	if ($lastname == '') {
-    	    $this->setError(JText::_('COM_XBBOOKS_PROVIDE_VALID_NAME'));
+    	    $this->setError(Text::_('COM_XBBOOKS_PROVIDE_VALID_NAME'));
     	    return false;
     	}
     	
     	if (($this->id == 0) && (XbbooksHelper::checkPersonExists($firstname,$lastname))) {
-    		$this->setError(JText::_('Person  "'.$firstname.' '.$lastname.'" already exists; if this is a different individual with the same name please append something to the name to distinguish them'));
+    		$this->setError(Text::_('Person  "'.$firstname.' '.$lastname.'" already exists; if this is a different individual with the same name please append something to the name to distinguish them'));
     		return false;
     	}
     	
@@ -75,11 +76,11 @@ class XbbooksTablePerson extends JTable
             }
             if ($defcat>0) {
                 $this->catid = $defcat;
-                Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
+                Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
             } else {
             	// this shouldn't happen unless uncategorised has been deleted or xbpeople not installed
             	if (Factory::getSession()->get('xbpeople_ok')==true) {
-            		$this->setError(JText::_('COM_XBBOOKS_MISSING_CATEGORY'));
+            		$this->setError(Text::_('XBCULTURE_CATEGORY_MISSING'));
             		return false;
             	} else {
             		$this->catid = 0; //xbpeople not installed so no people categories available
@@ -90,7 +91,7 @@ class XbbooksTablePerson extends JTable
         //warn re missing summary and biog
         if ((trim($this->summary)=='')) {
         	if (trim($this->biography)=='' ) {
-        		Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_MISSING_SUMMARY'));
+        		Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_MISSING_SUMMARY'));
         	}
         }
         

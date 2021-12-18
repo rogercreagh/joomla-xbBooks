@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 0.9.5.1 12th May 2021
+ * @version 0.9.6.a 18th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -63,7 +63,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<div class="pull-right span2">
 		<p style="text-align:right;">
 			<?php $fnd = $this->pagination->total;
-			echo $fnd .' '. JText::_(($fnd==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS').' '.JText::_('XBCULTURE_FOUND');
+			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS').' '.Text::_('XBCULTURE_FOUND');
             ?>
 		</p>
 	</div>
@@ -78,11 +78,11 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<?php if ($search) : ?>
 		<?php echo '<p>Searched for <b>'; ?>
 		<?php if (stripos($search, 'i:') === 0) {
-                echo trim(substr($search, 2)).'</b> '.JText::_('COM_XBBOOKS_AS_BOOKID');
+                echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBBOOKS_AS_BOOKID');
             } elseif (stripos($search, 's:') === 0) {
-                echo trim(substr($search, 2)).'</b> '.JText::_('COM_XBBOOKS_AS_INSYNOP');
+                echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBBOOKS_AS_INSYNOP');
             } else {
-				echo trim($search).'</b> '.JText::_('COM_XBBOOKS_AS_INTITLE');
+				echo trim($search).'</b> '.Text::_('COM_XBBOOKS_AS_INTITLE');
 			}
 			echo '</p>';
         ?>	
@@ -131,7 +131,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','cat_date',$listDirn,$listOrder ).', '.
 										HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
-						Text::_( 'Tags' ); ?>
+						Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
 					<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
 						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
@@ -176,7 +176,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<div class="btn-group">
 							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'book.', $canChange, 'cb'); ?>
 							<?php if ($item->note!=""){ ?>
-								<span class="btn btn-micro active hasTooltip" title="" data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+								<span class="btn btn-micro active hasTooltip" title="" data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>
@@ -205,11 +205,11 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<p class="xbtitlelist">
 						<?php if ($item->checked_out) {
 						    $couname = Factory::getUser($item->checked_out)->username;
-						    echo HTMLHelper::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'book.', $canCheckin);
+						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').': '.$couname, $item->checked_out_time, 'book.', $canCheckin);
 						} ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
 							<a href="<?php echo JRoute::_($belink.$item->id);?>"
-								title="<?php echo JText::_('COM_XBBOOKS_EDIT_BOOK'); ?>" >
+								title="<?php echo Text::_('COM_XBBOOKS_EDIT_BOOK'); ?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php else : ?>
 							<?php echo $this->escape($item->title); ?>
@@ -218,20 +218,20 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                           echo '<br /><span class="xbnorm xb09">'.$this->escape($item->subtitle).'</span>';
                         } ?>
                         <br />                        
-						<?php $alias = JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
+						<?php $alias = Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
                         <span class="xbnit xb08"><?php echo $alias;?></span>
 						<br /><span class="xb09">
 						<?php if ($item->editcnt>0) : ?>
 							<span class="xbnit">
-								<?php echo JText::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
+								<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
 							: </span>
 							<span class="hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo ($item->editcnt>0)? JText::_('XBCULTURE_AUTHOR').': '.strip_tags($item->alist) : ''; ?>
+								<?php echo ($item->editcnt>0)? Text::_('XBCULTURE_AUTHOR').': '.strip_tags($item->alist) : ''; ?>
 								"> 
 								<?php echo $item->elist; ?>
 							</span>						
 						<?php elseif ($item->authcnt>0) : ?>
-							<span class="xbnit"><?php echo JText::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>: </span>
+							<span class="xbnit"><?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>: </span>
 							<?php echo $item->alist; ?>
 						<?php endif; ?>
 						<?php if($item->othcnt>0) :?>
@@ -241,7 +241,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<br />
 						</span>
 							<span class="xb09">
-								<?php echo $item->pubyear > 0 ? '<span class="xbnit">'.JText::_('Published').': </span>'.$item->pubyear : ''; ?>						
+								<?php echo $item->pubyear > 0 ? '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').': </span>'.$item->pubyear : ''; ?>						
 							</span>
 						</p>						
 					</td>
@@ -272,14 +272,14 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                             if ($item->mencnt>0) { $list .= '<span class="hasTooltip" data-original-title="'.htmlentities($item->mlist).'">'.$item->mencnt.' subjects<span>, ';}
                             if ($item->charcnt>0) { $list .= '<span class="hasTooltip" data-original-title="'.htmlentities($item->clist).'">'. $item->charcnt.' characters<span> ';}
                             if ($list != '') {
-                            	echo trim($list,', ').' '.JText::_('listed');
+                            	echo trim($list,', ').' '.Text::_('XBCULTURE_LISTED');
                             } else {
-                            	echo JText::_('no people listed');
+                            	echo Text::_('XBCULTURE_NO_PEOPLE');
                             } ?>
 						</p>
 						<?php if($item->ext_links_cnt >0 ) : ?>
 							<p class="xbnit xb095">	
-								<?php echo JText::_('XBCULTURE_EXTLINK_LBL').': '; 
+								<?php echo Text::_('XBCULTURE_EXTLINK_LBL').': '; 
 	                            echo '<span class="xb09 xbnorm">';
 	                            echo $item->ext_links_list.'</span>'; ?>
 	                    	</p>
@@ -288,7 +288,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<td class="hidden-phone">
 						<?php if ($item->revcnt==0) : ?>
 						    <a href="'.JRoute::_($relink.'0&bk='.$item->id).'">
-                            <i><?php echo JText::_('COM_XBBOOKS_NOREVIEW'); ?></i></a><br /> 
+                            <i><?php echo Text::_('COM_XBBOOKS_NOREVIEW'); ?></i></a><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
                             <div class="xbbb1">
@@ -323,7 +323,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	    								    echo Factory::getUser($rev->created_by)->name;
 	    								} ?>
 	    								</span>
-	    								<span class="xb09"> <?php echo HtmlHelper::date($rev->rev_date , Text::_('d M Y')); ?></span>
+	    								<span class="xb09"> <?php echo HtmlHelper::date($rev->rev_date ,'d M Y'); ?></span>
 									</a>
 								</div>
 							<?php endforeach; ?>
@@ -338,9 +338,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					</td>
 					<td>
     					<p class="xb09"><?php if($item->lastread=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date , Text::_('d M Y')).')</span>';
+    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date ,'d M Y').')</span>';
     					} else {
-    						echo HtmlHelper::date($item->lastread , Text::_('d M Y')); 
+    						echo HtmlHelper::date($item->lastread ,'d M Y'); 
     					}?> </p>
 						<p><a class="label label-success" href="<?php echo $cvlink.$item->catid; ?>" 
 							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
@@ -369,7 +369,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
             'bootstrap.renderModal',
             'collapseModal',
             array(
-                'title' => JText::_('XBCULTURE_BATCH_TITLE'),
+                'title' => Text::_('XBCULTURE_BATCH_TITLE'),
                 'footer' => $this->loadTemplate('batch_footer')
             ),
             $this->loadTemplate('batch_body')

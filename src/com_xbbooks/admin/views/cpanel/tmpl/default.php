@@ -56,11 +56,11 @@ if (!$this->xbpeople_ok) : ?>
 						<br/><?php echo $this->client['platform'].'<br/>'.$this->client['browser']; ?>
 					</p>
         		<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('COM_XBBOOKS_ABOUT'), 'about'); ?>
+        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('XBCULTURE_ABOUT'), 'about'); ?>
         			<p><?php echo JText::_( 'COM_XBBOOKS_ABOUT_INFO' ); ?></p>
         		<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('COM_XBBOOKS_LICENSE'), 'license'); ?>
-        			<p><?php echo JText::_( 'COM_XBBOOKS_LICENSE_INFO' ); ?>
+        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('XBCULTURE_LICENSE'), 'license'); ?>
+        			<p><?php echo JText::_( 'XBCULTURE_LICENSE_INFO' ); ?>
         				<br /><?php echo $this->xmldata['copyright']; ?>
         			</p>
 				<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>

@@ -57,7 +57,7 @@ class XbbooksViewBcategories extends JViewLegacy {
             }
         }
         if ($canDo->get('core.admin')) {
-            ToolbarHelper::editList('bcategories.categoryedit', 'COM_XBBOOKS_EDIT_CAT');
+            ToolbarHelper::editList('bcategories.categoryedit', 'XBCULTURE_EDIT_CAT');
         }
         
 //        ToolbarHelper::custom('bcategories.categorylist','list-2','','COM_XBBOOK_LIST_CAT',true);

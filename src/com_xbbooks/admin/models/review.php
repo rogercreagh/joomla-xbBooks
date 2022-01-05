@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/review.php
- * @version 0.5.3a 19th October 2020
+ * @version 0.9.6.b 22nd January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -34,7 +34,7 @@ class XbbooksModelReview extends JModelAdmin {
 				$app = Factory::getApplication();
 				$item->book_id = $app->getUserState('bk');
 				if ($item->book_id>0) {
-				    $item->title = 'Review of "'.XbbooksHelper::getBookTitleById($item->book_id).'" by '.Factory::getUser()->username;
+				    $item->title = 'Review of "'.XbbooksHelper::getBookTitleById($item->book_id).'"';
 				}
 			}		
 			return $item;

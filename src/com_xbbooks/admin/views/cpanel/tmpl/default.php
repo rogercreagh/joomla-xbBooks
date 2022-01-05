@@ -32,6 +32,12 @@ if (!$this->xbpeople_ok) : ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
 <div class="row-fluid">
+		<div id="j-sidebar-container">
+			<?php echo $this->sidebar; ?>
+		</div>
+		<div id="j-main-container" >
+		</div>
+</div>
 	<div class="<?php echo ($this->client['mobile']? 'span3' : 'span2'); ?>">
 		<?php echo $this->sidebar; ?>
 		<p> </p>

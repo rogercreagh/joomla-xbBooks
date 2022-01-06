@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/cpanel/view.html.php
- * @version 0.9.6 15th December 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -59,7 +59,33 @@ class XbbooksViewCpanel extends JViewLegacy
     		$this->show_sample = $params->get('show_sample');
     		$this->zero_rating = $params->get('zero_rating');
     		$this->zero_class = $params->get('zero_class');
-				
+
+    		$this->show_cat = $params->get('show_cats');
+    		$this->show_bookcat = $params->get('show_bcat');
+    		$this->show_revcat = $params->get('show_rcat');
+    		$this->show_percat = $params->get('show_pcat');
+    		
+    		$this->show_tags = $params->get('show_tags');
+    		$this->show_booktags = $params->get('show_btags');
+    		$this->show_revtags = $params->get('show_rtags');
+    		$this->show_pertags = $params->get('show_ptags');
+    		
+    		$this->show_search = $params->get('search_bar');
+    		
+    		$this->hide_empty = $params->get('hide_empty');
+    		
+    		$this->covers = $params->get('cover_path');
+    		$this->portraits = $params->get('portrait_path');
+    		$this->show_booklist_covers = $params->get('show_bpiccol');
+    		$this->show_book_cover = $params->get('show_bimage');
+    		$this->show_review_cover = $params->get('show_rimage');
+    		
+    		$this->show_people_portraits = $params->get('show_ppiccol');
+    		$this->show_person_portrait = $params->get('show_pimage');
+    		
+    		$this->show_booklist_rating = $params->get('show_brevcol');
+    		$this->show_book_review = $params->get('show_brevs');
+    		
     		XbbooksHelper::addSubmenu('cpanel');
 		
             // Check for errors.

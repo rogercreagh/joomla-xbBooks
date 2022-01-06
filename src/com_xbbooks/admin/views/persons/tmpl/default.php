@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -205,7 +205,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 					<td>
 						<p class="xbtitlelist">
 							<?php if ($item->checked_out) {
-							    $couname = JFactory::getUser($item->checked_out)->username;
+							    $couname = Factory::getUser($item->checked_out)->username;
 							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
 							} ?>
 							

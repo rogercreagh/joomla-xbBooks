@@ -2,13 +2,15 @@
 /*******
  * @package xbBooks
  * @filesource site/layouts/joomla/searchtools/default/filters.php
- * @version 0.5.4c 22nd October 2020
+ * @version 0.9.6.c 6th January 2022
  * @desc adds labels to the filter fields
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
+
+use Joomla\CMS\HTML\HTMLHelper;
 
 $data = $displayData;
 
@@ -22,8 +24,8 @@ $hide = $data['hide'];
 		<?php if (strpos($hide, $fieldName) === false) : ?>
 			<?php $dataShowOn = ''; ?>			
 			<?php if ($field->showon) : ?>
-				<?php JHtml::_('jquery.framework'); ?>
-				<?php JHtml::_('script', 'jui/cms.js', array('version' => 'auto', 'relative' => true)); ?>
+				<?php HtmlHelper::_('jquery.framework'); ?>
+				<?php HtmlHelper::_('script', 'jui/cms.js', array('version' => 'auto', 'relative' => true)); ?>
 				<?php $dataShowOn = " data-showon='" . json_encode(JFormHelper::parseShowOnConditions($field->showon, $field->formControl, $field->group)) . "'"; ?>
 			<?php endif; ?>
 			<div class="js-stools-field-filter" <?php echo $dataShowOn; ?> >

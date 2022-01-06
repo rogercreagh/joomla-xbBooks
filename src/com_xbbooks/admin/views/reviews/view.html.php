@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/view.html.php
- * @version 0.9.1 8th April 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -54,7 +54,7 @@ class XbbooksViewReviews extends JViewLegacy {
     protected function addToolBar() {
         $canDo = XbbooksHelper::getActions();
         
-        $bar = JToolbar::getInstance('toolbar');
+        $bar = Toolbar::getInstance('toolbar');
         
         ToolBarHelper::title(Text::_( 'COM_XBBOOKS' ).': '.Text::_( 'XBCULTURE_TITLE_REVIEWSMANAGER' ), 'users' );
         

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/categories/tmpl/default.php
- * @version 0.9.4 17th April 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -52,12 +52,12 @@ $prevext ='';
 		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbcats">	
 			<thead>
 				<tr>
-					<th><?php echo JHTML::_('grid.sort', 'XBCULTURE_TITLE', 'title', $listDirn, $listOrder );?></th>
+					<th><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_TITLE', 'title', $listDirn, $listOrder );?></th>
 					<th class="hidden-phone"><?php echo JText::_('XBCULTURE_DESCRIPTION');?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rccnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'bpcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'bchcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rccnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'bpcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'bchcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -127,7 +127,7 @@ $prevext ='';
 		
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
-		<?php echo JHtml::_('form.token'); ?>
+		<?php echo HtmlHelper::_('form.token'); ?>
 	</form>
 <div class="clearfix"></div>
 <p><?php echo XbbooksGeneral::credit();?></p>

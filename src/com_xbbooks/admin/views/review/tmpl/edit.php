@@ -2,18 +2,20 @@
 /*******
  * @package xbBooks
  * @filesource admin/views//tmpl/edit.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.formvalidator');
-JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
-JHtml::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => JText::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
-JHtml::_('formbehavior.chosen', 'select');
+use Joomla\CMS\HTML\HTMLHelper;
+
+HtmlHelper::_('behavior.formvalidator');
+HtmlHelper::_('behavior.keepalive');
+HtmlHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
+HtmlHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => JText::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
+HtmlHelper::_('formbehavior.chosen', 'select');
 
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
@@ -38,9 +40,9 @@ JHtml::_('formbehavior.chosen', 'select');
 	</div>     
     <div class="row-fluid">
       <div class="span12">
-		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+		<?php echo HtmlHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_XBBOOKS_FIELDSET_GENERAL')); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_XBBOOKS_FIELDSET_GENERAL')); ?>
 			<div class="span9">
 				<fieldset class="adminform">
 					<div class="row-fluid">				
@@ -57,8 +59,8 @@ JHtml::_('formbehavior.chosen', 'select');
                  				<?php echo $this->form->renderField('reviewer'); ?>
                  				<?php echo $this->form->renderField('rev_date'); ?>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_XBBOOKS_FIELDSET_PUBLISHING')); ?>
+		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_XBBOOKS_FIELDSET_PUBLISHING')); ?>
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
 					<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>
@@ -67,11 +69,11 @@ JHtml::_('formbehavior.chosen', 'select');
 					<?php echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
 				</div>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 	</div>
   </div>
     <input type="hidden" name="task" value="review.edit" />
-    <?php echo JHtml::_('form.token'); ?>
+    <?php echo HtmlHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbbooksGeneral::credit();?></p>

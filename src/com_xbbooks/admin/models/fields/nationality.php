@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/fields/nationality.php
- * @version 0.5.7b 31st October 2020
+ * @version 0.9.6.c 6th January 2022
  * @since v0.5.7
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -10,6 +10,7 @@
  ******/
 defined('JPATH_BASE') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 
 JFormHelper::loadFieldClass('combo');
@@ -22,7 +23,7 @@ class JFormFieldNationality extends JFormFieldCombo {
 		
 		$options = array();
 		
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query  = $db->getQuery(true);
 		
 		$query->select('DISTINCT nationality AS text, nationality AS value')

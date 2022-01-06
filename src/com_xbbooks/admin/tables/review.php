@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/review.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,8 +15,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Table\Observer\Tags;
-use Joomla\Registry\Registry;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
 
 class XbbooksTableReview extends JTable
 {
@@ -112,7 +112,7 @@ class XbbooksTableReview extends JTable
         //meta.description can be set to first 150 chars of summary if not otherwise set and option is set
         $summary_metadesc = $params->get('summary_metadesc');
         if (($summary_metadesc) && (trim($metadata['metadesc']) == '')) {
-        	$metadata['metadesc'] = JHtml::_('string.truncate', $this->summary,150,true,false);
+        	$metadata['metadesc'] = HtmlHelper::_('string.truncate', $this->summary,150,true,false);
         }
         //meta.rights will be set to default if not otherwise set
         $def_rights = $params->get('def_rights');

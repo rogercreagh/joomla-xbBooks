@@ -2,13 +2,14 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -18,7 +19,7 @@ HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search
 HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => Text::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
-$document = JFactory::getDocument();
+$document = Factory::getDocument();
 $style = '.controls .btn-group > .btn  {'
     . 'min-width: unset;'
     .'padding:3px 12px 4px;'

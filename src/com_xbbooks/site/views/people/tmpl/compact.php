@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.9.6.a 17th December 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -95,7 +95,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->show_cat) {
-    						echo JHTML::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
+    						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
     					}
     					if (($this->show_cat) && ($this->show_tags)) {
     					    echo ' &amp; ';

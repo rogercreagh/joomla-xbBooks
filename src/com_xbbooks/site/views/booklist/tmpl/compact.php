@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,9 +14,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
 
-JHtml::_('behavior.multiselect');
-JHtml::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
-JHtml::_('formbehavior.chosen', 'select');
+HtmlHelper::_('behavior.multiselect');
+HtmlHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
+HtmlHelper::_('formbehavior.chosen', 'select');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
@@ -155,7 +155,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 		</table>
 		<?php echo $this->pagination->getListFooter(); ?>
 	<?php endif; ?>
-	<?php echo JHtml::_('form.token'); ?>
+	<?php echo HtmlHelper::_('form.token'); ?>
       </div>
       </div>
 </form>

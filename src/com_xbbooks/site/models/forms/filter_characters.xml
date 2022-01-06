@@ -13,7 +13,7 @@
 			label="COM_XBBOOKS_FILTER_CATEGORY_LBL"
 			extension="com_xbpeople"
 			itemtype="char"
-			published="1"S
+			published="1"
 			description="COM_XBBOOKS_FILTER_CATEGORY_DESC"
 			onchange="this.form.submit();"
 			>

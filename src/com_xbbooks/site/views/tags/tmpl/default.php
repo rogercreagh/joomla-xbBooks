@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/tags/tmpl/default.php
- * @version 0.8.5 25th March 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,9 +14,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
 
-JHtml::_('behavior.multiselect');
-JHtml::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
-JHtml::_('formbehavior.chosen', 'select');
+HtmlHelper::_('behavior.multiselect');
+HtmlHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
+HtmlHelper::_('formbehavior.chosen', 'select');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
@@ -62,14 +62,14 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbtags">	
 			<thead>
 				<tr>
-					<th><?php echo JHTML::_('grid.sort', 'XBCULTURE_TAG_U', 'title', $listDirn, $listOrder );?></th>
+					<th><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_TAG_U', 'title', $listDirn, $listOrder );?></th>
 				<?php  if ($this->show_desc != 0) : ?>      
 					<th class="hidden-phone"><?php echo JText::_('XBCULTURE_DESCRIPTION');?></th>
 				<?php endif; ?>
-				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?></th>
-				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
-				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?></th>
-				<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -122,7 +122,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 	<?php endif; ?>
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
-		<?php echo JHtml::_('form.token'); ?>
+		<?php echo HtmlHelper::_('form.token'); ?>
 	</form>
 <div class="clearfix"></div>
 <p><?php echo XbbooksGeneral::credit();?></p>

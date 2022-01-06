@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/layouts/joomla/content/tags.php
- * @version 0.5.7a 28th October 2020
+ * @version 0.9.6.c 6th January 2022
  * @desc changes link to the com_xbbooks tag view
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -11,11 +11,12 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
 JLoader::register('TagsHelperRoute', JPATH_BASE . '/components/com_tags/helpers/route.php');
 
-$authorised = JFactory::getUser()->getAuthorisedViewLevels();
+$authorised = Factory::getUser()->getAuthorisedViewLevels();
 
 ?>
 <?php if (!empty($displayData)) : ?>

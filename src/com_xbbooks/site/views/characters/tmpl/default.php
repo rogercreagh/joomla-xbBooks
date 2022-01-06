@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/characters/tmpl/default.php
- * @version 0.9.6.a 17th December 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,9 +14,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 
-JHtml::_('behavior.multiselect');
-JHtml::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
-JHtml::_('formbehavior.chosen', 'select');
+HtmlHelper::_('behavior.multiselect');
+HtmlHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
+HtmlHelper::_('formbehavior.chosen', 'select');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
@@ -82,7 +82,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 					</th>	
                 <?php endif; ?>
 				<th>
-					<?php echo JHTML::_('searchtools.sort','Name','name',$listDirn,$listOrder);
+					<?php echo HtmlHelper::_('searchtools.sort','Name','name',$listDirn,$listOrder);
 						?>
 				</th>					
 				<?php if($this->show_sum) : ?>
@@ -96,7 +96,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->show_cat) {
-    						echo JHTML::_('searchtools.sort','XBCULTURE_CAPCATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
+    						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CAPCATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
     					}
     					if (($this->show_cat) && ($this->show_tags)) {
     					    echo ' &amp; ';
@@ -187,7 +187,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 
 	<?php echo $this->pagination->getListFooter(); ?>
 	<?php } //endif; ?>
-	<?php echo JHtml::_('form.token'); ?>
+	<?php echo HtmlHelper::_('form.token'); ?>
 	</div>
 	</div>
 </form>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.6.c 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -262,7 +262,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 		</table>
 		<?php echo $this->pagination->getListFooter(); ?>
 	<?php endif; ?>
-	<?php echo JHtml::_('form.token'); ?>
+	<?php echo HtmlHelper::_('form.token'); ?>
       </div>
       </div>
 </form>

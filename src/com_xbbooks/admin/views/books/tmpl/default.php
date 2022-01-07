@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.6.d 7th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,8 +27,8 @@ if (!$listOrder) {
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_PUBYEARCOL'),
-		'id'=>'id','cat_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
+		'id'=>'id','cat_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+		'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 /* ' ,'pubyear',''*/
 
 $saveOrder      = $listOrder == 'ordering';
@@ -231,7 +231,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 								<?php echo $item->elist; ?>
 							</span>						
 						<?php elseif ($item->authcnt>0) : ?>
-							<span class="xbnit"><?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>: </span>
+							<span class="xbnit"><?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>: </span>
 							<?php echo $item->alist; ?>
 						<?php endif; ?>
 						<?php if($item->othcnt>0) :?>
@@ -382,4 +382,4 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	</div>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>

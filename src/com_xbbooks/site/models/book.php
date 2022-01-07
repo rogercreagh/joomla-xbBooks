@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.8.3 17th March 2021
+ * @version 0.9.6.d 7th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -90,15 +90,12 @@ class XbbooksModelBook extends JModelItem {
 				if ($item->authcnt==0){
 					$item->alist = ''; //'<i>'.JText::_( 'COM_XBBOOKS_NOAUTHOR' ).'</i>';
 				} else {
-//					$item->alist = ($item->authcnt==1) ? JText::_( 'XBCULTURE_AUTHOR' ) : JText::_( 'XBCULTURE_CAPAUTHORS' ).':';
 					$item->alist = XbbooksGeneral::makeLinkedNameList($item->people,'author',',', (($item->editcnt)==0)? true:false);
 				}
 				if (($item->editcnt)==0){
 					$item->elist = '';
 				} else {
-//					$item->elist = ($item->editcnt==1)? JText::_( 'XBCULTURE_EDITOR' ) : JText::_( 'XBCULTURE_EDITORS' );
 					$item->elist = ': '.XbbooksGeneral::makeLinkedNameList($item->people,'editor',',');
-					//XbbooksHelper::getBookRoleList($item->id,'editor');
 				}
 				if (($item->charcnt)==0){
 					$item->clist = '';

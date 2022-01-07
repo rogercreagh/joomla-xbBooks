@@ -112,7 +112,7 @@ if ($imgok) {
 <div class="row-fluid xbmt16">
 	<?php if ($this->show_cat >0) : ?>       
         	<div class="span4">
-				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_CAPCATEGORY'); ?></div>
+				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_CATEGORY'); ?></div>
 					<div class="pull-left">
     					<?php if($this->show_cat==2) : ?>
     						<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
@@ -126,7 +126,7 @@ if ($imgok) {
         <?php endif; ?>
         	<?php if (($this->show_tags) && (!empty($item->tags))) : ?>
         	<div class="span<?php echo ($this->show_fcat>0) ? '8' : '12'; ?>">
-		<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPTAGS'); ?>
+		<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?>
 		</div>
 		<div class="pull-left">
 			<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
@@ -171,7 +171,7 @@ if ($imgok) {
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
 					<a href="index.php?option=com_xbbooks&view=bookreview&id=<?php echo $item->prev ?>" class="btn btn-small">
-						<?php echo Text::_('COM_XBBOOKS_CAPPREV'); ?></a>
+						<?php echo Text::_('XBCULTURE_PREV'); ?></a>
 			    <?php endif; ?>
 			</div>
 			<div class="span8"><center>
@@ -181,11 +181,11 @@ if ($imgok) {
 			<div class="span2">
 			<?php if($item->next > 0) : ?>
 				<a href="index.php?option=com_xbbooks&view=bookreview&id=<?php echo $item->next ?>" class="btn btn-small pull-right">
-					<?php echo Text::_('COM_XBBOOKS_CAPNEXT'); ?></a>
+					<?php echo Text::_('XBCULTURE_NEXT'); ?></a>
 		    <?php endif; ?>
 			</div>
 	      </div>
       </div>
 </div>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>

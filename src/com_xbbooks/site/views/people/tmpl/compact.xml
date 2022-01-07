@@ -74,7 +74,7 @@
 			<field
 				name="menu_category_id"
 				type="category"
-				label="XBCULTURE_CAPCATEGORY"
+				label="XBCULTURE_CATEGORY"
 				extension="com_xbpeople"
 				description="COM_XBBOOKS_CATEGORY_DESC"
 				>

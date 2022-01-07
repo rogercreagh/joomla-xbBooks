@@ -25,7 +25,7 @@ if (!$listOrder) {
     $listDirn = 'ascending';
 }
 $orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
-    'sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),'bcnt'=>'Number of books');
+    'sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),'bcnt'=>'Number of books');
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -100,19 +100,19 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
                 <?php endif; ?>
 				<?php if($this->show_books != 0) : ?>
     				<th class="hidden-phone">
-    					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPBOOKS','bcnt',$listDirn,$listOrder); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_BOOKS_U','bcnt',$listDirn,$listOrder); ?>
     				</th>
                <?php endif; ?>
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->show_cat) {
-    						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CAPCATEGORY','category_title',$listDirn,$listOrder );
+    						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
     					if (($this->show_cat) && ($this->show_tags)) {
     					    echo ' &amp; ';
     					}
     					if($this->show_tags) {
-    					    echo Text::_( 'COM_XBBOOKS_CAPTAGS' ); 
+    					    echo Text::_( 'XBCULTURE_TAGS_U' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -146,10 +146,10 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 					<td>
 					<p class="xb095">
 					<?php if ($item->year_born > 0) {						
-							echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_CAPBORN').'</span>: '.$item->year_born.'<br />'; 
+							echo '<span class="xbnit">'.Text::_('XBCULTURE_BORN_U').'</span>: '.$item->year_born.'<br />'; 
 						}
 						if ($item->year_died > 0) {						
-							echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_CAPDIED').'</span>: '.$item->year_died; 
+							echo '<span class="xbnit">'.Text::_('XBCULTURE_DIED_U').'</span>: '.$item->year_died; 
 						}              
 					?>					
 					</p>
@@ -279,5 +279,5 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 	</div>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>

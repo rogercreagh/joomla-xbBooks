@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.6.d 7th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,8 +26,8 @@ if (!$listOrder) {
 	$listDirn = 'ascending';
 }
 $orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'id'=>'id',
-		'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
+		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+		'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 
 $saveOrder      = $listOrder == 'ordering';
@@ -117,7 +117,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     				<?php echo Text::_('XBCULTURE_DETAILS'); ?>
     			</th>
     			<th >
-    				<?php echo Text::_('XBCULTURE_CAPBOOKS') ;?>
+    				<?php echo Text::_('XBCULTURE_BOOKS_U') ;?>
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php if ($this->xbpeople_ok!==false) {
@@ -276,4 +276,4 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>

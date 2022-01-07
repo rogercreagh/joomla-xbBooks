@@ -180,6 +180,6 @@ $tclink = $xblink.'tags' . $itemid;
 	</a>
 </p>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>
 

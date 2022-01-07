@@ -136,4 +136,4 @@ $xblink = 'index.php?option=com_xbbooks';
 	<a href="<?php echo $xblink; ?>&view=tags" class="btn btn-small">
 		<?php echo JText::_('COM_XBBOOKS_TAG_LIST'); ?></a>
 </div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>

@@ -116,7 +116,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         		echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php // echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
+	                        		<?php // echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->alist; 
                         	} ?>                          	
@@ -161,5 +161,5 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 </form>
 </div>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 

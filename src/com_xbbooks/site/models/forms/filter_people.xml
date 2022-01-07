@@ -44,7 +44,7 @@
        
 		<field
 			name="tagfilt" type="tag"
-			label="COM_XBBOOKS_CAPTAGS"
+			label="XBCULTURE_TAGS_U"
 			description="COM_XBBOOKS_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"

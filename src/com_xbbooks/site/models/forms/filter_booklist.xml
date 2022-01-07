@@ -47,7 +47,7 @@
   			class="btn-group btn-small radiotop"
 			onchange="this.form.submit();"
 			>
-				<option value="0" >COM_XBBOOKS_CAPBOTH</option>
+				<option value="0" >XBCULTURE_BOTH</option>
 				<option value="1">XBCULTURE_NONFICTION</option>
 				<option value="2">XBCULTURE_FICTION</option>
 		</field>	
@@ -77,7 +77,7 @@
 		<field
 			name="tagfilt"
 			type="tag"
-			label="COM_XBBOOKS_CAPTAGS"
+			label="XBCULTURE_TAGS_U"
 			description="COM_XBBOOKS_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"

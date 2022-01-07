@@ -25,7 +25,7 @@ if (!$listOrder) {
     $listDirn = 'ascending';
 }
 $orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
-    'sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),'bcnt'=>'Number of books');
+    'sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),'bcnt'=>'Number of books');
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -89,7 +89,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
                 <?php endif; ?>
 				<?php if($this->show_cbooks == '4') : ?>
 				<th>
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPBOOKS','bcnt',$listDirn,$listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_BOOKS_U','bcnt',$listDirn,$listOrder); ?>
 				</th>
 				<?php endif; ?>
 				<?php if($this->show_cat || $this->show_tags) : ?>
@@ -166,5 +166,5 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 	</div>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>

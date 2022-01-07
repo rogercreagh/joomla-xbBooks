@@ -25,7 +25,7 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-		'cat_date'=>Text::_('COM_XBBOOKS_DATE_READ'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+		'cat_date'=>Text::_('COM_XBBOOKS_DATE_READ'),'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -111,13 +111,13 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                 <?php if($this->show_ctcol) : ?>
      				<th class="hidden-phone">
     					<?php if ($this->show_cat) {
-    					    echo HtmlHelper::_('searchtools.sort','XBCULTURE_CAPCATEGORY','category_title',$listDirn,$listOrder );
+    					    echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
     					if (($this->show_cat) && ($this->show_tags)) {
     						echo ' &amp; ';
     					}
     					if ($this->show_tags) {
-    						echo JText::_( 'COM_XBBOOKS_CAPTAGS' );
+    						echo JText::_( 'XBCULTURE_TAGS_U' );
     					} ?>
     				</th>
                <?php endif; ?>
@@ -163,7 +163,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         		echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_CAPAUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
+	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->alist; 
                         	} ?>                          	
@@ -171,7 +171,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<br />
 						<span class="xb09">
 							<?php if($item->pubyear > 0) {
-								echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_CAPPUBLISHED').'</span>: '.$item->pubyear.'<br />'; 
+								echo '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').'</span>: '.$item->pubyear.'<br />'; 
 							}?>																		
 						</span></p>
 					</td>
@@ -195,7 +195,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         <?php if (!empty($item->synopsis)) : ?>
                         	<p class="xbnit xb09">   
                              <?php 
-                             	echo Text::_('COM_XBBOOKS_CAPSYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
+                             	echo Text::_('XBCULTURE_SYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
                              ?>
 							</p>
 						<?php endif; ?>
@@ -268,5 +268,5 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 </form>
 </div>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 

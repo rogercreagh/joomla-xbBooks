@@ -24,7 +24,7 @@ if (!$listOrder) {
     $listOrder='name';
     $orderDrn = 'asscending';
 }
-$orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+$orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -78,7 +78,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 			<tr>
 				<?php if($this->show_pic) : ?>
 					<th class="center" style="width:80px">
-						<?php echo JText::_( 'COM_XBBOOKS_CAPPICTURE' ); ?>
+						<?php echo JText::_( 'XBCULTURE_PORTRAIT' ); ?>
 					</th>	
                 <?php endif; ?>
 				<th>
@@ -91,18 +91,18 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 				</th>
                 <?php endif; ?>
 				<th class="hidden-phone">
-					<?php echo JText::_('XBCULTURE_CAPBOOKS'); ?>
+					<?php echo JText::_('XBCULTURE_BOOKS_U'); ?>
 				</th>
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->show_cat) {
-    						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CAPCATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
+    						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
     					}
     					if (($this->show_cat) && ($this->show_tags)) {
     					    echo ' &amp; ';
     					}
     					if($this->show_tags) {
-    					    echo Text::_( 'COM_XBBOOKS_CAPTAGS' ); 
+    					    echo Text::_( 'XBCULTURE_TAGS_U' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -192,5 +192,5 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 	</div>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>

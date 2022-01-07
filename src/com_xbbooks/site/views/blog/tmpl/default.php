@@ -25,7 +25,7 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'book_title'=>Text::_('COM_XBBOOKS_BOOK_TITLE'),
     'rating'=>Text::_('XBCULTURE_RATING'), 'rev_date'=>Text::_('COM_XBBOOKS_DATE_READ'),
-    'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+    'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -269,6 +269,6 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 	</div>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>
 

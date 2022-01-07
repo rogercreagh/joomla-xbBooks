@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/bcategory/tmpl/edit.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.6.d 7th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -44,7 +44,7 @@ $xblink = 'index.php?option=com_xbbooks';
 		<div class="row-fluid xbmb8">
 			<div class= "span6">
 					<p class="xb11">
-						<i><?php Text::_('XBCULTURE_CAPCATEGORY').' '.Text::_('XBCULTURE_HEIRARCHY'); ?></i> 
+						<i><?php Text::_('XBCULTURE_CATEGORY').' '.Text::_('XBCULTURE_HEIRARCHY'); ?></i> 
 						<?php $path = str_replace('/', ' - ', $item->path);
 						echo 'root - '.$path; ?>
 					</p>
@@ -124,5 +124,5 @@ $xblink = 'index.php?option=com_xbbooks';
 			<?php echo Text::_('COM_XBBOOKS_CAT_LIST'); ?></a>
 		</center>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 

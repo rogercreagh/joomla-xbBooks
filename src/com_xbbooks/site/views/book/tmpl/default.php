@@ -84,7 +84,7 @@ if ($imgok) {
 	                        <?php if ($item->authcnt>0) : ?>
     	                        <h4>
     								<span class="xbnit xbmr10">
-    									<?php echo Text::_(($item->authcnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_CAPAUTHORS').': '; ?>
+    									<?php echo Text::_(($item->authcnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_AUTHORS').': '; ?>
     								</span> 
     								<?php echo $item->alist; ?> 
 								</h4>
@@ -99,7 +99,7 @@ if ($imgok) {
 	    <div class="row-fluid">
 			<div class="span5">
             	<?php if ((!$item->publisher=='') || (!$hide_empty)) : ?>
-		 			<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPPUBLISHER').': '; ?></div>
+		 			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_PUBLISHER').': '; ?></div>
            			<div class="pull-left" style="margin:2px 0 0 0;">
 						<?php echo (!$item->publisher=='') ? $item->publisher : '<span class="xbnit">'.Text::_('COM_XBBOOKS_UNKNOWN').'</span>'; ?>
 					</div>
@@ -205,7 +205,7 @@ if ($imgok) {
 <hr />
 <div class="row-fluid">
 	<div class="span<?php echo ($this->show_brevs ==0)? 12 : 6; ?>">
-		<h4><?php echo Text::_('COM_XBBOOKS_CAPSYNOPSIS'); ?></h4>
+		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>
 		<div class="xbbox xbboxcyan">
 			<?php if (empty($item->synopsis)) { 
 				echo '<p class="xbnit">'.Text::_('COM_XBBOOKS_NO_SYNOPSIS').'</p>';				    
@@ -230,7 +230,7 @@ if ($imgok) {
 	        <?php endif; ?>
         	<?php if (($this->show_btags>0) && (!empty($item->tags))) : ?>
         	<div class="span<?php echo ($this->show_bcat>0) ? '8' : '12'; ?>">
-				<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPTAGS'); ?>
+				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?>
 				</div>
 				<div class="pull-left">
 					<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
@@ -295,7 +295,7 @@ if ($imgok) {
 	            					<?php endif; ?>
 	             	       		 	<?php if(($this->show_rtags>0) && ($rev->tagcnt>0)) : ?>
 	                            		<div class="span<?php echo ($this->show_rtags>0) ? '8' : '12'; ?>">
-	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPTAGS'); ?></div>
+	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?></div>
 	                						<div class="pull-left">	                	
 	                                			<?php $tagLayout = new JLayoutFile('joomla.content.tags');
 	                            				echo $tagLayout->render($rev->tags); ?>              
@@ -320,7 +320,7 @@ if ($imgok) {
 		<?php endif; ?>
 		<?php if($item->prev > 0) : ?>
 			<a href="<?php echo JRoute::_(XbbooksHelperRoute::getBookLink($item->prev)); ?>" class="btn btn-small">
-				<?php echo Text::_('COM_XBBOOKS_CAPPREV'); ?></a>
+				<?php echo Text::_('XBCULTURE_PREV'); ?></a>
 	    <?php endif; ?>
 	</div>
 	<div class="span8"><center>
@@ -330,10 +330,10 @@ if ($imgok) {
 	<div class="span2">
 		<?php if($item->next > 0) : ?>
 			<a href="<?php echo JRoute::_(XbbooksHelperRoute::getBookLink($item->next)); ?>" class="btn btn-small pull-right">
-				<?php echo Text::_('COM_XBBOOKS_CAPNEXT'); ?></a>
+				<?php echo Text::_('XBCULTURE_NEXT'); ?></a>
 	    <?php endif; ?>
 	</div>
 </div>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 

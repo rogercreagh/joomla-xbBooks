@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.6.d 7th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
+HtmlHelper::_('behavior.tabState');
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
@@ -110,23 +111,20 @@ $style = '.controls .btn-group > .btn  {'
   		<div class="row-fluid">
 			<div class="span9">
 				<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_PEOPLE_AND_CHARS');?></h4>
+				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PANDC_NOTE');?> </p>
 				<?php echo $this->form->renderField('editorlist'); ?>
-				<p class="xbnote">Use this section for additional roles in producing the book such as translator, illustratior, etc.</p>
+				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_ROLES_NOTE');?></p>
 				<?php echo $this->form->renderField('otherlist'); ?>
 				<?php echo $this->form->renderField('menlist'); ?>
-				<p class="xbnote"><?php echo Text::_('COM_XBBOOKS_FIELD_CHARS_NOTE');?> </p>
 				<?php echo $this->form->renderField('charlist'); ?>
 			</div>
     		<div class="span3">
-    			<h4>Quick Person Add</h4>
-    			<p class="xbnote">NB Save this page before using quick-person or changes will be lost hen the page reloads. 
-    			<br />The new person will appear at the top of the drop down list. Always check the list first 
-    				to see if the person already exists. You cannot use this to create a second person with the same name -
-    				for that you need to use the full New Person form.</p> 
+    			<h4><?php echo Text::_('XBCULTURE_QUICK_P_ADD');?></h4>
+    			<p class="xbnote"><?php echo Text::_('XBCULTURE_QUICK_P_NOTE');?></p> 
 				<a class="btn btn-small" data-toggle="modal" 
-					href="index.php?option=com_xbfilms&view=film&layout=modal&tmpl=component" 
+					href="index.php?option=com_xbbooks&view=book&layout=modal&tmpl=component" 
 					data-target="#ajax-modal">
-					<i class="icon-new"></i>Quick New Person</a>
+					<i class="icon-new"></i><?php echo Text::_('XBCULTURE_ADD_NEW_P');?></a>
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
@@ -146,7 +144,7 @@ $style = '.controls .btn-group > .btn  {'
     <?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 <script>
 jQuery(document).ready(function(){
     jQuery('#ajax-modal').on('show', function () {
@@ -158,7 +156,7 @@ jQuery(document).ready(function(){
     })
 });
 </script>
-<div class="modal fade" id="ajax-modal">
+<div class="modal fade" id="ajax-modal" style="max-width:1000px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->

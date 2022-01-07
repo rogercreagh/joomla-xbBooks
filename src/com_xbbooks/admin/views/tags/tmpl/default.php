@@ -77,7 +77,7 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
 				<?php echo JText::_('XBCULTURE_DESCRIPTION') ;?>
 			</th>
 			<th>
-				<?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?>
+				<?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_BOOKS_U', 'bcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
 				<?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?>
@@ -197,5 +197,5 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 

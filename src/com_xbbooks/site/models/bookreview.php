@@ -67,7 +67,7 @@ class XbbooksModelBookreview extends JModelItem {
 					if ($item->authcnt == 0){
 						$item->edauths .= JText::_( 'COM_XBBOOKS_NOAUTHOR' ).'</i>';
 					} else {
-						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_CAPAUTHORS'):JText::_('XBCULTURE_AUTHOR');
+						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_AUTHORS'):JText::_('XBCULTURE_AUTHOR');
 						$item->edauths .= '</i>: '.XbbooksGeneral::makeLinkedNameList($item->people,'author',',',false);
 					}
 				} else {

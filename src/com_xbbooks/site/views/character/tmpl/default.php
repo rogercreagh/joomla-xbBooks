@@ -48,7 +48,7 @@ if ($imgok) {
 			<?php if ($item->bcnt>0) : ?>
 				<div class="span6">
 					<div class="xbnit">
-						<?php echo Text::_('XBCULTURE_CAPBOOKS'); ?><
+						<?php echo Text::_('XBCULTURE_BOOKS_U'); ?><
 					</div>	
 					<div class="xbml20">		
 						<p><?php echo $item->clist; ?></p>
@@ -87,7 +87,7 @@ if ($imgok) {
 <div class="row-fluid">
 	<?php if ($this->show_cat) : ?>
 		<div class="span5">
-			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_CAPCATEGORY'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_CATEGORY'); ?></div>
 			<div class="pull-left label label-success">
 				<?php if ($this->show_cat==2) : ?>
 					<a href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
@@ -100,7 +100,7 @@ if ($imgok) {
 	<?php endif; ?>
 	<?php if(($this->show_tags) && (!empty($item->tags))) : ?>
 		<div class="span<?php $this->showcat ? '7' : '12';?>">
-			<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_CAPTAGS'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?></div>
 			<div class="pull-left">
 				<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
 			    	echo $tagLayout->render($item->tags);
@@ -120,7 +120,7 @@ if ($imgok) {
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
 					<a href="index.php?option=com_xbbooks&view=character&id=<?php echo $item->prev ?>" class="btn btn-small">
-						<?php echo Text::_('COM_XBBOOKS_CAPPREV'); ?></a>
+						<?php echo Text::_('XBCULTURE_PREV'); ?></a>
 			    <?php endif; ?>
 			</div>
 			<div class="span8"><center>
@@ -130,12 +130,12 @@ if ($imgok) {
 			<div class="span2">
 			<?php if($item->next > 0) : ?>
 				<a href="index.php?option=com_xbbooks&view=character&id=<?php echo $item->next ?>" class="btn btn-small pull-right">
-					<?php echo Text::_('COM_XBBOOKS_CAPNEXT'); ?></a>
+					<?php echo Text::_('XBCULTURE_NEXT'); ?></a>
 		    <?php endif; ?>
 			</div>
 	      </div>
       </div>
 </div>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>

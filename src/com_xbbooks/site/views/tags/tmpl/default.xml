@@ -13,10 +13,10 @@
 				description="COM_XBBOOKS_GROUP_DESC"
 	  			class="btn-group btn-small radiotop"
 				>
-					<option value="">COM_XBBOOKS_CAPALLTAGS</option>
-					<option value="book" >COM_XBBOOKS_CAPTAGBOOKS</option>
-					<option value="person">COM_XBBOOKS_CAPTAGPERSONS</option>
-					<option value="review">COM_XBBOOKS_CAPTAGREVIEWS</option>
+					<option value="">XBCULTURE_ALLTAGS</option>
+					<option value="book" >XBCULTURE_BOOKTAGS</option>
+					<option value="person">XBCULTURE_PERSONTAGS</option>
+					<option value="review">XBCULTURE_REVIEW_TAGS</option>
 			</field>	
 		</fieldset>
 	</fields>

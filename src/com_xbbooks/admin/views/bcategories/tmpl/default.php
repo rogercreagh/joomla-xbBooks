@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/bcategories/tmpl/default.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.6.d 7th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,13 +79,13 @@ $prevext ='';
 				<?php echo Text::_('JSTATUS'); ?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPCATEGORY', 'path', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CATEGORY', 'path', $listDirn, $listOrder );?>
 			</th>
 			<th>
 				<?php echo Text::_('XBCULTURE_DESCRIPTION') ;?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_BOOKS_U', 'bcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
 				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?>
@@ -211,5 +211,5 @@ $prevext ='';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 

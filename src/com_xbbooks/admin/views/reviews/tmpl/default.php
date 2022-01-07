@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.6.d 7th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,8 +26,8 @@ if (!$listOrder) {
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'booktitle'=>Text::_('COM_XBBOOKS_BOOKTITLE'),
-		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
+		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+		'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
 		'rating'=>Text::_('XBCULTURE_RATING')
 );
 
@@ -112,7 +112,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         			<?php echo HTMLHelper::_('searchtools.sort', 'Review Title', 'title', $listDirn, $listOrder); ?>
         		</th>
         		<th>
-        			<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_REVIEW_CAPBOOK', 'booktitle', $listDirn, $listOrder); ?>
+        			<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_REVIEW_BOOK_U', 'booktitle', $listDirn, $listOrder); ?>
         		</th>
         		<th>
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_RATING', 'rating', $listDirn, $listOrder); ?>
@@ -282,4 +282,4 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>

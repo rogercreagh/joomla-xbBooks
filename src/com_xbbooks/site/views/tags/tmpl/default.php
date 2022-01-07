@@ -66,7 +66,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 				<?php  if ($this->show_desc != 0) : ?>      
 					<th class="hidden-phone"><?php echo JText::_('XBCULTURE_DESCRIPTION');?></th>
 				<?php endif; ?>
-				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CAPBOOKS', 'bcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_BOOKS_U', 'bcnt', $listDirn, $listOrder );?></th>
 				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
 				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?></th>
 				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?></th>
@@ -125,5 +125,5 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 		<?php echo HtmlHelper::_('form.token'); ?>
 	</form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>

@@ -26,8 +26,8 @@ if (!$listOrder) {
 	$listDirn = 'ascending';
 }
 $orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
-	'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-	'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
+	'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+	'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbbooks.book');
@@ -129,7 +129,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
     				<?php echo Text::_('XBCULTURE_BIOGRAPHY'); ?>
     			</th>
     			<th >
-    				<?php echo Text::_('XBCULTURE_CAPBOOKS') ;?>
+    				<?php echo Text::_('XBCULTURE_BOOKS_U') ;?>
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
@@ -223,7 +223,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 								echo '&nbsp;&nbsp;<i>'.Text::_('COM_XBBOOKS_DIED').' </i>: '.$item->year_died;
 							}
 							if($item->nationality) { 
-                        		echo '<br /><i>'.Text::_('XBCULTURE_CAPNATIONALITY').' </i>: '.$item->nationality;
+                        		echo '<br /><i>'.Text::_('XBCULTURE_NATIONALITY').' </i>: '.$item->nationality;
                         	} ?>						
 						</p>							
 					</td>
@@ -335,4 +335,4 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>

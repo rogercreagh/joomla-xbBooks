@@ -128,5 +128,5 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 	</a>
 </p>
 <div class="clearfix"></div>
-<p><?php echo XbbooksGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 

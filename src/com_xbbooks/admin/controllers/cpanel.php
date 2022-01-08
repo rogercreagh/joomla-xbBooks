@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controllers/cpanel.php
- * @version 0.9.6 15th December 2021
+ * @version 0.9.6.e 8th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Language\Text;
 
 class XbbooksControllerCpanel extends JControllerAdmin {
 
@@ -24,10 +25,10 @@ class XbbooksControllerCpanel extends JControllerAdmin {
         if ($status == true) {
             $this->setRedirect('index.php?option=com_xbfilms&view=cpanel');
         } elseif ($status === 0) {
-            Factory::getApplication()->enqueueMessage('xbFilms '.JText::_('XBCULTURE_COMP_DISABLED'), 'warning');
+            Factory::getApplication()->enqueueMessage('xbFilms '.Text::_('XBCULTURE_COMP_DISABLED'), 'warning');
             $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbfilms');
         } else {
-            Factory::getApplication()->enqueueMessage('xbFilms '.JText::_('XBCULTURE_COMP_MISSING'), 'info');
+            Factory::getApplication()->enqueueMessage('xbFilms '.Text::_('XBCULTURE_COMP_MISSING'), 'info');
             $this->setRedirect('index.php?option=com_xbbooks&view=cpanel');
         }
     }
@@ -37,10 +38,10 @@ class XbbooksControllerCpanel extends JControllerAdmin {
         if ($status == true) {
             $this->setRedirect('index.php?option=com_xblive');
         } elseif ($status === 0) {
-            Factory::getApplication()->enqueueMessage('xbLive'.JText::_('XBCULTURE_COMP_DISABLED'), 'warning');
+            Factory::getApplication()->enqueueMessage('xbLive'.Text::_('XBCULTURE_COMP_DISABLED'), 'warning');
             $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xblive');
         } else {
-            Factory::getApplication()->enqueueMessage('xbLive '.JText::_('XBCULTURE_COMP_MISSING'), 'info');
+            Factory::getApplication()->enqueueMessage('xbLive '.Text::_('XBCULTURE_COMP_MISSING'), 'info');
             $this->setRedirect('index.php?option=com_xbbooks&view=cpanel');
         }
     }
@@ -82,7 +83,7 @@ class XbbooksControllerCpanel extends JControllerAdmin {
         	$dest = '/images/xbbooks/samples';
         	if (JFolder::exists(JPATH_ROOT.$dest))
         	{
-        		$mess .= '<br />'.JText::sprintf('Sample images not copied, folder %s already exists', $dest) ;
+        		$mess .= '<br />'.Text::sprintf('Sample images not copied, folder %s already exists', $dest) ;
         		$msgtype = 'info';
         	} else {
         		if (JFolder::copy(JPATH_ROOT.$src,JPATH_ROOT.$dest)){

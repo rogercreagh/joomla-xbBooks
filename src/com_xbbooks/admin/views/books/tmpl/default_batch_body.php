@@ -2,13 +2,15 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default_batch_body.php
- * @version 0.3.2d 4th July 2020
+ * @version 0.9.6.e 8th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Layout\LayoutHelper;
 
 $published = $this->state->get('filter.published');
 ?>
@@ -19,7 +21,7 @@ $published = $this->state->get('filter.published');
 
 		<div class="control-group span6">
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_xbbooks')); ?>
+				<?php echo LayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_xbbooks')); ?>
 			</div>
 		</div>
 
@@ -30,10 +32,10 @@ $published = $this->state->get('filter.published');
 			</div>
 		 -->
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.access', array()); ?>
+				<?php echo LayoutHelper::render('joomla.html.batch.access', array()); ?>
 			</div>
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.tag', array()); ?>
+				<?php echo LayoutHelper::render('joomla.html.batch.tag', array()); ?>
 			</div>
 		</div>
 

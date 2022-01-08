@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooks.php
- * @version 0.9.6.a 16th December 2021
+ * @version 0.9.6.e 8th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -131,23 +131,23 @@ class XbbooksHelper extends ContentHelper
 				);
 		} else {
 			JHtmlSidebar::addEntry(
-					Text::_('xbBooks Dashboard'),
+					'xbBooks Dashboard',
 					'index.php?option=com_xbbooks&view=cpanel',
 					$vName == 'cpanel'
 					);
 			
 			JHtmlSidebar::addEntry(
-					Text::_('Books'),
+					'Books',
 					'index.php?option=com_xbbooks&view=books',
 					$vName == 'films'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('Reviews'),
+					'Reviews',
 					'index.php?option=com_xbbooks&view=reviews',
 					$vName == 'reviews'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('COM_XBBOOKS_BOOK_CAT_CNT'),
+					'Books Cat.Counts',
 					'index.php?option=com_xbbooks&view=bcategories',
 					$vName == 'bcategories'
 					);

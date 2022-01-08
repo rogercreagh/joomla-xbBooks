@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/importexport/tmpl/default.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.6.e 8th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 HtmlHelper::_('behavior.tabState');
 HtmlHelper::_('formbehavior.chosen', 'select');
@@ -59,11 +60,11 @@ HtmlHelper::_('formbehavior.chosen', 'select');
       <div class="span12">
 		<?php echo HtmlHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'exp')); ?>
 
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'imp', JText::_('COM_XBBOOKS_IMPORT_TAB')); ?>	
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'imp', Text::_('COM_XBBOOKS_IMPORT_TAB')); ?>	
 	<div class="row-fluid">
 		<fieldset class="form-horizontal">
-			<legend><?php echo JText::_('COM_XBBOOKS_IMPORT_LEGEND'); ?></legend>
-			<div class="alert alert-info"><?php echo JText::_('COM_XBBOOKS_IMP_INFO'); ?></div>
+			<legend><?php echo Text::_('COM_XBBOOKS_IMPORT_LEGEND'); ?></legend>
+			<div class="alert alert-info"><?php echo Text::_('COM_XBBOOKS_IMP_INFO'); ?></div>
 			<div class="row-fluid">
 				<div class="span6">
 					<fieldset>
@@ -85,17 +86,17 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 					<button class="btn btn-warning" type="submit" 
 						onclick="if(confirmImport()) {this.form.submit();}" />
 						<i class="icon-upload icon-white"></i> 
-						<?php echo JText::_('COM_XBBOOKS_IMPORT_BTN'); ?>
+						<?php echo Text::_('COM_XBBOOKS_IMPORT_BTN'); ?>
 					</button>
 				</div>
 				<div class="span6">
 					<div class="alert alert-info">
-						<b><?php echo JText::_('COM_XBBOOKS_IMP_MYSQL_MERGE');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_IMP_MYSQL_MERGE_TIP');?><br />
-						<b><?php echo JText::_('COM_XBBOOKS_IMP_CSV_TABLE');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_IMP_CSV_TABLE_TIP');?><br />
-						<b><?php echo JText::_('COM_XBBOOKS_INSTALL_SAMPLE');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_INSTALL_SAMPLE_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_IMP_MYSQL_MERGE');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_IMP_MYSQL_MERGE_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_IMP_CSV_TABLE');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_IMP_CSV_TABLE_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_INSTALL_SAMPLE');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_INSTALL_SAMPLE_TIP');?><br />
 					</div>
 				</div>
 			</div>
@@ -103,11 +104,11 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 	</div>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'exp', JText::_('COM_XBBOOKS_EXPORT_TAB')); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'exp', Text::_('COM_XBBOOKS_EXPORT_TAB')); ?>
 		<div class="row-fluid">
 		<fieldset class="form-horizontal">
-			<legend><?php echo JText::_('COM_XBBOOKS_EXPORT_LEGEND'); ?></legend>
-			<div class="alert alert-success"><?php echo JText::_('COM_XBBOOKS_EXP_INFO'); ?></div>
+			<legend><?php echo Text::_('COM_XBBOOKS_EXPORT_LEGEND'); ?></legend>
+			<div class="alert alert-success"><?php echo Text::_('COM_XBBOOKS_EXP_INFO'); ?></div>
 			<div class="row-fluid">
 				<div class="span6">
 					<fieldset>
@@ -119,17 +120,17 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 					<button class="btn btn-primary" type="submit" 
 						onclick="if (confirmExport()) { this.form.submit();}" />
 						<i class="icon-download icon-white"></i> 
-						<?php echo JText::_('COM_XBBOOKS_EXPORT_BTN'); ?>
+						<?php echo Text::_('COM_XBBOOKS_EXPORT_BTN'); ?>
 					</button>
 				</div>
 				<div class="span6">
 					<div class="alert alert-success">
-					<b><?php echo JText::_('COM_XBBOOKS_OPT_MYSQL_FULL');?></b>: 
-						<?php echo JText::_('COM_XBBOOKS_EXP_MYSQL_FULL_TIP');?><br />
-					<b><?php echo JText::_('COM_XBBOOKS_OPT_MYSQL_TABLE');?></b>: 
-						<?php echo JText::_('COM_XBBOOKS_EXP_MYSQL_TABLE_TIP');?><br />
-					<b><?php echo JText::_('COM_XBBOOKS_OPT_CSV_TABLE');?></b>: 
-						<?php echo JText::_('COM_XBBOOKS_EXP_CSV_TABLE_TIP');?><br />
+					<b><?php echo Text::_('COM_XBBOOKS_OPT_MYSQL_FULL');?></b>: 
+						<?php echo Text::_('COM_XBBOOKS_EXP_MYSQL_FULL_TIP');?><br />
+					<b><?php echo Text::_('COM_XBBOOKS_OPT_MYSQL_TABLE');?></b>: 
+						<?php echo Text::_('COM_XBBOOKS_EXP_MYSQL_TABLE_TIP');?><br />
+					<b><?php echo Text::_('COM_XBBOOKS_OPT_CSV_TABLE');?></b>: 
+						<?php echo Text::_('COM_XBBOOKS_EXP_CSV_TABLE_TIP');?><br />
 					</div>
 				</div>
 			</div>
@@ -137,11 +138,11 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 		</div>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'del', JText::_('COM_XBBOOKS_DELETE_TAB')); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'del', Text::_('COM_XBBOOKS_DELETE_TAB')); ?>
 	<div class="row-fluid">
 		<fieldset class="form-horizontal">
-			<legend><?php echo JText::_( 'COM_XBBOOKS_DELETE_LEGEND' ); ?></legend>
-			<div class="alert alert-warning"><?php echo JText::_('COM_XBBOOKS_DEL_INFO'); ?></div>
+			<legend><?php echo Text::_( 'COM_XBBOOKS_DELETE_LEGEND' ); ?></legend>
+			<div class="alert alert-warning"><?php echo Text::_('COM_XBBOOKS_DEL_INFO'); ?></div>
              
 			<div class="row-fluid">
 				<div class="span6">
@@ -163,23 +164,23 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 					<button class="btn btn-danger" type="submit" 
 						onclick="if(confirmDelete()) {this.form.submit();}" />
 						<i class="icon-delete icon-white"></i> 
-						<?php echo JText::_('COM_XBBOOKS_DELETE_BTN'); ?>
+						<?php echo Text::_('COM_XBBOOKS_DELETE_BTN'); ?>
 					</button>
 				</div>
 				<div class="span6">
 					<div class="alert alert-warning">
-						<b><?php echo JText::_('COM_XBBOOKS_CLEAN');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_CLEAN_TIP');?><br />
-						<b><?php echo JText::_('COM_XBBOOKS_DELETE_REVS');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_DELETE_REVS_TIP');?><br />
-						<b><?php echo JText::_('COM_XBBOOKS_DELETE_BOOKS');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_DELETE_BOOKS_TIP');?><br />
-						<b><?php echo JText::_('COM_XBBOOKS_DELETE_PEOPLE');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_DELETE_PEOPLE_TIP');?><br />
-						<b><?php echo JText::_('COM_XBBOOKS_DEL_CATEGORY_LABEL');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_DELETE_CATS_TIP');?><br />
-						<b><?php echo JText::_('COM_XBBOOKS_DELETE_ALL');?></b>: 
-							<?php echo JText::_('COM_XBBOOKS_DELETE_ALL_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_CLEAN');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_CLEAN_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_DELETE_REVS');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_DELETE_REVS_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_DELETE_BOOKS');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_DELETE_BOOKS_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_DELETE_PEOPLE');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_DELETE_PEOPLE_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_DEL_CATEGORY_LABEL');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_DELETE_CATS_TIP');?><br />
+						<b><?php echo Text::_('COM_XBBOOKS_DELETE_ALL');?></b>: 
+							<?php echo Text::_('COM_XBBOOKS_DELETE_ALL_TIP');?><br />
 					</div>
 				</div>
 			</div>

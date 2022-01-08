@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.6.d 7th January 2022
+ * @version 0.9.6.e 8th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -64,7 +64,19 @@ $style = '.controls .btn-group > .btn  {'
         			<?php echo $this->form->renderField('summary'); ?>
         		</div>
         	</div> 
-			<?php echo $this->form->renderField('authorlist'); ?>
+        	<div class="row-fluid">
+        		<div class="span9">
+        			<?php echo $this->form->renderField('authorlist'); ?>
+        		</div>
+        		<div class="span3 xbbox xbboxwht">
+        			<h4><?php echo Text::_('XBCULTURE_QUICK_P_ADD');?></h4>
+        			<p class="xbnote"><?php echo Text::_('XBCULTURE_QUICK_P_NOTE');?></p> 
+    				<a class="btn btn-small" data-toggle="modal" 
+    					href="index.php?option=com_xbbooks&view=book&layout=modal&tmpl=component" 
+    					data-target="#ajax-modal">
+    					<i class="icon-new"></i><?php echo Text::_('XBCULTURE_ADD_NEW_P');?></a>
+        		</div>
+        	</div>
         </div>    
         <div class="span2">
     		<?php if($this->form->getValue('cover_img')){?>
@@ -75,7 +87,6 @@ $style = '.controls .btn-group > .btn  {'
     		<?php } ?>
         </div>
     </div>
-	<div class="pull-right xbnote" >The <b>Quick Add Person</b> button appears below here on the people tab</div>   
     <div class="row-fluid form-horizontal">
       <div class="span12">
 		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
@@ -109,22 +120,16 @@ $style = '.controls .btn-group > .btn  {'
  		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', Text::_('XBCULTURE_PEOPLE_U')); ?>
   		<div class="row-fluid">
-			<div class="span9">
-				<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_PEOPLE_AND_CHARS');?></h4>
-				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PANDC_NOTE');?> </p>
+			<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_PEOPLE_AND_CHARS');?></h4>
+			<div class="span6 form-vertical">
+				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PEEP_NOTE');?> </p>
 				<?php echo $this->form->renderField('editorlist'); ?>
-				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_ROLES_NOTE');?></p>
 				<?php echo $this->form->renderField('otherlist'); ?>
 				<?php echo $this->form->renderField('menlist'); ?>
-				<?php echo $this->form->renderField('charlist'); ?>
 			</div>
-    		<div class="span3">
-    			<h4><?php echo Text::_('XBCULTURE_QUICK_P_ADD');?></h4>
-    			<p class="xbnote"><?php echo Text::_('XBCULTURE_QUICK_P_NOTE');?></p> 
-				<a class="btn btn-small" data-toggle="modal" 
-					href="index.php?option=com_xbbooks&view=book&layout=modal&tmpl=component" 
-					data-target="#ajax-modal">
-					<i class="icon-new"></i><?php echo Text::_('XBCULTURE_ADD_NEW_P');?></a>
+    		<div class="span6 form-vertical">
+				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
+				<?php echo $this->form->renderField('charlist'); ?>
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>

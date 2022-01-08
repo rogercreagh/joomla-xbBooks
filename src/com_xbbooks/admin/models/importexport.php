@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/importexport.php
- * @version 0.9.6.a 16th December 2021
+ * @version 0.9.6.e 8th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -429,7 +429,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	    			//now depending on the table for this row...
 	                if ($table === '#__categories') {
 						//test if cat alias already exists
-	                    $pcat = $qry['extension']=='com_xbpeople' ? 'com_xbpeople' : 'com_xbbooks';
+	                    $pcat = $qryarr['extension']=='com_xbpeople' ? 'com_xbpeople' : 'com_xbbooks';
 	                    $catret = $this->createCat($qryarr['title'],$qryarr['alias'], $pcat);
 	                    if ( $catret['id'] == 0) {
 	                        $importcnts['errs'] .= 'Problem creating category '.$qryarr['title'].' '.$catret['mess'].' ';

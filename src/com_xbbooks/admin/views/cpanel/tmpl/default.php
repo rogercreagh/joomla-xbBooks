@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/cpanel/tmpl/default.php
- * @version 0.9.6.d 7th January 2022
+ * @version 0.9.6.e 8th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -21,13 +21,7 @@ $pelink='index.php?option=com_xbbooks&view=person&layout=edit&id=';
 $chelink='index.php?option=com_xbbooks&view=character&layout=edit&id=';
 
 if (!$this->xbpeople_ok) : ?>
-    <div class="alert alert-error">
-        <h4>Warning - xbPeople Component appears not to be installed</h4>
-        <p>It should have been installed with pkg_xbbooks_xxx.zip. Without it xbBooks will not work correctly. It should be installed with the xbBooks Package. All front-end xbBooks and other xbCulture pages will generate a 404 error.
-        <br />To re-install xbPeople either reinstall the xbBooks pkg or copy this url <b> http://www.crosborne.uk/downloads?download=11 </b>, and use it on the 
-        	<a href="index.php?option=com_installer&view=install#url">Install from URL</a> page.
-        </p>
-    </div>
+    <div class="alert alert-error"><?php echo Text::_('COM_XBBOOKS_PEOPLE_WARNING'); ?></div>
 <?php else: ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
@@ -295,7 +289,7 @@ if (!$this->xbpeople_ok) : ?>
 				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right">
 						<?php echo $this->catStates['total']; ?></span> 
-					<?php echo Text::_('Book Categories'); ?>
+					<?php echo Text::_('COM_XBBOOKS_BOOK_CATEGORIES'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">
@@ -318,7 +312,7 @@ if (!$this->xbpeople_ok) : ?>
 							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
 						</div>
 					</div>
-                 <h3 class="xbsubtitle">Counts per category<span class="xb09 xbnorm"> <i> (books:reviews:people)</i></span></h3>
+                 <h3 class="xbsubtitle"><?php echo Text::_('XBCULTURE_COUNTS_CATEGORY'); ?><span class="xb09 xbnorm"> <i> (books:reviews)</i></span></h3>
                  <div class="row-striped">
 					<div class="row-fluid">
 						    <?php echo $this->catlist; ?>
@@ -329,7 +323,7 @@ if (!$this->xbpeople_ok) : ?>
  				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right">
 						<?php echo $this->pcatStates['total']; ?></span> 
-					<?php echo Text::_('People Categories'); ?>
+					<?php echo Text::_('XBCULTURE_PEOPLE_CATEGORIES'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">
@@ -353,7 +347,7 @@ if (!$this->xbpeople_ok) : ?>
 						</div>
 					</div>
                  </div>
-                 <h3 class="xbsubtitle">Counts per category<span class="xb09 xbnorm"> <i>(people:characters)</i></span></h3>
+                 <h3 class="xbsubtitle"><?php echo Text::_('XBCULTURE_COUNTS_CATEGORY'); ?><span class="xb09 xbnorm"> <i>(people:characters)</i></span></h3>
                  <div class="row-striped">
 					<div class="row-fluid">
 						    <?php echo $this->pcatlist; ?>
@@ -364,7 +358,7 @@ if (!$this->xbpeople_ok) : ?>
 			<div class="xbbox xbboxgrey">
 				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right"><?php echo ($this->tags['tagcnts']['bkcnt'] + $this->tags['tagcnts']['percnt']   + $this->tags['tagcnts']['charcnt']  + $this->tags['tagcnts']['revcnt']) ; ?></span> 
-					<?php echo Text::_('Tagged Items'); ?>
+					<?php echo Text::_('XBCULTURE_TAGGED_ITEMS'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">

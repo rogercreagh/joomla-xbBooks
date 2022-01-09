@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
 
 jimport('joomla.html.html.bootstrap');
 
@@ -24,7 +25,7 @@ if (!$this->xbpeople_ok) : ?>
     <div class="alert alert-error"><?php echo Text::_('COM_XBBOOKS_PEOPLE_WARNING'); ?></div>
 <?php else: ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
 <div class="row-fluid">
 	<div id="j-sidebar-container">
 		<?php echo $this->sidebar; ?>

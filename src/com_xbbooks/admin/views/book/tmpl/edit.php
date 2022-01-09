@@ -12,6 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 HtmlHelper::_('behavior.tabState');
 HTMLHelper::_('behavior.formvalidator');
@@ -27,7 +28,7 @@ $style = '.controls .btn-group > .btn  {'
     . '}';
     $document->addStyleDeclaration($style);
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
  	<div class="row-fluid">
 		<div class="span10">

@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Router\Route;
 
 $item = $this->item;
 $hide_empty=$this->hide_empty;
@@ -219,7 +220,7 @@ if ($imgok) {
 					<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_BOOK_CAT'); ?></div>
 					<div class="pull-left">
     					<?php if($this->show_bcat==2) : ?>
-    						<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+    						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
     							<?php echo $item->category_title; ?></a>
     					<?php else: ?>
     						<span class="label label-success">
@@ -285,7 +286,7 @@ if ($imgok) {
 	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_REV_CAT'); ?></div>
 	                						<div class="pull-left">
 	               								<?php if($this->show_rcat==2) : ?>
-													<a class="label label-success" href="<?php echo JRoute::_($clink.$rev->catid); ?>">
+													<a class="label label-success" href="<?php echo Route::_($clink.$rev->catid); ?>">
 													<?php echo $rev->category_title; ?></a>
 												<?php else: ?>
 													<span class="label label-success"><?php echo $rev->category_title; ?></a></span>
@@ -319,17 +320,17 @@ if ($imgok) {
 		</span>&nbsp;
 		<?php endif; ?>
 		<?php if($item->prev > 0) : ?>
-			<a href="<?php echo JRoute::_(XbbooksHelperRoute::getBookLink($item->prev)); ?>" class="btn btn-small">
+			<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->prev)); ?>" class="btn btn-small">
 				<?php echo Text::_('XBCULTURE_PREV'); ?></a>
 	    <?php endif; ?>
 	</div>
 	<div class="span8"><center>
-		<a href="<?php echo JRoute::_($blink); ?>" class="btn btn-small">
+		<a href="<?php echo Route::_($blink); ?>" class="btn btn-small">
 			<?php echo Text::_('COM_XBBOOKS_BOOKLIST'); ?></a></center>
 	</div>
 	<div class="span2">
 		<?php if($item->next > 0) : ?>
-			<a href="<?php echo JRoute::_(XbbooksHelperRoute::getBookLink($item->next)); ?>" class="btn btn-small pull-right">
+			<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->next)); ?>" class="btn btn-small pull-right">
 				<?php echo Text::_('XBCULTURE_NEXT'); ?></a>
 	    <?php endif; ?>
 	</div>

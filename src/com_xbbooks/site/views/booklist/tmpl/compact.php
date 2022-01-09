@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HtmlHelper::_('behavior.multiselect');
 HtmlHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -34,7 +35,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 		echo XbbooksHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=booklist'); ?>" method="post" name="adminForm" id="adminForm">       
+	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist'); ?>" method="post" name="adminForm" id="adminForm">       
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
@@ -92,7 +93,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				<tr class="row<?php echo $i % 2; ?>">	
 					<td>
 						<p class="xbtitle">
-							<a href="<?php echo JRoute::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
+							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb095 xbnorm"><?php echo $this->escape($item->subtitle); ?></span>

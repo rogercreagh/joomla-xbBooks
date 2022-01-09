@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Router\Route;
 
 HtmlHelper::_('behavior.multiselect');
 HtmlHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
@@ -42,7 +43,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
 		echo XbbooksHelper::sitePageheader($this->header);
 	} ?>
 	
-<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=characters'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=characters'); ?>" method="post" name="adminForm" id="adminForm">
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
@@ -128,7 +129,7 @@ $plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
                     <?php endif; ?>
 				<td>
 					<p class="xbtitlelist">
-						<a href="<?php echo JRoute::_($plink.$item->id);?>" >
+						<a href="<?php echo Route::_($plink.$item->id);?>" >
 							<b><?php echo $this->escape($item->name); ?></b>
 						</a>
 					</p>

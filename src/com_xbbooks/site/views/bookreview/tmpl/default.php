@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Router\Route;
 
 $item = $this->item;
 
@@ -115,7 +116,7 @@ if ($imgok) {
 				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_CATEGORY'); ?></div>
 					<div class="pull-left">
     					<?php if($this->show_cat==2) : ?>
-    						<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+    						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
     							<?php echo $item->category_title; ?></a>
     					<?php else: ?>
     						<span class="label label-success">

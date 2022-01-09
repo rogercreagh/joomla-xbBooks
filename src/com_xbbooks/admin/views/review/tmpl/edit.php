@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
 
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('behavior.keepalive');
@@ -18,7 +19,7 @@ HtmlHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_tex
 HtmlHelper::_('formbehavior.chosen', 'select');
 
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
 	<?php if(empty($this->item->id)) : ?>
 		<p><i>If you leave title, summary and synopsis blank this will be treated as a quick rating only</i></p>

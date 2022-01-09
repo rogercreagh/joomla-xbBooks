@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HtmlHelper::_('behavior.multiselect');
 HtmlHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
@@ -52,7 +53,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 		echo XbbooksHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=tags'); ?>" method="post" name="adminForm" id="adminForm">
+	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=tags'); ?>" method="post" name="adminForm" id="adminForm">
 	
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">
@@ -86,7 +87,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
                         	</span>
 						<?php endif; //show_parent?>
 	    				<span  class="xb11 xbbold">
-	    					<a href="<?php echo JRoute::_($tvlink . $item->id); ?>" title="Details">
+	    					<a href="<?php echo Route::_($tvlink . $item->id); ?>" title="Details">
 	    						<?php echo $item->title; ?>
 	    					</a>
 	    				</span>

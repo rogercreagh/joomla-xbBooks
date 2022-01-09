@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('formbehavior.chosen', 'select');
 
@@ -42,7 +43,7 @@ $prevext ='';
 		echo XbbooksHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=categories'); ?>" method="post" name="adminForm" id="adminForm">
+	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=categories'); ?>" method="post" name="adminForm" id="adminForm">
 
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">
@@ -90,7 +91,7 @@ $prevext ='';
 						
 					 </span>
 						<?php endif; //show_parent?>
-    					<a href="<?php echo JRoute::_($clink . $item->id.'&ext='.$item->extension); ?>" title="Details" 
+    					<a href="<?php echo Route::_($clink . $item->id.'&ext='.$item->extension); ?>" title="Details" 
     						class="label label-success" style="padding:2px 8px;">
     						<span class="xb11"><?php echo $item->title; ?></span>
     					</a>

@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('formbehavior.chosen', 'select');
 
@@ -135,7 +136,7 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
 						$path = str_replace('/', ' - ', $path);
 						echo $path; ?>
 					  - </span>    				
-    				<a href="<?php echo JRoute::_($tvlink . $item->id); ?>" title="Details" 
+    				<a href="<?php echo Route::_($tvlink . $item->id); ?>" title="Details" 
     					class="label label-info" style="padding:4px 8px;">
     					<span class="xb12"><?php echo $item->title; ?></span>
     				</a>

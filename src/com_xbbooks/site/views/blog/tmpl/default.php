@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', 'select');
@@ -44,7 +45,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 		echo XbbooksHelper::sitePageheader($this->header);
 	} ?>
 	
-<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=blog'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=blog'); ?>" method="post" name="adminForm" id="adminForm">
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
@@ -120,7 +121,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 								<?php endif; ?>
 						</div>
 						<?php $flink = XbbooksHelperRoute::getBookLink($item->book_id);	?>
-						<h2><a href="<?php echo JRoute::_($flink);?>"><?php echo $item->book_title; ?></a></h2>
+						<h2><a href="<?php echo Route::_($flink);?>"><?php echo $item->book_title; ?></a></h2>
 				       	<?php if (!$item->subtitle == '') : ?>
 							<h3><?php  echo $item->subtitle; ?></h3>
 				       	<?php endif; ?>
@@ -163,7 +164,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_BOOK_CATEGORY'); ?></div>
 					<div class="pull-left">
 					<?php if ($this->show_bcat == 2) : ?>
-    					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+    					<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
     						<?php echo $item->bcat_title; ?></a>
     				<?php else : ?>
     					<span class="label label-success">
@@ -232,7 +233,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_REVIEW_CATEGORY'); ?></div>
 					<div class="pull-left">
 						<?php if($this->show_rcat ==2) : ?>
-	    					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+	    					<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
 	    						<?php echo $item->category_title; ?></a>
 	    				<?php else : ?>
     						<span class="label label-success">

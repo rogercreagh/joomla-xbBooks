@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 HtmlHelper::_('behavior.tabState');
 HtmlHelper::_('formbehavior.chosen', 'select');
@@ -45,7 +46,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 </script>
 
 
-<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=importexport'); ?>" 
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=importexport'); ?>" 
 	method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
 	<?php if (!empty( $this->sidebar)) : ?>

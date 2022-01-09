@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -190,7 +191,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						    $couname = Factory::getUser($item->checked_out)->username;
     						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').': '.$couname, $item->checked_out_time, 'review.', $canCheckin);
     						} ?>
-    						<a href="<?php echo JRoute::_($relink . $item->id); ?>" title="<?php echo Text::_('COM_XBBOOKS_EDIT_REVIEW'); ?>">
+    						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo Text::_('COM_XBBOOKS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>
     						<br /><span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
@@ -202,7 +203,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<td><?php if ($item->booktitle == '') :  ?>
 							<p class="xbnote">Book not found - orphan review</p>
 							<?php  else : ?>
-								<p><a href="<?php echo JRoute::_($bvlink . $item->bookid); ?>">
+								<p><a href="<?php echo Route::_($bvlink . $item->bookid); ?>">
 	    							<?php echo $item->booktitle; ?>
 								</a>
 								</p>

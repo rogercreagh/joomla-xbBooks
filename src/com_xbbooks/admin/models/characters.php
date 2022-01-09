@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Router\Route;
 
 class XbbooksModelCharacters extends JModelList {
 
@@ -223,7 +224,7 @@ class XbbooksModelCharacters extends JModelList {
         $db->setQuery($query);
         $list = $db->loadObjectList();
         foreach ($list as $i=>$item){
-            $tlink = JRoute::_($link . $item->id);
+            $tlink = Route::_($link . $item->id);
             $item->link = '<a href="'.$tlink.'">'.$item->title.'</a>';
             $item->display = $item->title;
         }

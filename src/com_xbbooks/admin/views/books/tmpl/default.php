@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -52,7 +53,7 @@ $cvlink = 'index.php?option=com_xbbooks&view=category&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_xbbooks&view=books'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=books'); ?>" method="post" name="adminForm" id="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
 			<?php echo $this->sidebar; ?>
@@ -209,7 +210,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').': '.$couname, $item->checked_out_time, 'book.', $canCheckin);
 						} ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
-							<a href="<?php echo JRoute::_($belink.$item->id);?>"
+							<a href="<?php echo Route::_($belink.$item->id);?>"
 								title="<?php echo Text::_('COM_XBBOOKS_EDIT_BOOK'); ?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php else : ?>
@@ -288,7 +289,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					</td>
 					<td class="hidden-phone">
 						<?php if ($item->revcnt==0) : ?>
-						    <a href="'.JRoute::_($relink.'0&bk='.$item->id).'">
+						    <a href="'.Route::_($relink.'0&bk='.$item->id).'">
                             <i><?php echo Text::_('COM_XBBOOKS_NOREVIEW'); ?></i></a><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
@@ -316,7 +317,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 										 	<?php endif; ?>
 										 </span>
 	                                <?php endif; ?>
-									<a href="<?php echo JRoute::_($rvlink.$rev->id);?>">
+									<a href="<?php echo Route::_($rvlink.$rev->id);?>">
 	    								<span class="xbnit"><?php echo Text::_('XBCULTURE_BY').':';?>
 	    								<?php if ($rev->reviewer) {
 	    								    echo $rev->reviewer;
@@ -330,7 +331,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							<?php endforeach; ?>
                         <?php endif; ?>
 						<div style="margin-top:5px;">
-							<a href="<?php echo JRoute::_($relink.'0&book_id='.$item->id); ?>" 
+							<a href="<?php echo Route::_($relink.'0&book_id='.$item->id); ?>" 
 								class="btn btn-mini btn-success">
 								<?php echo Text::_('COM_XBBOOKS_ADDREVIEW'); ?>
 							</a>

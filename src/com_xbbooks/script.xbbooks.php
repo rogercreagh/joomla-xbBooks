@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 0.9.6.a 16th December 2021
+ * @version 0.9.6.f 9th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -123,14 +123,13 @@ class com_xbbooksInstallerScript
                 echo '<h4 style="color:red;margin-left:30px;">You must install xbPeople component before you can use xbBooks or any other xbCulture component';
                 echo '</h4>';
             } else {
-                echo '<p><i>Review &amp; set the options</i>&nbsp;&nbsp;';
+                echo '<p><b>Important</b> <i>Before starting review &amp; set the component options</i>&nbsp;&nbsp;';
                 echo '<a href="index.php?option=com_config&view=component&component=com_xbbooks" class="btn btn-small btn-info">xbBooks Options</a></p>';
-                echo '<p><i>Check the control panel for an overview</i>&nbsp;&nbsp;';
-                echo '<a href="index.php?option=com_xbbooks&view=cpanel" class="btn btn-small btn-success">xbBooks Dashboard</a></p>';
-                echo '<p><i>Install sample data</i>&nbsp;&nbsp;: ';
-                echo 'first set and save option at the top of the <a href="index.php?option=com_config&view=component&component=com_xbbooks#admin">Options</a> Admin tab, then the button will appear in the xbBooks Dashboard toolbar.';
+                echo '<p><i>After saving the options you will exit to the Dashboard for an overview</i>&nbsp;&nbsp;';
+                echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp ';
+                echo 'if the option at the top of the <a href="index.php?option=com_config&view=component&component=com_xbbooks#admin">Options</a> Admin tab is enabled a the button will appear in the xbBooks Dashboard toolbar.';
                 echo '</p>';
-                echo '<p><i>Import Data from CSV or SQL file</i>&nbsp;&nbsp;: ';
+                echo '<p><b>Import Data</b> <i>you can import data from CSV or SQL file</i>&nbsp;&nbsp;: ';
                 echo 'visit the <a href="index.php?option=com_xbbooks&view=importexport#imp">Data Management</a> Import tab.';
                 echo 'Be sure to read the <a href="https://docs.crosborne.uk/books/xbculture/page/import-csv">documentation</a> first if importing from CSV';
                 echo '</p>';

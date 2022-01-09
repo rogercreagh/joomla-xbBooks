@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/fields/revformat.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.6.f 9th January 2022
  * @since v0.6.1
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,8 +12,9 @@ defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
+use Joomla\CMS\Form\FormHelper;
 
-JFormHelper::loadFieldClass('combo');
+FormHelper::loadFieldClass('combo');
 
 class JFormFieldRevformat extends JFormFieldCombo {
 	

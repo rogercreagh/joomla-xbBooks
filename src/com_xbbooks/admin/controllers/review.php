@@ -12,9 +12,10 @@ defined('_JEXEC') or die;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\MVC\Controller\FormController;
 
 
-class XbbooksControllerReview extends JControllerForm {
+class XbbooksControllerReview extends FormController {
 	
 	public function __construct($config = array()) {
 		

@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -141,7 +142,7 @@ class XbbooksViewCpanel extends JViewLegacy
 
     protected function addToolbar() {
         $canDo = XbbooksHelper::getActions();
-        $bar = JToolbar::getInstance('toolbar');
+        $bar = Toolbar::getInstance('toolbar');
         
         ToolBarHelper::title(JText::_( 'XBBOOKS' ).': '.JText::_('COM_XBBOOKS_TITLE_CPANEL'),'info-2');
         

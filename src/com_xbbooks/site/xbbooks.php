@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/xbbooks.php
- * @version 0.9.0 5th April 2021
+ * @version 0.9.6.f 9th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Controller\BaseController;
 
 $document = Factory::getDocument();
 $document->addStyleSheet(JUri::root() . 'media/com_xbpeople/css/xbculture.css', array('version'=>'auto'));
@@ -26,8 +27,8 @@ Factory::getSession()->set('xbbooks_ok',true);
 XbcultureHelper::checkComponent('com_xbpeople');
 XbcultureHelper::checkComponent('com_xbfilms');
 
-// Get an instance of the controller prefixed by HelloWorld
-$controller = JControllerLegacy::getInstance('Xbbooks');
+// Get an instance of the controller 
+$controller = BaseController::getInstance('Xbbooks');
 
 // Perform the Request task
 $input = Factory::getApplication()->input;

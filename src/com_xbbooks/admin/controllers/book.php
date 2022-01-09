@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controllers/book.php
- * @version 0.8.0 5th March 2021
+ * @version 0.9.6.f 9th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,7 +17,7 @@ use Joomla\CMS\Router\Route;
 
 class XbbooksControllerBook extends FormController {
 		
-    public function __construct($config = array(), MVCFactoryInterface $factory = null)
+    public function __construct($config = array())
     {
         parent::__construct($config, $factory);
         $this->registerTask('save2NewPer', 'save');

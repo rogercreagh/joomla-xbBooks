@@ -2,17 +2,17 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/fields/bookformat.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.6.f 9th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('JPATH_BASE') or die;
 
-use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormHelper;
 
-JFormHelper::loadFieldClass('combo');
+FormHelper::loadFieldClass('combo');
 
 class JFormFieldBookformat extends JFormFieldCombo {
 	

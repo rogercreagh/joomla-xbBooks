@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controlers/bcategories.php
- * @version 0.9.4 14th April 2021
+ * @version 0.9.6.f 9th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -44,7 +44,7 @@ class XbbooksControllerBcategories extends JControllerAdmin {
     }
     
     function categorynewpeep() {
-        if (XbooksGeneral::checkComponent('com_xbpeople')==1){
+        if (XbcultureHelper::checkComponent('com_xbpeople')==1){
             $this->setRedirect($this->edcatlink.'com_xbpeople&id=0');
         } else {
             Factory::getApplication()->enqueueMessage('COM_XBBOOKS_NO_COMPEOPLE','error');

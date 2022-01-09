@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/xbbooks.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.6.f 9th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\MVC\Controller\BaseController;
 
 if (!Factory::getUser()->authorise('core.manage', 'com_xbbooks')) {
 	Factory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'),'warning');	
@@ -47,7 +48,7 @@ if (!Factory::getSession()->get('xbpeople_ok',false)) {
 }
 
 // Get an instance of the controller prefixed
-$controller = JControllerLegacy::getInstance('xbbooks');
+$controller = BaseController::getInstance('xbbooks');
 
 // Perform the Request task and Execute request task
 $controller->execute(Factory::getApplication()->input->get('task'));

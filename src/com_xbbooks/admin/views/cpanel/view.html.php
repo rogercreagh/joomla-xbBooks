@@ -144,15 +144,15 @@ class XbbooksViewCpanel extends JViewLegacy
         $canDo = XbbooksHelper::getActions();
         $bar = Toolbar::getInstance('toolbar');
         
-        ToolBarHelper::title(JText::_( 'XBBOOKS' ).': '.JText::_('COM_XBBOOKS_TITLE_CPANEL'),'info-2');
+        ToolBarHelper::title(JText::_( 'XBCULTURE_XBBOOKS' ).': '.JText::_('XBCULTURE_DASHBOARD'),'info-2');
         
         if ($this->xbpeople_ok) {
 	        $samplesexist = XbbooksHelper::getIdFromAlias('#__categories', 'sample-books');
 	        if ($this->show_sample==1) {
 	        	if ($samplesexist > 0) {
-	        		ToolBarHelper::custom('cpanel.unsample', 'file-minus', '', 'COM_XBBOOKS_REMOVE_SAMPLE', false) ;
+	        		ToolBarHelper::custom('cpanel.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
 	        	} else {
-	        		ToolBarHelper::custom('cpanel.sample', 'file-plus', '', 'COM_XBBOOKS_INSTALL_SAMPLE', false) ;
+	        		ToolBarHelper::custom('cpanel.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
 	        	}
 	        	ToolbarHelper::custom(); //spacer
 	        }

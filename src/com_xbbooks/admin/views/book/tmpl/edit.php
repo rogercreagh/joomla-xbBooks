@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.6.e 8th January 2022
+ * @version 0.9.6.f 9th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -101,8 +101,8 @@ $style = '.controls .btn-group > .btn  {'
     		</div>
     		<div class="span3 form-vertical">
           		<h4>Book Info</h4>
-          		<?php echo $this->form->renderField('fiction'); ?>   					
         		<?php echo $this->form->renderField('cat_date'); ?>
+          		<?php echo $this->form->renderField('fiction'); ?>   					
         		<?php echo $this->form->renderField('format'); ?>
         		<?php echo $this->form->renderField('orig_lang'); ?>
         		<?php echo $this->form->renderField('publisher'); ?>

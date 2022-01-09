@@ -125,7 +125,9 @@ class com_xbbooksInstallerScript
             } else {
                 echo '<p><b>Important</b> <i>Before starting review &amp; set the component options</i>&nbsp;&nbsp;';
                 echo '<a href="index.php?option=com_config&view=component&component=com_xbbooks" class="btn btn-small btn-info">xbBooks Options</a></p>';
-                echo '<p><i>After saving the options you will exit to the Dashboard for an overview</i>&nbsp;&nbsp;';
+                echo '<br /><i>After saving the options you will exit to the Dashboard for an overview</i>&nbsp;&nbsp;';
+                echo '<p><b>Dashboard</b> <i>The Dashboard view provides an overview of the component status</i>&nbsp;&nbsp;';
+                echo '<a href="index.php?option=com_xbbooks&view=cpanel" class="btn btn-small btn-success">xbBooks Dashboard</a></p>';
                 echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp ';
                 echo 'if the option at the top of the <a href="index.php?option=com_config&view=component&component=com_xbbooks#admin">Options</a> Admin tab is enabled a the button will appear in the xbBooks Dashboard toolbar.';
                 echo '</p>';

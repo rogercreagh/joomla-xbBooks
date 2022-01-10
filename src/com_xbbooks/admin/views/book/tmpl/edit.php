@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.6.f 9th January 2022
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -115,20 +115,21 @@ $style = '.controls .btn-group > .btn  {'
  				</fieldset>
 				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>
+   		</div>
 			<hr />
 			<?php echo $this->form->renderField('ext_links'); ?>
-   		</div>
  		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', Text::_('XBCULTURE_PEOPLE_U')); ?>
   		<div class="row-fluid">
-			<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_PEOPLE_AND_CHARS');?></h4>
 			<div class="span6 form-vertical">
+			<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_PEOPLE_U');?></h4>
 				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PEEP_NOTE');?> </p>
 				<?php echo $this->form->renderField('editorlist'); ?>
 				<?php echo $this->form->renderField('otherlist'); ?>
 				<?php echo $this->form->renderField('menlist'); ?>
 			</div>
     		<div class="span6 form-vertical">
+				<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_CHARACTERS_U');?></h4>
 				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
 				<?php echo $this->form->renderField('charlist'); ?>
 			</div>

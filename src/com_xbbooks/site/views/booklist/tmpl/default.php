@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.6.f 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Layout\FileLayout;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -251,7 +252,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     					<?php endif; ?>
     					<?php echo ($item->fiction==1) ? ' <span class="label">fiction</span>' : ' <span class="label label-inverse">non-fiction</span>'; ?>
     						<?php if($this->show_tags) {
-    							$tagLayout = new JLayoutFile('joomla.content.tags');
+    							$tagLayout = new FileLayout('joomla.content.tags');
         						echo '<p>'.$tagLayout->render($item->tags).'</p>';
     						}
         					?>

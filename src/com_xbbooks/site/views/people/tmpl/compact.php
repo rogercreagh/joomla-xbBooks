@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.6.f 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Layout\FileLayout;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
@@ -149,7 +150,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 								<?php endif; ?>
 							</p>
 						<?php endif; ?>
-						<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
+						<?php  $tagLayout = new FileLayout('joomla.content.tags');
     							echo $tagLayout->render($item->tags);?>
 					</td>
                 <?php endif; ?>

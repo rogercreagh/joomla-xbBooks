@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/importexport/tmpl/default.php
- * @version 0.9.6.e 8th January 2022
+ * @version 0.9.6.f 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -96,7 +96,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 							<?php echo Text::_('COM_XBBOOKS_IMP_MYSQL_MERGE_TIP');?><br />
 						<b><?php echo Text::_('COM_XBBOOKS_IMP_CSV_TABLE');?></b>: 
 							<?php echo Text::_('COM_XBBOOKS_IMP_CSV_TABLE_TIP');?><br />
-						<b><?php echo Text::_('COM_XBBOOKS_INSTALL_SAMPLE');?></b>: 
+						<b><?php echo Text::_('XBCULTURE_INSTALL_SAMPLE');?></b>: 
 							<?php echo Text::_('COM_XBBOOKS_INSTALL_SAMPLE_TIP');?><br />
 					</div>
 				</div>

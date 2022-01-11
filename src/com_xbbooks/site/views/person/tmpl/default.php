@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/person/tmpl/default.php
- * @version 0.9.6.a 17th December 2021
+ * @version 0.9.6.f 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Layout\FileLayout;
 
 $item = $this->item;
 
@@ -149,7 +150,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 		<div class="span<?php $this->showcat ? '7' : '12';?>">
 			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBCULTURE_TAGS_U'); ?></div>
 			<div class="pull-left">
-				<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
+				<?php  $tagLayout = new FileLayout('joomla.content.tags');
 			    	echo $tagLayout->render($item->tags);
 			    ?>
 			</div>	

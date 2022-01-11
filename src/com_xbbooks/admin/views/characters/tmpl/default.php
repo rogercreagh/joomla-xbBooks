@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -186,7 +187,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     							if (!file_exists(JPATH_ROOT.'/'.$src)) {
     								$src = $nofile;
     							}
-    							$src = JURI::root().$src;
+    							$src = Uri::root().$src;
 							?>
 							<img class="img-polaroid hasTooltip xbimgthumb" title="" 
 								data-original-title="<?php echo $item->image;?>"

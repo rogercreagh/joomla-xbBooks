@@ -11,6 +11,7 @@
 // No direct access to this file
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Version;
 
 class pkg_xbbooksInstallerScript
 {
@@ -19,7 +20,7 @@ class pkg_xbbooksInstallerScript
     
     function preflight($type, $parent)
     {
-        $jversion = new JVersion();
+        $jversion = new Version();
         $jverthis = $jversion->getShortVersion();
         if ((version_compare($jverthis, $this->jminver,'lt')) || (version_compare($jverthis, $this->jmaxver, 'ge'))) {
             throw new RuntimeException('xbBooks requires Joomla version greater than or equal to '.$this->jminver. ' and less than '.$this->jmaxver.'. You have '.$jverthis);

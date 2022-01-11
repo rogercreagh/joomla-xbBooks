@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/xbbooks.php
- * @version 0.9.6.f 9th January 2022
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,11 +11,14 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
-$document->addStyleSheet(JUri::root() . 'media/com_xbpeople/css/xbculture.css', array('version'=>'auto'));
+$document->addStyleSheet(Uri::root() . 'media/com_xbpeople/css/xbculture.css', array('version'=>'auto'));
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 $document->addStyleSheet($cssFile);
+
+Factory::getLanguage()->load('com_xbculture', JPATH_ADMINISTRATOR);
 
 // Require helper files
 JLoader::register('XbbooksHelper', JPATH_COMPONENT . '/helpers/xbbooks.php');

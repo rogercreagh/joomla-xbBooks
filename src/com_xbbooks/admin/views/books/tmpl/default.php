@@ -14,6 +14,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -197,7 +198,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     							} elseif (!file_exists(JPATH_ROOT.'/'.$src)) {
     							    $src = $nofile;
     							}
-    							$src = JURI::root().$src;
+    							$src = Uri::root().$src;
 							?>
 							src="<?php echo $src; ?>"
 							border="0" alt="" />	

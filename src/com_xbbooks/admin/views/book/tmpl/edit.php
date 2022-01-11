@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::_('behavior.tabState');
 HTMLHelper::_('behavior.formvalidator');
@@ -83,7 +84,7 @@ $style = '.controls .btn-group > .btn  {'
     		<?php if($this->form->getValue('cover_img')){?>
     			<div class="control-group">
     				<img class="img-polaroid hidden-phone" style="max-width:100%;" 
-        				src="<?php echo JUri::root() . $this->form->getValue('cover_img');?>" />
+        				src="<?php echo Uri::root() . $this->form->getValue('cover_img');?>" />
     			</div>
     		<?php } ?>
         </div>

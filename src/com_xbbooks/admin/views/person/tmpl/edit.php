@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('behavior.keepalive');
@@ -47,7 +48,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 		<?php if($this->form->getValue('portrait')){?>
 			<div class="control-group">
 				<img class="img-polaroid hidden-phone" style="max-height:200px;min-width:24px;" 
-    				src="<?php echo JUri::root() . $this->form->getValue('portrait');?>" />
+    				src="<?php echo Uri::root() . $this->form->getValue('portrait');?>" />
 			</div>
 		<?php } ?>
     </div>

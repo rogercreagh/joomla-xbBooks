@@ -2,7 +2,7 @@
 /**
  * @package xbBooks-Package
  * @filesource pkg_xbbooks_script.php
- * @version 0.9.3 12th April 2021
+ * @version 0.9.8 12th January 2022
  * @desc install, upgrade and uninstall actions
  * @author Roger C-O
  * @copyright (C) Roger Creagh-Osborne, 2019
@@ -79,13 +79,22 @@ class pkg_xbbooksInstallerScript
 	    	echo '<p>For help and information see <a href="https://crosborne.co.uk/xbbooks/doc" target="_blank">
 	            www.crosborne.co.uk/xbbooks/doc</a></p>';
 	    	echo '<h4>Next steps</h4>';
-	    	echo '<p><i>Review &amp; set the options</i>&nbsp;&nbsp;';
-	    	echo '<a href="index.php?option=com_config&view=component&component=com_xbbooks" class="btn btn-small btn-info">xbBooks Options</a></p>';
-	        echo '<p><i>Check the control panel for an overview</i>&nbsp;&nbsp;';
-	        echo '<a href="index.php?option=com_xbbooks&view=cpanel" class="btn btn-small btn-success">xbBooks cPanel</a></p>';
-	        echo '<p><i>Sample data can be installed from xbBooks Control Panel after saving the option found on the admin tab to display the toolbar button</i>';
-	        echo '</p>';
-	        echo '</div>';
+	    	echo '<p><b>Important</b> Before starting review &amp; set the component options&nbsp;&nbsp;';
+	    	echo '<a href="index.php?option=com_config&view=component&component=com_xbbooks" class="btn btn-small btn-info">xbBooks Options</a>';
+	    	echo '<br /><i>After saving the options you will exit to the Dashboard for an overview</i>';
+	    	echo '</p>';
+	    	echo '<p><b>Dashboard</b> <i>The Dashboard view provides an overview of the component status</i>&nbsp;&nbsp;';
+	    	echo '<a href="index.php?option=com_xbbooks&view=cpanel">xbBooks Dashboard</a> (<i>but save the options first!</i>)';
+	    	echo '</p>';
+	    	echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp ';
+	    	echo 'first check the option to show sample data button on the <a href="index.php?option=com_config&view=component&component=com_xbbooks#admin">Options Admin</a> tab, ';
+	    	echo 'then an [Install/Remove Sample Data] button will appear in the xbbooks Dashboard toolbar.';
+	    	echo '</p>';
+	    	echo '<p><b>Import Data</b> <i>you can import data from CSV or SQL file</i>&nbsp;&nbsp;: ';
+	    	echo 'visit the <a href="index.php?option=com_xbbooks&view=importexport#imp">Data Management Import</a> tab.';
+	    	echo 'Be sure to read the <a href="https://crosborne.uk/xbbooks/doc#impcsv">documentation</a> first if importing from CSV';
+	    	echo '</p>';
+	    	echo '</div>';
 	    	
 	    	$message = $parent->get('manifest')->name .' v.'.$parent->get('manifest')->version.' '.$parent->get('manifest')->creationDate.' has been installed';
 	    	

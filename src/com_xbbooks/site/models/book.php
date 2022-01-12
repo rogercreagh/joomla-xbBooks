@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.9.6.d 7th January 2022
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\Registry\Registry;
 
 class XbbooksModelBook extends JModelItem {
 		
@@ -46,7 +47,7 @@ class XbbooksModelBook extends JModelItem {
 				
 				$item = &$this->item;
 				// Load the JSON string
-				$params = new JRegistry;
+				$params = new Registry;
 				$params->loadString($item->params, 'JSON');
 				$item->params = $params;
 				
@@ -56,7 +57,7 @@ class XbbooksModelBook extends JModelItem {
 				$item->params = $params;
 				$target = ($params->get('extlink_target')==1) ? 'target="_blank"' : '';
 				// Convert the JSON-encoded links info into an array
-				$extlinks = new JRegistry;
+				$extlinks = new Registry;
 				$extlinks->loadString($item->ext_links, 'JSON');
 				$item->ext_links = $extlinks;
 				$item->ext_links_cnt = 0;

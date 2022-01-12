@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/character.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Table\Table;
 
 class XbbooksModelCharacter extends JModelAdmin {
  
@@ -27,7 +29,7 @@ class XbbooksModelCharacter extends JModelAdmin {
 			$item->metadata = $registry->toArray();
 			if (!empty($item->id))
 			{
-				$tagsHelper = new JHelperTags;
+				$tagsHelper = new TagsHelper;
 				$item->tags = $tagsHelper->getTagIds($item->id, 'com_xbpeople.character');
 			}
 		}
@@ -36,7 +38,7 @@ class XbbooksModelCharacter extends JModelAdmin {
 	
 	public function getTable($type = 'Character', $prefix = 'XbbooksTable', $config = array())
     {
-        return JTable::getInstance($type, $prefix, $config);
+        return Table::getInstance($type, $prefix, $config);
     }
     
     public function getForm($data = array(), $loadData = true) {

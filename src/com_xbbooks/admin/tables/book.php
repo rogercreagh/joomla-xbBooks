@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/book.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,8 +15,10 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Table\Table;
+use Joomla\Registry\Registry;
 
-class XbbooksTableBook extends JTable
+class XbbooksTableBook extends Table
 {
 	public function __construct(&$db) {
 		$this->setColumnAlias('published', 'state');
@@ -114,7 +116,7 @@ public function bind($array, $ignore = '') {
 		
         if (isset($array['params']) && is_array($array['params'])) {
             // Convert the params field to a string.
-            $parameter = new JRegistry;
+            $parameter = new Registry;
             $parameter->loadArray($array['params']);
             $array['params'] = (string)$parameter;
         }
@@ -125,7 +127,7 @@ public function bind($array, $ignore = '') {
         //         }
         
         if (isset($array['metadata']) && is_array($array['metadata'])) {
-            $registry = new JRegistry;
+            $registry = new Registry;
             $registry->loadArray($array['metadata']);
             $array['metadata'] = (string)$registry;
         }
@@ -142,10 +144,10 @@ public function bind($array, $ignore = '') {
                 return $this->title;
         }
 
-	protected function _getAssetParentId(JTable $table = null, $id = null)
+	protected function _getAssetParentId(Table $table = null, $id = null)
         {
             // We will retrieve the parent-asset from the Asset-table
-            $assetParent = JTable::getInstance('Asset');
+            $assetParent = Table::getInstance('Asset');
             // Default: if no asset-parent can be found we take the global asset
             $assetParentId = $assetParent->getRootId();
             

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/importexport/view.html.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,15 +48,15 @@ class XbbooksViewImportexport extends JViewLegacy {
 	    $samplesexist = XbbooksHelper::getIdFromAlias('#__categories', 'sample-books');
 	    if ($this->show_sample==1) {
 	    	if ($samplesexist > 0) {
-	    		JToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'COM_XBBOOKS_REMOVE_SAMPLE', false) ;
+	    		ToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'COM_XBBOOKS_REMOVE_SAMPLE', false) ;
 	    	} else {
-	    		JToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'COM_XBBOOKS_INSTALL_SAMPLE', false) ;
+	    		ToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'COM_XBBOOKS_INSTALL_SAMPLE', false) ;
 	    	}
 	    }
 	    
 	    if ($canDo->get('core.admin')) {
-	        JToolbarHelper::preferences('com_xbbooks');
+	        ToolbarHelper::preferences('com_xbbooks');
 	    }	    
-	    JToolbarHelper::help( '', false,'https://crosborne.uk/xbbooks/doc?tmpl=component#impexp' );
+	    ToolbarHelper::help( '', false,'https://crosborne.uk/xbbooks/doc?tmpl=component#impexp' );
 	}
 }

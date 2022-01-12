@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreview/view.html.php
- * @version 0.9.6.a 17th December 2021
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Helper\TagsHelper;
 
 class XbbooksViewBookreview extends JViewLegacy {
 	
@@ -55,7 +56,7 @@ class XbbooksViewBookreview extends JViewLegacy {
 			$this->item->next = 0;
 		}
 		
-		$tagsHelper = new JHelperTags;
+		$tagsHelper = new TagsHelper;
 		$this->item->tags = $tagsHelper->getItemTags('com_xbbooks.review' , $this->item->id);
 		
 		$document = $this->document; //Factory::getDocument();

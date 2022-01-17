@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/cpanel/view.html.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.8.b 12th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -143,10 +143,9 @@ class XbbooksViewCpanel extends JViewLegacy
     protected function addToolbar() {
         $canDo = XbbooksHelper::getActions();
         $bar = Toolbar::getInstance('toolbar');
-        
-        ToolBarHelper::title(JText::_( 'XBCULTURE_XBBOOKS' ).': '.JText::_('XBCULTURE_DASHBOARD'),'info-2');
-        
+           
         if ($this->xbpeople_ok) {
+            ToolBarHelper::title(Text::_( 'XBCULTURE_XBBOOKS' ).': '.Text::_('XBCULTURE_DASHBOARD'),'info-2');
 	        $samplesexist = XbbooksHelper::getIdFromAlias('#__categories', 'sample-books');
 	        if ($this->show_sample==1) {
 	        	if ($samplesexist > 0) {
@@ -165,7 +164,8 @@ class XbbooksViewCpanel extends JViewLegacy
 	        }
 	        ToolBarHelper::help( '', false,'https://crosborne.uk/xbbooks/doc?tmpl=component#admin-cpanel' );
         } else {
-        	ToolBarHelper::help( '', false,'https://www.crosborne.uk/downloads/file/11-xbpeople-component?tmpl=component' );
+            ToolBarHelper::title('xbBooks - please install xbPeople','info-2');
+            ToolBarHelper::help( '', false,'https://www.crosborne.uk/downloads/file/11-xbpeople-component?tmpl=component' );
         }
     }
     

@@ -108,7 +108,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 								$src = Uri::root().$src; 
 								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; 
 								?>
-								<img class="img-polaroid hasTooltip xbimgthumb" title="" 
+								<img class="img-polaroid hasTooltip" title="" 
 									data-original-title="<?php echo $tip; ?>"
 									src="<?php echo $src; ?>" border="0" alt="" />							                          
 	                    	<?php  endif; ?>	                    
@@ -142,94 +142,54 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         		<?php echo $item->alist; 
                         	} ?>                          	
                         <?php endif; ?>
-						<br />
-						<span class="xb09">
+						</p>
+						
+						<p>
+							<span class="icon-calendar"></span>&nbsp;
 							<?php if($item->pubyear > 0) {
-								echo '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').'</span>: '.$item->pubyear.'<br />'; 
-							}?>																		
-						</span></p>
-					</td>
-                    <?php if($this->show_sum) : ?>
-					<td class="hidden-phone">
-						<p class="xb095">
-							<?php if (!empty($item->summary)) : ?>
-								<?php echo $item->summary; ?>
-    						<?php else : ?>
-    							<span class="xbnit">
-    							<?php if (!empty($item->synopsis)) : ?>
-    								<?php echo Text::_('COM_XBBOOKS_SYNOPSIS_EXTRACT'); ?>: </span>
-    								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,250); ?>
-    							<?php else : ?>
-            						<span class="xbnote">
-    								<?php echo Text::_('COM_XBBOOKS_NO_SUMMARY_SYNOPSIS'); ?>
-    								</span></span>
-    							<?php endif; ?>
-    						<?php endif; ?>
-                        </p>
-                        <?php if (!empty($item->synopsis)) : ?>
-                        	<p class="xbnit xb09">   
-                             <?php 
-                             	echo Text::_('XBCULTURE_SYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
-                             ?>
-							</p>
-						<?php endif; ?>
-					</td>
-                	<?php endif; ?>
-					<?php if ($this->show_rev != 0 ) : ?>
-    					<td>
-    						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
-    						<?php else : ?> 
-	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
-	                            <div>
-								<?php if (($this->zero_rating) && ($stars==0)) : ?>
-								    <span class="<?php echo $this->zero_class; ?>"></span>
-								<?php else : ?>
-	                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
-	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
-	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
-	                                <?php  endif; ?> 
-	                             <?php endif; ?>                        
-	                            </div>
-     							<?php if ($this->show_rev == 2) : ?>
-                                    <?php foreach ($item->reviews as $rev) : ?>
-                                    	<?php $poptip = (empty($rev->summary)) ? 'hasTooltip' : 'hasPopover'; ?> 
-										<div class="<?php echo $poptip; ?> xbmb8 xb09"  title 
-											data-content="<?php echo htmlentities($rev->summary); ?>"
-											data-original-title="<?php echo htmlentities($rev->title); ?>" 
-                                		>
-    										<?php if ($item->revcnt>1) : ?>
-    											<?php echo $rev->rating;?><i class="<?php echo $this->star_class; ?>"></i> 
-    			                            <?php endif; ?>
-    	                                	<i>by</i> <?php echo $rev->reviewer; ?> 
-    	                                	<i>on</i> <?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
-        								</div>
-        							<?php endforeach; ?> 
+								echo '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').'</span>: '.$item->pubyear; 
+							}?>	
+							<br />
+							<span class="icon-book"></span>&nbsp;
+                            <?php if($this->show_sum) : ?>
+    							<?php if (!empty($item->summary)) : ?>
+    								<?php echo $item->summary; ?>
+        						<?php else : ?>
+        							<span class="xbnit">
+        							<?php if (!empty($item->synopsis)) : ?>
+        								<?php echo Text::_('COM_XBBOOKS_SYNOPSIS_EXTRACT'); ?>: </span>
+        								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,250); ?>
+        							<?php else : ?>
+                						<span class="xbnote">
+        								<?php echo Text::_('COM_XBBOOKS_NO_SUMMARY_SYNOPSIS'); ?>
+        								</span></span>
+        							<?php endif; ?>
         						<?php endif; ?>
-     						<?php endif; ?>   											
-    					</td>
-    				<?php endif; ?>
-    				<td>
-    					<p><?php if($item->lastread=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date , 'M Y').')</span>';
-    					} else {
-    						echo HtmlHelper::date($item->lastread , 'd M Y'); 
-    					}?> </p>
-     				</td>
-                    <?php if($this->show_ctcol) : ?>
-					<td class="hidden-phone">
-     					<?php if($this->show_cats) : ?>												
-    						<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
-    					<?php endif; ?>
-    					<?php echo ($item->fiction==1) ? ' <span class="label">fiction</span>' : ' <span class="label label-inverse">non-fiction</span>'; ?>
-    						<?php if($this->show_tags) {
-    							$tagLayout = new FileLayout('joomla.content.tags');
-        						echo '<p>'.$tagLayout->render($item->tags).'</p>';
-    						}
-        					?>
+                                <?php if (!empty($item->synopsis)) : ?>
+                                	&nbsp;<span class="xbnit xb09">   
+                                     <?php 
+                                     	echo Text::_('XBCULTURE_SYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
+                                     ?>
+                                     </span>
+        						<?php endif; ?>
+                        	<?php endif; ?>
+							<br />						
+		                    <?php if($this->show_ctcol) : ?>
+		     					<?php if($this->show_cats) : ?>
+		     						<span class="icon-folder"></span> &nbsp;										
+	    							<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
+    		    					<?php echo ($item->fiction==1) ? ' <span class="label">fiction</span>' : ' <span class="label label-inverse">non-fiction</span>'; ?>
+    		    					<br />
+		    					<?php endif; ?>
+        						<?php if($this->show_tags) {
+        						    echo '<span class="icon-tags"></span> &nbsp;';
+        							$tagLayout = new FileLayout('joomla.content.tagline');
+            						echo $tagLayout->render($item->tags);
+        						}
+            					?>
+            					</p>
+	                		<?php endif; ?>
 					</td>
-                	<?php endif; ?>
 				</tr>
 				<?php endforeach;?>
 			</tbody>

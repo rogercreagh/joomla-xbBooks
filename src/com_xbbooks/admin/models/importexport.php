@@ -1192,7 +1192,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	    	case '#__xbbooks' :
 	    		$select = 'title AS book_title, subtitle, alias AS book_alias, summary AS book_summary, synopsis, 
 					cover_img,pubyear, publisher, orig_lang,edition,format, 
-					 fiction, cat_date, note AS book_note';
+					 fiction, acq_date, note AS book_note';
 	    		break;
 	    	case '#__xbbookreviews' :
 	    		$select = 'a.title AS review_title, a.alias AS review_alias, b.alias AS book_alias, a.summary AS review_summary, review, 
@@ -1380,7 +1380,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						// $importcnts['mess'] .= $bookalias.', ';
 					} else {
 						$sqlbook = "INSERT INTO #__xbbooks (title,subtitle,alias,summary,synopsis,
-							cover_img,pubyear,publisher,orig_lang,edition,format,cat_date,
+							cover_img,pubyear,publisher,orig_lang,edition,format,acq_date,
 							note,fiction,catid,state) VALUES ('";
 						$sqlbook .= $db->escape($row['book_title']).$qcq;
 						$sqlbook .= (key_exists('subtitle',$row) ? $db->escape($row['subtitle']) : '').$qcq;
@@ -1403,7 +1403,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						$sqlbook .= (key_exists('orig_lang',$row) ? $db->escape($row['orig_lang']) : '').$qcq;
 						$sqlbook .= (key_exists('edition',$row) ? $db->escape($row['edition']) : '').$qcq;
 						$sqlbook .= (key_exists('format',$row) ? $db->escape($row['format']) : '').$qcq;
-						$sqlbook .= (key_exists('cat_date',$row) ? date('Y-m-d',strtotime($row['cat_date'])) : '').$qcq;
+						$sqlbook .= (key_exists('acq_date',$row) ? date('Y-m-d',strtotime($row['acq_date'])) : '').$qcq;
 
 						
 						

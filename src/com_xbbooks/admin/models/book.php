@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8 16th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,8 +36,8 @@ class XbbooksModelBook extends JModelAdmin {
 
 			$db = Factory::getDbo();
 			$query = $db->getQuery(true);
-			$query->select('br.rating AS rate, br.rev_date AS read_date')->from('#__xbbookreviews AS br')
-			->where('br.book_id='.$db->quote($item->id))->order('read_date DESC');
+			$query->select('br.rating AS rate, br.rev_date AS rev_date')->from('#__xbbookreviews AS br')
+			->where('br.book_id='.$db->quote($item->id))->order('rev_date DESC');
 			$db->setQuery($query);
 			$item->lastrat = $db->loadAssoc();
 		}
@@ -100,19 +100,22 @@ class XbbooksModelBook extends JModelAdmin {
             $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
         // Set the values
-        if (empty($table->cat_date)) {
-        	//if there are reviews set cat_date to the latest seen date
-        	$table->cat_date = $date->toSql();
+        if (empty($table->acq_date)) {
+        	//default to today
+        	$table->acq_date = $date->toSql();
+        }
+        if (empty($table->read_date)) {
+            //if there are reviews do we want to force a read date??? - this will, perhaps make an option
         	if ($table->id>0) { //we must have already saved and have an id
         		$query=$db->getQuery(true);
-        		$query->select('COUNT(r.id) as revcnt, MAX(r.seen_date) as lastseen')->from('#__xbbookreviews AS r')
-        		->where('r.book_id = '.$this->id);
+        		$query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastrev')->from('#__xbbookreviews AS r')
+        		->where('r.book_id = '.$table->id);
         		$db->setQuery($query);
         		$revs=$db->loadAssoc();
         		if ($revs['revcnt']>0) {
-        			$table->cat_date = $revs['lastseen'];
+        			$table->read_date = $revs['lastrev'];
         		}
-        	}
+        	}            
         }
         if (empty($table->created)) {
             $table->created = $date->toSql();
@@ -226,16 +229,28 @@ class XbbooksModelBook extends JModelAdmin {
             // standard Joomla practice is to set the new copy record as unpublished
             $data['published'] = 0;
         }
-        // allow nulls for year (therwise empty value defaults to 0)
-        if ($data['pubyear']=='') { $data['pubyear'] = NULL; }
         if (parent::save($data)) {
+            //get the saved id (valid for new items as well where $data['id'] will still = 0
         	$bid = $this->getState('book.id');
+            // set nulls for empty year and read_date (otherwise empty value defaults to 0000-00-00 00:00:00 which is invalid in latest myql strict mode)
+        	if (($data['read_date']=='') || ($data['pubyear']=='')){
+        	    $db = $this->getDbo();
+        	    $query= $db->getQuery(true);
+        	    $query = 'UPDATE `#__xbbooks`  AS a SET ';
+        	    $query .= ($data['pubyear']=='') ? '`pubyear` = NULL ' : '';
+        	    $query .= (($data['read_date']=='') && ($data['pubyear']=='')) ? ',' : '';
+        	    $query .= ($data['read_date']=='')? '`read_date` =  NULL ' : '';
+        	    $query .= 'WHERE a.id  ='.$bid.' ';
+        	    $db->setQuery($query);
+        	    $db->execute();
+        	}
+        	//the checkedouttime has been set to null in the table constructor
         	$this->storeBookPersons($bid,'author', $data['authorlist']);
         	$this->storeBookPersons($bid,'editor', $data['editorlist']);
         	$this->storeBookPersons($bid,'other', $data['otherlist']);
         	$this->storeBookPersons($bid,'mention', $data['menlist']);
             
-            $this->storeBookChars($this->getState('book.id'), $data['charlist']);
+            $this->storeBookChars($bid, $data['charlist']);
 
             if ($data['quick_rating'] !='')  {
             	$params = ComponentHelper::getParams('com_xbbooks');
@@ -247,9 +262,9 @@ class XbbooksModelBook extends JModelAdmin {
             	->where('r.book_id = '.$bid);
             	$db->setQuery($query);
             	$revs=$db->loadResult()+1;
-            	$revs = $revs==0 ? '' : ' ('.($revs+1).')';
-            	$rtitle = 'Rating "'.$data['title'].'"';
-            	$ralias = OutputFilter::stringURLSafe($rtitle.'-'.$revs);
+            	$revs = $revs==0 ? '' : '-'.($revs+1);
+            	$rtitle = 'Quick Rating '.$data['alias'];
+            	$ralias = OutputFilter::stringURLSafe($rtitle.$revs);
             	$reviewer = Factory::getUser()->name;
             	if ($params->get('def_new_revcat')>0) {
             		$catid=$params->get('def_new_ratcat');
@@ -257,8 +272,8 @@ class XbbooksModelBook extends JModelAdmin {
             		$catid = XbbooksHelper::getIdFromAlias('#__categories', 'uncategorised');
             	}
             	$qry = 'INSERT INTO '.$db->quoteName('#__xbbookreviews').' (title, alias, book_id, catid, reviewer, rating, rev_date, created, created_by, state ) ';
-              	$qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$fid.','.$catid.','.$db->quote($reviewer).','.
-              	$data['quick_rating'].','.$db->quote($data['cat_date']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
+              	$qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$bid.','.$catid.','.$db->quote($reviewer).','.
+              	$data['quick_rating'].','.$db->quote($data['acq_date']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
               	$db->setQuery($qry);
               	$db->execute();
             }

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 0.9.6.e 8th January 2022
+ * @version 0.9.8 15th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -114,7 +114,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         			<?php echo HTMLHelper::_('searchtools.sort', 'Review Title', 'title', $listDirn, $listOrder); ?>
         		</th>
         		<th>
-        			<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_REVIEW_BOOK_U', 'booktitle', $listDirn, $listOrder); ?>
+        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_BOOK_U', 'booktitle', $listDirn, $listOrder); ?>
         		</th>
         		<th>
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_RATING', 'rating', $listDirn, $listOrder); ?>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/review.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.2 17th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,10 +12,10 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
-use Joomla\CMS\Table\Observer\Tags;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Table\Observer\Tags;
 use Joomla\Registry\Registry;
 
 class XbbooksTableReview extends Table
@@ -23,6 +23,7 @@ class XbbooksTableReview extends Table
     function __construct(&$db) {
         $this->setColumnAlias('published', 'state');
         parent::__construct('#__xbbookreviews', 'id', $db);
+        $this->_supportNullValue = true;  //write empty checkedouttime as null
         Tags::createObserver($this, array('typeAlias' => 'com_xbbooks.review'));
     }
     

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.8.2 17th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,11 +23,11 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='cat_date';
+    $listOrder='acq_date';
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-		'cat_date'=>Text::_('COM_XBBOOKS_DATE_READ'),'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -108,7 +108,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 					</th>
                 <?php endif; ?>
 				<th>
-					<?php echo HtmlHelper::_('searchtools.sort','COM_XBBOOKS_DATE_READ','cat_date',$listDirn,$listOrder ); ?>
+					<?php echo HtmlHelper::_('searchtools.sort','COM_XBBOOKS_DATE_READ','sort_date',$listDirn,$listOrder ); ?>
 				</th>
                 <?php if($this->show_ctcol) : ?>
      				<th class="hidden-phone">
@@ -147,7 +147,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a></p> 
 						<?php if (!empty($item->subtitle)) :?>
-                        	<p><?php echo $this->escape($item->subtitle); ?></p>
+                        	<p class="xb11 xbbold><?php echo $this->escape($item->subtitle); ?></p>
                         <?php endif; ?>
 						<p>
                         <?php if($item->editcnt>0) : ?>
@@ -238,13 +238,15 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
      						<?php endif; ?>   											
     					</td>
     				<?php endif; ?>
+    				<?php if($this->show_bdates) :?>
     				<td>
-    					<p><?php if($item->lastread=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date , 'M Y').')</span>';
+    					<p><?php if($item->read_date=='') {
+    						echo '<span class="xbnit">(Acq.)'.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
     					} else {
-    						echo HtmlHelper::date($item->lastread , 'd M Y'); 
+    						echo HtmlHelper::date($item->read_date , 'd M Y'); 
     					}?> </p>
      				</td>
+     				<?php endif; ?>
                     <?php if($this->show_ctcol) : ?>
 					<td class="hidden-phone">
      					<?php if($this->show_cats) : ?>												

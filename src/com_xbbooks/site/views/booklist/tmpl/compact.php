@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.8.2 17th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,10 +22,10 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='cat_date';
+    $listOrder='acq_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 'cat_date'=>'Last Read');
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 'acq_date'=>'XBCULTURE_ACQ_DATE', 'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), );
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -79,12 +79,17 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				<th>
 					<?php echo Text::_('XBCULTURE_AUTHOR');?>
 				</th>
-				<th class="xbtc">
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
-				</th>
-				<th class="hidden-phone">
-					<?php echo HTMLHelper::_('searchtools.sort','COM_XBBOOKS_DATE_READ','cat_date',$listDirn,$listOrder ); ?>
-				</th>
+                <?php if ($this->show_rev != 0 ) : ?>
+    				<th class="xbtc">
+    					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
+    				</th>
+				<?php endif; ?>
+				<?php if ($this->show_bdates) : ?>
+				
+    				<th class="hidden-phone">
+    					<?php echo HTMLHelper::_('searchtools.sort','COM_XBBOOKS_DATE_READ','sort_date',$listDirn,$listOrder ); ?>
+    				</th>
+    			<?php endif; ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -96,7 +101,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php if (!empty($item->subtitle)) :?>
-                        	<br /><span class="xb095 xbnorm"><?php echo $this->escape($item->subtitle); ?></span>
+                        	<br /><span class="xb095 xbnorm" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
 						</p>
 					</td>
@@ -109,47 +114,50 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                               echo '<span>';
                             } ?>
                        	<span class="xbnit">
-                        		<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
+                        		<?php echo Text::_($item->editcnt>1 ? 'Eds.' : 'Ed.' ); ?>
                         	</span></span>: 
                         	<?php echo $item->elist; ?>
                         <?php else : ?>
                         	<?php if ($item->authcnt==0) {
                         		echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
-	                        	<span class="xbnit">
-	                        		<?php // echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
-	                        	</span>: 
                         		<?php echo $item->alist; 
                         	} ?>                          	
                         <?php endif; ?>
 						</p>
 					</td>
-					<td>
-						<?php if ($item->revcnt==0) : ?>
-						   <?php  echo '<i>'.Text::_( 'COM_XBBOOKS_NOREVIEW' ).'</i><br />'; ?>
-						<?php else : ?> 
-                            <?php foreach ($item->reviews as $rev) : ?>
-								<div class="xb09">
-    								<?php if (($this->zero_rating) && ($rev->rating==0)) {
-    									echo '<span class="'.$this->zero_class.' "></span>';
-    								} else {
-    									echo str_repeat('&#11088',$rev->rating);
-    								}?>
-						        </div>
-							<?php endforeach; ?>
-							<?php if ($item->revcnt>1) : ?>
-								<div class="center" style="border-top:solid 1px lightgray;">
-									<span class="xbnt">Average rating</span>: <b><?php echo number_format($item->averat,2); ?></b>
-								</div>
-							<?php endif; ?>
-						<?php endif; ?>
-											
-					</td>
-					<td class="hidden-phone">
-    					<p><?php if($item->lastread) {
-    						echo HtmlHelper::date($item->lastread , 'd M Y'); 
-    					}?> </p>
-					</td>
+					<?php if ($this->show_rev != 0 ) : ?>					
+    					<td>
+    						<?php if ($item->revcnt==0) : ?>
+    						   <?php  echo '<i>'.Text::_( 'COM_XBBOOKS_NOREVIEW' ).'</i><br />'; ?>
+    						<?php else : ?> 
+                                <?php foreach ($item->reviews as $rev) : ?>
+    								<div class="xb09">
+        								<?php if (($this->zero_rating) && ($rev->rating==0)) {
+        									echo '<span class="'.$this->zero_class.' "></span>';
+        								} else {
+        									echo str_repeat('&#11088',$rev->rating);
+        								}?>
+    						        </div>
+    							<?php endforeach; ?>
+    							<?php if ($item->revcnt>1) : ?>
+    								<div class="center" style="border-top:solid 1px lightgray;">
+    									<span class="xbnt">Average rating</span>: <b><?php echo number_format($item->averat,2); ?></b>
+    								</div>
+    							<?php endif; ?>
+    						<?php endif; ?>
+    											
+    					</td>
+    				<?php endif; ?>
+    				<?php if ($this->show_bdates ) : ?>   				
+    					<td class="hidden-phone">
+        					<p><?php if($item->read_date=='') {
+        						echo '<span class="xbnit">(Acq.)'.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
+        					} else {
+        						echo HtmlHelper::date($item->read_date , 'd M Y'); 
+        					}?> </p>
+    					</td>
+    				<?php endif; ?>
 				</tr>
 				<?php endforeach;?>
 			</tbody>

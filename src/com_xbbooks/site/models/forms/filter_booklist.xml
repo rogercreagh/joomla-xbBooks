@@ -51,6 +51,18 @@
 				<option value="1">XBCULTURE_NONFICTION</option>
 				<option value="2">XBCULTURE_FICTION</option>
 		</field>	
+		<field name="readfilt"
+			type="list"
+			default="0"
+			label="Read or Unread only"
+			description="Show all books or only those read or those not-yet read"
+  			class="btn-group btn-small radiotop"
+			onchange="this.form.submit();"
+			>
+				<option value="0" >XBCULTURE_BOTH</option>
+				<option value="1">Read books only</option>
+				<option value="2">Unread books only</option>
+		</field>	
 		<field
 			name="category_id" type="catsubtree"
 			label="COM_XBBOOKS_FILTER_CATEGORY_LBL"

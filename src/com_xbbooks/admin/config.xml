@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks config.xml v0.9.6.a 16th December 2021 -->
+<!-- xbBooks config.xml v0.9.8.2 17th May 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -104,14 +104,34 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	
+ 		<field name="show_bdates" type="radio"
+			label="Show Book Dates"
+			description="A book has an acquistion date (when it was entered in the catalogue) and a last read date. For some sites you might not wish to use these fields on the front-end. If you want to use acquisition date, but not read date then simple leave the read dates blank. When sorting by date the latest of both dates are used. NB this does not affect publication year which is a property of the book itself."
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>	
+		
  		<field name="revsnote" type="note"
 			label="Reviews Settings"
 		/>	
+		 <field name="show_revs" type="radio"
+			label="Show Book Reviews"
+			description="If you do not wish to use the reviews facility then set it to No here and no reviews or review links will appear on the front end. The functionality will still be there in the back end, but need not be used."
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+		
  		<field name="show_rcat" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_RCAT_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
-			showon="show_cats!:0"
+			showon="show_cats!:0[AND]show_revs!:0"
 			default="1"
 			>
 			<option value="0" >JHIDE</option>
@@ -123,7 +143,7 @@
 			label="XBCULTURE_CONFIG_RCAT_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
-			showon="show_rcat!:0"
+			showon="show_rcat!:0[AND]show_revs!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -131,7 +151,7 @@
 			label="XBCULTURE_CONFIG_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="rootcat_review!:"
+			showon="show_revs!:0[AND]rootcat_review!:"
 		>
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
@@ -140,7 +160,7 @@
 			label="XBCULTURE_CONFIG_SHOW_RTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
-			showon="show_tags:1"
+			showon="show_tags:1[AND]show_revs!:0"
 			default="1"
 			>
 			<option value="0" >JHIDE</option>
@@ -403,6 +423,7 @@
 			label="Rating &amp; Review Column"
 			description="Show rating &amp; reviews column by default - can override in menu options. If you are not using reviews you can hide them here and in the book details. See also the separate setting for the individual film display"
 			default="2"
+			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Show Average Rating only</option>
@@ -587,6 +608,7 @@
  		<field name="show_brevs" type="list"
 			label="Show Ratings/Reviews"
 			description="Show rating &amp; reviews. Show rating only will make review details inaccessible from this page."
+			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Rating only</option>
@@ -597,16 +619,19 @@
 			label="Review View Options"
 			description="These settings apply to the individual review view"
 			class="info"
+			showon="show_revs:1"
 		/>	
 		<field name="rev_layout" type="componentlayout"
 	        label="JFIELD_ALT_LAYOUT_LABEL"
 	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbfilms" view="filmreview" 
+	       	extension="com_xbbooks" view="bookreview" 
+			showon="show_revs:1"
 	    />
  		<field name="show_rimage" type="list"
 			label="Show Image"
 			description="Show image, and in which position"
 			default="1"
+			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Show to left of title</option>

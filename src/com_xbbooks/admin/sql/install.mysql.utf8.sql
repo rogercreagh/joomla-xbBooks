@@ -1,4 +1,4 @@
-# sql installation file for component xbBooks v0.6.5 16th January 2021
+# sql installation file for component xbBooks v0.9.8 15th May 2021
 # NB no book data is installed with this file, default categories are created by the installation script
 
 INSERT INTO `#__content_types` (`type_title`, `type_alias`, `content_history_options`, `table`, `field_mappings`, `router`,`rules`) 
@@ -213,7 +213,8 @@ CREATE TABLE IF NOT EXISTS `#__xbbooks` (
   `format` varchar(50) NOT NULL DEFAULT '',
   `fiction` boolean NOT NULL DEFAULT FALSE,
   `ext_links` mediumtext,
-  `cat_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `acq_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_read` datetime,
   `catid` int(10) NOT NULL  DEFAULT '0',
   `access` int(10) NOT NULL  DEFAULT '0',
   `state` tinyint(3) NOT NULL DEFAULT '0',

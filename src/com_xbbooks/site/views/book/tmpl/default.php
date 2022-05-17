@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.8.2 17th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -47,7 +47,7 @@ if ($imgok) {
 				<div class="xbbox xbboxcyan">
 					<div class="pull-right xbmr20" style="text-align:right;">
 	                    <div class="xb12">
-						<?php if ($item->revcnt>0) : ?>
+						<?php if (($this->show_brevs ==1) && ($item->revcnt>0)) : ?>
 							<?php $stars = (round(($item->averat)*2)/2); ?>
 								<?php if (($this->zero_rating) && ($stars==0)) : ?>
 								    <span class="<?php echo $this->zero_class; ?>"></span>
@@ -194,16 +194,22 @@ if ($imgok) {
 		</div>
 	<?php endif; ?>
     
-</div>	
-<?php if ($item->lastread>0) : ?>
-	<div class="pull-left xbnit"><?php echo  Text::_('COM_XBBOOKS_DATE_READ').': '; ?></div>
-	<div class="pull-left">
-		<?php echo HtmlHelper::date($item->lastread , 'D jS M Y') ; ?>
-    </div>
-	<div class="clearfix"></div> 
-	<hr />
-<?php endif; ?>
-	
+</div>
+<?php if ($this->show_bdates) : ?>
+    	<div class="pull-left xbnit"><?php echo  Text::_('Date acquired').': '; ?></div>
+    	<div class="pull-left">
+    		<?php echo HtmlHelper::date($item->acq_date , 'M Y') ; ?>
+        </div>
+    	<div class="clearfix"></div> 
+    <?php if ($item->read_date) : ?>
+    	<div class="pull-left xbnit"><?php echo  Text::_('COM_XBBOOKS_DATE_READ').': '; ?></div>
+    	<div class="pull-left">
+    		<?php echo HtmlHelper::date($item->read_date , 'D jS M Y') ; ?>
+        </div>
+    	<div class="clearfix"></div> 
+    	<hr />
+    <?php endif; ?>
+<?php endif; ?>	
 <hr />
 <div class="row-fluid">
 	<div class="span<?php echo ($this->show_brevs ==0)? 12 : 6; ?>">

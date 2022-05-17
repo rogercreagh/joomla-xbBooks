@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/review.xml v0.9.5 10th May 2021 -->
+<!-- xbBooks admin/models/forms/review.xml v0.9.8 16th May 2022 -->
 <form>
 	<fieldset>
 		<field
@@ -83,6 +83,11 @@
 		<field name="rev_date" type="calendar"
 			label="COM_XBBOOKS_FIELD_REVIEWED_LABEL" description="COM_XBBOOKS_FIELD_REVIEWED_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d" filter="user_utc" 
+		/>
+
+		<field name="rev2read" type="checkbox"
+			label="Copy date to book" description="Copy review date to read date for book"
+			checked = "0"
 		/>
 
 		<field name="reviewer" type="reviewer"

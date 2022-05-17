@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 0.9.6.e 8th January 2022
+ * @version 0.9.8.1 16th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,13 +26,13 @@ $userId         = $user->get('id');
 $listOrder     = $this->escape($this->state->get('list.ordering'));
 $listDirn      = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='cat_date';
+    $listOrder='sort_date';
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_PUBYEARCOL'),
-		'id'=>'id','cat_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
-		'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
-/* ' ,'pubyear',''*/
+	'id'=>'id','acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+	'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
+
 
 $saveOrder      = $listOrder == 'ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbbooks.book');
@@ -132,7 +132,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','cat_date',$listDirn,$listOrder ).', '.
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','sort_date',$listDirn,$listOrder ).', '.
 										HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
 						Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
@@ -340,10 +340,10 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 										
 					</td>
 					<td>
-    					<p class="xb09"><?php if($item->lastread=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date ,'d M Y').')</span>';
+    					<p class="xb09"><?php if($item->read_date=='') {
+    						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date ,'d M Y').'</span>';
     					} else {
-    						echo HtmlHelper::date($item->lastread ,'d M Y'); 
+    						echo HtmlHelper::date($item->read_date ,'d M Y'); 
     					}?> </p>
 						<p><a class="label label-success" href="<?php echo $cvlink.$item->catid; ?>" 
 							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">

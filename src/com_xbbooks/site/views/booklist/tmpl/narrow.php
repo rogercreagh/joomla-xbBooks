@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/narrow.php
- * @version 0.9.8 12th May 2022
+ * @version 0.9.8.2 17th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,11 +23,11 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='cat_date';
+    $listOrder='sort_date';
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-		'cat_date'=>Text::_('COM_XBBOOKS_DATE_READ'),'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -94,7 +94,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 				<th>
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.Text::_('XBCULTURE_AUTHOR').', '.
-    						HtmlHelper::_('searchtools.sort','COM_XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );				
+    						HtmlHelper::_('searchtools.sort','COM_XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );
+    						  echo ', '.HtmlHelper::_('searchtools.sort','PubYear','pubyear',$listDirn,$listOrder );	
 					?>
 				</th>					
 		<tbody>
@@ -117,11 +118,11 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 					<td>
 						<h3>
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a></h3> 
+								<b><?php echo $this->escape($item->title); ?></b></a>
 						<?php if (!empty($item->subtitle)) :?>
-                        	<p><?php echo $this->escape($item->subtitle); ?></p>
+                        	<br /><span class="xb08" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
-						<p>
+						</h3><p>
                         <?php if($item->editcnt>0) : ?>
                            	<?php if ($item->authcnt>0) {
 								echo '<span class="hasTooltip" title data-original-title="Authors: '.$item->alist.'">';

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/blog/tmpl/default.xml v0.9.5 10th May 2021 -->
+<!-- xbBooks site/views/blog/tmpl/default.xml v0.9.5 10th May 2021 -->
 <metadata>
 	<layout title="Reviews Blog">
 		<message>Displays a blog of reviews. Options to restrict to single category and filter by tag(s).</message>

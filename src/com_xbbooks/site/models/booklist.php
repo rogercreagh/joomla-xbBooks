@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.8.2 17th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,8 +19,8 @@ class XbbooksModelBooklist extends JModelList {
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
-					'pubyear','a.pubyear',
-					'averat', 'lastread',
+					'pubyear','a.pubyear', 'fiction',
+					'averat', 'sort_date', 'read_date', 'a.read_date',
 					'catid', 'a.catid', 'category_id',
 					'category_title' );
 		}
@@ -58,7 +58,7 @@ class XbbooksModelBooklist extends JModelList {
 		$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias,
             a.summary AS summary, a.pubyear AS pubyear, a.catid AS catid, a.fiction AS fiction,
             a.cover_img AS cover_img, a.synopsis AS synopsis, a.state AS published,
-            a.created AS created, a.cat_date AS cat_date,
+            a.created AS created, a.acq_date AS acq_date, a.read_date AS read_date,
             a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
@@ -69,9 +69,10 @@ class XbbooksModelBooklist extends JModelList {
             $query->select('c.title AS category_title');
             $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
- //           $query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS br WHERE br.book_id=a.id AND br.state=1) AS revcnt');
+//           $query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS br WHERE br.book_id=a.id AND br.state=1) AS revcnt');
             $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
-            $query->select('(SELECT MAX(r.rev_date) FROM #__xbbookreviews AS r WHERE r.book_id=a.id) AS lastread');
+//          $query->select('(SELECT MAX(r.rev_date) FROM #__xbbookreviews AS r WHERE r.book_id=a.id) AS lastread');
+            $query->select('GREATEST(a.acq_date, COALESCE(a.read_date, 0)) AS sort_date');
             
             // Filter by published state, we only show published items in front end. Both item and its category must be published.
             $query->where('a.state = 1');
@@ -123,6 +124,13 @@ class XbbooksModelBooklist extends JModelList {
             if ($fiction > 0) {
             	$filtstr = $fiction == 2 ? 'TRUE' : 'FALSE';
             	$query->where('a.fiction = '. $filtstr);
+            }
+            //filter by read/unread
+            $readfilt = $this->getState('filter.readfilt');
+            if ((int)$readfilt==1) {
+                $query->where('a.read_date > 0');
+            } elseif ($readfilt==2) {
+                $query->where('COALESCE(a.read_date,0) = 0');
             }
             
             //filter by person 
@@ -222,7 +230,7 @@ class XbbooksModelBooklist extends JModelList {
             
             
             // Add the list ordering clause.
-            $orderCol       = $this->state->get('list.ordering', 'lastread');
+            $orderCol       = $this->state->get('list.ordering', 'sort_date');
             $orderDirn      = $this->state->get('list.direction', 'DESC');
             switch($orderCol) {
             	case 'a.ordering' :

@@ -25,7 +25,7 @@ class pkg_xbbooksInstallerScript
         if ((version_compare($jverthis, $this->jminver,'lt')) || (version_compare($jverthis, $this->jmaxver, 'ge'))) {
             throw new RuntimeException('xbBooks requires Joomla version greater than or equal to '.$this->jminver. ' and less than '.$this->jmaxver.'. You have '.$jverthis);
         }
-    }
+     }
     
     function install($parent)
     {
@@ -33,8 +33,10 @@ class pkg_xbbooksInstallerScript
     
     function uninstall($parent)
     {
-    	$message = 'Uninstalling xbBooks Package';
-//     	Factory::getApplication()->enqueueMessage($message,'Info');
+        $oldval = Factory::getSession()->set('xbpkg', 'xbbooks');
+        $newval = Factory::getSession()->get('xbpkg', '');
+        $message = 'Uninstalling xbBooks Package '.$newval;
+     	Factory::getApplication()->enqueueMessage($message,'Info');
 //     	$db = Factory::getDBO();
 //     	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbfilms'));
 //     	$res = $db->loadResult();    	
@@ -100,6 +102,12 @@ class pkg_xbbooksInstallerScript
 	    	
 	    	Factory::getApplication()->enqueueMessage($message, 'message');
     	}
+    	if ($type == 'uninstall') {
+    	    //we need to check if we have xbfilms installed and if it is we must reinstate xbpeople
+    	    
+    	    $oldval = Factory::getSession()->set('xbpkg', '');
+    	}
+    	
     }
     
 }

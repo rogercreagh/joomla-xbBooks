@@ -20,7 +20,7 @@ class XbbooksModelBooklist extends JModelList {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
 					'pubyear','a.pubyear', 'fiction',
-					'averat', 'sort_date', 'read_date', 'a.read_date',
+					'averat', 'sort_date', 'last_read', 'a.last_read',
 					'catid', 'a.catid', 'category_id',
 					'category_title' );
 		}
@@ -58,7 +58,7 @@ class XbbooksModelBooklist extends JModelList {
 		$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias,
             a.summary AS summary, a.pubyear AS pubyear, a.catid AS catid, a.fiction AS fiction,
             a.cover_img AS cover_img, a.synopsis AS synopsis, a.state AS published,
-            a.created AS created, a.acq_date AS acq_date, a.read_date AS read_date,
+            a.created AS created, a.acq_date AS acq_date, a.last_read AS last_read,
             a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
@@ -72,7 +72,7 @@ class XbbooksModelBooklist extends JModelList {
 //           $query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS br WHERE br.book_id=a.id AND br.state=1) AS revcnt');
             $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
 //          $query->select('(SELECT MAX(r.rev_date) FROM #__xbbookreviews AS r WHERE r.book_id=a.id) AS lastread');
-            $query->select('GREATEST(a.acq_date, COALESCE(a.read_date, 0)) AS sort_date');
+            $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
             
             // Filter by published state, we only show published items in front end. Both item and its category must be published.
             $query->where('a.state = 1');
@@ -128,9 +128,9 @@ class XbbooksModelBooklist extends JModelList {
             //filter by read/unread
             $readfilt = $this->getState('filter.readfilt');
             if ((int)$readfilt==1) {
-                $query->where('a.read_date > 0');
+                $query->where('a.last_read > 0');
             } elseif ($readfilt==2) {
-                $query->where('COALESCE(a.read_date,0) = 0');
+                $query->where('COALESCE(a.last_read,0) = 0');
             }
             
             //filter by person 

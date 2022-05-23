@@ -78,7 +78,7 @@
 			required="true"
 			showtime="false" translateformat="true" />
 
-		<field name="read_date" type="calendar"
+		<field name="last_read" type="calendar"
 			label="COM_XBBOOKS_DATE_READ_LABEL" description="COM_XBBOOKS_DATE_READ_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
 			required="false"

@@ -104,7 +104,7 @@ class XbbooksModelBook extends JModelAdmin {
         	//default to today
         	$table->acq_date = $date->toSql();
         }
-        if (empty($table->read_date)) {
+        if (empty($table->last_read)) {
             //if there are reviews do we want to force a read date??? - this will, perhaps make an option
         	if ($table->id>0) { //we must have already saved and have an id
         		$query=$db->getQuery(true);
@@ -113,7 +113,7 @@ class XbbooksModelBook extends JModelAdmin {
         		$db->setQuery($query);
         		$revs=$db->loadAssoc();
         		if ($revs['revcnt']>0) {
-        			$table->read_date = $revs['lastrev'];
+        			$table->last_read = $revs['lastrev'];
         		}
         	}            
         }
@@ -232,14 +232,14 @@ class XbbooksModelBook extends JModelAdmin {
         if (parent::save($data)) {
             //get the saved id (valid for new items as well where $data['id'] will still = 0
         	$bid = $this->getState('book.id');
-            // set nulls for empty year and read_date (otherwise empty value defaults to 0000-00-00 00:00:00 which is invalid in latest myql strict mode)
-        	if (($data['read_date']=='') || ($data['pubyear']=='')){
+            // set nulls for empty year and last_read (otherwise empty value defaults to 0000-00-00 00:00:00 which is invalid in latest myql strict mode)
+        	if (($data['last_read']=='') || ($data['pubyear']=='')){
         	    $db = $this->getDbo();
         	    $query= $db->getQuery(true);
         	    $query = 'UPDATE `#__xbbooks`  AS a SET ';
         	    $query .= ($data['pubyear']=='') ? '`pubyear` = NULL ' : '';
-        	    $query .= (($data['read_date']=='') && ($data['pubyear']=='')) ? ',' : '';
-        	    $query .= ($data['read_date']=='')? '`read_date` =  NULL ' : '';
+        	    $query .= (($data['last_read']=='') && ($data['pubyear']=='')) ? ',' : '';
+        	    $query .= ($data['last_read']=='')? '`last_read` =  NULL ' : '';
         	    $query .= 'WHERE a.id  ='.$bid.' ';
         	    $db->setQuery($query);
         	    $db->execute();

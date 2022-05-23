@@ -340,10 +340,10 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 										
 					</td>
 					<td>
-    					<p class="xb09"><?php if($item->read_date=='') {
+    					<p class="xb09"><?php if($item->last_read=='') {
     						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date ,'d M Y').'</span>';
     					} else {
-    						echo HtmlHelper::date($item->read_date ,'d M Y'); 
+    						echo HtmlHelper::date($item->last_read ,'d M Y'); 
     					}?> </p>
 						<p><a class="label label-success" href="<?php echo $cvlink.$item->catid; ?>" 
 							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">

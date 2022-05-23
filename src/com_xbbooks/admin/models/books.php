@@ -46,7 +46,7 @@ class XbbooksModelBooks extends JModelList
         $query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias, 
             a.summary AS summary, a.pubyear AS pubyear, a.catid AS catid, a.fiction AS fiction,
             a.cover_img AS cover_img, a.synopsis AS synopsis, a.state AS published, 
-            a.created AS created, a.created_by AS created_by, a.acq_date AS acq_date, a.read_date AS read_date,
+            a.created AS created, a.created_by AS created_by, a.acq_date AS acq_date, a.last_read AS last_read,
             a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
@@ -63,7 +63,7 @@ class XbbooksModelBooks extends JModelList
 
         $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
 //        $query->select('(SELECT MAX(fr.rev_date) FROM #__xbbookreviews AS fr WHERE fr.book_id=a.id) AS lastread');
-        $query->select('GREATEST(a.acq_date, COALESCE(a.read_date, 0)) AS sort_date');
+        $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
         
         
 		// Filter by published state

@@ -151,10 +151,10 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     				<?php endif; ?>
     				<?php if ($this->show_bdates ) : ?>   				
     					<td class="hidden-phone">
-        					<p><?php if($item->read_date=='') {
+        					<p><?php if($item->last_read=='') {
         						echo '<span class="xbnit">(Acq.)'.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
         					} else {
-        						echo HtmlHelper::date($item->read_date , 'd M Y'); 
+        						echo HtmlHelper::date($item->last_read , 'd M Y'); 
         					}?> </p>
     					</td>
     				<?php endif; ?>

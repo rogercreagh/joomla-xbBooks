@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 0.9.8 12th January 2022
+ * @version 0.9.8.3 23rd May January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -14,6 +14,7 @@ use Joomla\CMS\Version;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Component\ComponentHelper;
 
 class com_xbbooksInstallerScript 
 {
@@ -46,19 +47,38 @@ class com_xbbooksInstallerScript
     function uninstall($parent) {
     	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbbooks/xbbooks.xml'));
     	$message = 'Uninstalling xbBooks component v.'.$componentXML['version'].' '.$componentXML['creationDate'];
-    	Factory::getApplication()->enqueueMessage($message,'Info');
-    	
-    	$dest='/images/xbbooks';
-        if (JFolder::exists(JPATH_ROOT.$dest)) {
-            if (JFolder::delete(JPATH_ROOT.$dest)){
-                $message = 'Images deleted ok';
-                Factory::getApplication()->enqueueMessage($message,'Info');
-            } else {
-                $message = 'Problem deleting xbBooks images folder "/images/xbbooks" - please check in Media manager';
-                Factory::getApplication()->enqueueMessage($message,'Error');
-            }
-        }
-        $message = '<br /><b>NB</b> xbBooks uninstall: People and Characters data tables, and images/xbpeople folder have <b>not</b> been deleted.';
+    	//are we also clearing data?
+    	$killdata = ComponentHelper::getParams('com_xbbooks')->get('killdata',0);
+    	if ($killdata) {
+    	    if ($this->uninstalldata()) {
+    	        $message .= ' ... xbBooks data tables deleted';
+    	    }
+    	    $dest='/images/xbbooks';
+    	    if (JFolder::exists(JPATH_ROOT.$dest)) {
+    	        if (JFolder::delete(JPATH_ROOT.$dest)){
+    	            $message .= ' ... images/xbbooks folder deleted';
+    	        } else {
+    	            $err = 'Problem deleting xbBooks images folder "/images/xbbooks" - please check in Media manager';
+    	            Factory::getApplication()->enqueueMessage($message,'Error');
+    	        }
+    	    }
+    	} else {
+    	    $message .= ' xbBOOKS data tables and images folder have <b>NOT</b> been deleted.';
+    	    // allow categories to be recovered with same id
+    	    $db = Factory::getDbo();
+    	    $db->setQuery(
+    	        $db->getQuery(true)
+    	        ->update('#__categories')
+    	        ->set('extension='.$db->q('!com_xbbooks!'))
+    	        ->where('extension='.$db->q('com_xbbooks'))
+    	        )
+    	        ->execute();
+    	        $cnt = $db->getAffectedRows();
+    	        
+    	        if ($cnt>0) {
+    	            $message .= '<br />'.$cnt.' xbBooks categories renamed as "<b>!</b>com_xbbooks<b>!</b>". They will be recovered on reinstall with original ids.';
+    	        }
+    	}
         Factory::getApplication()->enqueueMessage($message,'Info');
     }
     
@@ -83,14 +103,70 @@ class com_xbbooksInstallerScript
                 $message .= '"/images/xbbooks/" already exists.<br />';
             }
             
+            // Recover categories if they exist assigned to extension !com_xbfilms!
+            $db = Factory::getDbo();
+            $qry = $db->getQuery(true);
+            $qry->update('#__categories')
+            ->set('extension='.$db->q('com_xbbooks'))
+            ->where('extension='.$db->q('!com_xbbooks!'));
+            $db->setQuery($qry);
+            try {
+                $db->execute();
+                $cnt = $db->getAffectedRows();
+            } catch (Exception $e) {
+                Factory::getApplication()->enqueueMessage($e->getMessage(),'Error');
+            }
+            $message .= $cnt.' existing xbBooks categories restored. ';
             // create default categories using category table
             $cats = array(
             		array("title"=>"Uncategorised","desc"=>"default fallback category for all xbBooks items"),
             		array("title"=>"Imported","desc"=>"default category for xbBooks imported data"));
             $message .= $this->createCategory($cats);
+            Factory::getApplication()->enqueueMessage($message,'Info');
             
             // we assume people default categories are already installed by xbpeople
             // we assume that indicies for xbpersons and xbcharacter tables have been handled by xbpeople install
+            //set up indicies for books and bookreviews tables - can't be done in install.sql as they may already exists
+            //mysql doesn't support create index if not exists.
+            $message = 'Checking indicies... ';
+            
+            $prefix = $app->get('dbprefix');
+            $querystr = 'ALTER TABLE '.$prefix.'xbbooks ADD INDEX bookaliasindex (alias)';
+            $err=false;
+            try {
+                $db->setQuery($querystr);
+                $db->execute();
+            } catch (Exception $e) {
+                if($e->getCode() == 1061) {
+                    $message .= '- book alias index already exists. ';
+                } else {
+                    $message .= '[ERROR creating bookaliasindex: '.$e->getCode().' '.$e->getMessage().']';
+                    $app->enqueueMessage($message, 'Error');
+                    $message = 'Checking indicies... ';
+                    $err = true;
+                }
+            }
+            if (!$err) {
+                $message .= '- book alias index created. ';
+            }
+            $querystr = 'ALTER TABLE '.$prefix.'xbbookreviews ADD INDEX reviewaliasindex (alias)';
+            $err=false;
+            try {
+                $db->setQuery($querystr);
+                $db->execute();
+            } catch (Exception $e) {
+                if($e->getCode() == 1061) {
+                    $message .= '- bookreviews alias index already exists';
+                } else {
+                    $message .= '<br />[ERROR creating reviewaliasindex: '.$e->getCode().' '.$e->getMessage().']<br />';
+                    $app->enqueueMessage($message, 'Error');
+                    $message = '';
+                    $err = true;
+                }
+            }
+            if (!$err) {
+                $message .= '- bookreviews alias index created.';
+            }
             
             Factory::getApplication()->enqueueMessage($message,'Info');
             
@@ -101,15 +177,6 @@ class com_xbbooksInstallerScript
             if (!$db->loadObject()) {
                 // we could check those indicies here
                 $xbpeople = false;
-                $peepmess = '<p>Without xbPeople, xbBooks will not function correctly.';
-                $peepmess .= '<br />To install it now copy this url <b> https://www.crosborne.uk/downloads?download=11 </b>, and paste the link into the box on the ';
-                $peepmess .= '<a href="index.php?option=com_installer&view=install#url">Install from URL page</a>, ';
-                $peepmess .= 'or <a href="https://www.crosborne.uk/downloads?download=11">download here</a> and drag and drop onto the install box on this page.';
-                $peepmess .= '</p>';
-                echo '<div class="alert alert-error">';
-                echo '<h4>Warning - xbPeople Component appears not to be installed</h4>';
-                echo $peepmess;
-                echo '</div>';
             }
             $oldval = Factory::getSession()->set('xbpeople_ok', $xbpeople);
             
@@ -186,6 +253,19 @@ class com_xbbooksInstallerScript
     		}
     	}
     	return $message;
+    }
+    
+    protected function uninstalldata() {
+        $message = '';
+        $db = Factory::getDBO();
+        $db->setQuery('DROP TABLE IF EXISTS `#__xbbooks`, `#__xbbookreviews`, `#__xbbookperson`, `#__xbbookcharacter`');
+        $res = $db->execute();
+        if ($res === false) {
+            $message = 'Error deleting xbBook tables, please check manually';
+            Factory::getApplication()->enqueueMessage($message,'Error');
+            return false;
+        }
+        return true;
     }
     
 }

@@ -2,7 +2,7 @@
 /**
  * @package xbBooks-Package
  * @filesource pkg_xbbooks_script.php
- * @version 0.9.8 12th January 2022
+ * @version 0.9.8.3 23rd May January 2022
  * @desc install, upgrade and uninstall actions
  * @author Roger C-O
  * @copyright (C) Roger Creagh-Osborne, 2019
@@ -12,6 +12,8 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Version;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Component\ComponentHelper;
 
 class pkg_xbbooksInstallerScript
 {
@@ -31,27 +33,36 @@ class pkg_xbbooksInstallerScript
     {
     }
     
-    function uninstall($parent)
-    {
-        $oldval = Factory::getSession()->set('xbpkg', 'xbbooks');
-        $newval = Factory::getSession()->get('xbpkg', '');
-        $message = 'Uninstalling xbBooks Package '.$newval;
-     	Factory::getApplication()->enqueueMessage($message,'Info');
-//     	$db = Factory::getDBO();
-//     	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbfilms'));
-//     	$res = $db->loadResult();    	
-//     	if ($res) {
-//     	    $message = 'xbFilms is still installed but xbPeople has been removed with this package. No data has been deleted, but if you wish to continue using xbFilms you must reinstall xbPeople, either by installing the component or by reinstalling the xbFilms package.';
-//     	    Factory::getApplication()->enqueueMessage($message,'Error');
-//     	}
-    	echo '<div style="padding: 7px; margin: 0 0 8px; list-style: none; -webkit-border-radius: 4px; -moz-border-radius: 4px;
+    function uninstall($parent) {
+        $oldval = Factory::getSession()->set('xbpkg', 'books');
+        $db = Factory::getDBO();
+     	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbfilms'));
+     	$res = $db->loadResult();    	
+     	if ($res) {
+     	    $message = 'xbFilms is still installed. If you wish to uninstall xbBooks then just uninstall the component for now.';
+     	    //books component could have been uninstalled manually so we'll redirect to xbfilms dashboard as we know that exists
+     	    $targ = Uri::base().'index.php?option=com_xbfilms&view=cpanel&err='.urlencode($message);
+   	        //ndex.php?option=com_installer&view=manage&filter_search=xb //but this will miss the message
+     	    header("Location: ".$targ);
+     	    exit();
+     	}
+
+     	echo '<div style="padding: 7px; margin: 0 0 8px; list-style: none; -webkit-border-radius: 4px; -moz-border-radius: 4px;
 	border-radius: 4px; background-image: linear-gradient(#ffffff,#efefef); border: solid 1px #ccc;">';
-    	echo '<h4>Uninstalling xbBooks Package</h4>';
-        echo '<p>This is removing the xbBooks and xbPeople components, but will leave the xbPeople data tables and images.';
-        echo '<br />You can can delete the images using Media manager (under Admin menu|Content).';
-        echo '<br />A separate tool to clear residual xbPeople data will be <a href="https://crosborne.uk/xbdelpeople">available dreckly</a> from CrOsborne...</p>';
-        echo '<i>"<b>dreckly</b>" is Cornish dialect word meaning the same as "whenever" but without the terrible sense of urgency</i>';
-        echo '</div>';
+    	echo '<h4>xbBooks Package Uninstalled</h4>';
+    	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbbooks'));
+    	if ($db->loadResult()) {
+    	    echo '<p>xbBooks component uninstalled.</p>';
+    	} else {
+    	    echo '<p>xbBooks component appears to have already been uninstalled.</p>';
+    	}
+    	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbpeople'));
+    	if ($db->loadResult()) {
+    	    echo '<p>xbPeople component uninstalled.</p>';
+    	} else {
+    	    echo '<p>xbPeople component appears to have already been uninstalled.</p>';
+    	}
+    	echo '</div>';
     }
     
     function update($parent)
@@ -102,12 +113,6 @@ class pkg_xbbooksInstallerScript
 	    	
 	    	Factory::getApplication()->enqueueMessage($message, 'message');
     	}
-    	if ($type == 'uninstall') {
-    	    //we need to check if we have xbfilms installed and if it is we must reinstate xbpeople
-    	    
-    	    $oldval = Factory::getSession()->set('xbpkg', '');
-    	}
-    	
     }
     
 }

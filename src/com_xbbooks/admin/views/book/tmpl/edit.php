@@ -103,7 +103,7 @@ $style = '.controls .btn-group > .btn  {'
     		<div class="span3 form-vertical">
           		<h4>Book Info</h4>
         		<?php echo $this->form->renderField('acq_date'); ?>
-        		<?php echo $this->form->renderField('read_date'); ?>
+        		<?php echo $this->form->renderField('last_read'); ?>
           		<?php echo $this->form->renderField('fiction'); ?>   					
         		<?php echo $this->form->renderField('format'); ?>
         		<?php echo $this->form->renderField('orig_lang'); ?>

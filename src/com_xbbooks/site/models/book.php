@@ -33,7 +33,7 @@ class XbbooksModelBook extends JModelItem {
 			$db = $this->getDbo();
 			$query = $db->getQuery(true);
 			$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.cover_img AS cover_img, a.pubyear AS pubyear,
-				a.summary AS summary, a.synopsis AS synopsis, a.publisher AS publisher, a.acq_date AS acq_date, a.read_date AS read_date,
+				a.summary AS summary, a.synopsis AS synopsis, a.publisher AS publisher, a.acq_date AS acq_date, a.last_read AS last_read,
 				a.ext_links AS ext_links, a.fiction AS fiction, a.orig_lang AS orig_lang, a.edition AS edition, a.format AS format,
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
 			$query->from('#__xbbooks AS a');

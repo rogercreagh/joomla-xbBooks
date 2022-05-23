@@ -1,4 +1,4 @@
-# sql installation file for component xbBooks v0.9.8 15th May 2021
+# sql installation file for component xbBooks v0.9.8.3 23rd May 2022
 # NB no book data is installed with this file, default categories are created by the installation script
 
 INSERT INTO `#__content_types` (`type_title`, `type_alias`, `content_history_options`, `table`, `field_mappings`, `router`,`rules`) 
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `#__xbbooks` (
   PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
-CREATE UNIQUE INDEX `bookaliasindex` ON `#__xbbooks` (`alias`);
+# CREATE UNIQUE INDEX `bookaliasindex` ON `#__xbbooks` (`alias`);
 
 CREATE TABLE IF NOT EXISTS `#__xbbookperson` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
@@ -288,5 +288,5 @@ CREATE TABLE IF NOT EXISTS `#__xbbookreviews` (
    PRIMARY KEY (`id`)
   )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
-CREATE UNIQUE INDEX `reviewaliasindex` ON `#__xbbookreviews` (`alias`);
+# CREATE UNIQUE INDEX `reviewaliasindex` ON `#__xbbookreviews` (`alias`);
 

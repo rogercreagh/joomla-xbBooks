@@ -131,7 +131,7 @@ class XbbooksModelReview extends JModelAdmin {
             if ((array_key_exists('rev2read', $data)) && ($data['rev2read']==1)) {
                 $db = $this->getDbo();
                 $query= $db->getQuery(true);
-                $query = 'UPDATE `#__xbbooks`  AS a SET `read_date` =  '.$db->quote($data['rev_date']).' ';
+                $query = 'UPDATE `#__xbbooks`  AS a SET `last_read` =  '.$db->quote($data['rev_date']).' ';
                 $query .= 'WHERE a.id  ='.$rid.' ';
                 $db->setQuery($query);
                 $db->execute();               

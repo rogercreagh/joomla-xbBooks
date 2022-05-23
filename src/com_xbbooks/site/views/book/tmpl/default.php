@@ -201,10 +201,10 @@ if ($imgok) {
     		<?php echo HtmlHelper::date($item->acq_date , 'M Y') ; ?>
         </div>
     	<div class="clearfix"></div> 
-    <?php if ($item->read_date) : ?>
+    <?php if ($item->last_read) : ?>
     	<div class="pull-left xbnit"><?php echo  Text::_('COM_XBBOOKS_DATE_READ').': '; ?></div>
     	<div class="pull-left">
-    		<?php echo HtmlHelper::date($item->read_date , 'D jS M Y') ; ?>
+    		<?php echo HtmlHelper::date($item->last_read , 'D jS M Y') ; ?>
         </div>
     	<div class="clearfix"></div> 
     	<hr />

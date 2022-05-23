@@ -3,7 +3,7 @@
 	<name>xbBooks Package</name>
 	<packagename>xbbooks</packagename>
 	<version>0.9.8.3</version>
-	<creationDate>18th May 2021</creationDate>
+	<creationDate>23rd May 2022</creationDate>
 	<author>Roger C-O</author>
 	<copyright>Copyright (c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
 	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
@@ -15,7 +15,6 @@
 	<packager>Roger C-O</packager>
 	<packagerurl>https://www.crosborne.co.uk/xbbooks</packagerurl>
 	<description>Package contains xbBooks and xbPeople Components for managing a catalogue of books and reviews with associated people</description>
-	<blockChildUninstall>true</blockChildUninstall>
 	<updateservers>
 	    <server type="extension" priority="1" name="xbBooks Package">
 	    	https://crosborne.co.uk/jupdates/update_pkg_xbbooks.xml

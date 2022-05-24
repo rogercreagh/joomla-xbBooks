@@ -4,7 +4,17 @@
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
 		label="XBCULTURE_GENERAL"
-		description="XBCULTURE_CONFIG_GENERAL_DESC"		>
+		description="XBCULTURE_CONFIG_GENERAL_DESC"		
+	>
+  		<field name="killdata" type="radio"
+			label="Delete Data on Uninstall"
+			description="If you want to uninstall without deleting the data tables xbbooks and xbbookreviews set this to No"
+ 			class="btn-group btn-group-yesno"
+			default="1"
+			>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+		</field>			
   		<field name="showcatsnote" type="note"
 			label="XBCULTURE_CONFIG_SHOWCATS_NOTE_LABEL"
 			description="XBCULTURE_CONFIG_SHOWCATS_NOTE_DESC"

@@ -114,7 +114,7 @@ class XbbooksTableBook extends Table
 	    return true;
 }
 
-public function bind($array, $ignore = '') {
+    public function bind($array, $ignore = '') {
 		
         if (isset($array['params']) && is_array($array['params'])) {
             // Convert the params field to a string.

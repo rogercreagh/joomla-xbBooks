@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/review.php
- * @version 0.9.8.2 17th May 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Table\Table;
@@ -106,7 +107,7 @@ class XbbooksTableReview extends Table
         //set metadata to defaults
         $metadata = json_decode($this->metadata,true);
         //meta.author will be set to reviewer if blank. Will only be created on page display (view.html.php)
-        $show_author = $params->get('show_author');
+//        $show_author = $params->get('show_author');
         if ($metadata['author'] == '') {
         	$metadata['author'] = $this->reviewer;
         }

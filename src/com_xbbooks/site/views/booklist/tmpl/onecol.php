@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbBooks
- * @filesource site/views/booklist/tmpl/narrow.php
+ * @filesource site/views/booklist/tmpl/onecol.php
  * @version 0.9.8.2 17th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -49,7 +49,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 		echo XbbooksHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist'); ?>" method="post" name="adminForm" id="adminForm">       
+	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist&layout=onecol'); ?>" method="post" name="adminForm" id="adminForm">       
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 0.9.8.1 16th May 2022
+ * @version 0.9.8.3 23rd May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -149,11 +149,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                                         || $item->checked_out==$userId || $item->checked_out==0;
 				$canEditOwn = $user->authorise('core.edit.own', 'com_xbbooks.book.'.$item->id) && $item->created_by == $userId;
                 $canChange  = $user->authorise('core.edit.state', 'com_xbbooks.book.'.$item->id) && $canCheckin;
-                $reviews = '';
-                
-                if ($item->revcnt>0) {
-                    $reviews = XbbooksGeneral::getBookReviews($item->id);
-                }
 			?>
 				<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid; ?>">	
 					<td class="order nowrap center hidden-phone">
@@ -193,9 +188,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							data-original-title="<?php echo $item->cover_img;?>"
 							<?php 
     							$src = $item->cover_img;
-    							if (empty($src)) {
-    							    $src = $nocover;
-    							} elseif (!file_exists(JPATH_ROOT.'/'.$src)) {
+    							if (!file_exists(JPATH_ROOT.'/'.$src)) {
     							    $src = $nofile;
     							}
     							$src = Uri::root().$src;

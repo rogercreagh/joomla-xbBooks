@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views//tmpl/edit.php
- * @version 0.9.8 17th May 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 HtmlHelper::_('behavior.formvalidator');
@@ -26,7 +27,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 	<?php endif; ?>
 	<div class="row-fluid">
 		<div class="span11">
-			<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
+			<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 		</div>
 		<div class="span1"><?php echo $this->form->renderField('id'); ?></div>
 	</div>
@@ -56,7 +57,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 				</fieldset>
 			</div>
 			<div class="span3">
-				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
+				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
                  				<?php echo $this->form->renderField('reviewer'); ?>
                  				<?php echo $this->form->renderField('rev_date'); ?>
                  				<?php echo $this->form->renderField('rev2read'); ?>
@@ -65,10 +66,10 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_XBBOOKS_FIELDSET_PUBLISHING')); ?>
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
-					<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+					<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
 				</div>
 				<div class="span6">
-					<?php echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
+					<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
 				</div>
 			</div>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>

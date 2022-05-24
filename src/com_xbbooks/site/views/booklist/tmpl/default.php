@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.8.2 17th May 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,8 +26,9 @@ if (!$listOrder) {
     $listOrder='acq_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_YEARPUB'), 
+    'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),
+    'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -107,9 +108,11 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<?php echo HtmlHelper::_('searchtools.sort','Rating','averat',$listDirn,$listOrder); ?>
 					</th>
                 <?php endif; ?>
-				<th>
-					<?php echo HtmlHelper::_('searchtools.sort','COM_XBBOOKS_DATE_READ','sort_date',$listDirn,$listOrder ); ?>
-				</th>
+                <?php if ($this->show_bdates) : ?>
+    				<th>
+    					<?php echo HtmlHelper::_('searchtools.sort','Read/Acquired','sort_date',$listDirn,$listOrder ); ?>
+    				</th>
+				<?php endif; ?>
                 <?php if($this->show_ctcol) : ?>
      				<th class="hidden-phone">
     					<?php if ($this->show_cat) {
@@ -127,7 +130,6 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 		</thead>
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>
-				<?php $reviews = ''; ?>
 				<tr class="row<?php echo $i % 2; ?>">	
               		<?php if($this->show_pic) : ?>
 						<td>
@@ -241,7 +243,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     				<?php if($this->show_bdates) :?>
     				<td>
     					<p><?php if($item->last_read=='') {
-    						echo '<span class="xbnit">(Acq.)'.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
+    						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
     					} else {
     						echo HtmlHelper::date($item->last_read , 'd M Y'); 
     					}?> </p>

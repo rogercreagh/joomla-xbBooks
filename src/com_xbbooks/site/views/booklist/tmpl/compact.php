@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 0.9.8.2 17th May 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,7 +25,8 @@ if (!$listOrder) {
     $listOrder='acq_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 'acq_date'=>'XBCULTURE_ACQ_DATE', 'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), );
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 
+    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'), 'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), );
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -35,7 +36,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 		echo XbbooksHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist'); ?>" method="post" name="adminForm" id="adminForm">       
+	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist&layout=compact'); ?>" method="post" name="adminForm" id="adminForm">       
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
@@ -84,8 +85,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
     				</th>
 				<?php endif; ?>
-				<?php if ($this->show_bdates) : ?>
-				
+				<?php if ($this->show_bdates) : ?>				
     				<th class="hidden-phone">
     					<?php echo HTMLHelper::_('searchtools.sort','COM_XBBOOKS_DATE_READ','sort_date',$listDirn,$listOrder ); ?>
     				</th>
@@ -129,24 +129,21 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 					<?php if ($this->show_rev != 0 ) : ?>					
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <?php  echo '<i>'.Text::_( 'COM_XBBOOKS_NOREVIEW' ).'</i><br />'; ?>
+    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'Not rated yet' ) : Text::_( 'COM_XBBOOKS_NOREVIEW' ); ?></i><br />
     						<?php else : ?> 
-                                <?php foreach ($item->reviews as $rev) : ?>
-    								<div class="xb09">
-        								<?php if (($this->zero_rating) && ($rev->rating==0)) {
-        									echo '<span class="'.$this->zero_class.' "></span>';
-        								} else {
-        									echo str_repeat('&#11088',$rev->rating);
-        								}?>
-    						        </div>
-    							<?php endforeach; ?>
-    							<?php if ($item->revcnt>1) : ?>
-    								<div class="center" style="border-top:solid 1px lightgray;">
-    									<span class="xbnt">Average rating</span>: <b><?php echo number_format($item->averat,2); ?></b>
-    								</div>
-    							<?php endif; ?>
-    						<?php endif; ?>
-    											
+	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
+	                            <div class="xbstar">
+								<?php if (($this->zero_rating) && ($stars==0)) : ?>
+								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+								<?php else : ?>
+	                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
+	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
+	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
+	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
+	                                <?php  endif; ?> 
+	                             <?php endif; ?>                        
+	                            </div>
+    						<?php endif; ?>    											
     					</td>
     				<?php endif; ?>
     				<?php if ($this->show_bdates ) : ?>   				

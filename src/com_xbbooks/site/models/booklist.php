@@ -11,7 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Categories;
 use Joomla\CMS\Helper\TagsHelper;
 
 class XbbooksModelBooklist extends JModelList {
@@ -274,10 +273,6 @@ class XbbooksModelBooklist extends JModelList {
 			
 			$item->reviews = XbbooksGeneral::getBookReviews($item->id);
 			$item->revcnt = count($item->reviews);
-//			$item->lastseen = 0;
-//			if ($item->revcnt>0) {
-//			    $item->lastseen = max(array_column($item->reviews,'seen_date'));
-//			}
 			
 			//make author/editor lists
 			$item->alist = $item->authcnt==0 ? '' : XbbooksGeneral::makeLinkedNameList($item->people,'author',',', (($item->editcnt)==0)? true:false) ;

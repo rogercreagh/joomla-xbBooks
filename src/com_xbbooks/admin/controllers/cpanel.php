@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controllers/cpanel.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.8.3 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html

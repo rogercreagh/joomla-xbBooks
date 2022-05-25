@@ -34,7 +34,6 @@ class pkg_xbbooksInstallerScript
     }
     
     function uninstall($parent) {
-        $oldval = Factory::getSession()->set('xbpkg', 'books');
         $db = Factory::getDBO();
      	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbfilms'));
      	$res = $db->loadResult();    	
@@ -42,10 +41,11 @@ class pkg_xbbooksInstallerScript
      	    $message = 'xbFilms is still installed. If you wish to uninstall xbBooks then just uninstall the component for now.';
      	    //books component could have been uninstalled manually so we'll redirect to xbfilms dashboard as we know that exists
      	    $targ = Uri::base().'index.php?option=com_xbfilms&view=cpanel&err='.urlencode($message);
-   	        //ndex.php?option=com_installer&view=manage&filter_search=xb //but this will miss the message
+   	        //ndex.php?option=com_installer&view=manage&filter_search=xb //but this would miss the message
      	    header("Location: ".$targ);
      	    exit();
      	}
+        $oldval = Factory::getSession()->set('xbpkg', 'books');
 
      	echo '<div style="padding: 7px; margin: 0 0 8px; list-style: none; -webkit-border-radius: 4px; -moz-border-radius: 4px;
 	border-radius: 4px; background-image: linear-gradient(#ffffff,#efefef); border: solid 1px #ccc;">';

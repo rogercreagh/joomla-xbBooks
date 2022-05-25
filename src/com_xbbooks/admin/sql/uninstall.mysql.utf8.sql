@@ -1,8 +1,4 @@
-DROP TABLE IF EXISTS
-`#__xbbooks`,
-`#__xbbookperson`,
-`#__xbbookcharacter`,
-`#__xbbookreviews`;
+# DROP TABLE IF EXISTS `#__xbbooks`, `#__xbbookperson`, `#__xbbookcharacter`, `#__xbbookreviews`;
 
 # `#__xbpersons`,
 # `#__xbcharacters`,

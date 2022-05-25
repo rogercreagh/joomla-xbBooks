@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controlers/review.php
- * @version 0.6.2a 17th November 2020
+ * @version 0.9.8.3 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,6 +13,7 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\Router\Route;
 
 
 class XbbooksControllerReview extends FormController {
@@ -24,11 +25,11 @@ class XbbooksControllerReview extends FormController {
 		$app->setUserState('bk', $bk);
 		
 		parent::__construct($config);
-
+		$this->registerTask('saveback', 'save');
+		
 	}
 	
-	
- 
+	 
 	protected function postSaveHook(JModelLegacy $model, $validData = array()) {
 		$item = $model->getItem();
 		
@@ -41,6 +42,16 @@ class XbbooksControllerReview extends FormController {
 			$registry = new Registry($item->metadata);
 			$item->metadata = (string) $registry;
 		}
+
+		$task = $this->getTask();
+		switch ($task) {
+		    case 'saveback':
+		        $bid = $validData['book_id'];
+		        $redirectTo =('index.php?option=com_xbfilms&task=book.edit&id='.$bid);
+		        $this->setRedirect(Route::_($redirectTo,false ));
+		        break;
+		}
+		
 	}
 	
 	public function publish() {

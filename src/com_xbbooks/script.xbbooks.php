@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 0.9.8.3 23rd May January 2022
+ * @version 0.9.8.3 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -45,7 +45,11 @@ class com_xbbooksInstallerScript
     }
     
     function uninstall($parent) {
-    	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbbooks/xbbooks.xml'));
+        $app = Factory::getApplication();
+        //clear the packageuninstall flag if it is set
+        $oldval = Factory::getSession()->clear('xbpkg');
+        
+        $componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbbooks/xbbooks.xml'));
     	$message = 'Uninstalling xbBooks component v.'.$componentXML['version'].' '.$componentXML['creationDate'];
     	//are we also clearing data?
     	$killdata = ComponentHelper::getParams('com_xbbooks')->get('killdata',0);
@@ -59,7 +63,7 @@ class com_xbbooksInstallerScript
     	            $message .= ' ... images/xbbooks folder deleted';
     	        } else {
     	            $err = 'Problem deleting xbBooks images folder "/images/xbbooks" - please check in Media manager';
-    	            Factory::getApplication()->enqueueMessage($message,'Error');
+    	            $app->enqueueMessage($err,'Error');
     	        }
     	    }
     	} else {
@@ -79,7 +83,7 @@ class com_xbbooksInstallerScript
     	            $message .= '<br />'.$cnt.' xbBooks categories renamed as "<b>!</b>com_xbbooks<b>!</b>". They will be recovered on reinstall with original ids.';
     	        }
     	}
-        Factory::getApplication()->enqueueMessage($message,'Info');
+    	$app->enqueueMessage($message,'Info');
     }
     
     function update($parent) {
@@ -91,8 +95,9 @@ class com_xbbooksInstallerScript
     }
     
     function postflight($type, $parent) {
-    	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbpeople/xbpeople.xml'));
     	if ($type=='install') {
+    	    $app = Factory::getApplication();
+    	    $componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbbooks/xbbooks.xml'));
     		$message = 'xbBooks '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
     		
     		//create xbbooks image folder
@@ -103,7 +108,7 @@ class com_xbbooksInstallerScript
                 $message .= '"/images/xbbooks/" already exists.<br />';
             }
             
-            // Recover categories if they exist assigned to extension !com_xbfilms!
+            // Recover categories if they exist assigned to extension !com_xbbooks!
             $db = Factory::getDbo();
             $qry = $db->getQuery(true);
             $qry->update('#__categories')
@@ -114,7 +119,7 @@ class com_xbbooksInstallerScript
                 $db->execute();
                 $cnt = $db->getAffectedRows();
             } catch (Exception $e) {
-                Factory::getApplication()->enqueueMessage($e->getMessage(),'Error');
+                $app->enqueueMessage($e->getMessage(),'Error');
             }
             $message .= $cnt.' existing xbBooks categories restored. ';
             // create default categories using category table
@@ -122,7 +127,7 @@ class com_xbbooksInstallerScript
             		array("title"=>"Uncategorised","desc"=>"default fallback category for all xbBooks items"),
             		array("title"=>"Imported","desc"=>"default category for xbBooks imported data"));
             $message .= $this->createCategory($cats);
-            Factory::getApplication()->enqueueMessage($message,'Info');
+            $app->enqueueMessage($message,'Info');
             
             // we assume people default categories are already installed by xbpeople
             // we assume that indicies for xbpersons and xbcharacter tables have been handled by xbpeople install
@@ -168,7 +173,7 @@ class com_xbbooksInstallerScript
                 $message .= '- bookreviews alias index created.';
             }
             
-            Factory::getApplication()->enqueueMessage($message,'Info');
+            $app->enqueueMessage($message,'Info');
             
             //check if people available
             $xbpeople = true;

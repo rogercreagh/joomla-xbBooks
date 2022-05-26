@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/booklist/onecol.xml v0.9.8 12th May 2022 -->
 <metadata>
-	<layout title="One Column Book List">
+	<layout title="BookList - One Column">
 		<message>Displays a list of books in a single column. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">

@@ -139,7 +139,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; 
 								?>
 								<img class="img-polaroid hasTooltip xbimgthumb" title="" 
-									data-original-title="<?php echo $tip; ?>"
+									data-original-title="<?php echo $tip; ?>" data-placement="right"
 									src="<?php echo $src; ?>" border="0" alt="" />							                          
 	                    	<?php  endif; ?>	                    
 						</td>

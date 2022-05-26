@@ -2,7 +2,7 @@
 /**
  * @package xbBooks-Package
  * @filesource pkg_xbbooks_script.php
- * @version 0.9.8.3 23rd May January 2022
+ * @version 0.9.8.3 26th May January 2022
  * @desc install, upgrade and uninstall actions
  * @author Roger C-O
  * @copyright (C) Roger Creagh-Osborne, 2019
@@ -75,6 +75,7 @@ class pkg_xbbooksInstallerScript
     	echo '</ul>';
     	echo '<p>For details see <a href="https://crosborne.co.uk/xbbooks/changelog" target="_blank">
             www.crosborne.co.uk/xbbooks/changelog</a></p>';
+    	echo '<p class="xbhlt">NB: Please refresh the xbFilms package cache on the Extensions|Manage page or the previous manifest may be used and cause uninstall errors</p>';
     	echo '</div>';
     }
     
@@ -86,8 +87,8 @@ class pkg_xbbooksInstallerScript
 	    	echo '<h3>xbBooks Package installed</h3>';
 	    	echo '<p>Package version '.$parent->get('manifest')->version.' '.$parent->get('manifest')->creationDate.'<br />';
 	    	echo 'Extensions included: </p>';
-	    	echo '<ul><li>xbBooks '.$parent->get('manifest')->xbbooks_version.' manage/display books details and reviews</li>';
-	    	echo '<li>xbPeople '.$parent->get('manifest')->xbpeople_version.' manage/display people and characters</li>';
+	    	echo '<ul><li><b>xbBooks '.$parent->get('manifest')->xbbooks_version.'</b>: manage/display books details and reviews</li>';
+	    	echo '<li><b>xbPeople '.$parent->get('manifest')->xbpeople_version.'</b>: manage/display people and characters</li>';
 	    	echo '</ul>';
 	    	echo '<p>For help and information see <a href="https://crosborne.co.uk/xbbooks/doc" target="_blank">
 	            www.crosborne.co.uk/xbbooks/doc</a></p>';
@@ -96,10 +97,10 @@ class pkg_xbbooksInstallerScript
 	    	echo '<a href="index.php?option=com_config&view=component&component=com_xbbooks" class="btn btn-small btn-info">xbBooks Options</a>';
 	    	echo '<br /><i>After saving the options you will exit to the Dashboard for an overview</i>';
 	    	echo '</p>';
-	    	echo '<p><b>Dashboard</b> <i>The Dashboard view provides an overview of the component status</i>&nbsp;&nbsp;';
+	    	echo '<p><b>Dashboard</b> <i>The Dashboard view provides an overview of the component status</i>&nbsp;&nbsp;: ';
 	    	echo '<a href="index.php?option=com_xbbooks&view=cpanel">xbBooks Dashboard</a> (<i>but save the options first!</i>)';
 	    	echo '</p>';
-	    	echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp ';
+	    	echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp;: ';
 	    	echo 'first check the option to show sample data button on the <a href="index.php?option=com_config&view=component&component=com_xbbooks#admin">Options Admin</a> tab, ';
 	    	echo 'then an [Install/Remove Sample Data] button will appear in the xbbooks Dashboard toolbar.';
 	    	echo '</p>';

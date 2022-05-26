@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controllers/cpanel.php
- * @version 0.9.8.3 25th May 2022
+ * @version 0.9.8.4 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,10 +25,10 @@ class XbbooksControllerCpanel extends JControllerAdmin {
         if ($status == true) {
             $this->setRedirect('index.php?option=com_xbfilms&view=cpanel');
         } elseif ($status === 0) {
-            Factory::getApplication()->enqueueMessage('xbFilms '.Text::_('XBCULTURE_COMP_DISABLED'), 'warning');
+            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbFilms '.Text::_('XBCULTURE_COMP_DISABLED').'</span>', 'warning');
             $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbfilms');
         } else {
-            Factory::getApplication()->enqueueMessage('xbFilms '.Text::_('XBCULTURE_COMP_MISSING'), 'info');
+            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbFilms '.Text::_('XBCULTURE_COMP_MISSING').'</span>', 'info');
             $this->setRedirect('index.php?option=com_xbbooks&view=cpanel');
         }
     }
@@ -38,10 +38,10 @@ class XbbooksControllerCpanel extends JControllerAdmin {
         if ($status == true) {
             $this->setRedirect('index.php?option=com_xblive');
         } elseif ($status === 0) {
-            Factory::getApplication()->enqueueMessage('xbLive'.Text::_('XBCULTURE_COMP_DISABLED'), 'warning');
+            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbLive'.Text::_('XBCULTURE_COMP_DISABLED').'</span>', 'warning');
             $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xblive');
         } else {
-            Factory::getApplication()->enqueueMessage('xbLive '.Text::_('XBCULTURE_COMP_MISSING'), 'info');
+            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbLive '.Text::_('XBCULTURE_COMP_MISSING').'</span>', 'info');
             $this->setRedirect('index.php?option=com_xbbooks&view=cpanel');
         }
     }

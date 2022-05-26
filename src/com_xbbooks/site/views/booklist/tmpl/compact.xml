@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/booklist/default.xml v0.9.5 10th May 2021 -->
 <metadata>
-	<layout title="Compact Book List">
+	<layout title="Book List - Compact">
 		<message>Displays a compact list of books with only title, author, rating and date-added columns. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">

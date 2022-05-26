@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/onecol.php
- * @version 0.9.8.2 17th May 2022
+ * @version 0.9.8.4 26th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -86,11 +86,6 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 	<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbbooklist">	
 		<thead>
 			<tr>
-				<?php if($this->show_pic) : ?>
-					<th class="center" style="width:100px">
-						<?php echo Text::_( 'COM_XBBOOKS_COVER' ); ?>
-					</th>	
-                <?php endif; ?>
 				<th>
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.Text::_('XBCULTURE_AUTHOR').', '.
@@ -102,19 +97,6 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 			<?php foreach ($this->items as $i => $item) : ?>
 				<?php $reviews = ''; ?>
 				<tr class="row<?php echo $i % 2; ?>">	
-              		<?php if($this->show_pic) : ?>
-						<td>
-						<?php  $src = trim($item->cover_img);
-							if ((!$src=='') && (file_exists(JPATH_ROOT.'/'.$src))) : 
-								$src = Uri::root().$src; 
-								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; 
-								?>
-								<img class="img-polaroid hasTooltip" title="" 
-									data-original-title="<?php echo $tip; ?>"
-									src="<?php echo $src; ?>" border="0" alt="" />							                          
-	                    	<?php  endif; ?>	                    
-						</td>
-                    <?php endif; ?>
 					<td>
 						<h3>
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
@@ -122,7 +104,21 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb08" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
-						</h3><p>
+						</h3>
+                  		<?php if($this->show_pic) : ?>
+                          <div class="pull-left" style="width:90px;margin-right:20px;">
+    						<?php  $src = trim($item->cover_img);
+    							if ((!$src=='') && (file_exists(JPATH_ROOT.'/'.$src))) : 
+    								$src = Uri::root().$src; 
+    								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; 
+    								?>
+    								<img class="img-polaroid hasTooltip" title="" 
+    									data-original-title="<?php echo $tip; ?> data-placement="right"
+    									src="<?php echo $src; ?>" border="0" alt="" />							                          
+    	                     <?php  endif; ?>
+                          </div>   
+                        <?php endif; ?>
+						<p>
                         <?php if($item->editcnt>0) : ?>
                            	<?php if ($item->authcnt>0) {
 								echo '<span class="hasTooltip" title data-original-title="Authors: '.$item->alist.'">';

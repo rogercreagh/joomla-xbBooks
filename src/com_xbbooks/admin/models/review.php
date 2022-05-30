@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/review.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.8.5 30th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -132,7 +132,7 @@ class XbbooksModelReview extends JModelAdmin {
                 $db = $this->getDbo();
                 $query= $db->getQuery(true);
                 $query = 'UPDATE `#__xbbooks`  AS a SET `last_read` =  '.$db->quote($data['rev_date']).' ';
-                $query .= 'WHERE a.id  ='.$rid.' AND COALESCE(a.last_read,0) < STR_TO_DATE("'.$data['rev_date'].'","%Y-%m-%d")';
+                $query .= 'WHERE a.id  ='.$data['book_id'].' AND COALESCE(a.last_read,0) < STR_TO_DATE("'.$data['rev_date'].'","%Y-%m-%d")';
                 $db->setQuery($query);
                 $db->execute();               
             }

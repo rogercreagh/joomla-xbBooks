@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/person/tmpl/qnew.php
- * @version 0.9.8.3 25th May 2022
+ * @version 0.9.8.5 30th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -20,7 +20,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 ?>
 <div class="xbml20 xbmr20">
 <form action="<?php echo Route::_('index.php?option=com_xbbooks&layout=qnew&id=' . (int) $this->item->id); ?>"
-    method="post" name="adminForm" id="adminForm">
+    method="post" name="adminForm" id="adminForm" style="margin:0;">
  <!--   <div class="xbbox xbboxred"><b>Did you save the book data?</b> - any unsaved changes will be lost when you save this person.</div>  --> 
     <div class="row-fluid">
     	<div class="span12">

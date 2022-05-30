@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/person.xml v0.6.8 24th January 2021 -->
+<!-- xbBooks admin/models/forms/person.xml v0.9.8.5 30th May 2022 -->
 <form>
 	<fieldset addfieldpath="/administrator/components/com_xbbooks/models/fields">
 		<field name="id" default="0" 
@@ -51,10 +51,12 @@
 			label="COM_XBBOOKS_FIELD_PORTRAIT_LABEL" description="COM_XBBOOKS_FIELD_PORTRAIT_DESC" />
 			
 		<field name="catid" type="category" extension="com_xbpeople" class="chzn-custom-value"
-			required="true"
 			label="JCATEGORY" description="COM_XBBOOKS_CATEGORY_DESC" >
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
+		<field name="hcatid" type="hidden"
+			default="0"
+		/>
 		
 		<field name="state" type="list"
 			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"

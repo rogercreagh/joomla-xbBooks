@@ -16,8 +16,13 @@ use Joomla\CMS\MVC\Controller\FormController;
 
 class XbbooksControllerPerson extends FormController {
     
-	protected function postSaveHook(JModelLegacy $model, $validData = array()) {
-		$item = $model->getItem();
+    public function __construct($config = array()) {
+        parent::__construct($config, $factory);
+    }
+    
+    protected function postSaveHook(JModelLegacy $model, $validData = array()) {
+        $task = $this->getTask();
+        $item = $model->getItem();
 		
 		if (isset($item->params) && is_array($item->params)) {
 			$registry = new Registry($item->params);

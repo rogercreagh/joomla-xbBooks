@@ -2,7 +2,7 @@
 <extension type="package" version="3.9" method="upgrade">
 	<name>xbBooks Package</name>
 	<packagename>xbbooks</packagename>
-	<version>0.9.8.6</version>
+	<version>0.9.8.5</version>
 	<creationDate>30th May 2022</creationDate>
 	<author>Roger C-O</author>
 	<copyright>Copyright (c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>

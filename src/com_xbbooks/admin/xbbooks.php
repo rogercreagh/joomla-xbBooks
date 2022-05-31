@@ -2,13 +2,14 @@
 /*******
  * @package xbBooks
  * @filesource admin/xbbooks.php
- * @version 0.9.8,2 18th May 2022
+ * @version 0.9.8.6 31st May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\MVC\Controller\BaseController;
@@ -18,10 +19,26 @@ if (!Factory::getUser()->authorise('core.manage', 'com_xbbooks')) {
     return false;
 }
 
-//add the component, xbculture and fontawesome css
 $document = Factory::getDocument();
-$cssFile = Uri::root(true)."/media/com_xbpeople/css/xbculture.css";
-$document->addStyleSheet($cssFile);
+//add the component, xbculture and fontawesome css
+$params = ComponentHelper::getParams('com_xbbooks');
+$usexbcss = $params->get('use_xbcss',1);
+if ($usexbcss<2) {
+    $cssFile = Uri::root(true)."/media/com_xbpeople/css/xbculture.css";
+    $altcss = $params->get('css_file','');
+    if ($usexbcss==0) {
+        if ($altcss && file_exists(JPATH_ROOT.$altcss)) {
+            $cssFile = $altcss;
+        }
+    }
+    $document->addStyleSheet($cssFile);
+}
+$exticon = $params->get('ext_icon',0);
+if ($exticon) {
+    $style = 'a[target="_blank"]:after {font-style: normal; font-weight:bold; content: "\2197";}' ;
+        $document->addStyleDeclaration($style);       
+}
+//add fontawesome5
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 $document->addStyleSheet($cssFile);
 

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.8.5 30th May 2022
+ * @version 0.9.8.6 1st June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -86,7 +86,7 @@ $document->addStyleDeclaration($style);
         				src="<?php echo Uri::root() . $this->form->getValue('cover_img');?>" />
     			</div>
     		<?php } else {?>
-    			<div class="xbbox xbboxwht xbnit" style="width:100px;height:133%;">No Cover Image</div>
+    			<div class="xbbox xbboxwht xbnit" style="width:100px;height:133%;"><?php echo Text::_('COM_XBFILMS_NO_COVER_IMAGE'); ?></div>
     		<?php } ?>
         </div>
     </div>

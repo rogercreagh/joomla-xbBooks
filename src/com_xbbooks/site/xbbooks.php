@@ -9,12 +9,34 @@
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
+$params = ComponentHelper::getParams('com_xbbooks');
+$usexbcss = $params->get('use_xbcss',1);
+if ($usexbcss<2) {
+    $cssFile = Uri::root(true)."/media/com_xbpeople/css/xbculture.css";
+    $altcss = $params->get('css_file','');
+    if ($usexbcss==0) {
+        if ($altcss && file_exists(JPATH_ROOT.$altcss)) {
+            $cssFile = $altcss;
+        }
+    }
+    $document->addStyleSheet($cssFile);
+}
+$exticon = $params->get('ext_icon',0);
+if ($exticon) {
+    $style = 'a[target="_blank"]:after {font-style: normal; font-weight:bold; content: "\2197";}' ;
+    $document->addStyleDeclaration($style);
+}
+
+
 $document->addStyleSheet(Uri::root() . 'media/com_xbpeople/css/xbculture.css', array('version'=>'auto'));
+
+
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 $document->addStyleSheet($cssFile);
 

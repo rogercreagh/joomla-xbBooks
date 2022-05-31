@@ -7,8 +7,8 @@
 		description="XBCULTURE_CONFIG_GENERAL_DESC"		
 	>
   		<field name="killdata" type="radio"
-			label="Delete Data on Uninstall"
-			description="If you want to uninstall without deleting the data tables xbbooks and xbbookreviews set this to No"
+			label="XBCULTURE_CONFIG_DEL_UNINST_LABEL"
+			description="XBCULTURE_CONFIG_DEL_UNINST_DESC"
  			class="btn-group btn-group-yesno"
 			default="1"
 			>
@@ -42,16 +42,16 @@
 			label="XBCULTURE_CONFIG_EXTLINK_HINT_NOTE_LABEL"
 			description="XBCULTURE_CONFIG_EXTLINK_HINT_NOTE_DESC"
 		/>
-		<field name="blank_icon" type="radio"
-			label="XBREFMAN_SHOW_BLANK_LABEL"
-			description="XBREFMAN_SHOW_BLANK_DESC"
+		<field name="ext_icon" type="radio"
+			label="XBCULTURE_CONFIG_SHOW_EXT_ICON_LABEL"
+			description="XBCULTURE_CONFIG_SHOW_EXT_ICON_DESC"
+			default="0"
 			class="btn-group btn-group-yesno btn-small"
 		>
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
 		</field>
 		<field name="extlinksnote2" type="note"
-			label=""
 			description="XBCULTURE_CONFIG_EXTLINK_HINT_NOTE2_DESC"
 		/>
 
@@ -286,42 +286,42 @@
 
 <!-- STYLES TAB -->				
 	<fieldset name="styles" 
-		label="Styling" 
-		description="Style sheet options"
+		label="XBCULTURE_CONFIG_STYLING_LABEL" 
+		description="XBCULTURE_CONFIG_STYLING_DESC"
 		>	
 		
    		<field name="cssnote" type="note"
-			label="Default sytle sheet"
-			description="xbBooks is provided with its own stylesheet which is used by all xbCulture components. It is installed with the xbPeople component and can be found at media/com_xbpeople/css/xbculture.css.
-			If you wish to disable the built-in stylesheet and use your own modifications or an alternative use the option below to disable xbculture.css and provide a path to an alternative stylesheet."
+			label="XBCULTURE_CONFIG_MODIFY_CSS_NOTE_LABEL"
+			description="XBCULTURE_CONFIG_MODIFY_CSS_NOTE_DESC"
 			class="info"
 		/>	
 		<field name="use_xbcss" type="radio"
-			label="Use Built-In CSS"
-			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
+			label="XBCULTURE_CONFIG_USE_XBCSS_LABEL"
+			description="XBCULTURE_CONFIG_USE_XBCSS_LABEL"
 			class="btn-group btn-group-yesno"
 			default="1"
 			>
 			<option value="1" >JYES</option>
-			<option value="0">JNO</option>
+			<option value="0">Specify File</option>
+			<option value="2">Use Template</option>
 		</field>
-		<field name="css_file" 
-			type="text" 
-			default="media/com_xbpeople/css/xbculture.css" 
-			label="Custom CSS FIle" 
-			description="Path and filename from the site root to your css file. Include the opening '/'. Typically this will be in your template css folder '/templates/yourtemplate/css/yourfile.css'" 
+		<field name="css_file" type="text" 
+			label="XBCULTURE_CONFIG_MOD_CSS_LABEL" 
+			description="XBCULTURE_CONFIG_MOD_CSS_DESC" 
+			default="/media/com_xbpeople/css/xbculture.css" 
 			size="150" showon="use_xbcss:0"
 		/>	
    		<field name="cssnote2" type="note"
-			label=""
-			description="Do not simply edit the built-in file in place, your changes may be lost when any xbculture component is updated. SImilarly do not add changes to the default template.css file 
-			unless it is your own template and not liable to get updated with a Joomla update. You need to specify the filename above as it will be used for both site and administrator views.
-			The simplest thing is probably to make a copy of the xbculture.css in your template's css folder and edit that for the changes required. 
-			You probably only want to change styles with names that start with 'xb' and within that probably only 'color' related attributes, the others (mostly at the top of the file) are minor tweaks to Joomla layouts"
+			description="XBCULTURE_CONFIG_CSS_NOTE2_DESC"
+			 showon="use_xbcss:0"
+			class="info"
+		/>	
+   		<field name="cssnote3" type="note"
+			description="XBCULTURE_CONFIG_CSS_NOTE3_DESC"
+			 showon="use_xbcss:2"
 			class="info"
 		/>	
 		
-
 	</fieldset>
 
 <!-- ADMIN TAB -->				

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 0.9.8 16th May 2022
+ * @version 0.9.8.6 1st June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -267,7 +267,7 @@ class XbbooksModelBook extends JModelAdmin {
             	$ralias = OutputFilter::stringURLSafe($rtitle.$revs);
             	$reviewer = Factory::getUser()->name;
             	if ($params->get('def_new_revcat')>0) {
-            		$catid=$params->get('def_new_ratcat');
+            		$catid=$params->get('def_new_revcat');
             	} else {
             		$catid = XbbooksHelper::getIdFromAlias('#__categories', 'uncategorised');
             	}

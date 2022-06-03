@@ -86,7 +86,7 @@
 		/>
 
 		<field name="rev2read" type="checkbox"
-			label="Copy date to book" description="Copy review date to read date for book"
+			label="Copy date to book" description="Copy review date to last_read date for book if more recent than existing last_read"
 			checked = "0"
 		/>
 

@@ -612,6 +612,7 @@
  		<field name="show_brevs" type="list"
 			label="Show Ratings/Reviews"
 			description="Show rating &amp; reviews. Show rating only will make review details inaccessible from this page."
+			default="1"
 			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>

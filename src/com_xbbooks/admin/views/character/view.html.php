@@ -47,7 +47,7 @@ class XbbooksViewCharacter extends JViewLegacy {
         
         $isNew = ($this->item->id == 0);
         
-        $title = Text::_( 'COM_XBBOOKS' ).': ';
+        $title = Text::_( 'XBBOOKS' ).': ';
         if ($isNew) {
             $title .= Text::_('XBCULTURE_TITLE_NEWCHAR');
         } else {
@@ -69,7 +69,7 @@ class XbbooksViewCharacter extends JViewLegacy {
     protected function setDocument() {
         $isNew = ($this->item->id < 1);
         $document = Factory::getDocument();
-        $document->setTitle($isNew ? JText::_('COM_XBBOOKS_CHAR_CREATING') :
-            JText::_('COM_XBBOOKS_CHAR_EDITING'));
+        $document->setTitle($isNew ? JText::_('XBBOOKS_CHAR_CREATING') :
+            JText::_('XBBOOKS_CHAR_EDITING'));
     }
 }

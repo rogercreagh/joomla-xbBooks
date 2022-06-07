@@ -47,7 +47,7 @@ class XbbooksViewTags extends JViewLegacy {
     protected function addToolBar() {
         $canDo = XbbooksHelper::getActions();
         
-        ToolbarHelper::title(JText::_( 'COM_XBBOOKS' ).': '.JText::_( 'XBCULTURE_TITLE_TAGSMANAGER' ), 'tags' );
+        ToolbarHelper::title(JText::_( 'XBBOOKS' ).': '.JText::_( 'XBCULTURE_TITLE_TAGSMANAGER' ), 'tags' );
         
         if ($canDo->get('core.create') > 0) {
         	ToolbarHelper::addNew('tags.tagnew');

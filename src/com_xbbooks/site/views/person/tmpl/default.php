@@ -50,7 +50,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				<?php if (($item->year_born == 0) && ($item->year_died == 0)) : ?>
 					<?php if(!$this->hide_empty) : ?>
 						<p><span class="xbnit">
-							<?php echo JText::_('COM_XBBOOKS_DATES_UNKNOWN'); ?>
+							<?php echo JText::_('XBBOOKS_DATES_UNKNOWN'); ?>
 						</span></p>
 					<?php endif; ?>
 				<?php  else : ?>
@@ -68,17 +68,17 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 	<?php if ($item->bcnt>0) : ?>
 		<div class="pull-left xbml15">		
 		<?php if($item->acnt > 0) : ?>
-			<p><span class="xbnit"><?php echo JText::_('COM_XBBOOKS_ASAUTHOR').': '; ?></span>
+			<p><span class="xbnit"><?php echo JText::_('XBBOOKS_ASAUTHOR').': '; ?></span>
 				<?php echo ($item->acnt>1) ? '<br />' : ''; ?>
 				<?php echo $item->alist; ?></p>
 		<?php endif; ?>
 		<?php if($item->ecnt > 0) : ?>
-			<p><span class="xbnit"><?php echo JText::_('COM_XBBOOKS_ASEDITOR').': '; ?></span>
+			<p><span class="xbnit"><?php echo JText::_('XBBOOKS_ASEDITOR').': '; ?></span>
 				<?php echo ($item->ecnt>1) ? '<br />' : ''; ?>
 				<?php echo $item->elist; ?></p>
 		<?php endif; ?>
 		<?php if($item->mcnt > 0) : ?>
-			<p><span class="xbnit"><?php echo JText::_('COM_XBBOOKS_APPEARSIN').': '; ?></span><br />
+			<p><span class="xbnit"><?php echo JText::_('XBBOOKS_APPEARSIN').': '; ?></span><br />
 				<?php echo ($item->mcnt>1) ? '<br />' : ''; ?>
 				<?php echo $item->mlist; ?></p>
 		<?php endif; ?>
@@ -96,7 +96,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 		</p>
 	<?php endif; ?>
 	<?php if ($item->ext_links_cnt > 0) : ?>
-			<div class="xbnit xbmb8"><?php echo JText::_('COM_XBBOOKS_EXT_LINKS'); ?></div>
+			<div class="xbnit xbmb8"><?php echo JText::_('XBBOOKS_EXT_LINKS'); ?></div>
 			<div>			
 				<?php echo $item->ext_links_list; ?>
 			</div><div class="clearfix"></div>
@@ -111,7 +111,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				<?php  endif;?>
 				<p>&nbsp;</p>
 				<?php if ((empty($item->biography)) && (trim($item->summary) == '')) : ?>
-					<p class="xbnit"><?php echo JText::_('COM_XBBOOKS_NO_BIOG'); ?></p>
+					<p class="xbnit"><?php echo JText::_('XBBOOKS_NO_BIOG'); ?></p>
 				<?php else : ?>
 					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_BIOGRAPHY');?></div>
 					<div class="xbbox xbboxgrn">
@@ -163,7 +163,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="hasTooltip xbinfo" title 
-					data-original-title="<?php echo JText::_('COM_XBBOOKS_INFO_PREVNEXT'); ?>" >
+					data-original-title="<?php echo JText::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
@@ -173,7 +173,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			</div>
 			<div class="span8"><center>
 				<a href="index.php?option=com_xbbooks&view=people" class="btn btn-small">
-					<?php echo JText::_('COM_XBBOOKS_PEOPLELIST'); ?></a></center>
+					<?php echo JText::_('XBBOOKS_PEOPLELIST'); ?></a></center>
 			</div>
 			<div class="span2">
 			<?php if($item->next > 0) : ?>

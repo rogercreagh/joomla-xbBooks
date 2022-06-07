@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/blog.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.8.7 4th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 //jimport('joomla.application.component.modellist');
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Helper\TagsHelper;
@@ -17,7 +18,13 @@ use Joomla\CMS\Helper\TagsHelper;
 class XbbooksModelBlog extends JModelList {
 	
 	public function __construct($config = array()) {
-		if (empty($config['filter_fields'])) {
+	    $showrevs = ComponentHelper::getParams('com_xbbooks')->get('show_revs',1);
+	    if (!$showrevs) {
+	        header('Location: index.php?option=com_xbbooks&view=booklist');
+	        exit();	        
+	    }
+	    
+	    if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 					'id', 'a.id',
 					'title', 'a.title',

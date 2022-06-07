@@ -61,7 +61,7 @@ class XbbooksViewPersons extends JViewLegacy {
         
         $bar = Toolbar::getInstance('toolbar');
         
-        ToolBarHelper::title(JText::_('COM_XBBOOKS').': '.JText::_('XBCULTURE_TITLE_PEOPLEMANAGER'), 'users' );
+        ToolBarHelper::title(JText::_('XBBOOKS').': '.JText::_('XBCULTURE_TITLE_PEOPLEMANAGER'), 'users' );
         
         if ($canDo->get('core.create') > 0) {
             ToolBarHelper::addNew('person.add');
@@ -104,7 +104,7 @@ class XbbooksViewPersons extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(JText::_('COM_XBBOOKS_ADMIN_PEOPLE'));
+        $document->setTitle(JText::_('XBBOOKS_ADMIN_PEOPLE'));
     }
     
 }

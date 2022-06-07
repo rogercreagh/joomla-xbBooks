@@ -61,7 +61,7 @@ class XbbooksViewBookreview extends JViewLegacy {
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle($this->item->title);
-		$document->setMetaData('title', Text::_('COM_XBBOOKS_REVIEW_FOR').' '.$this->item->book_title);
+		$document->setMetaData('title', Text::_('XBBOOKS_REVIEW_FOR').' '.$this->item->book_title);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

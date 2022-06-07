@@ -6,7 +6,7 @@
 			name="search"
 			type="text"
 			label="COM_CONTENT_FILTER_SEARCH_DESC"
-			description="COM_XBBOOKS_SEARCH_BOOKS"
+			description="XBBOOKS_SEARCH_BOOKS"
 			hint="JSEARCH_FILTER"
 			class="js-stools-search-string"
 		/>
@@ -37,7 +37,7 @@
 			description="Filter by peson"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBBOOKS_SELECT_PERSON</option>
+			<option value="">XBBOOKS_SELECT_PERSON</option>
 		</field>
 		<field
 			name="charfilt"
@@ -46,17 +46,17 @@
 			description="Filter by peson"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBBOOKS_SELECT_CHARACTER</option>
+			<option value="">XBBOOKS_SELECT_CHARACTER</option>
 		</field>
 		<field name="fictfilt"
 			type="list"
 			default=""
-			label="COM_XBBOOKS_FILT_FICT_LBL"
-			description="COM_XBBOOKS_FILT_FICT_DESC"
+			label="XBBOOKS_FILT_FICT_LBL"
+			description="XBBOOKS_FILT_FICT_DESC"
   			class="btn-group btn-small radiotop"
 			onchange="this.form.submit();"
 			>
-				<option value="" >COM_XBBOOKS_FILT_BOTH</option>
+				<option value="" >XBBOOKS_FILT_BOTH</option>
 				<option value="0">XBCULTURE_NONFICTION</option>
 				<option value="1">XBCULTURE_FICTION</option>
 		</field>	
@@ -83,8 +83,8 @@
 		<field name="taglogic"
 			type="radio"
 			default="0"
-			label="COM_XBBOOKS_MULTITAG_LBL"
-			description="COM_XBBOOKS_MULTITAG_DESC"
+			label="XBBOOKS_MULTITAG_LBL"
+			description="XBBOOKS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>

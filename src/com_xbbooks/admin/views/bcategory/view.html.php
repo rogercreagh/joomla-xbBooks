@@ -32,9 +32,9 @@ class XbbooksViewBcategory extends JViewLegacy {
 	protected function addToolBar() {
 		$canDo = XbbooksHelper::getActions();
 		
-		ToolBarHelper::title(JText::_( 'COM_XBBOOKS' ).': '.JText::_( 'XBCULTURE_TITLE_CATMANAGER' ), 'tag' );
+		ToolBarHelper::title(JText::_( 'XBBOOKS' ).': '.JText::_( 'XBCULTURE_TITLE_CATMANAGER' ), 'tag' );
 		
-		ToolbarHelper::custom('bcategory.bcategories', 'folder', '', 'COM_XBBOOKS_CAT_LIST', false) ;
+		ToolbarHelper::custom('bcategory.bcategories', 'folder', '', 'XBBOOKS_CAT_LIST', false) ;
 		
 		if ($canDo->get('core.admin')) {
 			ToolBarHelper::preferences('com_xbbooks');
@@ -44,7 +44,7 @@ class XbbooksViewBcategory extends JViewLegacy {
 	protected function setDocument()
 	{
 		$document = Factory::getDocument();
-		$document->setTitle(JText::_('COM_XBBOOKS_ADMIN_CATITEMS'));
+		$document->setTitle(JText::_('XBBOOKS_ADMIN_CATITEMS'));
 	}
 	
 }

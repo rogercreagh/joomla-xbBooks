@@ -2,18 +2,29 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.7 4th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
 class XbbooksModelBookreview extends JModelItem {
-		
+	
+    public function __construct($config = array()) {
+        $showrevs = ComponentHelper::getParams('com_xbbooks')->get('show_revs',1);
+        if (!$showrevs) {
+            header('Location: index.php?option=com_xbbooks&view=booklist');
+            exit();
+        }
+        parent::__construct($config);
+    }
+    
+    
 	protected function populateState() {
 		$app = Factory::getApplication('site');
 		
@@ -66,7 +77,7 @@ class XbbooksModelBookreview extends JModelItem {
 				$item->edauths = '<i>';
 				if ($item->editcnt == 0){
 					if ($item->authcnt == 0){
-						$item->edauths .= JText::_( 'COM_XBBOOKS_NOAUTHOR' ).'</i>';
+						$item->edauths .= JText::_( 'XBBOOKS_NOAUTHOR' ).'</i>';
 					} else {
 						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_AUTHORS'):JText::_('XBCULTURE_AUTHOR');
 						$item->edauths .= '</i>: '.XbbooksGeneral::makeLinkedNameList($item->people,'author',',',false);

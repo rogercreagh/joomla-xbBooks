@@ -45,7 +45,7 @@ class XbbooksTablePerson extends Table
     	$lastname = trim($this->lastname);
     	
     	if ($lastname == '') {
-    	    $this->setError(Text::_('COM_XBBOOKS_PROVIDE_VALID_NAME'));
+    	    $this->setError(Text::_('XBBOOKS_PROVIDE_VALID_NAME'));
     	    return false;
     	}
     	

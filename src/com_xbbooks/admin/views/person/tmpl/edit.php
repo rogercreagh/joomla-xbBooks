@@ -58,7 +58,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
       <div class="span12">
 		<?php echo HtmlHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_XBBOOKS_FIELDSET_GENERAL')); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('XBBOOKS_FIELDSET_GENERAL')); ?>
 		<div class="row-fluid">
 			<div class="span9">
 				<div class="row-fluid">
@@ -100,7 +100,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 				<div style="max-width:1200px;"><?php echo $this->form->renderField('biography'); ?></div>
 			</fieldset>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_XBBOOKS_FIELDSET_PUBLISHING')); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('XBBOOKS_FIELDSET_PUBLISHING')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
 				<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>

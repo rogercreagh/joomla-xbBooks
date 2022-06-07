@@ -48,7 +48,7 @@ if ($imgok) {
     		<div class="span12">
     			<div class="xbbox xbboxmag">
     				<h3><?php echo $item->title; ?></h3>
-    				<h4><span class="xbnit"><?php echo Text::_('COM_XBBOOKS_REVIEWOF'); ?></span>"
+    				<h4><span class="xbnit"><?php echo Text::_('XBBOOKS_REVIEWOF'); ?></span>"
     					 <?php echo '<a href="'.XbbooksHelperRoute::getBookLink($item->book_id);
     					 if (!empty($item->edauths)) {
     					 	echo '" class="hasTooltip" title data-original-title="'.$item->edauths;
@@ -168,7 +168,7 @@ if ($imgok) {
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="hasTooltip xbhelp" title 
-					data-original-title="<?php echo Text::_('COM_XBBOOKS_INFO_PREVNEXT'); ?>" >
+					data-original-title="<?php echo Text::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
@@ -178,7 +178,7 @@ if ($imgok) {
 			</div>
 			<div class="span8"><center>
 				<a href="index.php?option=com_xbbooks&view=bookreviews" class="btn btn-small">
-					<?php echo Text::_('COM_XBBOOKS_REVIEWLIST'); ?></a></center>
+					<?php echo Text::_('XBBOOKS_REVIEWLIST'); ?></a></center>
 			</div>
 			<div class="span2">
 			<?php if($item->next > 0) : ?>

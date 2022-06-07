@@ -59,7 +59,7 @@ class XbbooksViewBooks extends JViewLegacy {
 	    $canDo = XbbooksHelper::getActions();
 
 	    
-	    ToolBarHelper::title(Text::_( 'COM_XBBOOKS' ).': '.Text::_( 'XBCULTURE_TITLE_BOOK_MANAGER' ), 'book books' );
+	    ToolBarHelper::title(Text::_( 'XBBOOKS' ).': '.Text::_( 'XBCULTURE_TITLE_BOOK_MANAGER' ), 'book books' );
 
 		if ($canDo->get('core.create') > 0) {
             ToolBarHelper::addNew('book.add');
@@ -98,7 +98,7 @@ class XbbooksViewBooks extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(Text::_('COM_XBBOOKS_ADMIN_BOOKS'));
+        $document->setTitle(Text::_('XBBOOKS_ADMIN_BOOKS'));
     }
     
     

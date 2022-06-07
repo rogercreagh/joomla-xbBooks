@@ -6,7 +6,7 @@
 			name="search"
 			type="text"
 			label="COM_CONTENT_FILTER_SEARCH_DESC"
-			description="COM_XBBOOKS_SEARCH_TAGS"
+			description="XBBOOKS_SEARCH_TAGS"
 			hint="JSEARCH_FILTER"
 		/>
 		<field
@@ -21,14 +21,14 @@
 		<field
 			name="branch"
 			type="sql"
-			label="COM_XBBOOKS_TAGBRANCH_LABEL"
-			description="COM_XBBOOKS_TAGBRANCH_DESC"
+			label="XBBOOKS_TAGBRANCH_LABEL"
+			description="XBBOOKS_TAGBRANCH_DESC"
 			query="SELECT DISTINCT t.id, t.path, t.alias AS alias, t.title AS title FROM `#__tags` AS t LEFT JOIN `#__contentitem_tag_map` AS m ON m.tag_id = t.id WHERE m.type_alias IN ('com_xbbooks.book','com_xbpeople.person','com_xbpeople.character','com_xbbooks.review') ORDER BY t.title"
   			key_field="id"
   			value_field="title"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBBOOKS_ENTIRE_TREE</option>
+			<option value="">XBBOOKS_ENTIRE_TREE</option>
 		</field>
 	</fields>
 	<fields name="list">

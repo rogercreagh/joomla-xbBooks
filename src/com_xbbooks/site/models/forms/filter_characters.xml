@@ -10,19 +10,19 @@
         /> 
 		<field
 			name="category_id" type="catsubtree"
-			label="COM_XBBOOKS_FILTER_CATEGORY_LBL"
+			label="XBBOOKS_FILTER_CATEGORY_LBL"
 			extension="com_xbpeople"
 			itemtype="char"
 			published="1"
-			description="COM_XBBOOKS_FILTER_CATEGORY_DESC"
+			description="XBBOOKS_FILTER_CATEGORY_DESC"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="subcats" type="radio"
 			default=""
-			label="COM_XBBOOKS_SUBCATS_LBL"
-			description="COM_XBBOOKS_SUBCATS_DESC"
+			label="XBBOOKS_SUBCATS_LBL"
+			description="XBBOOKS_SUBCATS_DESC"
   			class="btn-group btn-small radiotop"
   			showon="category_id!:"
 		>
@@ -33,7 +33,7 @@
 		<field
 			name="tagfilt" type="tag"
 			label="XBCULTURE_TAGS_U"
-			description="COM_XBBOOKS_TAGFILT_DESC"
+			description="XBBOOKS_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
@@ -41,8 +41,8 @@
 		/>
 		<field name="taglogic" type="radio"
 			default=""
-			label="COM_XBBOOKS_MULTITAG_LBL"
-			description="COM_XBBOOKS_MULTITAG_DESC"
+			label="XBBOOKS_MULTITAG_LBL"
+			description="XBBOOKS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 			showon="tagfilt!:"
 		>

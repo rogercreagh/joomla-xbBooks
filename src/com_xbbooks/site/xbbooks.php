@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/xbbooks.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.7 4th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,7 +14,13 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Uri\Uri;
 
+//test if xbpeople here, if not dispay site root page
+if (!file_exists(JPATH_ROOT."/administrator/components/com_xbpeople/")) {
+    header('Location: '.Uri::root());
+    exit;
+}
 $document = Factory::getDocument();
+
 $params = ComponentHelper::getParams('com_xbbooks');
 $usexbcss = $params->get('use_xbcss',1);
 if ($usexbcss<2) {

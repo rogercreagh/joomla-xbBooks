@@ -6,7 +6,7 @@
 			name="search"
 			type="text"
 			label="COM_CONTENT_FILTER_SEARCH_DESC"
-			description="COM_XBBOOKS_SEARCH_TAGS"
+			description="XBBOOKS_SEARCH_TAGS"
 			hint="JSEARCH_FILTER"
 		/>
 		<field
@@ -21,14 +21,14 @@
 		<field
 			name="branch"
 			type="sql"
-			label="COM_XBBOOKS_TAGBRANCH_LABEL"
-			description="COM_XBBOOKS_TAGBRANCH_DESC"
+			label="XBBOOKS_TAGBRANCH_LABEL"
+			description="XBBOOKS_TAGBRANCH_DESC"
 			query="SELECT DISTINCT t.id, t.path, t.alias AS alias, t.title AS title FROM `#__categories` AS t WHERE t.extension = 'com_xbbooks' ORDER BY t.title"
   			key_field="id"
   			value_field="title"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBBOOKS_ENTIRE_TREE</option>
+			<option value="">XBBOOKS_ENTIRE_TREE</option>
 		</field>
 	</fields>
 	<fields name="list">

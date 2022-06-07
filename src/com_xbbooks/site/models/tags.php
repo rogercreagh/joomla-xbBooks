@@ -2,20 +2,26 @@
 /*******
  * @package xbBooks
  * @filesource site/models/tags.php
- * @version 0.9.6.a 16th December 2021
+ * @version 0.9.8.7 4th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 
 class XbbooksModelTags extends JModelList {
 	
 	public function __construct($config = array()) {
-		if (empty($config['filterfileds'])) {
+	    $showtags = ComponentHelper::getParams('com_xbbooks')->get('show_tags',1);
+	    if (!$showtags) {
+	        header('Location: index.php?option=com_xbbooks&view=booklist');
+	        exit();
+	    }
+	    if (empty($config['filterfileds'])) {
 			$config['filter_fields'] = array ('id','title','path', 'parent','bcnt','pcnt','rcnt' );
 		}
 		parent::__construct($config);

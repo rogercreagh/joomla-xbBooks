@@ -41,7 +41,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 ?>
 <div class="row-fluid" style="margin-bottom:20px;">
 	<div class="span3">
-		<h4><?php echo Text::_('COM_XBBOOKS_ITEMSCAT'); ?></h4>		
+		<h4><?php echo Text::_('XBBOOKS_ITEMSCAT'); ?></h4>		
 	</div>	
 	<div class="span9">
           <div class="badge badge-success pull-left"><h3><?php echo $item->title; ?></h3></div>
@@ -124,7 +124,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">
 	<a href="<?php echo $cclink; ?>" class="btn btn-small">
-		<?php echo JText::_('COM_XBBOOKS_CAT_COUNTS'); ?>
+		<?php echo JText::_('XBBOOKS_CAT_COUNTS'); ?>
 	</a>
 </p>
 <div class="clearfix"></div>

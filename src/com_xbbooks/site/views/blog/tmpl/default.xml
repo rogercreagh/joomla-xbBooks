@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/blog/tmpl/default.xml v0.9.5 10th May 2021 -->
 <metadata>
-	<layout title="Reviews Blog">
+	<layout title="BookReviews Blog">
 		<message>Displays a blog of reviews. Options to restrict to single category and filter by tag(s).</message>
 	</layout>
 	<fields name="params">
@@ -64,24 +64,24 @@
 				type="category"
 				label="Book Category"
 				extension="com_xbbooks"
-				description="COM_XBBOOKS_CATEGORY_DESC"
+				description="XBBOOKS_CATEGORY_DESC"
 				>
-					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
+					<option value="0">XBBOOKS_ALL_CATEGORIES</option>
 			</field>
 			<field
 				name="menu_category_id"
 				type="category"
 				label="Review Category"
 				extension="com_xbbooks"
-				description="COM_XBBOOKS_CATEGORY_DESC"
+				description="XBBOOKS_CATEGORY_DESC"
 				>
-					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
+					<option value="0">XBBOOKS_ALL_CATEGORIES</option>
 			</field>
 			<field name="menu_subcats"
 				type="radio"
 				default=""
-				label="COM_XBBOOKS_SUBCATS_LBL"
-				description="COM_XBBOOKS_SUBCATS_DESC"
+				label="XBBOOKS_SUBCATS_LBL"
+				description="XBBOOKS_SUBCATS_DESC"
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0[OR]menu_bcategory_id!:0"
 				>
@@ -91,16 +91,16 @@
 			<field
 				name="menu_tag"
 				type="tag"
-				label="COM_XBBOOKS_MENUTAG_LBL"
-				description="COM_XBBOOKS_MENUTAG_DESC"
+				label="XBBOOKS_MENUTAG_LBL"
+				description="XBBOOKS_MENUTAG_DESC"
 				multiple="true"
 				mode="nested"
 			/>
 		<field name="menu_taglogic"
 			type="radio"
 			default="0"
-			label="COM_XBBOOKS_MULTITAG_LBL"
-			description="COM_XBBOOKS_MULTITAG_DESC"
+			label="XBBOOKS_MULTITAG_LBL"
+			description="XBBOOKS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
   			showon="menu_tag!:" 			
 		>

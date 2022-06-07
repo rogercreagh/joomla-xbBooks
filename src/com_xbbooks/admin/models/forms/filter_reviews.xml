@@ -6,7 +6,7 @@
 			name="search"
 			type="text"
 			label="COM_CONTENT_FILTER_SEARCH_DESC"
-			description="COM_XBBOOKS_SEARCH_REVIEW"
+			description="XBBOOKS_SEARCH_REVIEW"
 			hint="JSEARCH_FILTER"
 			class="js-stools-search-string"
 		/>
@@ -33,18 +33,18 @@
 		</field>
 		<field
 			name="ratfilt" type="list" 
-			label="COM_XBBOOKS_RATING_LABEL" description="COM_XBBOOKS_RATING_DESC" 
+			label="XBBOOKS_RATING_LABEL" description="XBBOOKS_RATING_DESC" 
 			default="" first="0" last="7" step="1" 
 			onchange="this.form.submit();">
 			<option value="">Filter by Rating</option>
-			<option value="0">COM_XBBOOKS_NOSTAR<i class="icon-smiley-sad-2"></i></option>
-			<option value="1">COM_XBBOOKS_1STAR</option>
-			<option value="2">COM_XBBOOKS_2STAR</option>
-			<option value="3">COM_XBBOOKS_3STAR</option>
-			<option value="4">COM_XBBOOKS_4STAR</option>
-			<option value="5">COM_XBBOOKS_5STAR</option>
-			<option value="6">COM_XBBOOKS_6STAR</option>
-			<option value="7">COM_XBBOOKS_7STAR</option>
+			<option value="0">XBBOOKS_NOSTAR<i class="icon-smiley-sad-2"></i></option>
+			<option value="1">XBBOOKS_1STAR</option>
+			<option value="2">XBBOOKS_2STAR</option>
+			<option value="3">XBBOOKS_3STAR</option>
+			<option value="4">XBBOOKS_4STAR</option>
+			<option value="5">XBBOOKS_5STAR</option>
+			<option value="6">XBBOOKS_6STAR</option>
+			<option value="7">XBBOOKS_7STAR</option>
 		</field>
 		<field
 			name="category_id"
@@ -80,8 +80,8 @@
 		<field name="taglogic"
 			type="radio"
 			default="0"
-			label="COM_XBBOOKS_MULTITAG_LBL"
-			description="COM_XBBOOKS_MULTITAG_DESC"
+			label="XBBOOKS_MULTITAG_LBL"
+			description="XBBOOKS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 			showon="show_all:1"
 		>
@@ -107,8 +107,8 @@
 			<option value="a.title DESC">JGLOBAL_TITLE_DESC</option>
 			<option value="category_title ASC">JCATEGORY_ASC</option>
 			<option value="category_title DESC">JCATEGORY_DESC</option>
-			<option value="a.created ASC">COM_XBBOOKS_DATE_INSERT_ASC</option>
-            <option value="a.created DESC">COM_XBBOOKS_DATE_INSERT_DESC</option>
+			<option value="a.created ASC">XBBOOKS_DATE_INSERT_ASC</option>
+            <option value="a.created DESC">XBBOOKS_DATE_INSERT_DESC</option>
 			<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
 		</field>

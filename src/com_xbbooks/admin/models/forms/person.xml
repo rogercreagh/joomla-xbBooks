@@ -7,14 +7,14 @@
 			readonly="true" class="readonly" />
 
 		<field name="firstname" type="text"
-			label="COM_XBBOOKS_FIRSTNAME_LABEL"
-			description="COM_XBBOOKS_FIRSTNAME_DESC"
+			label="XBBOOKS_FIRSTNAME_LABEL"
+			description="XBBOOKS_FIRSTNAME_DESC"
 			size="40" class="inputbox input-xxlarge input-large-text"
 			default="" />
 		
 		<field name="lastname" type="text"
-			label="COM_XBBOOKS_LASTNAME_LABEL"
-			description="COM_XBBOOKS_LASTNAME_DESC"
+			label="XBBOOKS_LASTNAME_LABEL"
+			description="XBBOOKS_LASTNAME_DESC"
 			size="40" class="inputbox input-xlarge input-large-text"
 			required="true" 
 			default="" />
@@ -25,33 +25,33 @@
 			class="inputbox" size="45" />
 		
 		<field name="summary" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_SUMMARY" description="COM_XBBOOKS_PERSUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY" description="XBBOOKS_PERSUMMARY_DESC" />
 			
 		<field name="year_born" type="number" min="-4000" max="2052"
   			hint="XBCULTURE_YEAR_HINT"
-			label="COM_XBBOOKS_YEAR_BORN_LABEL" description="COM_XBBOOKS_YEAR_BORN_DESC"
+			label="XBBOOKS_YEAR_BORN_LABEL" description="XBBOOKS_YEAR_BORN_DESC"
 			class="inputbox" size="5" maxlength="4" />
 
 		<field name="year_died" type="number" min="-4000" max="2052"
   			hint="XBCULTURE_YEAR_HINT"
-			label="COM_XBBOOKS_YEAR_DIED_LABEL" description="COM_XBBOOKS_YEAR_DIED_DESC"
+			label="XBBOOKS_YEAR_DIED_LABEL" description="XBBOOKS_YEAR_DIED_DESC"
 			class="inputbox" size="5" maxlength="4"  />
 
 		<field name="nationality" type="nationality"
-			label="COM_XBBOOKS_NATIONALITY_LABEL"
-			description="COM_XBBOOKS_NATIONALITY_DESC"
+			label="XBBOOKS_NATIONALITY_LABEL"
+			description="XBBOOKS_NATIONALITY_DESC"
 			size="40" class="inputbox" maxlength="40"
 			default=""  />
 			
 		<field name="biography" type="editor"
-			class="inputbox" label="COM_XBBOOKS_FIELD_BIOG_LABEL" description="COM_XBBOOKS_FIELD_BIOG_DESC"
+			class="inputbox" label="XBBOOKS_FIELD_BIOG_LABEL" description="XBBOOKS_FIELD_BIOG_DESC"
 			filter="JComponentHelper::filterText" buttons="true" hide="article,pagebreak,readmore" />
 			
 		<field name="portrait" type="media"
-			label="COM_XBBOOKS_FIELD_PORTRAIT_LABEL" description="COM_XBBOOKS_FIELD_PORTRAIT_DESC" />
+			label="XBBOOKS_FIELD_PORTRAIT_LABEL" description="XBBOOKS_FIELD_PORTRAIT_DESC" />
 			
 		<field name="catid" type="category" extension="com_xbpeople" class="chzn-custom-value"
-			label="JCATEGORY" description="COM_XBBOOKS_CATEGORY_DESC" >
+			label="JCATEGORY" description="XBBOOKS_CATEGORY_DESC" >
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="hcatid" type="hidden"
@@ -81,8 +81,8 @@
 
 		<field name= "bookauthorlist"
 			type= "subform"
-			label= "COM_XBBOOKS_FIELD_BOOKAUTHOR_LABEL"
-			description="COM_XBBOOKS_FIELD_BOOKADD_DESC"
+			label= "XBBOOKS_FIELD_BOOKAUTHOR_LABEL"
+			description="XBBOOKS_FIELD_BOOKADD_DESC"
 			min= "0"
 			max= "10"
 			multiple= "true"
@@ -90,7 +90,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="book_id" type="books" label="COM_XBBOOKS_FIELD_ADDBOOK_LABEL" >
+				<field name="book_id" type="books" label="XBBOOKS_FIELD_ADDBOOK_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
@@ -100,8 +100,8 @@
 			
 		<field name= "bookeditorlist"
 			type= "subform"
-			label= "COM_XBBOOKS_FIELD_BOOKEDITOR_LABEL"
-			description="COM_XBBOOKS_FIELD_BOOKADD_DESC"
+			label= "XBBOOKS_FIELD_BOOKEDITOR_LABEL"
+			description="XBBOOKS_FIELD_BOOKADD_DESC"
 			min= "0"
 			max= "10"
 			multiple= "true"
@@ -109,7 +109,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="book_id" type="books" label="COM_XBBOOKS_FIELD_ADDBOOK_LABEL" >
+				<field name="book_id" type="books" label="XBBOOKS_FIELD_ADDBOOK_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
@@ -120,7 +120,7 @@
 		<field name= "bookmenlist"
 			type= "subform"
 			label= "XBCULTURE_APPEARS_IN"
-			description="COM_XBBOOKS_FIELD_BOOKADD_DESC"
+			description="XBBOOKS_FIELD_BOOKADD_DESC"
 			min= "0"
 			max= "10"
 			multiple= "true"
@@ -128,7 +128,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="book_id" type="books" label="COM_XBBOOKS_FIELD_ADDBOOK_LABEL" >
+				<field name="book_id" type="books" label="XBBOOKS_FIELD_ADDBOOK_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
@@ -147,7 +147,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="book_id" type="books" label="COM_XBBOOKS_FIELD_ADDBOOK_LABEL" >
+				<field name="book_id" type="books" label="XBBOOKS_FIELD_ADDBOOK_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="otherrole" label="Job" size="20" maxlength="50"
@@ -156,7 +156,7 @@
 		</field>
 						
 		<field name="ext_links" type="subform" 
-			label="XBCULTURE_EXTLINK_LBL" description="COM_XBBOOKS_FIELD_EXTLINKS_DESC"
+			label="XBCULTURE_EXTLINK_LBL" description="XBBOOKS_FIELD_EXTLINKS_DESC"
 			min="0" max="10" multiple="true"
 			buttons= "add,remove,move"
 			layout="joomla.form.field.subform.repeatable-table"
@@ -164,11 +164,11 @@
 				<form>
 					<field
 						name="link_text" type="text"
-						label="COM_XBBOOKS_FIELD_LINKTEXT_LABEL" size="20" maxlength="25"
+						label="XBBOOKS_FIELD_LINKTEXT_LABEL" size="20" maxlength="25"
 						/>
 					<field
 						name="link_url" type="url"
-						label="COM_XBBOOKS_FIELD_URL_LABEL"
+						label="XBBOOKS_FIELD_URL_LABEL"
 						size="40"
   					/>
 					<field

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/bookreview/default.xml v0.8.3 17th March 2021 -->
+<!-- xbBooks site/views/bookreview/default.xml v0.9.8.7 4th June 2022 -->
 <metadata>
 	<layout title="Review View">
 		<message>Display a single review of a book</message>
@@ -8,8 +8,7 @@
 		<fieldset name="request">
 			addfieldpath="/administrator/components/com_xbbooks/models/fields">	
 			<field 
-				name="id" 
-				type="reviews"
+				name="id" type="reviews"
 				label="Select review"
 				description="Choose book review to display."
 				required="true"

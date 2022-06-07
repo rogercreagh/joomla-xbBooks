@@ -89,7 +89,7 @@ class XbbooksModelBook extends JModelItem {
 				
 				//make author/editor/char lists
 				if ($item->authcnt==0){
-					$item->alist = ''; //'<i>'.JText::_( 'COM_XBBOOKS_NOAUTHOR' ).'</i>';
+					$item->alist = ''; //'<i>'.JText::_( 'XBBOOKS_NOAUTHOR' ).'</i>';
 				} else {
 					$item->alist = XbbooksGeneral::makeLinkedNameList($item->people,'author',',', (($item->editcnt)==0)? true:false);
 				}

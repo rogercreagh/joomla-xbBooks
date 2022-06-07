@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/booklist/onecol.xml v0.9.8 12th May 2022 -->
 <metadata>
-	<layout title="BookList - One Column">
+	<layout title="Book List - One Column">
 		<message>Displays a list of books in a single column. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">
@@ -73,37 +73,37 @@
 			<field
 				name="menu_perfilt" type="bookpeople"
 				label="Person"
-				description="COM_XBBOOKS_PERFILT_DESC"
+				description="XBBOOKS_PERFILT_DESC"
 				>
-				<option value="">COM_XBBOOKS_PERFILT_HINT</option>
+				<option value="">XBBOOKS_PERFILT_HINT</option>
 			</field>
 			<field name="menu_prole" type="list"
 				default=""
-				label="COM_XBBOOKS_PROLE_LBL"
-				description="COM_XBBOOKS_PROLE_DESC"
+				label="XBBOOKS_PROLE_LBL"
+				description="XBBOOKS_PROLE_DESC"
 				showon="menu_perfilt!:"			
 			>
-	  			<option value="">COM_XBBOOKS_PROLE_DEF</option>
+	  			<option value="">XBBOOKS_PROLE_DEF</option>
 				<option value="1">XBCULTURE_AUTHOR</option>
 				<option value="2">XBCULTURE_EDITOR</option>
-				<option value="3">COM_XBBOOKS_CHAR_IN</option>
-				<option value="4">COM_XBBOOKS_MENTION_IN</option>
+				<option value="3">XBBOOKS_CHAR_IN</option>
+				<option value="4">XBBOOKS_MENTION_IN</option>
 			</field>	
 			<field
 				name="menu_charfilt"
 				type="characters"
 				label="Character"
-				description="COM_XBBOOKS_CHARFILT_DESC"
+				description="XBBOOKS_CHARFILT_DESC"
 				>
 				<option value="">Character to filter by</option>
 			</field>
 			<field 
   				name="menu_fiction"
 				type="list"
-				label="COM_XBBOOKS_FILT_FICT_LBL"
-				description="COM_XBBOOKS_FILT_FICT_LBL"
+				label="XBBOOKS_FILT_FICT_LBL"
+				description="XBBOOKS_FILT_FICT_LBL"
 				>
-					<option value="0" >COM_XBBOOKS_FILT_BOTH</option>
+					<option value="0" >XBBOOKS_FILT_BOTH</option>
 					<option value="1">XBCULTURE_NONFICTION</option>
 					<option value="2">XBCULTURE_FICTION</option>
 			</field>	
@@ -112,14 +112,14 @@
 				type="category"
 				label="Category"
 				extension="com_xbbooks"
-				description="COM_XBBOOKS_CATEGORY_DESC"
+				description="XBBOOKS_CATEGORY_DESC"
 				>
-					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
+					<option value="0">XBBOOKS_ALL_CATEGORIES</option>
 			</field>
 			<field name="menu_subcats" type="radio"
 				default=""
-				label="COM_XBBOOKS_SUBCATS_LBL"
-				description="COM_XBBOOKS_SUBCATS_DESC"
+				label="XBBOOKS_SUBCATS_LBL"
+				description="XBBOOKS_SUBCATS_DESC"
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
@@ -128,8 +128,8 @@
 			</field>	
 			<field
 				name="menu_tag" type="tag"
-				label="COM_XBBOOKS_MENUTAG_LBL"
-				description="COM_XBBOOKS_MENUTAG_DESC"
+				label="XBBOOKS_MENUTAG_LBL"
+				description="XBBOOKS_MENUTAG_DESC"
 				multiple="true"
 				mode="nested"
 			/>

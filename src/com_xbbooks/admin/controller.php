@@ -13,7 +13,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 
 class XbbooksController extends BaseController {
     
-	protected $default_view = 'cpanel';
+	protected $default_view = 'dashboard';
 	
 	public function display ($cachable = false, $urlparms = false){
 //	    require_once JPATH_COMPONENT.'/helpers/xbbooks.php';

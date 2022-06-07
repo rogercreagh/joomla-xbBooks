@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/characters/tmpl/default.xml v0.9.5 10th May 2021 -->
 <metadata>
-	<layout title="Characters List View">
+	<layout title="Book Characters">
 		<message>Displays a list (table) of characters. Option to restrict to single category and filter by tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">
@@ -64,14 +64,14 @@
 				name="menu_category_id" type="category"
 				label="Category"
 				extension="com_xbpeople"
-				description="COM_XBBOOKS_CATEGORY_DESC"
+				description="XBBOOKS_CATEGORY_DESC"
 				>
-					<option value="0">COM_XBBOOKS_ALL_CATEGORIES</option>
+					<option value="0">XBBOOKS_ALL_CATEGORIES</option>
 			</field>
 			<field name="menu_subcats" type="radio"
 				default=""
-				label="COM_XBBOOKS_SUBCATS_LBL"
-				description="COM_XBBOOKS_SUBCATS_DESC"
+				label="XBBOOKS_SUBCATS_LBL"
+				description="XBBOOKS_SUBCATS_DESC"
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
@@ -80,14 +80,14 @@
 			</field>	
 			<field
 				name="menu_tag" type="tag"
-				label="COM_XBBOOKS_MENUTAG_LBL"
-				description="COM_XBBOOKS_MENUTAG_DESC"
+				label="XBBOOKS_MENUTAG_LBL"
+				description="XBBOOKS_MENUTAG_DESC"
 				multiple="true"
 				mode="nested"
 			/>
 			<field name="menu_taglogic" type="radio"
 				default=""
-				label="COM_XBBOOKS_MENUTAG_LBL"
+				label="XBBOOKS_MENUTAG_LBL"
 				description=""
 	  			class="btn-group btn-small radiotop"
 				showon="menu_tag!:"

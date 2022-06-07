@@ -42,7 +42,7 @@ class XbbooksTableCharacter extends Table
     	$name = trim($this->name);
     	
     	if ($name == '') {
-    	    $this->setError(Text::_('COM_XBBOOKS_PROVIDE_VALID_NAME'));
+    	    $this->setError(Text::_('XBBOOKS_PROVIDE_VALID_NAME'));
     	    return false;
     	}
     	

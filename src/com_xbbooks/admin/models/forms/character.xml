@@ -8,7 +8,7 @@
 
 		<field name="name" type="text"
 			label="XBCULTURE_NAME"
-			description="COM_XBBOOKS_FIRSTNAME_DESC"
+			description="XBBOOKS_FIRSTNAME_DESC"
 			required="true"
 			size="40" class="inputbox input-xxlarge input-large-text"
 			default="" />
@@ -19,18 +19,18 @@
 			class="inputbox" size="45" />
 		
 		<field name="summary" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_SUMMARY" description="COM_XBBOOKS_CHARSUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY" description="XBBOOKS_CHARSUMMARY_DESC" />
 						
 		<field name="description" type="editor"
-			class="inputbox" label="COM_XBBOOKS_FIELD_DESC_LABEL" description="COM_XBBOOKS_FIELD_DESC_DESC"
+			class="inputbox" label="XBBOOKS_FIELD_DESC_LABEL" description="XBBOOKS_FIELD_DESC_DESC"
 			filter="JComponentHelper::filterText" buttons="true" hide="article,pagebreak,readmore" />
 			
 		<field name="image" type="media"
-			label="COM_XBBOOKS_FIELD_IMAGE_LABEL" description="COM_XBBOOKS_FIELD_IMAGE_DESC" />
+			label="XBBOOKS_FIELD_IMAGE_LABEL" description="XBBOOKS_FIELD_IMAGE_DESC" />
 			
 		<field name="catid" type="category" extension="com_xbpeople" class="chzn-custom-value"
 			required="true"
-			label="JCATEGORY" description="COM_XBBOOKS_CATEGORY_DESC" >
+			label="JCATEGORY" description="XBBOOKS_CATEGORY_DESC" >
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		
@@ -57,8 +57,8 @@
 
 		<field name= "bookcharlist"
 			type= "subform"
-			label= "COM_XBBOOKS_FIELD_BOOKCHAR_LABEL"
-			description="COM_XBBOOKS_FIELD_BOOKADD_DESC"
+			label= "XBBOOKS_FIELD_BOOKCHAR_LABEL"
+			description="XBBOOKS_FIELD_BOOKADD_DESC"
 			min= "0"
 			max= "10"
 			multiple= "true"
@@ -66,7 +66,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="book_id" type="books" label="COM_XBBOOKS_FIELD_ADDBOOK_LABEL" >
+				<field name="book_id" type="books" label="XBBOOKS_FIELD_ADDBOOK_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field

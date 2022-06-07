@@ -43,14 +43,14 @@ class XbbooksViewImportexport extends JViewLegacy {
 	    $canDo = XbbooksHelper::getActions();
 	    $bar = Toolbar::getInstance('toolbar');
 	    
-	    ToolBarHelper::title(JText::_( 'COM_XBBOOKS' ).': '.JText::_( 'XBCULTURE_TITLE_DATAMANAGER' ), 'file-check importexport' );
+	    ToolBarHelper::title(JText::_( 'XBBOOKS' ).': '.JText::_( 'XBCULTURE_TITLE_DATAMANAGER' ), 'file-check importexport' );
 
 	    $samplesexist = XbbooksHelper::getIdFromAlias('#__categories', 'sample-books');
 	    if ($this->show_sample==1) {
 	    	if ($samplesexist > 0) {
-	    		ToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
+	    		ToolbarHelper::custom('dashboard.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
 	    	} else {
-	    		ToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
+	    		ToolbarHelper::custom('dashboard.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
 	    	}
 	    }
 	    

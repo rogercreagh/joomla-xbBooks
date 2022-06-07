@@ -9,16 +9,16 @@
             hint="JSEARCH_FILTER"
         /> 
 		<field name="ratfilt" type="rating" 
-			label="COM_XBBOOKS_RATFILT_LBL" description="COM_XBBOOKS_RATFILT_DESC" 
+			label="XBBOOKS_RATFILT_LBL" description="XBBOOKS_RATFILT_DESC" 
 			default=""
 			onchange="this.form.submit();"
 		>
-			<option value="">COM_XBBOOKS_RATFILT_HINT</option>
+			<option value="">XBBOOKS_RATFILT_HINT</option>
 		</field>
 		<field
 			name="category_id" type="catsubtree"
 			label="Review Category"
-			description="COM_XBBOOKS_FILTER_CATEGORY_DESC"
+			description="XBBOOKS_FILTER_CATEGORY_DESC"
 			extension="com_xbbooks"
 			itemtype="review"
 			published="1"
@@ -29,7 +29,7 @@
 		<field
 			name="bcategory_id" type="catsubtree"
 			label="Book Category"
-			description="COM_XBBOOKS_FILTER_CATEGORY_DESC"
+			description="XBBOOKS_FILTER_CATEGORY_DESC"
 			extension="com_xbbooks"
 			itemtype="book"
 			published="1"
@@ -52,7 +52,7 @@
 			name="tagfilt"
 			type="tag"
 			label="XBCULTURE_TAGS_U"
-			description="COM_XBBOOKS_TAGFILT_DESC"
+			description="XBBOOKS_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
@@ -61,8 +61,8 @@
 		<field name="taglogic"
 			type="radio"
 			default="0"
-			label="COM_XBBOOKS_MULTITAG_LBL"
-			description="COM_XBBOOKS_MULTITAG_DESC"
+			label="XBBOOKS_MULTITAG_LBL"
+			description="XBBOOKS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>

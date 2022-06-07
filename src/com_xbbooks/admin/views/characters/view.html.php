@@ -64,7 +64,7 @@ class XbbooksViewCharacters extends JViewLegacy {
         
         $bar = Toolbar::getInstance('toolbar');
         
-        ToolBarHelper::title(JText::_('COM_XBBOOKS').': '.JText::_('XBCULTURE_TITLE_CHARMANAGER'), 'users' );
+        ToolBarHelper::title(JText::_('XBBOOKS').': '.JText::_('XBCULTURE_TITLE_CHARMANAGER'), 'users' );
         
         if ($canDo->get('core.create') > 0) {
             ToolBarHelper::addNew('character.add');
@@ -106,7 +106,7 @@ class XbbooksViewCharacters extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(Text::_('COM_XBBOOKS_ADMIN_CHARS'));
+        $document->setTitle(Text::_('XBBOOKS_ADMIN_CHARS'));
     }
     
 }

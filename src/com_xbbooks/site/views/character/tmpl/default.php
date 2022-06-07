@@ -49,7 +49,7 @@ if ($imgok) {
 			<?php if ($item->bcnt>0) : ?>
 				<div class="span6">
 					<div class="xbnit">
-						<?php echo Text::_('XBCULTURE_BOOKS_U'); ?><
+						<?php echo Text::_('XBCULTURE_BOOKS_U'); ?>
 					</div>	
 					<div class="xbml20">		
 						<p><?php echo $item->clist; ?></p>
@@ -116,7 +116,7 @@ if ($imgok) {
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="hasTooltip xbinfo" title 
-					data-original-title="<?php echo Text::_('COM_XBBOOKS_INFO_PREVNEXT'); ?>" >
+					data-original-title="<?php echo Text::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>

@@ -32,9 +32,9 @@ class XbbooksViewTag extends JViewLegacy {
 	protected function addToolBar() {
 		$canDo = XbbooksHelper::getActions();
 		
-		ToolBarHelper::title(JText::_( 'COM_XBBOOKS' ).': '.JText::_( 'XBCULTURE_TITLE_TAGMANAGER' ), 'tag' );
+		ToolBarHelper::title(JText::_( 'XBBOOKS' ).': '.JText::_( 'XBCULTURE_TITLE_TAGMANAGER' ), 'tag' );
 		
-		ToolbarHelper::custom('tag.tags', 'tags', '', 'COM_XBBOOKS_TAG_LIST', false) ;
+		ToolbarHelper::custom('tag.tags', 'tags', '', 'XBBOOKS_TAG_LIST', false) ;
 		ToolbarHelper::custom('tag.tagedit', 'edit', '', 'XBCULTURE_EDIT_TAG', false) ;
 		
 		if ($canDo->get('core.admin')) {
@@ -45,7 +45,7 @@ class XbbooksViewTag extends JViewLegacy {
 	protected function setDocument()
 	{
 		$document = Factory::getDocument();
-		$document->setTitle(JText::_('COM_XBBOOKS_ADMIN_TAGITEMS'));
+		$document->setTitle(JText::_('XBBOOKS_ADMIN_TAGITEMS'));
 	}
 	
 }

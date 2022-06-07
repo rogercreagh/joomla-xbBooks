@@ -6,20 +6,20 @@
 			name="search"
 			type="text"
 			label="COM_CONTENT_FILTER_SEARCH_DESC"
-			description="COM_XBBOOKS_SEARCH_TAGS"
+			description="XBBOOKS_SEARCH_TAGS"
 			hint="JSEARCH_FILTER"
 		/>
 		<field
 			name="branch"
 			type="sql"
-			label="COM_XBBOOKS_BRANCH_LABEL"
-			description="COM_XBBOOKS_BRANCH_DESC"
+			label="XBBOOKS_BRANCH_LABEL"
+			description="XBBOOKS_BRANCH_DESC"
 			query="SELECT id, alias, path, title FROM `#__categories` WHERE extension = 'com_xbbooks' ORDER BY  path, title ASC"
   			key_field="alias"
   			value_field="title"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBBOOKS_ENTIRE_TREE</option>
+			<option value="">XBBOOKS_ENTIRE_TREE</option>
 		</field>
 	</fields>
 </form>

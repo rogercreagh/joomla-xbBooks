@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/tags/tmpl/default.xml v0.8.3 18th March 2021 -->
 <metadata>
-	<layout title="Tag List">
+	<layout title="Book Tag List">
 		<message>Displays a list (table) of tags. Choose tags for books, people or reviews</message>
 	</layout>
 	<fields name="request">
@@ -9,8 +9,8 @@
 			<field name="mn_type"
 				type="radio"
 				default=""
-				label="COM_XBBOOKS_GROUP_LBL"
-				description="COM_XBBOOKS_GROUP_DESC"
+				label="XBBOOKS_GROUP_LBL"
+				description="XBBOOKS_GROUP_DESC"
 	  			class="btn-group btn-small radiotop"
 				>
 					<option value="">XBCULTURE_ALLTAGS</option>
@@ -26,8 +26,8 @@
 			<field name="show_desc"
 				type="radio"
 				default="1"
-				label="COM_XBBOOKS_SHOW_DESC_LABEL"
-				description="COM_XBBOOKS_SHOW_DESC_DESC"
+				label="XBBOOKS_SHOW_DESC_LABEL"
+				description="XBBOOKS_SHOW_DESC_DESC"
 	  			class="btn-group btn-group-yesno btn-small radiotop"
 	  			useglobal="true"
 				>
@@ -37,8 +37,8 @@
 			<field name="show_parent"
 				type="radio"
 				default="1"
-				label="COM_XBBOOKS_SHOW_PARENT_LABEL"
-				description="COM_XBBOOKS_SHOW_PARENT_DESC"
+				label="XBBOOKS_SHOW_PARENT_LABEL"
+				description="XBBOOKS_SHOW_PARENT_DESC"
 	  			class="btn-group btn-group-yesno btn-small radiotop"
 	  			useglobal="true"
 				>

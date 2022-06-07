@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.8.8 7th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,7 +50,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 			if ($this->search_bar) {
 				$hide = '';
 				if ($this->hide_prole) { $hide .= 'filter_prole,';}
-				if ((!$this->show_cat) || ($this->hide_cat)) { $hide .= 'filter_category_id,filter_subcats,';}
+				if ((!$this->showcats) || ($this->hide_cat)) { $hide .= 'filter_category_id,filter_subcats,';}
 				if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 				echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));
@@ -101,19 +101,19 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				</th>
                 <?php endif; ?>
 				<?php if($this->show_books != 0) : ?>
-    				<th class="hidden-phone">
-    					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_BOOKS_U','bcnt',$listDirn,$listOrder); ?>
+    				<th>
+    					<?php echo Text::_('XBCULTURE_BOOKS_U'); ?>
     				</th>
                <?php endif; ?>
-				<?php if($this->show_cat || $this->show_tags) : ?>
+				<?php if($this->showcats || $this->showtags) : ?>
     				<th class="hidden-tablet hidden-phone">
-    					<?php if ($this->show_cat) {
+    					<?php if ($this->showcats) {
     						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
-    					if (($this->show_cat) && ($this->show_tags)) {
+    					if (($this->showcats) && ($this->showtags)) {
     					    echo ' &amp; ';
     					}
-    					if($this->show_tags) {
+    					if($this->showtags) {
     					    echo Text::_( 'XBCULTURE_TAGS_U' ); 
     					} ?>                
     				</th>
@@ -165,12 +165,12 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
     						<?php else : ?>
         						<?php if (!empty($item->biography)) : ?>
 		        					<span class="xbnit">
-        								<?php echo Text::_('COM_XBBOOKS_BIOG_EXTRACT'); ?>: 
+        								<?php echo Text::_('XBBOOKS_BIOG_EXTRACT'); ?>: 
         							</span>
         							<?php echo XbcultureHelper::makeSummaryText($item->biography,0); ?>
         						<?php else : ?>
 		        					<span class="xbnit">
-        								<?php echo Text::_('COM_XBBOOKS_NO_SUMMARY_BIOG'); ?>
+        								<?php echo Text::_('XBBOOKS_NO_SUMMARY_BIOG'); ?>
         							</span>
         						<?php endif; ?>
         					<?php endif; ?>
@@ -185,42 +185,45 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				</td>
 				<?php endif; ?>
 				<?php if ($this->show_books != '0') : ?>
-				<td class="hidden-phone" >
+				<td><p class="xbit xb095">
 					<?php if ($item->acnt > 0) : ?>
-						<p><span 
+						<span tabindex="<?php echo $item->id; ?>"
 						<?php if ($this->show_books == '2') : ?>
-								class="hasPopover" title data-original-title="Books" 
-								data-content="<?php echo strip_tags($item->alist); ?>"
+								class="xbpop xbcultpop xbfocus" data-trigger="focus"
+								title data-original-title="Books as Author" 
+								data-content="<?php echo htmlentities($item->alist); ?>"
 						<?php endif; ?>
 						>
-						<?php echo Text::_('COM_XBBOOKS_AUTHOR_OF').' ';
+						<?php echo Text::_('XBBOOKS_AUTHOR_OF').' ';
 						if ($this->show_books == '3') {
 							echo $item->alist;
 						} else { //implies show_books=cnt
 							echo $item->acnt.' books';
 						} ?>
-						</span></p>
+						</span><br />
 					<?php endif; ?>
 					<?php if ($item->ecnt > 0) : ?>
-						<p><span 
+						<span tabindex="<?php echo $item->id; ?>"
 						<?php if ($this->show_books == '2') : ?>
-								class="hasPopover" title data-original-title="Books" 
-								data-content="<?php echo strip_tags($item->elist); ?>"
+								class="xbpop xbcultpop xbfocus" data-trigger="focus"
+								title data-original-title="Books as Editor" 
+								data-content="<?php echo htmlentities($item->elist); ?>"
 						<?php endif; ?>
 						>
-						<?php echo Text::_('COM_XBBOOKS_EDITOR_OF').' ';
+						<?php echo Text::_('XBBOOKS_EDITOR_OF').' ';
 						if ($this->show_books == '3') {
 							echo $item->elist;
 						} else { //implies show_books=cnt
 							echo $item->ecnt.' books';
 						} ?>
-						</span></p>
+						</span><br />
 					<?php endif; ?>
 					<?php if ($item->ocnt > 0) : ?>
-						<p><span 
+						<span tabindex="<?php echo $item->id; ?>" 
 						<?php if ($this->show_books == '2') : ?>
-								class="hasPopover" title data-original-title="Books" 
-								data-content="<?php echo strip_tags($item->olist); ?>"
+								class="xbpop xbcultpop xbfocus" data-trigger="focus"
+								title data-original-title="Books - other roles" 
+								data-content="<?php echo htmlentities($item->olist); ?>"
 						<?php endif; ?>
 						>
 						<?php echo Text::_('XBCULTURE_OTHER_ROLE_IN').' ';
@@ -229,34 +232,36 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 						} else { //implies show_books=cnt
 							echo $item->ocnt.' books';
 						} ?>
-						</span></p>
+						</span><br />
 					<?php endif; ?>
 					<?php if ($item->mcnt > 0) : ?>
-						<p><span 
+						<span tabindex="<?php echo $item->id; ?>" 
 						<?php if ($this->show_books == '2') : ?>
-								class="hasPopover" title data-original-title="Books" 
-								data-content="<?php echo strip_tags($item->mlist); ?>"
+								class="xbpop xbcultpop xbfocus" data-trigger="focus"
+								title data-original-title="Books - mentioned in" 
+								data-content="<?php echo htmlentities($item->mlist); ?>"
 						<?php endif; ?>
 						>
-						<?php echo Text::_('COM_XBBOOKS_MENTION_IN').' ';
+						<?php echo Text::_('XBBOOKS_MENTION_IN').' ';
 						if ($this->show_books == '3') {
 							echo $item->mlist;
 						} else { //implies show_books=cnt
 							echo $item->mcnt.' books';
 						} ?>
-						</span></p>
+						</span></br />
 					<?php endif; ?>
-    					<?php if ($item->filmcnt > 0) {
-    						echo '<p><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->filmcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
+					</p>
+    				<?php if ($item->filmcnt > 0) {
+    						echo '<p class="xbit xb095"><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->filmcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
     					}
-    					?>
+    				?>
 				</td>
 				<?php endif; ?>
-    			<?php if(($this->show_cat) || ($this->show_tags)) : ?>
+    			<?php if(($this->showcats) || ($this->showtagss)) : ?>
 					<td class="hidden-phone">
- 						<?php if (($this->show_cat) && ($this->xbpeople_ok)) : ?>												
+ 						<?php if (($this->showcats) && ($this->xbpeople_ok)) : ?>												
 							<p>
-								<?php if($this->show_cat == 2) : ?>
+								<?php if($this->showcats == 2) : ?>
     								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>">
     									<?php  echo $item->category_title; ?></a>		
     							<?php else: ?>
@@ -264,8 +269,10 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 								<?php endif; ?>
 							</p>
 						<?php endif; ?>
-						<?php  $tagLayout = new FileLayout('joomla.content.tags');
+						<?php if ($this->showtags) : ?>	
+							<?php  $tagLayout = new FileLayout('joomla.content.tags');
     							echo $tagLayout->render($item->tags);?>
+    					<?php endif; ?>
 					</td>
                 <?php endif; ?>
 				</tr>

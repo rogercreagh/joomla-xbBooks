@@ -2,20 +2,26 @@
 /*******
  * @package xbBooks
  * @filesource site/models/categories.php
- * @version 0.9.6.a 16th December 2021
+ * @version 0.9.8.7 4th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 
 class XbbooksModelCategories extends JModelList {
 	
 	public function __construct($config = array()) {
-		if (empty($config['filterfileds'])) {
+	    $showcats = ComponentHelper::getParams('com_xbbooks')->get('show_cats',1);
+	    if (!$showcats) {
+	        header('Location: index.php?option=com_xbbooks&view=booklist');
+	        exit();
+	    }
+	    if (empty($config['filterfileds'])) {
 			$config['filter_fields'] = array ('id','title','path', 'parent','bcnt','bpcnt','rccnt','bchcnt' );
 		}
 		parent::__construct($config);

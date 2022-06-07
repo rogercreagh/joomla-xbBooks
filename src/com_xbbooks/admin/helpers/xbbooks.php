@@ -43,9 +43,9 @@ class XbbooksHelper extends ContentHelper
 	public static function addSubmenu($vName = 'books') {
 		if ($vName != 'categories') {
 			JHtmlSidebar::addEntry(
-	            Text::_('XBCULTURE_ICONMENU_CPANEL'),
-	            'index.php?option=com_xbbooks&view=cpanel',
-	            $vName == 'cpanel'
+	            Text::_('XBCULTURE_ICONMENU_DASHBOARD'),
+	            'index.php?option=com_xbbooks&view=dashboard',
+	            $vName == 'dashboard'
 	        );
 			JHtmlSidebar::addEntry(
 			    Text::_('XBCULTURE_ICONMENU_BOOKS'),
@@ -124,16 +124,11 @@ class XbbooksHelper extends ContentHelper
 	            'index.php?option=com_xbbooks&view=importexport',
 	            $vName == 'importexport'
 	        );
-			JHtmlSidebar::addEntry(
-				Text::_('XBCULTURE_ICONMENU_OPTIONS'),
-				'index.php?option=com_config&view=component&component=com_xbbooks',
-				$vName == 'options'
-				);
 		} else {
 			JHtmlSidebar::addEntry(
 					'xbBooks Dashboard',
-					'index.php?option=com_xbbooks&view=cpanel',
-					$vName == 'cpanel'
+					'index.php?option=com_xbbooks&view=dashboard',
+					$vName == 'dashboard'
 					);
 			
 			JHtmlSidebar::addEntry(

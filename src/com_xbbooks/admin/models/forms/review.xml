@@ -9,8 +9,8 @@
 			
 		<field
 			name="title" type="text"
-			label="COM_XBBOOKS_REVTITLE_LABEL"
-			description="COM_XBBOOKS_REVTITLE_DESC"
+			label="XBBOOKS_REVTITLE_LABEL"
+			description="XBBOOKS_REVTITLE_DESC"
 			size="40" class="inputbox input-xxlarge input-large-text"
 			default="" />
 		
@@ -22,7 +22,7 @@
 		<field
 			name="summary" type="textarea" rows="3" cols="50"
 			label="XBCULTURE_SUMMARY"
-			description="COM_XBBOOKS_REVSUMMARY_DESC"
+			description="XBBOOKS_REVSUMMARY_DESC"
 			size="40" class="inputbox"
 			default="" />
 			
@@ -32,34 +32,34 @@
     		required="true"
     		class="input-xxlarge input-large-text"
     		value_field="title"
-		    label="COM_XBBOOKS_SELECTBOOK_LABEL"
-		    description="COM_XBBOOKS_SELECTBOOK_DESC"
+		    label="XBBOOKS_SELECTBOOK_LABEL"
+		    description="XBBOOKS_SELECTBOOK_DESC"
     		query="SELECT id AS value, title FROM #__xbbooks ORDER BY title ASC"
     	/>
 
 		<field name="rating" type="list" 
-			label="COM_XBBOOKS_RATING_LABEL" description="COM_XBBOOKS_RATING_DESC" 
+			label="XBBOOKS_RATING_LABEL" description="XBBOOKS_RATING_DESC" 
 			default="" 
 			required="true"
 			first="0" last="7" step="1" >
 			<option value="">Please Select</option>
-			<option value="0">COM_XBBOOKS_NOSTAR<i class="icon-smiley-sad-2"></i></option>
-			<option value="1">COM_XBBOOKS_1STAR</option>
-			<option value="2">COM_XBBOOKS_2STAR</option>
-			<option value="3">COM_XBBOOKS_3STAR</option>
-			<option value="4">COM_XBBOOKS_4STAR</option>
-			<option value="5">COM_XBBOOKS_5STAR</option>
-			<option value="6">COM_XBBOOKS_6STAR</option>
-			<option value="7">COM_XBBOOKS_7STAR</option>
+			<option value="0">XBBOOKS_NOSTAR<i class="icon-smiley-sad-2"></i></option>
+			<option value="1">XBBOOKS_1STAR</option>
+			<option value="2">XBBOOKS_2STAR</option>
+			<option value="3">XBBOOKS_3STAR</option>
+			<option value="4">XBBOOKS_4STAR</option>
+			<option value="5">XBBOOKS_5STAR</option>
+			<option value="6">XBBOOKS_6STAR</option>
+			<option value="7">XBBOOKS_7STAR</option>
 		</field>
 		
 		<field name="review" type="editor"
-			class="inputbox" label="COM_XBBOOKS_FIELD_REVIEW_LABEL" description="COM_XBBOOKS_FIELD_REVIEW_DESC"
+			class="inputbox" label="XBBOOKS_FIELD_REVIEW_LABEL" description="XBBOOKS_FIELD_REVIEW_DESC"
 			filter="JComponentHelper::filterText" buttons="true"  hide="article, pagebreak,readmore" />
 			
 		<field name="catid" type="category" extension="com_xbbooks" class="chzn-custom-value"
 			required="true"
-			label="JCATEGORY" description="COM_XBBOOKS_FIELD_CATEGORY_DESC" >
+			label="JCATEGORY" description="XBBOOKS_FIELD_CATEGORY_DESC" >
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		
@@ -81,7 +81,7 @@
 		</field>
 
 		<field name="rev_date" type="calendar"
-			label="COM_XBBOOKS_FIELD_REVIEWED_LABEL" description="COM_XBBOOKS_FIELD_REVIEWED_DESC"
+			label="XBBOOKS_FIELD_REVIEWED_LABEL" description="XBBOOKS_FIELD_REVIEWED_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d" filter="user_utc" 
 		/>
 
@@ -91,7 +91,7 @@
 		/>
 
 		<field name="reviewer" type="reviewer"
-			label="COM_XBBOOKS_FIELD_REVIEWER_LABEL" description="COM_XBBOOKS_FIELD_REVIEWER_DESC"
+			label="XBBOOKS_FIELD_REVIEWER_LABEL" description="XBBOOKS_FIELD_REVIEWER_DESC"
 			class="inputbox" size="20" maxlength="40"/>
 
 		<field name="note" type="textarea" rows="3" cols="50"

@@ -1,18 +1,29 @@
+use Joomla\CMS\Component\ComponentHelper;
 <?php
 /*******
  * @package xbBooks
  * @filesource site/models/tag.php
- * @version 0.8.6.1 5th April 2021
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 
 class XbbooksModelTag extends JModelItem {
-	
+
+    public function __construct($config = array()) {
+        $showtags = ComponentHelper::getParams('com_xbbooks')->get('show_tags',1);
+        if (!$showtags) {
+            header('Location: index.php?option=com_xbbooks&view=booklist');
+            exit();
+        }
+        parent::__construct($config);
+    }
+    
 	protected function populateState() {
 		$app = Factory::getApplication('site');
 		

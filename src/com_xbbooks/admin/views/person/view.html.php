@@ -52,7 +52,7 @@ class XbbooksViewPerson extends JViewLegacy {
         
         $isNew = ($this->item->id == 0);
         
-        $title = JText::_( 'COM_XBBOOKS' ).': ';
+        $title = JText::_( 'XBBOOKS' ).': ';
         if ($isNew) {
             $title .= JText::_('XBCULTURE_TITLE_NEWPERSON');
         } elseif ($checkedOut) {
@@ -76,7 +76,7 @@ class XbbooksViewPerson extends JViewLegacy {
     protected function setDocument() {
         $isNew = ($this->item->id < 1);
         $document = Factory::getDocument();
-        $document->setTitle($isNew ? Text::_('COM_XBBOOKS_PERSON_CREATING') :
-            Text::_('COM_XBBOOKS_PERSON_EDITING'));
+        $document->setTitle($isNew ? Text::_('XBBOOKS_PERSON_CREATING') :
+            Text::_('XBBOOKS_PERSON_EDITING'));
     }
 }

@@ -138,7 +138,7 @@ $document->addStyleDeclaration($style);
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('COM_XBBOOKS_FIELDSET_PUBLISHING')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('XBBOOKS_FIELDSET_PUBLISHING')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
 				<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>

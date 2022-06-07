@@ -29,7 +29,7 @@ if (!$listOrder) {
     $listOrder='sort_date';
     $listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_PUBYEARCOL'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_PUBYEARCOL'),
 	'id'=>'id','acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 	'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 
@@ -81,11 +81,11 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<?php if ($search) : ?>
 		<?php echo '<p>Searched for <b>'; ?>
 		<?php if (stripos($search, 'i:') === 0) {
-                echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBBOOKS_AS_BOOKID');
+                echo trim(substr($search, 2)).'</b> '.Text::_('XBBOOKS_AS_BOOKID');
             } elseif (stripos($search, 's:') === 0) {
-                echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBBOOKS_AS_INSYNOP');
+                echo trim(substr($search, 2)).'</b> '.Text::_('XBBOOKS_AS_INSYNOP');
             } else {
-				echo trim($search).'</b> '.Text::_('COM_XBBOOKS_AS_INTITLE');
+				echo trim($search).'</b> '.Text::_('XBBOOKS_AS_INTITLE');
 			}
 			echo '</p>';
         ?>	
@@ -115,13 +115,13 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
 					</th>
 					<th class="center" style="width:80px">
-						<?php echo Text::_( 'COM_XBBOOKS_COVER' ); ?>
+						<?php echo Text::_( 'XBBOOKS_COVER' ); ?>
 					</th>			
 					<th>
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).
     						' <span style="font-size:0.9em;">'.
      						'Author, '.
-     						HTMLHelper::_('searchtools.sort','COM_XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder ).' '.
+     						HTMLHelper::_('searchtools.sort','XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder ).' '.
     					   '</span>';
 						?>
 					</th>					
@@ -205,7 +205,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						} ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
 							<a href="<?php echo Route::_($belink.$item->id);?>"
-								title="<?php echo Text::_('COM_XBBOOKS_EDIT_BOOK'); ?>" >
+								title="<?php echo Text::_('XBBOOKS_EDIT_BOOK'); ?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php else : ?>
 							<?php echo $this->escape($item->title); ?>
@@ -248,17 +248,17 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						<?php else : ?>
     							<span class="xbnit">
     							<?php if (!empty($item->synopsis)) : ?>
-    								<?php echo Text::_('COM_XBBOOKS_SYNOPSIS_EXTRACT'); ?>: </span>
+    								<?php echo Text::_('XBBOOKS_SYNOPSIS_EXTRACT'); ?>: </span>
     								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,200); ?>
     							<?php else : ?>
-    								<?php echo Text::_('COM_XBBOOKS_NO_SUMMARY_SYNOPSIS'); ?></span>
+    								<?php echo Text::_('XBBOOKS_NO_SUMMARY_SYNOPSIS'); ?></span>
     							<?php endif; ?>
     						<?php endif; ?>
                         </p>
                         <?php if ((!empty($item->synopsis)) && (strlen(strip_tags($item->synopsis))>200)) : ?>
                         	<p class="xbnit xb09">   
                              <?php 
-                             	echo Text::_('COM_XBBOOKS_FULLSYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
+                             	echo Text::_('XBBOOKS_FULLSYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
                              ?>
 							</p>
 						<?php endif; ?>
@@ -284,7 +284,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<td class="hidden-phone">
 						<?php if ($item->revcnt==0) : ?>
 						    <a href="'.Route::_($relink.'0&bk='.$item->id).'">
-                            <i><?php echo Text::_('COM_XBBOOKS_NOREVIEW'); ?></i></a><br /> 
+                            <i><?php echo Text::_('XBBOOKS_NOREVIEW'); ?></i></a><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
                             <div class="xbbb1">
@@ -327,7 +327,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<div style="margin-top:5px;">
 							<a href="<?php echo Route::_($relink.'0&book_id='.$item->id); ?>" 
 								class="btn btn-mini btn-success">
-								<?php echo Text::_('COM_XBBOOKS_ADDREVIEW'); ?>
+								<?php echo Text::_('XBBOOKS_ADDREVIEW'); ?>
 							</a>
 						</div>
 										

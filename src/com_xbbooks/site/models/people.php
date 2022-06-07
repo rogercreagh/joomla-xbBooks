@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.8.8 7th JUne 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,7 +23,7 @@ class XbbooksModelPeople extends JModelList {
 			$config['filter_fields'] = array ( 'firstname', 'lastname',
 					'catid', 'a.catid', 'category_id',
 					'category_title', 'c.title',
-					'sortdate','bcnt' );
+					'sortdate' );
 		}
 		$this->xbfilmsStatus = Factory::getSession()->get('com_xbbooks',false);
 		parent::__construct($config);
@@ -65,7 +65,6 @@ class XbbooksModelPeople extends JModelList {
 		    $prole = $this->getState('filter.prole');
 		}
 		$this->prole = $prole;		
-		$hide_namesonly = $this->getState('params')['hide_namesonly'];
 		
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
@@ -80,9 +79,6 @@ class XbbooksModelPeople extends JModelList {
 		$query->from($db->quoteName('#__xbpersons','a'))
             	->join('LEFT OUTER',$db->quoteName('#__xbbookperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.person_id'))
                 ->where('p.book_id IS NOT NULL');
-		if ($hide_namesonly) {
-			$query->where("CONCAT(a.biography,a.summary,a.portrait,a.nationality) >'' OR (a.year_born + a.year_died) > 0");
-		}
 		$query->select('COUNT(DISTINCT p.book_id) AS bcnt');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
         $query->select('c.title AS category_title');
@@ -252,7 +248,11 @@ class XbbooksModelPeople extends JModelList {
 			$item->ecnt = (key_exists('editor',$cnts))?$cnts['editor'] : 0;
 			$item->ocnt = (key_exists('other',$cnts))?$cnts['other'] : 0;
 			$item->mcnt = (key_exists('mention',$cnts))?$cnts['mention'] : 0;
-			
+			if (count($item->books)>0) {
+			    $item->allbooks = XbbooksGeneral::makeLinkedNameList($item->books,'','<br />',true,false,2);
+			} else {
+			    $item->allbooks='';
+			}
 			//make author/editor/char lists
 			if ($item->acnt == 0){
 				$item->alist = '';

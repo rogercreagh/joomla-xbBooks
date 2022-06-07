@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/characters/view.html.php
- * @version 0.9.6.a 17th December 2021
+ * @version 0.9.8.7 4th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -37,11 +37,15 @@ class XbbooksViewCharacters extends JViewLegacy {
 		$this->hide_cat = $this->params->get('menu_category_id',0)>0 ? true : false;
 		$this->hide_tag = (!empty($this->params->get('menu_tag',''))) ? true : false;
 		
-		$this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
-		$show_cats = ($this->xbpeople_ok) ? $this->params->get('show_cats','1','int') : 0;
-		$this->show_cat = ($show_cats) ? $this->params->get('show_ccat','2','int') :0;
+		$show_cats = $this->params->get('show_cats','1','int');
+		$this->showcats = ($show_cats) ? $this->params->get('show_bcat','1','int') : 0;
+		
 		$show_tags = $this->params->get('show_tags','1','int');
-		$this->show_tags = ($show_tags) ? $this->params->get('show_ctags','1','int') : 0;
+		$this->showtags = ($show_tags) ? $this->params->get('show_ptags','1','int') : 0;
+		
+		$this->show_ctcol = $this->showcats + $this->showtags;
+		
+		$this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
 		
 		$this->show_pic = $this->params->get('show_cpiccol','1','int');
 		$this->show_sum = $this->params->get('show_csumcol','1','int');

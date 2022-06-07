@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/view.html.php
- * @version 0.9.8.2 17th May 2022
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,10 +23,14 @@ class XbbooksViewBook extends JViewLegacy {
 		$this->hide_empty = $this->params->get('hide_empty',1);
 		$this->show_image = $this->params->get('show_bimage',1);
 		
+		$this->show_fict = $this->params->get('show_fict','1','int');
+		
 		$show_cats = $this->params->get('show_cats','1','int');
 		$this->show_bcat = ($show_cats) ? $this->params->get('show_bcat','2','int') :0;
+
 		$show_tags = $this->params->get('show_tags','1','int');
 		$this->show_btags = ($show_tags) ? $this->params->get('show_btags','1','int') : 0;
+
 		$this->show_rcat = ($show_cats) ? $this->params->get('show_rcat','1','int') :0;
 		$this->show_rtags = ($show_tags) ? $this->params->get('show_rtags','1','int') :0;
 		
@@ -71,7 +75,7 @@ class XbbooksViewBook extends JViewLegacy {
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle($this->item->title);
-		$document->setMetaData('title', JText::_('COM_XBBOOKS_BOOK_CATALOGUE_FOR').' '.$this->item->title);
+		$document->setMetaData('title', JText::_('XBBOOKS_BOOK_CATALOGUE_FOR').' '.$this->item->title);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

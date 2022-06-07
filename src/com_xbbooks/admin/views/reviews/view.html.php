@@ -57,7 +57,7 @@ class XbbooksViewReviews extends JViewLegacy {
         
         $bar = Toolbar::getInstance('toolbar');
         
-        ToolBarHelper::title(Text::_( 'COM_XBBOOKS' ).': '.Text::_( 'XBCULTURE_TITLE_REVIEWSMANAGER' ), 'users' );
+        ToolBarHelper::title(Text::_( 'XBBOOKS' ).': '.Text::_( 'XBCULTURE_TITLE_REVIEWSMANAGER' ), 'users' );
         
         if ($canDo->get('core.create') > 0) {
             ToolBarHelper::addNew('review.add');
@@ -94,7 +94,7 @@ class XbbooksViewReviews extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(Text::_('COM_XBBOOKS_ADMIN_REVIEWS'));
+        $document->setTitle(Text::_('XBBOOKS_ADMIN_REVIEWS'));
     }
     
 }

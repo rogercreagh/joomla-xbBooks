@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/router.php
- * @version 0.8.5 24th March 2021
+ * @version 0.9.8.7 4th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,7 +22,7 @@ class XbbooksRouter extends JComponentRouterBase {
 			$segments[] = $query['view'];
 			unset($query['view']);
 		}
-		if (isset($query['id']))
+		if ( (!empty($segments)) && (isset($query['id'])) )
 		{
 			$db = Factory::getDbo();
 			$qry = $db->getQuery(true);

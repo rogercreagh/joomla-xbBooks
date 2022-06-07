@@ -27,7 +27,7 @@ $xblink = 'index.php?option=com_xbbooks';
 		<form action="index.php?option=com_xbbooks&view=tag" method="post" id="adminForm" name="adminForm">
 		<div class="row-fluid xbmb8">
 			<div class= "span3">
-				  <h3><?php echo JText::_('COM_XBBOOKS_TAG_ITEMS'); ?></h3>
+				  <h3><?php echo JText::_('XBBOOKS_TAG_ITEMS'); ?></h3>
 			</div>
 			<div class="span5">
 				<a href="<?php echo $telink.$item->id; ?>" class="badge badge-info">
@@ -134,6 +134,6 @@ $xblink = 'index.php?option=com_xbbooks';
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">
 	<a href="<?php echo $xblink; ?>&view=tags" class="btn btn-small">
-		<?php echo JText::_('COM_XBBOOKS_TAG_LIST'); ?></a>
+		<?php echo JText::_('XBBOOKS_TAG_LIST'); ?></a>
 </div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>

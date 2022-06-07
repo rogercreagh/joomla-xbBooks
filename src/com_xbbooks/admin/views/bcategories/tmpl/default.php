@@ -44,11 +44,11 @@ $prevext ='';
 	<?php endif;?>
 	
 	<div>
-      <h3><?php echo Text::_('COM_XBBOOKS_CATSPAGE_TITLE'); ?></h3>
+      <h3><?php echo Text::_('XBBOOKS_CATSPAGE_TITLE'); ?></h3>
       <?php if (XbcultureHelper::checkComponent('com_xbfilms') !== false) : ?>
-      	<p class="xbnote"><?php echo Text::_('COM_XBBOOKS_CATSPAGE_SUBTITLE'); ?></p>
+      	<p class="xbnote"><?php echo Text::_('XBBOOKS_CATSPAGE_SUBTITLE'); ?></p>
       <?php endif; ?>      
-      	<p class="xb095"><?php echo Text::_('COM_XBBOOKS_CATSPAGE_SUBTITLE2'); ?></p>
+      	<p class="xb095"><?php echo Text::_('XBBOOKS_CATSPAGE_SUBTITLE2'); ?></p>
     </div>
 	
 	<div class="pull-right span2">

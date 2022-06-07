@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 0.9.8.4 26th May 2022
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,12 +60,14 @@ if ($imgok) {
 					<?php endif; ?>						
                 </div>
 				<h4 ><?php if ($item->pubyear>0) { 
-					echo Text::_('COM_XBBOOKS_FIRSTPUB').': '.$item->pubyear; 
+					echo Text::_('XBBOOKS_FIRSTPUB').': '.$item->pubyear; 
 				} ?></h4>
-				<p>
-            		<?php echo ($item->fiction==1) ? '<span class="label">'.Text::_('XBCULTURE_FICTION').'</span>' : 
-                      '<span class="label label-inverse">'.Text::_('XBCULTURE_NONFICTION').'</span>'; ?>
-				</p>
+				<?php if($this->show_fict) : ?>
+				<p><span class="label
+            		<?php echo ($item->fiction==1) ? '">'.Text::_('XBCULTURE_FICTION') : 
+                      ' label-inverse">'.Text::_('XBCULTURE_NONFICTION'); ?>
+				</span></p>
+				<?php endif; ?>
 			</div>
 			<h2><?php echo $item->title; ?></h2>
 			<?php if ($item->subtitle != '') : ?>
@@ -88,7 +90,7 @@ if ($imgok) {
     						<?php echo $item->alist; ?> 
 						</h4>
 					<?php else : ?>
-						<p class="xbnit"><?php echo Text::_('COM_XBBOOKS_NOAUTHOR'); ?></p>                         
+						<p class="xbnit"><?php echo Text::_('XBBOOKS_NOAUTHOR'); ?></p>                         
 	                 <?php endif; ?>						
 				</div>
 			</div>   
@@ -120,14 +122,14 @@ if ($imgok) {
     	<?php if ((!$item->publisher=='') || (!$hide_empty)) : ?>
  			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_PUBLISHER').': '; ?></div>
    			<div class="pull-left" style="margin:2px 0 0 0;">
-				<?php echo (!$item->publisher=='') ? $item->publisher : '<span class="xbnit">'.Text::_('COM_XBBOOKS_UNKNOWN').'</span>'; ?>
+				<?php echo (!$item->publisher=='') ? $item->publisher : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
 			</div>
       		<div class="clearfix"></div>
      	<?php endif; ?>
        	<?php if ((!$item->orig_lang=='') || (!$hide_empty)) : ?>
-			<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_ORIG_LANG').': '; ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_ORIG_LANG').': '; ?></div>
 			<div class="pull-left" style="margin:2px 0 0 0;">
-				<?php echo (!$item->orig_lang=='') ? $item->orig_lang : '<span class="xbnit">'.Text::_('COM_XBBOOKS_UNKNOWN').'</span>'; ?>
+				<?php echo (!$item->orig_lang=='') ? $item->orig_lang : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
             </div>
 			<div class="clearfix"></div> 
    		<?php endif; ?>
@@ -137,14 +139,14 @@ if ($imgok) {
        	<?php if ((!$item->edition=='') || (!$hide_empty)) : ?>
 			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITION').': '; ?></div>
 			<div class="pull-left" style="margin:2px 0 0 0;">
-				<?php echo (!$item->edition=='') ? $item->edition : '<span class="xbnit">'.Text::_('COM_XBBOOKS_UNKNOWN').'</span>'; ?>
+				<?php echo (!$item->edition=='') ? $item->edition : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
             </div>
 			<div class="clearfix"></div> 
    		<?php endif; ?>
        	<?php if ((!$item->format=='') || (!$hide_empty)) : ?>
 			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_FORMAT').': '; ?></div>
 			<div class="pull-left" style="margin:2px 0 0 0;">
-				<?php echo (!$item->format=='') ? $item->format : '<span class="xbnit">'.Text::_('COM_XBBOOKS_UNKNOWN').'</span>'; ?>
+				<?php echo (!$item->format=='') ? $item->format : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
             </div>
 			<div class="clearfix"></div> 
    		<?php endif; ?>
@@ -155,7 +157,7 @@ if ($imgok) {
 <div class="row-fluid">
     <?php if ($item->ext_links_cnt > 0) : ?>
     	<div class="span<?php echo (($item->mencnt > 0) || ($item->charcnt > 0) || ($item->othcnt > 0))? '6' : '12'; ?>">
-    		<p><b><i><?php echo Text::_('COM_XBBOOKS_EXT_LINKS'); ?></i></b></p>   					
+    		<p><b><i><?php echo Text::_('XBBOOKS_EXT_LINKS'); ?></i></b></p>   					
     		<?php echo $item->ext_links_list; ?>		
     	</div>
     <?php endif; ?>
@@ -164,17 +166,17 @@ if ($imgok) {
         	<p><b><i>Production Roles, People Mentioned and Characters</i></b></p>
     		<?php if (($item->othcnt > 0) || (!$hide_empty)) : ?>
     			<?php if ($item->othcnt == 0) : ?>
-    				<div class="xbnit xbmt2"><?php echo Text::_('COM_XBBOOKS_NOOTHERS'); ?></div>
+    				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOOTHERS'); ?></div>
     			<?php else : ?>
     				<div class="xbmt2"><?php echo $item->olist ; ?></div>
     			<?php  endif; ?>
     		<?php endif; ?>
         	<?php if (($item->mencnt > 0) || (!$hide_empty)) : ?>
         		<div class="pull-left xbnit xbmr10">
-        			<?php echo Text::_('COM_XBBOOKS_APPEARING_BOOK'); ?>: 
+        			<?php echo Text::_('XBBOOKS_APPEARING_BOOK'); ?>: 
         		</div>
         		<?php if ($item->mencnt == 0) : ?>
-        			<div class="xbnit xbmt2"><?php echo Text::_('COM_XBBOOKS_NONELISTED'); ?></div>
+        			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
         		<?php else : ?>
         			<div class="clearfix"></div>
         			<div class="xbmt2 xbml20"><?php echo $item->mlist ; ?></div>
@@ -183,10 +185,10 @@ if ($imgok) {
         	<?php endif; ?>
         	<?php if (($item->charcnt > 0) || (!$hide_empty)) : ?>
         		<div class="pull-left xbnit xbmr10">
-        			<?php echo Text::_('COM_XBBOOKS_FICTIONAL_CHARS'); ?>: 
+        			<?php echo Text::_('XBBOOKS_FICTIONAL_CHARS'); ?>: 
         		</div>
         		<?php if ($item->charcnt == 0) : ?>
-        			<div class="xbnit xbmt2"><?php echo Text::_('COM_XBBOOKS_NONELISTED'); ?></div>
+        			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
         		<?php else : ?>
         			<div class="clearfix"></div>
         			<div class="xbmt2 xbml20"><?php echo $item->clist ; ?></div>
@@ -207,7 +209,7 @@ if ($imgok) {
 		</div>
 		<div class="span5">
 	    	<?php if ($item->last_read) : ?>
-	    		<span class="xbnit"><?php echo  Text::_('COM_XBBOOKS_DATE_READ').': '; ?>
+	    		<span class="xbnit"><?php echo  Text::_('XBBOOKS_DATE_READ').': '; ?>
 	    		</span>
 	    		<?php echo HtmlHelper::date($item->last_read , 'D jS M Y') ; ?>
     		<?php endif; ?>
@@ -221,7 +223,7 @@ if ($imgok) {
 		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>
 		<div class="xbbox xbboxcyan">
 			<?php if (empty($item->synopsis)) { 
-				echo '<p class="xbnit">'.Text::_('COM_XBBOOKS_NO_SYNOPSIS').'</p>';				    
+				echo '<p class="xbnit">'.Text::_('XBBOOKS_NO_SYNOPSIS').'</p>';				    
             } else { 
 				echo $item->synopsis; 
             } ?> 
@@ -229,7 +231,7 @@ if ($imgok) {
         <div class="row-fluid xbmt16">
 			<?php if ($this->show_bcat >0) : ?>       
 	        	<div class="span4">
-					<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_BOOK_CAT'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_BOOK_CAT'); ?></div>
 					<div class="pull-left">
     					<?php if($this->show_bcat==2) : ?>
     						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
@@ -257,7 +259,7 @@ if ($imgok) {
 		<div class="span6 xbmb12">
 			<h4><?php echo Text::_('XBCULTURE_REVIEWS_U'); ?></h4>
 			<?php if(empty($item->reviews)) : ?>
-				<p><i><?php echo Text::_( 'COM_XBBOOKS_NOREVIEW' ); ?></i></p>
+				<p><i><?php echo Text::_( 'XBBOOKS_NOREVIEW' ); ?></i></p>
 			<?php else : ?>
 				<?php foreach ($item->reviews as $rev) : ?>
 					<div class="xbrevlist ">
@@ -284,7 +286,7 @@ if ($imgok) {
 							<?php if ($this->show_brevs==2) : ?>
 								<?php if (empty($rev->review)) {
 									if (empty($rev->summary)) {
-										echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NO_REV_TEXT').'</span>';
+										echo '<span class="xbnit">'.Text::_('XBBOOKS_NO_REV_TEXT').'</span>';
 									} else {
 										echo $rev->summary;
 									}
@@ -295,7 +297,7 @@ if ($imgok) {
 	                    		<div class="row-fluid">
 	            	        		<?php if($this->show_rcat) : ?>
 	                        			<div class="span4">
-	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('COM_XBBOOKS_REV_CAT'); ?></div>
+	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_REV_CAT'); ?></div>
 	                						<div class="pull-left">
 	               								<?php if($this->show_rcat==2) : ?>
 													<a class="label label-success" href="<?php echo Route::_($clink.$rev->catid); ?>">
@@ -328,7 +330,7 @@ if ($imgok) {
 	<div class="span2">
 		<?php if (($item->prev>0) || ($item->next>0)) : ?>
 		<span class="hasTooltip xbinfo" title 
-			data-original-title="<?php echo Text::_('COM_XBBOOKS_INFO_PREVNEXT'); ?>" >
+			data-original-title="<?php echo Text::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
 		</span>&nbsp;
 		<?php endif; ?>
 		<?php if($item->prev > 0) : ?>
@@ -338,7 +340,7 @@ if ($imgok) {
 	</div>
 	<div class="span8"><center>
 		<a href="<?php echo Route::_($blink); ?>" class="btn btn-small">
-			<?php echo Text::_('COM_XBBOOKS_BOOKLIST'); ?></a></center>
+			<?php echo Text::_('XBBOOKS_BOOKLIST'); ?></a></center>
 	</div>
 	<div class="span2">
 		<?php if($item->next > 0) : ?>

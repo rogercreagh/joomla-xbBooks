@@ -5,8 +5,8 @@
 		<field
 			name="search"
 			type="text"
-			label="COM_XBBOOKS_SEARCH_IN_NAME"
-			description="COM_XBBOOKS_SEARCH_PERSON"
+			label="XBBOOKS_SEARCH_IN_NAME"
+			description="XBBOOKS_SEARCH_PERSON"
 			hint="JSEARCH_FILTER"
 			class="js-stools-search-string"
 		/>
@@ -58,8 +58,8 @@
 		<field name="taglogic"
 			type="radio"
 			default="0"
-			label="COM_XBBOOKS_MULTITAG_LBL"
-			description="COM_XBBOOKS_MULTITAG_DESC"
+			label="XBBOOKS_MULTITAG_LBL"
+			description="XBBOOKS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>

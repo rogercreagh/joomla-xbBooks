@@ -34,7 +34,7 @@ class XbbooksControllerBcategories extends JControllerAdmin {
     	    if (XbcultureHelper::checkComponent('com_xbpeople')==1){
     	        $this->setRedirect($this->edcatlink.'com_xbpeople&id='.$id);
     	    } else {
-    	        Factory::getApplication()->enqueueMessage('COM_XBBOOKS_NO_COMPEOPLE','error');
+    	        Factory::getApplication()->enqueueMessage('XBBOOKS_NO_COMPEOPLE','error');
     	    }
     	}
     }
@@ -47,7 +47,7 @@ class XbbooksControllerBcategories extends JControllerAdmin {
         if (XbcultureHelper::checkComponent('com_xbpeople')==1){
             $this->setRedirect($this->edcatlink.'com_xbpeople&id=0');
         } else {
-            Factory::getApplication()->enqueueMessage('COM_XBBOOKS_NO_COMPEOPLE','error');
+            Factory::getApplication()->enqueueMessage('XBBOOKS_NO_COMPEOPLE','error');
         }
     }
     

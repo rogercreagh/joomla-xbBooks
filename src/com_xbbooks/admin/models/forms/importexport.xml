@@ -9,58 +9,58 @@
  ******/ -->
  
 <form>
-	<fieldset name="importset" label="COM_XBBOOKS_IMPORT_SET">	
+	<fieldset name="importset" label="XBBOOKS_IMPORT_SET">	
 		
 		<field name="imptype" type="radio" required="true"
-			label="COM_XBBOOKS_IMPORT_TYPE" description="COM_XBBOOKS_IMPORT_TYPE_DESC"
+			label="XBBOOKS_IMPORT_TYPE" description="XBBOOKS_IMPORT_TYPE_DESC"
 			filter="intval" size="1" default="3" class="btn-group">
-				<option value="3">COM_XBBOOKS_OPT_IMP_MYSQL</option>
-				<option value="4">COM_XBBOOKS_OPT_IMP_CSV</option>
+				<option value="3">XBBOOKS_OPT_IMP_MYSQL</option>
+				<option value="4">XBBOOKS_OPT_IMP_CSV</option>
 		</field>
 		
 		<field name="impcat" type="category" extension="com_xbbooks" class="chzn-custom-value"
-			label="COM_XBBOOKS_IMP_CATEGORY_LABEL" description="COM_XBBOOKS_IMP_CATEGORY_DESC"
+			label="XBBOOKS_IMP_CATEGORY_LABEL" description="XBBOOKS_IMP_CATEGORY_DESC"
 			showon="imptype:3"
 			>
-				<option value="0">COM_XBBOOKS_OPT_CATFILE</option>
+				<option value="0">XBBOOKS_OPT_CATFILE</option>
 		</field>
 		
 		<field name="imppcat" type="category" extension="com_xbpeople" class="chzn-custom-value"
-			label="COM_XBBOOKS_IMP_PCATEGORY_LABEL" description="COM_XBBOOKS_IMP_PCATEGORY_DESC"
+			label="XBBOOKS_IMP_PCATEGORY_LABEL" description="XBBOOKS_IMP_PCATEGORY_DESC"
 			showon="imptype:3"
 			>
-				<option value="0">COM_XBBOOKS_OPT_PCATFILE</option>
+				<option value="0">XBBOOKS_OPT_PCATFILE</option>
 		</field>
 		
 		<field name="impcatcsv" type="category" extension="com_xbbooks" class="chzn-custom-value"
-			label="COM_XBBOOKS_IMP_CATEGORY_LABEL" description="COM_XBBOOKS_IMP_CATEGORY_DESC"
+			label="XBBOOKS_IMP_CATEGORY_LABEL" description="XBBOOKS_IMP_CATEGORY_DESC"
 			showon="imptype:4" required="true"
 			>
 		</field>
 
 		<field name="imppcatcsv" type="category" extension="com_xbpeople" class="chzn-custom-value"
-			label="COM_XBBOOKS_IMP_PCATEGORY_LABEL" description="COM_XBBOOKS_IMP_PCATEGORY_DESC"
+			label="XBBOOKS_IMP_PCATEGORY_LABEL" description="XBBOOKS_IMP_PCATEGORY_DESC"
 			showon="imptype:4" required="true"
 			>
 		</field>
 
 		<field name="img_path" type="folderlist" 
-	        label="COM_XBBOOKS_IMP_IMGPATH_LBL" 
-	        description="COM_XBBOOKS_IMP_IMGPATH_DESC"
+	        label="XBBOOKS_IMP_IMGPATH_LBL" 
+	        description="XBBOOKS_IMP_IMGPATH_DESC"
 	        directory="images" recursive="true" 
 			hide_default="true" hide_none="false" 
 	        >
-	        	<option value="global">COM_XBBOOKS_USEGLOBAL</option>
+	        	<option value="global">XBBOOKS_USEGLOBAL</option>
         </field>
 		
 		<field name="reviewer" type="text"			
-			label="COM_XBBOOKS_IMP_REVIEWER_LABEL" description="COM_XBBOOKS_IMP_REVIEWER_DESC"
+			label="XBBOOKS_IMP_REVIEWER_LABEL" description="XBBOOKS_IMP_REVIEWER_DESC"
 			>
 		</field>
 		
 		<field name="setpub" type="radio"
-			label="COM_XBBOOKS_IMP_STATE_LABEL"
-             description="COM_XBBOOKS_IMP_STATE_DESC"
+			label="XBBOOKS_IMP_STATE_LABEL"
+             description="XBBOOKS_IMP_STATE_DESC"
              default="1" class="btn-group" 
 				>
 				<option value="3">from file</option>
@@ -81,142 +81,142 @@
 	
 		<field name="import_file"
 			type="file" accept=".sql"
-			label="COM_XBBOOKS_IMPFILE_LABEL"
-			description="COM_XBBOOKS_IMPFILE_DESC"
+			label="XBBOOKS_IMPFILE_LABEL"
+			description="XBBOOKS_IMPFILE_DESC"
 			showon="imptype:3" required="true"
 		/>
 				
 		<field name="import_filecsv"
 			type="file" accept=".csv"
-			label="COM_XBBOOKS_IMPFILE_LABEL"
-			description="COM_XBBOOKS_IMPFILE_DESC"
+			label="XBBOOKS_IMPFILE_LABEL"
+			description="XBBOOKS_IMPFILE_DESC"
 			showon="imptype:4" required="true"
 		/>
 				
 	</fieldset>
 	
-	<fieldset name="exportset" label="COM_XBBOOKS_EXPORT_SET">
+	<fieldset name="exportset" label="XBBOOKS_EXPORT_SET">
 		<field name="exptype" type="list"
-			label="COM_XBBOOKS_EXPORT_TYPE" description="COM_XBBOOKS_EXPORT_TYPE_DESC"
+			label="XBBOOKS_EXPORT_TYPE" description="XBBOOKS_EXPORT_TYPE_DESC"
 			class="inputbox" size="1" filter="intval" >
-				<option value="1">COM_XBBOOKS_OPT_MYSQL_FULL</option>
-				<option value="2">COM_XBBOOKS_OPT_MYSQL_TABLE</option>
-				<option value="4">COM_XBBOOKS_OPT_CSV_TABLE</option>
+				<option value="1">XBBOOKS_OPT_MYSQL_FULL</option>
+				<option value="2">XBBOOKS_OPT_MYSQL_TABLE</option>
+				<option value="4">XBBOOKS_OPT_CSV_TABLE</option>
 		</field>
 		
 		<field name="exptables" type="list" required="true"
-			label="COM_XBBOOKS_EXP_TABLE_LABEL" description="COM_XBBOOKS_EXP_TABLE_DESC"
+			label="XBBOOKS_EXP_TABLE_LABEL" description="XBBOOKS_EXP_TABLE_DESC"
 			class="inputbox" showon="exptype:2,4" >
-				<option value="xbbooks" >COM_XBBOOKS_OPT_TABLE_BOOKS</option>
-				<option value="xbbookreviews">COM_XBBOOKS_OPT_TABLE_REVS</option>
-				<option value="xbpersons" >COM_XBBOOKS_OPT_TABLE_PERS</option>
-				<option value="xbbookperson">COM_XBBOOKS_OPT_TABLE_PERLINKS</option>
-				<option value="xbcharacters" >COM_XBBOOKS_OPT_TABLE_CHARS</option>
-				<option value="xbbookcharacter">COM_XBBOOKS_OPT_TABLE_CHARLINKS</option>
-				<option value="categories" >COM_XBBOOKS_OPT_TABLE_CATS</option>
+				<option value="xbbooks" >XBBOOKS_OPT_TABLE_BOOKS</option>
+				<option value="xbbookreviews">XBBOOKS_OPT_TABLE_REVS</option>
+				<option value="xbpersons" >XBBOOKS_OPT_TABLE_PERS</option>
+				<option value="xbbookperson">XBBOOKS_OPT_TABLE_PERLINKS</option>
+				<option value="xbcharacters" >XBBOOKS_OPT_TABLE_CHARS</option>
+				<option value="xbbookcharacter">XBBOOKS_OPT_TABLE_CHARLINKS</option>
+				<option value="categories" >XBBOOKS_OPT_TABLE_CATS</option>
 		</field>
 			
 		<field name="expcat" type="category" extension="com_xbbooks" class="chzn-custom-value"
-			label="COM_XBBOOKS_EXP_CATEGORY_LABEL" description="COM_XBBOOKS_EXP_CATEGORY_DESC" 
+			label="XBBOOKS_EXP_CATEGORY_LABEL" description="XBBOOKS_EXP_CATEGORY_DESC" 
 			showon="exptables:xbbooks[AND]exptype:2[OR]exptables:xbbookreviews[AND]exptype:2[OR]exptype:1" 
   		>
-				<option value="0">COM_XBBOOKS_OPT_CATEGORY_ALL</option>
+				<option value="0">XBBOOKS_OPT_CATEGORY_ALL</option>
 		</field>
 		<field name="exppcat" type="category" extension="com_xbpeople" class="chzn-custom-value"
-			label="COM_XBBOOKS_EXP_PCATEGORY_LABEL" description="COM_XBBOOKS_EXP_PCATEGORY_DESC" 
+			label="XBBOOKS_EXP_PCATEGORY_LABEL" description="XBBOOKS_EXP_PCATEGORY_DESC" 
 			showon="exptables:xbpersons[AND]exptype!:1[OR]exptables:xbcharacters[AND]exptype!:1"
   		>
-				<option value="0">COM_XBBOOKS_OPT_CATEGORY_ALL</option>
+				<option value="0">XBBOOKS_OPT_CATEGORY_ALL</option>
 		</field>
 	</fieldset>
 	
-	<fieldset name="deleteset" label="COM_XBBOOKS_DELETE_SET">
+	<fieldset name="deleteset" label="XBBOOKS_DELETE_SET">
 		<field name="deltype" type="list"
-			label="COM_XBBOOKS_DELTYPE_LABEL" description="COM_XBBOOKS_DELTYPE_DESC"
+			label="XBBOOKS_DELTYPE_LABEL" description="XBBOOKS_DELTYPE_DESC"
 			class="inputbox" size="1" filter="intval" default="1" >
-				<option value="1">COM_XBBOOKS_CLEAN</option>
-				<option value="3">COM_XBBOOKS_DELETE_BOOKS</option>
-				<option value="5">COM_XBBOOKS_DELETE_REVS</option>
-				<option value="4">COM_XBBOOKS_DELETE_PEOPLE</option>
-				<option value="6">COM_XBBOOKS_DELETE_CHARS</option>
-				<option value="2">COM_XBBOOKS_DELETE_ALL</option>
+				<option value="1">XBBOOKS_CLEAN</option>
+				<option value="3">XBBOOKS_DELETE_BOOKS</option>
+				<option value="5">XBBOOKS_DELETE_REVS</option>
+				<option value="4">XBBOOKS_DELETE_PEOPLE</option>
+				<option value="6">XBBOOKS_DELETE_CHARS</option>
+				<option value="2">XBBOOKS_DELETE_ALL</option>
 		</field>
 		<field name="delallitems" type="radio"
-			label="COM_XBBOOKS_DELALL_LBL"
-			description="COM_XBBOOKS_DELALL_DESC"
+			label="XBBOOKS_DELALL_LBL"
+			description="XBBOOKS_DELALL_DESC"
 			default="0" class="btn-group"
 			showon="deltype!:1,2">
 	              <option value="0">JNO</option>
 	              <option value="1">JYES</option>
 		</field>		
 		<field name="delstatenote" type="note"	
-			description="COM_XBBOOKS_DELSTATE_NOTE"
+			description="XBBOOKS_DELSTATE_NOTE"
 			class="alert alert-warning"
 			showon="deltype:1" />
 			
 		<field name="delstate" type="checkboxes"
-			label="COM_XBBOOKS_DELSTATE_LBL"
-			description="COM_XBBOOKS_DELSTATE_DESC"
+			label="XBBOOKS_DELSTATE_LBL"
+			description="XBBOOKS_DELSTATE_DESC"
 			class="inputbox" size="1" filter="intval" 
 			showon="deltype:1[OR]delallitems:0[AND]deltype!:2">
-	              <option value="-2">COM_XBBOOKS_OPT_DELTRASH</option>
-	              <option value="2">COM_XBBOOKS_OPT_DELARCH</option>
-	              <option value="0">COM_XBBOOKS_OPT_DELUNPUB</option>
+	              <option value="-2">XBBOOKS_OPT_DELTRASH</option>
+	              <option value="2">XBBOOKS_OPT_DELARCH</option>
+	              <option value="0">XBBOOKS_OPT_DELUNPUB</option>
 		</field>
 		
 		<field name="delorphansnote" type="note"	
-			description="COM_XBBOOKS_DELORPHANS_NOTE"
+			description="XBBOOKS_DELORPHANS_NOTE"
 			class="alert alert-ino"
 			showon="deltype:1" />
 			
 		<field name="delorphrev" type="radio"
-			label="COM_XBBOOKS_DELORPHREV_LBL"
-			description="COM_XBBOOKS_DELORPHREV_DESC"
+			label="XBBOOKS_DELORPHREV_LBL"
+			description="XBBOOKS_DELORPHREV_DESC"
 			default="0" class="btn-group"
 			showon="deltype:1">
 	              <option value="0">JNO</option>
 	              <option value="1">JYES</option>
 		</field>
 		<field name="delorphpeep" type="radio"
-			label="COM_XBBOOKS_DELORPHPEEP_LBL"
-			description="COM_XBBOOKS_DELORPHPEEP_DESC"
+			label="XBBOOKS_DELORPHPEEP_LBL"
+			description="XBBOOKS_DELORPHPEEP_DESC"
 			default="0" class="btn-group"
 			showon="deltype:1">
 	              <option value="0">JNO</option>
 	              <option value="1">JYES</option>
 		</field>
 		<field name="delorphchar" type="radio"
-			label="COM_XBBOOKS_DELORPHCHAR_LBL"
-			description="COM_XBBOOKS_DELORPHCHAR_DESC"
+			label="XBBOOKS_DELORPHCHAR_LBL"
+			description="XBBOOKS_DELORPHCHAR_DESC"
 			default="0" class="btn-group"
 			showon="deltype:1">
 	              <option value="0">JNO</option>
 	              <option value="1">JYES</option>
 		</field>
 		<field name="dellinknote" type="note"	
-			description="COM_XBBOOKS_DELLINKS_NOTE"
+			description="XBBOOKS_DELLINKS_NOTE"
 			class="alert alert-info"
 			showon="deltype:1" />					
 		<field name="delcat" type="category" extension="com_xbbooks" class="chzn-custom-value"
-			label="COM_XBBOOKS_DEL_CATEGORY_LABEL" description="COM_XBBOOKS_DEL_CATEGORY_DESC" 
+			label="XBBOOKS_DEL_CATEGORY_LABEL" description="XBBOOKS_DEL_CATEGORY_DESC" 
   			showon="deltype:3,5" default="0">
-				<option value="0">COM_XBBOOKS_OPT_CATEGORY_ALL</option>
+				<option value="0">XBBOOKS_OPT_CATEGORY_ALL</option>
 		</field>
 		<field name="delpcat" type="category" extension="com_xbpeople" class="chzn-custom-value"
-			label="COM_XBBOOKS_DEL_CATEGORY_LABEL" description="COM_XBBOOKS_DEL_CATEGORY_DESC" 
+			label="XBBOOKS_DEL_CATEGORY_LABEL" description="XBBOOKS_DEL_CATEGORY_DESC" 
   			showon="deltype:4,6" default="0">
-				<option value="0">COM_XBBOOKS_OPT_CATEGORY_ALL</option>
+				<option value="0">XBBOOKS_OPT_CATEGORY_ALL</option>
 		</field>
 		<field name="delrevs" type="radio"
-			label="COM_XBBOOKS_DEL_REVS_LABEL"
-             description="COM_XBBOOKS_DEL_REVS_DESC"
+			label="XBBOOKS_DEL_REVS_LABEL"
+             description="XBBOOKS_DEL_REVS_DESC"
              default="1" class="btn-group"
              showon="deltype:3" >
 	              <option value="0">JNO</option>
 	              <option value="1">JYES</option>
          </field>
 		<field name="delallnote" type="note"	
-			description="COM_XBBOOKS_DELALL_NOTE"
+			description="XBBOOKS_DELALL_NOTE"
 			class="alert alert-error"
 			showon="deltype:2" />
 		

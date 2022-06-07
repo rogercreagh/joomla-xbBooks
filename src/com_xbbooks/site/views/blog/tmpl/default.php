@@ -25,8 +25,8 @@ if (!$listOrder) {
     $listOrder='rev_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'book_title'=>Text::_('COM_XBBOOKS_BOOK_TITLE'),
-    'rating'=>Text::_('XBCULTURE_RATING'), 'rev_date'=>Text::_('COM_XBBOOKS_DATE_READ'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'book_title'=>Text::_('XBBOOKS_BOOK_TITLE'),
+    'rating'=>Text::_('XBCULTURE_RATING'), 'rev_date'=>Text::_('XBBOOKS_DATE_READ'),
     'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
@@ -135,7 +135,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 									<?php echo $item->alist; ?>                          
 									</h4>
 								<?php else: ?>
-									<p class="xbnit"><?php echo Text::_('COM_XBBOOKS_NOAUTHOR'); ?></p>
+									<p class="xbnit"><?php echo Text::_('XBBOOKS_NOAUTHOR'); ?></p>
 		                        <?php endif; ?>
 							</div>
 						</div>   						

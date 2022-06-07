@@ -78,9 +78,9 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 		if (stripos($search, 'i:') === 0) {
             echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_AS_ID');
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'b:')===0)) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBBOOKS_AS_INBIOG');
+            echo trim(substr($search, 2)).'</b> '.Text::_('XBBOOKS_AS_INBIOG');
         } else {
-			echo trim($search).'</b> '.Text::_('COM_XBBOOKS_AS_INNAMES');
+			echo trim($search).'</b> '.Text::_('XBBOOKS_AS_INNAMES');
 		}
 		echo '</p>';
 	} ?> 
@@ -123,8 +123,8 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
     				<?php echo Text::_('XBCULTURE_PORTRAIT') ;?>
     			</th>
     			<th >
-					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_FIRSTNAME', 'firstname', $listDirn, $listOrder); ?>
-					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBBOOKS_LASTNAME', 'lastname', $listDirn, $listOrder); ?>					
+					<?php echo HTMLHelper::_('searchtools.sort', 'XBBOOKS_FIRSTNAME', 'firstname', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'XBBOOKS_LASTNAME', 'lastname', $listDirn, $listOrder); ?>					
 					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_DATES', 'year_born', $listDirn, $listOrder); ?>
     			</th>
     			<th>
@@ -211,7 +211,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
 							} ?>
 							
-							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('COM_XBBOOKS_EDIT_PERSON'); ?>">
+							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('XBBOOKS_EDIT_PERSON'); ?>">
 								<?php echo ($item->firstname=='')? '... ' : $item->firstname; ?>
 								<?php echo ' '.$item->lastname; ?> 
 							</a>
@@ -220,9 +220,9 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 						</p>
 						<p>
 						<?php 
-							if($item->year_born > 0) { echo '<i>'.Text::_('COM_XBBOOKS_BORN').' </i>: '.$item->year_born;} 
+							if($item->year_born > 0) { echo '<i>'.Text::_('XBBOOKS_BORN').' </i>: '.$item->year_born;} 
 							if($item->year_died > 0) { 
-								echo '&nbsp;&nbsp;<i>'.Text::_('COM_XBBOOKS_DIED').' </i>: '.$item->year_died;
+								echo '&nbsp;&nbsp;<i>'.Text::_('XBBOOKS_DIED').' </i>: '.$item->year_died;
 							}
 							if($item->nationality) { 
                         		echo '<br /><i>'.Text::_('XBCULTURE_NATIONALITY').' </i>: '.$item->nationality;
@@ -236,10 +236,10 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
     						<?php else : ?>
     							<span class="xbnit">
     							<?php if (!empty($item->biography)) : ?>
-    								<?php echo Text::_('COM_XBBOOKS_BIOG_EXTRACT'); ?>: </span>
+    								<?php echo Text::_('XBBOOKS_BIOG_EXTRACT'); ?>: </span>
     								<?php echo XbcultureHelper::makeSummaryText($item->biography,200); ?>
     							<?php else : ?>
-    								<?php echo Text::_('COM_XBBOOKS_NO_SUMMARY_BIOG'); ?></span>
+    								<?php echo Text::_('XBBOOKS_NO_SUMMARY_BIOG'); ?></span>
     							<?php endif; ?>
     						<?php endif; ?>
                         </p>
@@ -261,19 +261,19 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 					<td>
 						<?php if ($item->acnt>0) { 
 							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->alist.'">';
-						    echo Text::_('COM_XBBOOKS_AUTHOR_OF').' '.$item->acnt.' ';
+						    echo Text::_('XBBOOKS_AUTHOR_OF').' '.$item->acnt.' ';
                             echo Text::_(($item->acnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS'); 
 						    echo '</span><br />';
 						}?> 
 						<?php if ($item->ecnt>0) { 
 							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->elist.'">';
-							echo Text::_('COM_XBBOOKS_EDITOR_OF').' '.$item->ecnt.' ';
+							echo Text::_('XBBOOKS_EDITOR_OF').' '.$item->ecnt.' ';
                             echo Text::_(($item->ecnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS'); 
                             echo '</span><br />';
 						}?>
 						<?php if ($item->mcnt>0) { 
 							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->mlist.'">';
-							echo Text::_('COM_XBBOOKS_MENTION_IN').' '.$item->mcnt.' ';
+							echo Text::_('XBBOOKS_MENTION_IN').' '.$item->mcnt.' ';
                             echo Text::_(($item->mcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS'); 
                             echo '</span><br />';
 						}?>

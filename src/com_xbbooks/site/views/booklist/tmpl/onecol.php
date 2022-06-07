@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/onecol.php
- * @version 0.9.8.4 26th May 2022
+ * @version 0.9.8.7 4th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,7 +26,7 @@ if (!$listOrder) {
     $listOrder='sort_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('COM_XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
     'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
@@ -56,8 +56,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 				if ($this->hide_fict) { $hide .= 'filter_fictionfilt,';}
 				if ($this->hide_peep) { $hide .= 'filter_perfilt,filter_prole,';}
 				if ($this->hide_char) { $hide .= 'filter_charfilt,';}
-				if ((!$this->show_cat) || ($this->hide_cat)) { $hide .= 'filter_category_id,filter_subcats,';}
-				if ((!$this->show_tags) || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
+				if ($this->hide_cat) { $hide .= 'filter_category_id,filter_subcats,';}
+				if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 	            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));       
 	         echo '</div></div>';
@@ -89,7 +89,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 				<th>
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.Text::_('XBCULTURE_AUTHOR').', '.
-    						HtmlHelper::_('searchtools.sort','COM_XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );
+    						HtmlHelper::_('searchtools.sort','XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );
     						  echo ', '.HtmlHelper::_('searchtools.sort','PubYear','pubyear',$listDirn,$listOrder );	
 					?>
 				</th>					
@@ -131,7 +131,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         	<?php echo $item->elist; ?>
                         <?php else : ?>
                         	<?php if ($item->authcnt==0) {
-                        		echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NOAUTHOR').'</span>';
+                        		echo '<span class="xbnit">'.Text::_('XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
 	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
@@ -142,10 +142,10 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						</p>
 						
 						<p>
-							<span class="icon-calendar"></span>&nbsp;
-							<?php if($item->pubyear > 0) {
-								echo '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').'</span>: '.$item->pubyear; 
-							}?>	
+							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
+								<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
+							</span>
+							<?php if($item->pubyear > 0) { echo ': '.$item->pubyear; }?>	
 							<br />
 							<span class="icon-book"></span>&nbsp;
                             <?php if($this->show_sum) : ?>
@@ -154,11 +154,11 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
         						<?php else : ?>
         							<span class="xbnit">
         							<?php if (!empty($item->synopsis)) : ?>
-        								<?php echo Text::_('COM_XBBOOKS_SYNOPSIS_EXTRACT'); ?>: </span>
+        								<?php echo Text::_('XBBOOKS_SYNOPSIS_EXTRACT'); ?>: </span>
         								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,250); ?>
         							<?php else : ?>
                 						<span class="xbnote">
-        								<?php echo Text::_('COM_XBBOOKS_NO_SUMMARY_SYNOPSIS'); ?>
+        								<?php echo Text::_('XBBOOKS_NO_SUMMARY_SYNOPSIS'); ?>
         								</span></span>
         							<?php endif; ?>
         						<?php endif; ?>
@@ -172,13 +172,13 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         	<?php endif; ?>
 							<br />						
 		                    <?php if($this->show_ctcol) : ?>
-		     					<?php if($this->show_cats) : ?>
+		     					<?php if($this->showcats) : ?>
 		     						<span class="icon-folder"></span> &nbsp;										
 	    							<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
     		    					<?php echo ($item->fiction==1) ? ' <span class="label">fiction</span>' : ' <span class="label label-inverse">non-fiction</span>'; ?>
     		    					<br />
 		    					<?php endif; ?>
-        						<?php if($this->show_tags) {
+        						<?php if($this->showtags) {
         						    echo '<span class="icon-tags"></span> &nbsp;';
         							$tagLayout = new FileLayout('joomla.content.tagline');
             						echo $tagLayout->render($item->tags);

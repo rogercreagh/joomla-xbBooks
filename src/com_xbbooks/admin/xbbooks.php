@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/xbbooks.php
- * @version 0.9.8.6 31st May 2022
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -57,8 +57,8 @@ if (!Factory::getSession()->get('xbpeople_ok',false)) {
         XbcultureHelper::checkComponent('com_xbpeople');
     } else {
         $app = Factory::getApplication();
-        if ($app->input->get('view')!='cpanel') {
-            $app->redirect('index.php?option=com_xbbooks&view=cpanel');
+        if ($app->input->get('view')!='dashboard') {
+            $app->redirect('index.php?option=com_xbbooks&view=dashboard');
             $app->close();
         }
     }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbbooks</name>
-	<creationDate>30th May 2022</creationDate>
-	<version>0.9.8.6</version>
+	<creationDate>7th June 2022</creationDate>
+	<version>0.9.8.8</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>
 	<copyright>(c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
-	<description>COM_XBBOOKS_XML_DESCRIPTION</description>
+	<description>XBBOOKS_XML_DESCRIPTION</description>
 
 	<scriptfile>script.xbbooks.php</scriptfile>	
 
@@ -71,39 +71,47 @@
 			<language tag="en-GB">en-GB/en-GB.com_xbbooks.sys.ini</language>
 		</languages>
 		
-		<menu img="class:xbbooks" link="option=com_xbbooks" view="cpanel">xbBooks</menu>
+		<menu img="class:xbbooks" link="option=com_xbbooks">xbBooks</menu>
 		<submenu>
 			<menu link="option=com_xbbooks" 
-				view="cpanel" img="class:xbbooks-cpanel" >
-					com_xbbooks_control_panel
+				img="class:xbbooks-dashboard" 
+				>
+					xbbooks_iconmenu_dashboard
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=books" 
-				view="books" img="class:xbbooks-books" >
-					com_xbbooks_books
+				img="class:xbbooks-books" 
+				>
+					xbbooks_iconmenu_books
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=reviews" 
-				view="reviews" img="class:xbbooks-reviews" >
-					com_xbbooks_reviews
+				img="class:xbbooks-reviews" 
+				>
+					xbbooks_iconmenu_reviews
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=persons" 
-				view="persons" img="class:xbbooks-persons" >
-					com_xbbooks_people
+				img="class:xbbooks-persons" 
+				>
+					xbbooks_iconmenu_people
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=characters" 
-				view="characters" img="class:xbbooks-persons" >
-					com_xbbooks_characters
+				img="class:xbbooks-persons" 
+				>
+					xbbooks_iconmenu_characters
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=bcategories" 
-				view="bcategories" img="class:xbbooks-categories" >
-					com_xbbooks_categories
+				img="class:xbbooks-categories" 
+				>
+					xbbooks_iconmenu_categories
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=tags" 
-				view="tags" img="class:xbbooks-tags" >
-					com_xbbooks_tags
+				img="class:xbbooks-tags" 
+				>
+					xbbooks_iconmenu_tags
 			</menu>
 			<menu link="option=com_xbbooks&amp;view=importexport" 
-			view="importexport" img="class:xbbooks-importexport" >
-				com_xbbooks_dataman
+				img="class:xbbooks-importexport" 
+				>
+					xbbooks_iconmenu_dataman
 			</menu>
 		</submenu>
 	</administration>

@@ -1,8 +1,8 @@
 <?php
 /*******
  * @package xbBooks
- * @filesource admin/views/cpanel/view.html.php
- * @version 0.9.8.3 22nd May 2022
+ * @filesource admin/views/dashboard/view.html.php
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,10 +15,9 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 
-class XbbooksViewCpanel extends JViewLegacy
+class XbbooksViewDashboard extends JViewLegacy
 {
  //   protected $buttons;
 	protected $books;
@@ -37,6 +36,7 @@ class XbbooksViewCpanel extends JViewLegacy
 	    $this->xblive_ok = Factory::getSession()->get('xblive_ok');
 	    
 	    if ($this->xbpeople_ok) {
+	        
 	        $this->bookStates = $this->get('BookStates');
     		$this->catStates = $this->get('CatStates');
     		$this->pcatStates = $this->get('PcatStates');
@@ -62,19 +62,26 @@ class XbbooksViewCpanel extends JViewLegacy
     		$this->client = $this->get('Client');
     		
     		$params = ComponentHelper::getParams('com_xbbooks');
-    		$this->show_sample = $params->get('show_sample');
+    		
+    		$this->killdata = $params->get('killdata',1);
+    		
+    		$this->show_sample = $params->get('show_sample',1);
     		$this->zero_rating = $params->get('zero_rating');
     		$this->zero_class = $params->get('zero_class');
 
-    		$this->show_cat = $params->get('show_cats');
-    		$this->show_bookcat = $params->get('show_bcat');
-    		$this->show_revcat = $params->get('show_rcat');
-    		$this->show_percat = $params->get('show_pcat');
+    		$this->show_revs = $params->get('show_revs',1);
     		
-    		$this->show_tags = $params->get('show_tags');
-    		$this->show_booktags = $params->get('show_btags');
-    		$this->show_revtags = $params->get('show_rtags');
-    		$this->show_pertags = $params->get('show_ptags');
+    		$this->show_cat = $params->get('show_cats',1);
+    		$this->show_bookcat = $params->get('show_bcat',1);
+    		$this->show_revcat = ($this->show_revs) ? $params->get('show_rcat',1) : 0;
+    		$this->show_percat = $params->get('show_pcat',1);
+    		
+    		$this->show_tags = $params->get('show_tags',1);
+    		$this->show_booktags = $params->get('show_btags',1);
+    		$this->show_revtags = ($this->show_revs) ? $params->get('show_rtags',1):0;
+    		$this->show_pertags = $params->get('show_ptags',1);
+
+    		$this->show_fict = $params->get('show_fict',1);
     		
     		$this->show_search = $params->get('search_bar');
     		
@@ -92,7 +99,7 @@ class XbbooksViewCpanel extends JViewLegacy
     		$this->show_booklist_rating = $params->get('show_brevcol');
     		$this->show_book_review = $params->get('show_brevs');
     		
-    		XbbooksHelper::addSubmenu('cpanel');
+    		XbbooksHelper::addSubmenu('dashboard');
 		
             // Check for errors.
             if (count($errors = $this->get('Errors'))) {
@@ -154,20 +161,20 @@ class XbbooksViewCpanel extends JViewLegacy
 	        $samplesexist = XbbooksHelper::getIdFromAlias('#__categories', 'sample-books');
 	        if ($this->show_sample==1) {
 	        	if ($samplesexist > 0) {
-	        		ToolBarHelper::custom('cpanel.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
+	        		ToolBarHelper::custom('dashboard.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
 	        	} else {
-	        		ToolBarHelper::custom('cpanel.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
+	        		ToolBarHelper::custom('dashboard.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
 	        	}
 	        	ToolbarHelper::custom(); //spacer
 	        }
-	       	ToolbarHelper::custom('cpanel.people', 'info-2', '', 'xbPeople', false) ;
+	       	ToolbarHelper::custom('dashboard.people', 'info-2', '', 'xbPeople', false) ;
 	        
-	        ToolBarHelper::custom('cpanel.films', 'screen', '', 'xbFilms', false) ;
-	        ToolBarHelper::custom('cpanel.live', 'music', '', 'xbLive', false) ;
+	        ToolBarHelper::custom('dashboard.films', 'screen', '', 'xbFilms', false) ;
+	        ToolBarHelper::custom('dashboard.live', 'music', '', 'xbLive', false) ;
 	        if ($canDo->get('core.admin')) {
 	            ToolBarHelper::preferences('com_xbbooks');
 	        }
-	        ToolBarHelper::help( '', false,'https://crosborne.uk/xbbooks/doc?tmpl=component#admin-cpanel' );
+	        ToolBarHelper::help( '', false,'https://crosborne.uk/xbbooks/doc?tmpl=component#admin-dashboard' );
         } else {
             ToolBarHelper::title('xbBooks - please install xbPeople','info-2');
             ToolBarHelper::help( '', false,'https://www.crosborne.uk/downloads/file/11-xbpeople-component?tmpl=component' );
@@ -176,6 +183,6 @@ class XbbooksViewCpanel extends JViewLegacy
     
     protected function setDocument() {
         $document = Factory::getDocument();
-        $document->setTitle(Text::_('COM_XBBOOKS_ADMIN_CPANEL'));
+        $document->setTitle(Text::_('XBBOOKS_ADMIN_DASHBOARD'));
     }
 }

@@ -28,7 +28,7 @@ $xblink = 'index.php?option=com_xbbooks';
 		<form action="index.php?option=com_xbbooks&view=bcategory" method="post" id="adminForm" name="adminForm">
 		<div class="row-fluid xbmb8">
 			<div class= "span3">
-				  <h3><?php echo Text::_('COM_XBBOOKS_CAT_ITEMS'); ?></h3>
+				  <h3><?php echo Text::_('XBBOOKS_CAT_ITEMS'); ?></h3>
 			</div>
 			<div class= "span5">
 				<a href="<?php echo $celink.$item->id; ?>" class="badge badge-success">
@@ -121,7 +121,7 @@ $xblink = 'index.php?option=com_xbbooks';
 </div>
 <center>
 		<a href="<?php echo $xblink; ?>&view=bcategories" class="btn btn-small">
-			<?php echo Text::_('COM_XBBOOKS_CAT_LIST'); ?></a>
+			<?php echo Text::_('XBBOOKS_CAT_LIST'); ?></a>
 		</center>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>

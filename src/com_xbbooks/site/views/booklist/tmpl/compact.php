@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -43,8 +43,8 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				if ($this->hide_fict) { $hide .= 'filter_fictionfilt,';}
 				if ($this->hide_peep) { $hide .= 'filter_perfilt,filter_prole,';}
 				if ($this->hide_char) { $hide .= 'filter_charfilt,';}
-				if ((!$this->show_cat) || $this->hide_cat) { $hide .= 'filter_category_id,filter_subcats,';}
-				if ((!$this->show_tags) || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
+				if ($this->hide_cat) { $hide .= 'filter_category_id,filter_subcats,';}
+				if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 	            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));       
 	         echo '</div></div>';
@@ -80,14 +80,14 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				<th>
 					<?php echo Text::_('XBCULTURE_AUTHOR');?>
 				</th>
-                <?php if ($this->show_rev != 0 ) : ?>
+                <?php if ($this->showrevs != 0 ) : ?>
     				<th class="xbtc">
     					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
     				</th>
 				<?php endif; ?>
 				<?php if ($this->show_bdates) : ?>				
     				<th class="hidden-phone">
-    					<?php echo HTMLHelper::_('searchtools.sort','COM_XBBOOKS_DATE_READ','sort_date',$listDirn,$listOrder ); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','XBBOOKS_DATE_READ','sort_date',$listDirn,$listOrder ); ?>
     				</th>
     			<?php endif; ?>
 			</tr>
@@ -119,17 +119,17 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         	<?php echo $item->elist; ?>
                         <?php else : ?>
                         	<?php if ($item->authcnt==0) {
-                        		echo '<span class="xbnit">'.Text::_('COM_XBBOOKS_NOAUTHOR').'</span>';
+                        		echo '<span class="xbnit">'.Text::_('XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
                         		<?php echo $item->alist; 
                         	} ?>                          	
                         <?php endif; ?>
 						</p>
 					</td>
-					<?php if ($this->show_rev != 0 ) : ?>					
+					<?php if ($this->showrevs != 0 ) : ?>					
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'Not rated yet' ) : Text::_( 'COM_XBBOOKS_NOREVIEW' ); ?></i><br />
+    						   <i><?php  echo ($this->showrevs == 1)? Text::_( 'Not rated yet' ) : Text::_( 'XBBOOKS_NOREVIEW' ); ?></i><br />
     						<?php else : ?> 
 	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
 	                            <div class="xbstar">

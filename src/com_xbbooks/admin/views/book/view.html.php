@@ -53,7 +53,7 @@ class XbbooksViewBook extends JViewLegacy {
         $isNew = ($this->item->id == 0);
         $icon = $isNew ? 'bookadd' : 'bookedit';
 
-        $title = Text::_('COM_XBBOOKS').': ';
+        $title = Text::_('XBBOOKS').': ';
 
         if ($isNew) {
             $title .= JText::_('XBCULTURE_TITLE_NEWBOOK');
@@ -82,7 +82,7 @@ class XbbooksViewBook extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(($this->item->id == 0) ? Text::_('COM_XBBOOKS_NEW_BOOK') : Text::_('COM_XBBOOKS_EDIT_BOOK'));
+        $document->setTitle(($this->item->id == 0) ? Text::_('XBBOOKS_NEW_BOOK') : Text::_('XBBOOKS_EDIT_BOOK'));
     }
     
     

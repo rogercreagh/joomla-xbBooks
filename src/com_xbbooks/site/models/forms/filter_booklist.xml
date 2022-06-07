@@ -5,45 +5,45 @@
         <field name="search"
             type="text"
             label="COM_CONTENT_FILTER_SEARCH_DESC"
-			description="COM_XBBOOKS_SEARCH_DESC"
+			description="XBBOOKS_SEARCH_DESC"
             hint="JSEARCH_FILTER"
         /> 
 		<field
 			name="perfilt"
 			type="bookpeople"
 			label="XBCULTURE_PERSON_U"
-			description="COM_XBBOOKS_PERFILT_DESC"
+			description="XBBOOKS_PERFILT_DESC"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBBOOKS_PERFILT_HINT</option>
+			<option value="">XBBOOKS_PERFILT_HINT</option>
 		</field>
 		<field name="prole"
 			type="list"
 			default=""
-			label="COM_XBBOOKS_PROLE_LBL"
-			description="COM_XBBOOKS_PROLE_DESC"
+			label="XBBOOKS_PROLE_LBL"
+			description="XBBOOKS_PROLE_DESC"
   			class="btn-group btn-small radiotop"
 			showon="perfilt!:"			
 		>
-  			<option value="" onchange="this.form.submit();">COM_XBBOOKS_PROLE_DEF</option>
+  			<option value="" onchange="this.form.submit();">XBBOOKS_PROLE_DEF</option>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_AUTHOR</option>
 			<option value="2" onchange="this.form.submit();">XBCULTURE_EDITOR</option>
-			<option value="4" onchange="this.form.submit();">COM_XBBOOKS_MENTION_IN</option>
+			<option value="4" onchange="this.form.submit();">XBBOOKS_MENTION_IN</option>
 		</field>	
 		<field
 			name="charfilt"
 			type="bookchars"
 			label="XBCULTURE_CHARACTERS_U"
-			description="COM_XBBOOKS_CHARFILT_DESC"
+			description="XBBOOKS_CHARFILT_DESC"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBBOOKS_PERFILT_HINT</option>
+			<option value="">XBBOOKS_PERFILT_HINT</option>
 		</field>
 		<field name="fictionfilt"
 			type="list"
 			default="0"
-			label="COM_XBBOOKS_FILT_FICT_LBL"
-			description="COM_XBBOOKS_FILT_FICT_DESC"
+			label="XBBOOKS_FILT_FICT_LBL"
+			description="XBBOOKS_FILT_FICT_DESC"
   			class="btn-group btn-small radiotop"
 			onchange="this.form.submit();"
 			>
@@ -65,11 +65,11 @@
 		</field>	
 		<field
 			name="category_id" type="catsubtree"
-			label="COM_XBBOOKS_FILTER_CATEGORY_LBL"
+			label="XBBOOKS_FILTER_CATEGORY_LBL"
 			extension="com_xbbooks"
 			itemtype="book"
 			published="1"
-			description="COM_XBBOOKS_FILTER_CATEGORY_DESC"
+			description="XBBOOKS_FILTER_CATEGORY_DESC"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
@@ -77,8 +77,8 @@
 		<field name="subcats"
 			type="radio"
 			default=""
-			label="COM_XBBOOKS_SUBCATS_LBL"
-			description="COM_XBBOOKS_SUBCATS_DESC"
+			label="XBBOOKS_SUBCATS_LBL"
+			description="XBBOOKS_SUBCATS_DESC"
   			class="btn-group btn-small radiotop"
   			showon="category_id!:"
 		>
@@ -90,7 +90,7 @@
 			name="tagfilt"
 			type="tag"
 			label="XBCULTURE_TAGS_U"
-			description="COM_XBBOOKS_TAGFILT_DESC"
+			description="XBBOOKS_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
@@ -99,8 +99,8 @@
 		<field name="taglogic"
 			type="radio"
 			default="0"
-			label="COM_XBBOOKS_MULTITAG_LBL"
-			description="COM_XBBOOKS_MULTITAG_DESC"
+			label="XBBOOKS_MULTITAG_LBL"
+			description="XBBOOKS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>

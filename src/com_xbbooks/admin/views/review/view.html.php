@@ -46,7 +46,7 @@ class XbbooksViewReview extends JViewLegacy {
         
         $isNew = ($this->item->id == 0);
         
-        $title = Text::_( 'COM_XBBOOKS' ).': ';
+        $title = Text::_( 'XBBOOKS' ).': ';
         if ($isNew) {
             $title .= Text::_('XBCULTURE_TITLE_NEWREVIEW');
         } else {
@@ -69,7 +69,7 @@ class XbbooksViewReview extends JViewLegacy {
     protected function setDocument() {
         $isNew = ($this->item->id < 1);
         $document = Factory::getDocument();
-        $document->setTitle($isNew ? Text::_('COM_XBBOOKS_REVIEW_CREATING') :
-            Text::_('COM_XBBOOKS_REVIEW_EDITING'));
+        $document->setTitle($isNew ? Text::_('XBBOOKS_REVIEW_CREATING') :
+            Text::_('XBBOOKS_REVIEW_EDITING'));
     }
 }

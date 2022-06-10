@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbbooks</name>
-	<creationDate>7th June 2022</creationDate>
-	<version>0.9.8.8</version>
+	<creationDate>8th June 2022</creationDate>
+	<version>0.9.8.9</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>
 	<copyright>(c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
-	<description>XBBOOKS_XML_DESCRIPTION</description>
+	<description>COM_XBBOOKS_XML_DESCRIPTION</description>
 
 	<scriptfile>script.xbbooks.php</scriptfile>	
 

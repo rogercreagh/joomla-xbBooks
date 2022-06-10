@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/onecol.php
- * @version 0.9.8.7 4th June 2022
+ * @version 0.9.8.9 10th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -121,7 +121,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<p>
                         <?php if($item->editcnt>0) : ?>
                            	<?php if ($item->authcnt>0) {
-								echo '<span class="hasTooltip" title data-original-title="Authors: '.$item->alist.'">';
+								echo '<span class="xbpop xbcultpop xbfocus" data-trigger="focus" tabindex="'.$item->id.'" 
+                                    title data-original-title="Authors: " data-content="'.$item->alist.'">';
                             } else {
                               echo '<span>';
                             } ?>

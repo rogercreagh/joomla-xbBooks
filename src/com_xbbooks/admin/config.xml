@@ -101,7 +101,7 @@
 		/>	
  		<field name="show_fict" type="radio"
 			label="XBBOOKS_CONFIG_SHOW_FICT_LABEL"
-			description="XBBOOKS_SCONFIG_HOW_FICT_DESC"
+			description="XBBOOKS_CONFIG_SHOW_FICT_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
 			>
@@ -739,7 +739,7 @@
 		/>	
 		<field name="use_xbcss" type="radio"
 			label="XBCULTURE_CONFIG_USE_XBCSS_LABEL"
-			description="XBCULTURE_CONFIG_USE_XBCSS_LABEL"
+			description="XBCULTURE_CONFIG_USE_XBCSS_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
 			>
@@ -763,6 +763,11 @@
 			 showon="use_xbcss:2"
 			class="info"
 		/>	
+		<field name="popcolour" type="color"
+			label="XBCULTURE_CONFIG_POP_COLOUR_LABEL"
+			description="XBCULTURE_CONFIG_POP_COLOUR_DESC" 
+			default="#822000"
+		/>
 		<field name="extlinksnote" type="note"
 			label="XBCULTURE_CONFIG_NEWTAB_HINT_NOTE_LABEL"
 			description="XBCULTURE_CONFIG_NEWTAB_HINT_NOTE_DESC"

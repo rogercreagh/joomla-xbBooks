@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooksgeneral.php
- * @version 0.9.6.d 7th January 2022
+ * @version 0.9.8.9 10th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -55,21 +55,28 @@ class XbbooksGeneral {
      * @param string $sep default ',' - separtor between list elements (eg <br />)
      * @param boolean $linked default true - if true use linked names to detail view (set false for use in tooltips)
      * @param boolean $amp default true - if true and list is only two people used ampersand as separator
-     * @param boolean $note default 0 - 1 = prepend role_note as itallics in span minwidth 60px, 2 = append the role_note to the name in brackets
+     * @param boolean $note default 0 - 1 = prepend role_note as italics colon space in span minwidth 60px, 2 = append the role_note to the item in brackets
      * @return string
      */
-    public static function makeLinkedNameList($arr, $role='', $sep=', ', $linked=true, $amp = true, $note = 0) {
+    public static function makeLinkedNameList($arr, $role='', $sep=', ', $linked=true, $amp = true, $showrole = 0) {
         $wynik = '';
         $cnt = 0;
         foreach ($arr as $item) {
-            if (($role=='') || ($role == $item->role)) {
-                if($note==1) {
-                    $wynik .= '<span class="xbnit xbsp60">'.$item->role_note.':</span> ';
-                 }
+            if (($role == '') || ($role == $item->role)) {
+                if($showrole & 1) { //role before
+                    $wynik .= '<span class="xbnit xbsp60">'.ucfirst($item->role).'</span>: ';
+                }
                 $wynik .= ($linked) ? $item->link : $item->display;
-                if (($note==2) && ($item->role_note !='')) {
-                    $wynik .= ' ('.$item->role_note.')';
-                }                   
+               if ($showrole & 2) { //role & note after should be  & 4 
+                    $wynik .= ' ('.ucfirst($item->role);
+                    if ($item->role_note!='') { //$showrole==6
+                        $wynik .= ' : '. $item->role_note;
+                    }
+                    $wynik .= ')';
+                }
+                if (($showrole == 3) && ($item->role_note!='')) {
+                    $wynik .= ' ('. $item->role_note. ')';
+                }
                 $wynik .= $sep;
                 $cnt++;
             }
@@ -77,7 +84,7 @@ class XbbooksGeneral {
         //strip off final separator which could be a string so can't use trim
         if (substr($wynik,-strlen($sep))===$sep) $wynik = substr($wynik, 0, strlen($wynik)-strlen($sep));
         //if it is a comma list with only two items then we might use & rather than ,
-        if (($cnt==2) && (trim($sep)==',') && $amp) {
+        if ( $amp && ($cnt==2) && (trim($sep)==',')) {
             $wynik = str_replace($sep,' &amp; ',$wynik);
         }
         return trim($wynik);
@@ -185,10 +192,12 @@ class XbbooksGeneral {
         $query->select('a.role, a.role_note, b.title, b.subtitle, b.pubyear, b.id, b.state AS bstate')
         ->from('#__xbbookperson AS a')
         ->join('LEFT','#__xbbooks AS b ON b.id=a.book_id')
-        ->where('a.person_id = "'.$personid.'"' )
-        ->order('b.pubyear DESC, b.title', 'ASC');
+        ->where('a.person_id = "'.$personid.'"' );
+        
         if (!empty($role)) {
-            $query->where('a.role = "'.$role.'"');
+            $query->where('a.role = "'.$role.'"')->order('b.title', 'ASC');
+        } else {
+            $query->order('a.role', 'ASC'); //this will order roles as author, editor, mention, other, publisher,
         }
         $db->setQuery($query);
         $list = $db->loadObjectList();
@@ -228,5 +237,88 @@ class XbbooksGeneral {
 		$credit .= '</div>';
 		return $credit;   	
     }
+
+    /***
+    public static function adjlum($l, $ladj) {
+        if ($ladj>0) {
+            $l += (1-$l) * $ladj/100;
+        } elseif ($ladj<0) {
+            $l += $l * $ladj/100;
+        }
+        return $l;
+    }
     
+    public static function hex2rgb($hexstr) {
+        $hexstr = ltrim($hexstr, '#');
+        if (strlen($hexstr) == 3) {
+            $hexstr = $hexstr[0] . $hexstr[0] . $hexstr[1] . $hexstr[1] . $hexstr[2] . $hexstr[2];
+        }
+        $R = hexdec($hexstr[0] . $hexstr[1]);
+        $G = hexdec($hexstr[2] . $hexstr[3]);
+        $B = hexdec($hexstr[4] . $hexstr[5]);
+        return array($R,$G,$B);
+    }
+    
+    public static function hex2hsl($RGB, $ladj = 0) {
+        if (!is_array($RGB)) {
+            $RGB = self::hex2rgb($RGB);
+        }
+        $r = $RGB[0]/255;
+        $g = $RGB[1]/255;
+        $b = $RGB[2]/255;
+        // using https://gist.github.com/brandonheyer/5254516
+        $max = max( $r, $g, $b );
+        $min = min( $r, $g, $b );
+        // lum
+        $l = ( $max + $min ) / 2;
+        
+        // sat
+        $d = $max - $min;
+        if( $d == 0 ){
+            $h = $s = 0; // achromatic
+        } else {
+            $s = $d / ( 1 - abs( (2 * $l) - 1 ) );
+            // hue
+            switch( $max ){
+                case $r:
+                    $h = 60 * fmod( ( ( $g - $b ) / $d ), 6 );
+                    if ($b > $g) {
+                        $h += 360;
+                    }
+                    break;
+                case $g:
+                    $h = 60 * ( ( $b - $r ) / $d + 2 );
+                    break;
+                case $b:
+                    $h = 60 * ( ( $r - $g ) / $d + 4 );
+                    break;
+            }
+        }
+        $hsl = array( round( $h, 2 ), round( $s, 2 ), round( $l, 2 ) );
+        if ($ladj!= 0){
+            $l = self::adjlum($hsl[2], $ladj);
+            $hsl[2] = $l;
+        }
+        $hslstr = 'hsl('.($hsl[0]).','.($hsl[1]*100).'%,'.($hsl[2]*100).'%)';
+        return $hslstr;
+    }
+    
+    public static function popstylecolours($pophex) {
+        $stylestr = '.xbhover, .xbhover:hover {text-decoration-color:'.$pophex.';} ';
+        $stylestr .= '.xbfocus, .xbfocus:hover {text-decoration-color:'.$pophex.';} ';
+        $stylestr .= '.xbclick, .xbclick:hover {text-decoration-color:'.$pophex.';} ';
+        $stylestr .= '.xbcultpop + .popover {border-color:'.$pophex.';} ';
+        $stylestr .= '.xbcultpop + .popover > .popover-title {border-bottom-colour:'.$pophex.';} ';
+        $stylestr .= '.xbcultpop + .popover > .popover-title {background-color:'.self::hex2hsl($pophex,80).' !important; ';
+        $stylestr .= 'color:'.$pophex.';border-bottom-color:'.$pophex.';} ';
+        $stylestr .= '.xbcultpop  + .popover > .popover-content {background-color:'.self::hex2hsl($pophex,90).' !important; ';
+        $stylestr .= 'color:'.$pophex.';} ';
+        $stylestr .= '.xbcultpop  + .popover > .popover-content > a {color:'.self::hex2hsl($pophex,-40).';} ';
+        $stylestr .= '.xbcultpop + .popover.right>.arrow:after { border-right-color:'.$pophex.';} ';
+        $stylestr .= '.xbcultpop + .popover.left>.arrow:after { border-left-color:'.$pophex.';} ';
+        $stylestr .= '.xbcultpop + .popover.bottom>.arrow:after { border-bottom-color:'.$pophex.';} ';
+        $stylestr .= '.xbcultpop + .popover.top>.arrow:after { border-top-color:'.$pophex.';}';
+        return $stylestr;
+    }
+    ***/
 }

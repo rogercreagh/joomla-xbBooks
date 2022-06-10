@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/view.html.php
- * @version 0.9.8.8 7th June 2022
+ * @version 0.9.8.9 10th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,16 +15,15 @@ use Joomla\CMS\HTML\HTMLHelper;
 class XbbooksViewPeople extends JViewLegacy {
 	
 	public function display($tpl = null) {
-	    HTMLHelper::_('bootstrap.framework');
+//	    HTMLHelper::_('bootstrap.framework');
 	    $document = Factory::getDocument();
-	    $document->addScript('media/com_xbpeople/js/xbculture.js');
-	    
-	    $this->items 		= $this->get('Items');
-		$this->pagination	= $this->get('Pagination');
+//	    $document->addScript('media/com_xbpeople/js/xbculture.js');
 		$this->state		= $this->get('State');
 		$this->params      = $this->state->get('params');
-		$this->filterForm    	= $this->get('FilterForm');
-		$this->activeFilters 	= $this->get('ActiveFilters');
+	    $this->items = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
+		$this->filterForm = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 		$this->searchTitle = $this->state->get('filter.search');
 		
 		$this->header = array();

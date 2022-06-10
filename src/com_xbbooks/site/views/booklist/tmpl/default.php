@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.8.9 8th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -154,7 +154,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<p>
                         <?php if($item->editcnt>0) : ?>
                            	<?php if ($item->authcnt>0) {
-								echo '<span class="hasTooltip" title data-original-title="Authors: '.$item->alist.'">';
+								echo '<span class="xbpop xbcultpop xbfocus" data-trigger="focus" tabindex="'.$item->id;
+								echo '" title data-original-title="Authors:" data-content="'.htmlentities($item->alist).'">';
                             } else {
                               echo '<span>';
                             } ?>
@@ -232,12 +233,12 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     											<b><?php echo $rev->rating;?></b> <i class="<?php echo $this->star_class; ?>"></i> 
     			                            <?php endif; ?>
                                             <?php if (!empty($rev->summary)) echo '<a href="'.$rlink.$rev->id.'">'; ?>
-                                            <span class="hasPopover xbmb8 xb09"  title 
-    											data-content="<?php echo htmlentities($rev->summary); ?>"
+                                            <span class="xbpop xbcultpop xbhover xbmb8 xb09" data-trigger="hover" 
+                                            	tabindex="<?php echo $rev->id; ?>" title 
+    											data-content="<?php echo htmlentities($rev->summary.'<br /><i>by '.$rev->reviewer.'</i>'); ?>"
     											data-original-title="<?php echo htmlentities($rev->title); ?>" 
                                     		>
-        	                                	<i>by</i> <?php echo $rev->reviewer; ?> 
-        	                                	<i>on</i> <?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
+                                    			<?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
                                             </span>
                                             <?php if (!empty($rev->summary)) echo '</a>'; ?>
         								</div>

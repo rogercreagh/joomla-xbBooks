@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreview/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.8.9 10th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,12 +49,13 @@ if ($imgok) {
     			<div class="xbbox xbboxmag">
     				<h3><?php echo $item->title; ?></h3>
     				<h4><span class="xbnit"><?php echo Text::_('XBBOOKS_REVIEWOF'); ?></span>"
-    					 <?php echo '<a href="'.XbbooksHelperRoute::getBookLink($item->book_id);
-    					 if (!empty($item->edauths)) {
-    					 	echo '" class="hasTooltip" title data-original-title="'.$item->edauths;
-    					 }
-    						echo '">'.$item->book_title.'</a>'; ?>" 
-    					<span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
+    					 <a href="<?php echo XbbooksHelperRoute::getBookLink($item->book_id); ?>"
+        					 <?php if (!empty($item->edauths)) : ?>
+        					 	class="xbpop xbcultpop xbfocus" data-trigger="focus" tabindex="<?php echo $item->id; ?>" 
+        					 	title data-original-title="Author/Editor" data-content="<?php echo $item->edauths; ?>"
+        					 <?php endif; ?>
+    					 ><?php echo $item->book_title; ?></a>
+    					 <span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
     					 <?php echo $item->reviewer.', '.
     							 HtmlHelper::date($item->rev_date ,'d M Y'); ?>
     				</h4>
@@ -166,11 +167,11 @@ if ($imgok) {
 	<div class="span12 xbbox xbboxgrey">
 		<div class="row-fluid">
 			<div class="span2">
-				<?php if (($item->prev>0) || ($item->next>0)) : ?>
-				<span class="hasTooltip xbhelp" title 
-					data-original-title="<?php echo Text::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
+		<?php if (($item->prev>0) || ($item->next>0)) : ?>
+				<span class="xbpop xbcultpop xbinfo fas fa-info-circle" data-trigger="hover" title 
+					data-original-title="Prev-Next Info" data-content="<?php echo JText::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
-				<?php endif; ?>
+		<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
 					<a href="index.php?option=com_xbbooks&view=bookreview&id=<?php echo $item->prev ?>" class="btn btn-small">
 						<?php echo Text::_('XBCULTURE_PREV'); ?></a>

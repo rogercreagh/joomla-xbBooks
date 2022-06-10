@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.8.9 10th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -329,9 +329,9 @@ if ($imgok) {
 <div class="row-fluid xbbox xbboxgrey">
 	<div class="span2">
 		<?php if (($item->prev>0) || ($item->next>0)) : ?>
-		<span class="hasTooltip xbinfo" title 
-			data-original-title="<?php echo Text::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
-		</span>&nbsp;
+				<span class="xbpop xbcultpop xbinfo fas fa-info-circle" data-trigger="hover" title 
+					data-original-title="Prev-Next Info" data-content="<?php echo JText::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
+				</span>&nbsp;
 		<?php endif; ?>
 		<?php if($item->prev > 0) : ?>
 			<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->prev)); ?>" class="btn btn-small">

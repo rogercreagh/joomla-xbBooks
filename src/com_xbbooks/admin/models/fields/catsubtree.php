@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/fields/catsubtree.php
- * @version 0.9.6.f 9th January 2022
+ * @version 0.9.8.9 29th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,11 +28,11 @@ class JFormFieldCatsubtree extends JFormFieldList {
 		$language  = (string) $this->element['language'];
 		if (!empty($this->element['itemtype'])) {
 			$itemtype = (string) $this->element['itemtype'];
-			$rootid = $params->get('rootcat_'.$itemtype);
-			$incroot= $params->get('incroot_'.$itemtype);
+			$rootid = $params->get('rootcat_'.$itemtype,0);
+			$incroot= $params->get('incroot_'.$itemtype,false);
 		} else {
 			$rootid = 0;
-			$inroot = false;
+			$incroot = false;
 		}
 		
 		$db = Factory::getDbo();

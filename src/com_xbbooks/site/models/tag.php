@@ -1,4 +1,3 @@
-use Joomla\CMS\Component\ComponentHelper;
 <?php
 /*******
  * @package xbBooks

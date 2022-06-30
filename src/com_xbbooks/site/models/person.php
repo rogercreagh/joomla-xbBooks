@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/person.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.9.0 30th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -77,7 +77,8 @@ class XbbooksModelPerson extends JModelItem {
 				}
 				$item->books = XbbooksGeneral::getPersonRoleArray($item->id);
 				$item->bcnt = count($item->books);
-				$cnts = array_count_values(array_column($item->books, 'role'));
+/*
+ 				$cnts = array_count_values(array_column($item->books, 'role'));
 				$item->acnt = (key_exists('author',$cnts))?$cnts['author'] : 0;
 				$item->ecnt = (key_exists('editor',$cnts))?$cnts['editor'] : 0;
 				$item->mcnt = (key_exists('mention',$cnts))?$cnts['mention'] : 0;
@@ -105,6 +106,7 @@ class XbbooksModelPerson extends JModelItem {
 				    $item->olist = XbbooksGeneral::makeLinkedNameList($item->books,'other','<br />',true, false, 1);
 				}
 				
+ */
 				$item->filmcnt = 0;
 				if ($this->xbfilmsStatus===true) {
 					$db    = Factory::getDbo();

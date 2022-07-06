@@ -77,36 +77,7 @@ class XbbooksModelPerson extends JModelItem {
 				}
 				$item->books = XbbooksGeneral::getPersonRoleArray($item->id);
 				$item->bcnt = count($item->books);
-/*
- 				$cnts = array_count_values(array_column($item->books, 'role'));
-				$item->acnt = (key_exists('author',$cnts))?$cnts['author'] : 0;
-				$item->ecnt = (key_exists('editor',$cnts))?$cnts['editor'] : 0;
-				$item->mcnt = (key_exists('mention',$cnts))?$cnts['mention'] : 0;
-				$item->ocnt = (key_exists('other',$cnts))?$cnts['other'] : 0;
-				
-				//make author/editor/char lists
-				if ($item->acnt == 0){
-					$item->alist = '';
-				} else {
-					$item->alist = XbbooksGeneral::makeLinkedNameList($item->books,'author','<br />', true, false, 2);
-				}
-				if ($item->ecnt == 0){
-					$item->elist = '';
-				} else {
-					$item->elist = XbbooksGeneral::makeLinkedNameList($item->books,'editor','<br />',true, false, 2);
-				}
-				if ($item->mcnt == 0){
-				    $item->mlist = '';
-				} else {
-				    $item->mlist = XbbooksGeneral::makeLinkedNameList($item->books,'mention','<br />',true, false, 2);
-				}
-				if ($item->ocnt == 0){
-				    $item->olist = '';
-				} else {
-				    $item->olist = XbbooksGeneral::makeLinkedNameList($item->books,'other','<br />',true, false, 1);
-				}
-				
- */
+
 				$item->filmcnt = 0;
 				if ($this->xbfilmsStatus===true) {
 					$db    = Factory::getDbo();

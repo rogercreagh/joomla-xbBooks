@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 0.9.8.8 7th JUne 2022
+ * @version 0.9.9.0 30th JUne 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -21,7 +21,7 @@ class XbbooksModelPeople extends JModelList {
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ( 'firstname', 'lastname',
-					'catid', 'a.catid', 'category_id',
+					'catid', 'a.catid', 'category_id', 'tagfilt',
 					'category_title', 'c.title',
 					'sortdate' );
 		}
@@ -278,7 +278,7 @@ class XbbooksModelPeople extends JModelList {
 			$item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
 			
 			$item->filmcnt = 0;
-			if ($this->xbfilmsStatus===true) {
+			if ($this->xbfilmsStatus) {
 				$db    = Factory::getDbo();
 				$query = $db->getQuery(true);
 				$query->select('COUNT(*)')->from('#__xbfilmperson');

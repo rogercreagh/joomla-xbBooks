@@ -70,7 +70,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_BOOKS_U', 'bcnt', $listDirn, $listOrder );?></th>
 				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
 				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?></th>
-				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?></th>
+				<th class="center" style="width:50px;"><?php echo HtmlHelper::_('grid.sort', 'XBCULTURE_CHARS', 'chcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -84,7 +84,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
  						    	$ans = substr($item->path, 0, strrpos($item->path, '/'));
  						    	echo str_replace('/',' - ',$ans).' - ';
  						    } ?>
-                        	</span>
+                        	</span><br />
 						<?php endif; //show_parent?>
 	    				<span  class="xb11 xbbold">
 	    					<a href="<?php echo Route::_($tvlink . $item->id); ?>" title="Details">

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/tag/tmpl/default.php
- * @version 0.8.5 24th March 2021 
+ * @version 0.9.9.2 10th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -53,11 +53,12 @@ $tclink = $xblink.'tags' . $itemid;
 		<div class="badge badge-info pull-left"><h3><?php echo $item->title; ?></h3></div>
 		
 		<?php if ((!$this->hide_empty) && (strpos($item->path,'/')!==false)) : ?>
-			<div class="xb11 pull-left" style="padding-top:20px;margin-left:40px;">
-				<i><?php echo JText::_('XBCULTURE_HEIRARCHY_U'); ?>:</i> 
-				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
-					$path = str_replace('/', ' - ', $path);
-					echo $path; ?>
+			<div class="xb11 pull-right" style="padding-top:5px;margin-left:40px;">
+				<i><?php echo JText::_('XBCULTURE_HEIRARCHY_U'); ?>:</i><span class="xb09">
+                    <?php $path = explode('/', $item->path);
+                    for ($i = 0; $i < count($path); $i++) {
+                        echo '<br /><span style="padding-left:'.($i*10).'px;">'.'&boxur;&boxh;&nbsp;'.$path[$i].'</span>';
+                    } ?></span>
         	</div>
         <?php endif; ?>
 	</div>	
@@ -127,7 +128,7 @@ $tclink = $xblink.'tags' . $itemid;
 <div class="row-fluid">
 	<div class="span12">
 		<div class="xbbox xbboxgrey xbmh200 xbyscroll">
-			<p><?php echo $item->othercnt; ?> other (not xbBooks) items tagged</p>
+			<p><?php echo $item->othercnt; ?> other (not xbBooks) items tagged <?php echo $item->title; ?></p>
 			<?php if ($item->othercnt > 0 ) : ?>
 						<?php $span = intdiv(12, count($item->othcnts)); ?>
 						<div class="row-fluid">
@@ -176,7 +177,7 @@ $tclink = $xblink.'tags' . $itemid;
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">
 	<a href="<?php echo $tclink; ?>" class="btn btn-small">
-		<?php echo JText::_('XBBOOKS_TAG_COUNTS'); ?>
+		<?php echo JText::_('XBCULTURE_TAG_COUNTS'); ?>
 	</a>
 </p>
 <div class="clearfix"></div>

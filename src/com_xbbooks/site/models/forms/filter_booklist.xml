@@ -65,20 +65,20 @@
 		</field>	
 		<field
 			name="category_id" type="catsubtree"
-			label="XBBOOKS_FILTER_CATEGORY_LBL"
+			label="XBCULTURE_CATFILT_LABEL"
 			extension="com_xbbooks"
 			itemtype="book"
 			published="1"
-			description="XBBOOKS_FILTER_CATEGORY_DESC"
+			description="XBCULTURE_CATFILT_DESC"
 			onchange="this.form.submit();"
 			>
-			<option value="">JOPTION_SELECT_CATEGORY</option>
+			<option value="">XBCULTURE_ALL_CATS</option>
 		</field>
 		<field name="subcats"
 			type="radio"
 			default=""
-			label="XBBOOKS_SUBCATS_LBL"
-			description="XBBOOKS_SUBCATS_DESC"
+			label="XBCULTURE_CATFILT_SUBS_LABEL"
+			description="XBCULTURE_CATFILT_SUBS_DESC"
   			class="btn-group btn-small radiotop"
   			showon="category_id!:"
 		>
@@ -89,8 +89,8 @@
 		<field
 			name="tagfilt"
 			type="tag"
-			label="XBCULTURE_TAGS_U"
-			description="XBBOOKS_TAGFILT_DESC"
+			label="XBCULTURE_TAGFILT_LABEL"
+			description="XBCULTURE_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
@@ -99,13 +99,13 @@
 		<field name="taglogic"
 			type="radio"
 			default="0"
-			label="XBBOOKS_MULTITAG_LBL"
-			description="XBBOOKS_MULTITAG_DESC"
+			label="XBCULTURE_TAGFILT_MULTI_LABEL"
+			description="XBCULTURE_TAGFILT_MULTI_DESC"
   			class="btn-group btn-small radiotop"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
 			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
-			<option value="2" onchange="this.form.submit();">None</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_NONE</option>
 		</field>	
 				
     </fields>

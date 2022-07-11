@@ -76,17 +76,17 @@
 			<field
 				name="menu_category_id"
 				type="category"
-				label="XBCULTURE_CATEGORY"
+				label="XBCULTURE_CATFILT_LABEL"
 				extension="com_xbpeople"
-				description="XBBOOKS_CATEGORY_DESC"
+				description="XBCULTURE_CATFILT_DESC"
 				>
-					<option value="0">XBBOOKS_ALL_CATEGORIES</option>
+					<option value="0">XBCULTURE_ALL_CATS</option>
 			</field>
 			<field name="menu_subcats"
 				type="radio"
 				default=""
-				label="XBBOOKS_SUBCATS_LBL"
-				description="XBBOOKS_SUBCATS_DESC"
+				label="XBCULTURE_CATFILT_SUBS_LABEL"
+				description="XBCULTURE_CATFILT_SUBS_DESC"
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
@@ -96,21 +96,22 @@
 			<field
 				name="menu_tag"
 				type="tag"
-				label="XBBOOKS_MENUTAG_LBL"
-				description="XBBOOKS_MENUTAG_DESC"
+				label="XBCULTURE_TAGFILT_LABEL"
+				description="XBCULTURE_TAGFILT_DESC"
 				multiple="true"
 				mode="nested"
 			/>
 			<field name="menu_taglogic"
 				type="radio"
 				default=""
-				label="XBBOOKS_MENUTAG_LBL"
-				description=""
+				label="XBCULTURE_TAGFILT_MULTI_LABEL"
+				description="XBCULTURE_TAGFILT_MULTI_DESC"
 	  			class="btn-group btn-small radiotop"
 				showon="menu_tag!:"
 			>
 				<option value="1">XBCULTURE_ALL</option>
-				<option value="">XBCULTURE_ANY</option>
+				<option value="0">XBCULTURE_ANY</option>
+				<option value="2">XBCULTURE_NONE</option>
 			</field>	
 		</fieldset>
   		<!-- Additional page display options (added above the standard Page Display options) -->

@@ -185,7 +185,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 				</td>
 				<?php endif; ?>
 				<?php if ($this->show_books != '0') : ?>
-				<td><p class="xbit xb095">
+				<td><p class="xb095">
 					<?php if ($item->acnt > 0) : ?>
 						<span tabindex="<?php echo $item->id; ?>"
 						<?php if ($this->show_books == '2') : ?>
@@ -194,12 +194,12 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 								data-content="<?php echo htmlentities($item->alist); ?>"
 						<?php endif; ?>
 						>
-						<?php echo Text::_('XBBOOKS_AUTHOR_OF').' ';
-						if ($this->show_books == '3') {
-							echo $item->alist;
-						} else { //implies show_books=cnt
-							echo $item->acnt.' books';
-						} ?>
+						<?php if ($this->show_books == '3') : ?>
+						    <span class="xbnit"><?php echo Text::_('XBBOOKS_AUTHOR_OF'); ?></span><br />
+						    <?php echo $item->alist; ?>
+						<?php  else : ?>
+						    <span class="badge bkcnt"><?php echo $item->acnt; ?></span> <?php echo Text::_('XBCULTURE_AUTHOR'); ?>
+						<?php endif; ?>
 						</span><br />
 					<?php endif; ?>
 					<?php if ($item->ecnt > 0) : ?>
@@ -210,12 +210,12 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 								data-content="<?php echo htmlentities($item->elist); ?>"
 						<?php endif; ?>
 						>
-						<?php echo Text::_('XBBOOKS_EDITOR_OF').' ';
-						if ($this->show_books == '3') {
-							echo $item->elist;
-						} else { //implies show_books=cnt
-							echo $item->ecnt.' books';
-						} ?>
+						<?php if ($this->show_books == '3') : ?>
+						<span class="xbnit"><?php echo Text::_('XBBOOKS_EDITOR_OF'); ?></span><br />
+							<?php echo $item->elist; ?>
+						<?php  else : ?>
+							<span class="badge bkcnt"><?php echo $item->ecnt; ?></span> <?php echo Text::_('XBCULTURE_EDITOR'); ?>
+						<?php endif; ?>
 						</span><br />
 					<?php endif; ?>
 					<?php if ($item->ocnt > 0) : ?>
@@ -226,12 +226,12 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 								data-content="<?php echo htmlentities($item->olist); ?>"
 						<?php endif; ?>
 						>
-						<?php echo Text::_('XBCULTURE_OTHER_ROLE_IN').' ';
-						if ($this->show_books == '3') {
-							echo $item->olist;
-						} else { //implies show_books=cnt
-							echo $item->ocnt.' books';
-						} ?>
+						<?php if ($this->show_books == '3') : ?>
+						<span class="xbnit"><?php echo Text::_('XBCULTURE_OTHER_ROLE_IN'); ?></span><br />
+							<?php echo $item->olist; ?>
+						<?php  else : ?>
+							<span class="badge bkcnt"><?php echo $item->ocnt; ?></span> <?php echo Text::_('XBCULTURE_OTHER_ROLES'); ?>
+						<?php endif; ?>
 						</span><br />
 					<?php endif; ?>
 					<?php if ($item->mcnt > 0) : ?>
@@ -242,12 +242,12 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 								data-content="<?php echo htmlentities($item->mlist); ?>"
 						<?php endif; ?>
 						>
-						<?php echo Text::_('XBBOOKS_MENTION_IN').' ';
-						if ($this->show_books == '3') {
-							echo $item->mlist;
-						} else { //implies show_books=cnt
-							echo $item->mcnt.' books';
-						} ?>
+						<?php if ($this->show_books == '3') : ?>
+						<span class="xbnit"><?php echo Text::_('XBBOOKS_MENTION_IN'); ?></span><br />
+							<?php echo $item->mlist; ?>
+						<?php  else : ?>
+							<span class="badge bkcnt"><?php echo $item->mcnt; ?></span> <?php echo Text::_('XBCULTURE_MENTIONS'); ?>
+						<?php endif; ?>
 						</span></br />
 					<?php endif; ?>
 					</p>

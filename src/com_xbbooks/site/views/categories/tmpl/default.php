@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/categories/tmpl/default.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.9.2 11th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -110,12 +110,12 @@ $prevext ='';
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->bpcnt >0) : ?> 
-	   						<a href="<?php echo $bvlink.$item->id; ?>" class="badge percnt"><?php echo $item->bpcnt; ?></a></span>
+	   						<a href="<?php echo $plink.$item->id; ?>" class="badge percnt"><?php echo $item->bpcnt; ?></a></span>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->bchcnt >0) : ?> 
-	   						<a href="<?php echo $clink.$item->id; ?>" class="badge chcnt"><?php echo $item->bchcnt; ?></a></span>
+	   						<a href="<?php echo $chlink.$item->id; ?>" class="badge chcnt"><?php echo $item->bchcnt; ?></a></span>
 	   					<?php endif; ?>
 	   				</td>
 				</tr>

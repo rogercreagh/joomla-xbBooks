@@ -57,8 +57,8 @@ class XbbooksControllerDashboard extends JControllerAdmin {
         $dest = JPATH_COMPONENT_ADMINISTRATOR ."/uploads/". $filename;
         JFile::copy($src, $dest);
         $dummypost = array('setpub'=>1, 
-            'impcat'=>XbbooksHelper::createCategory('sample-books','','com_xbbooks','Sample book data - anything in this category will be deleted when Sample Data is removed'),
-            'imppcat'=>XbbooksHelper::createCategory('sample-bookpeople','','com_xbpeople','Sample film people data - anything in this category will be deleted when Sample Data is removed'),
+            'impcat'=>XbbooksHelper::createCategory('sample-books','','com_xbbooks','Sample book data - anything in this category will be deleted when xbBooks Sample Data is removed'),
+            'imppcat'=>XbbooksHelper::createCategory('sample-bookpeople','','com_xbpeople','Sample book people data - anything in this category will be deleted when xbBooks Sample Data is removed'),
             'poster_path'=>'/images/xbbooks/samples/books/',
             'portrait_path'=>'/images/xbbooks/samples/people/',
             'reviewer'=>'');              

@@ -17,7 +17,7 @@ use Joomla\CMS\MVC\Controller\FormController;
 class XbbooksControllerPerson extends FormController {
     
     public function __construct($config = array()) {
-        parent::__construct($config, $factory);
+        parent::__construct($config);
     }
     
     protected function postSaveHook(JModelLegacy $model, $validData = array()) {

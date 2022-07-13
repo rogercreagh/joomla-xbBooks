@@ -56,7 +56,7 @@ class XbbooksViewPerson extends JViewLegacy {
         if ($isNew) {
             $title .= JText::_('XBCULTURE_TITLE_NEWPERSON');
         } elseif ($checkedOut) {
-            $title = Text::_('XBCULTURE_TITLE_VIEWPERSON');
+            $title .= Text::_('XBCULTURE_TITLE_VIEWPERSON');
         } else {
             $title .= JText::_('XBCULTURE_TITLE_EDITPERSON');
         }

@@ -71,8 +71,8 @@ class XbbooksTablePerson extends Table
         //set default or require category
         if (!$this->catid>0) {
             $defcat=0;
-            if ($params->get('def_new_charcat')>0) {
-                $defcat=$params->get('def_new_charcat');
+            if ($params->get('def_new_personcat')>0) {
+                $defcat=$params->get('def_new_personcat');
             } else {
                 $defcat = XbbooksHelper::getIdFromAlias('#__categories', 'uncategorised', 'com_xbpeople');
             }

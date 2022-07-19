@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 0.9.8.9 10th June 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,7 +33,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 ?>
 <div class="xbbooks">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbbooksHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist&layout=compact'); ?>" method="post" name="adminForm" id="adminForm">       
@@ -101,7 +101,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php if (!empty($item->subtitle)) :?>
-                        	<br /><span class="xb095 xbnorm" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
+                        	<br /><span class="xb09 xbnorm" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
 						</p>
 					</td>

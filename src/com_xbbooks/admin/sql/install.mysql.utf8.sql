@@ -1,4 +1,4 @@
-# sql installation file for component xbBooks v0.9.8.3 23rd May 2022
+# sql installation file for component xbBooks v0.9.9.3 13th July 2022
 # NB no book data is installed with this file, default categories are created by the installation script
 
 INSERT INTO `#__content_types` (`type_title`, `type_alias`, `content_history_options`, `table`, `field_mappings`, `router`,`rules`) 
@@ -25,49 +25,49 @@ VALUES
   }}',
 'XbbooksHelperRoute::getBookRoute',''),
 
-('Xbbooks Person', 'com_xbbooks.person', 
-'{"formFile":"administrator\\/components\\/com_xbbooks\\/models\\/forms\\/person.xml", 
-    "hideFields":["checked_out","checked_out_time"], 
-    "ignoreChanges":["checked_out", "checked_out_time"],
-    "convertToInt":[], 
-    "displayLookup":[
-        {"sourceColumn":"catid","targetTable":"#__categories","targetColumn":"id","displayColumn":"title"}
-    ]
- }',
-'{"special":{"dbtable":"#__xbpersons","key":"id","type":"Person","prefix":"XbbooksTable","config":"array()"},
-    "common":{"dbtable":"#__ucm_content","key":"ucm_id","type":"Corecontent","prefix":"JTable","config":"array()"}}',
-'{"common": {
-    "core_content_item_id": "id",
-    "core_title": "lastname",
-    "core_state": "state",
-    "core_alias": "alias",
-    "core_created_time": "created",
-    "core_body": "biography",
-    "core_catid": "catid"
-  }}',
-'XbbooksHelperRoute::getPersonRoute',''),
-
-('Xbbooks Character', 'com_xbbooks.character', 
-'{"formFile":"administrator\\/components\\/com_xbbooks\\/models\\/forms\\/character.xml", 
-    "hideFields":["checked_out","checked_out_time"], 
-    "ignoreChanges":["checked_out", "checked_out_time"],
-    "convertToInt":[], 
-    "displayLookup":[
-        {"sourceColumn":"catid","targetTable":"#__categories","targetColumn":"id","displayColumn":"title"}
-    ]
- }',
-'{"special":{"dbtable":"#__xbcharacters","key":"id","type":"Character","prefix":"XbbooksTable","config":"array()"},
-    "common":{"dbtable":"#__ucm_content","key":"ucm_id","type":"Corecontent","prefix":"JTable","config":"array()"}}',
-'{"common": {
-    "core_content_item_id": "id",
-    "core_title": "name",
-    "core_state": "state",
-    "core_alias": "alias",
-    "core_created_time": "created",
-    "core_body": "description",
-    "core_catid": "catid"
-  }}',
-'XbbooksHelperRoute::getCharacterRoute',''),
+-- ('Xbbooks Person', 'com_xbbooks.person', 
+-- '{"formFile":"administrator\\/components\\/com_xbbooks\\/models\\/forms\\/person.xml", 
+--     "hideFields":["checked_out","checked_out_time"], 
+--     "ignoreChanges":["checked_out", "checked_out_time"],
+--     "convertToInt":[], 
+--     "displayLookup":[
+--         {"sourceColumn":"catid","targetTable":"#__categories","targetColumn":"id","displayColumn":"title"}
+--     ]
+--  }',
+-- '{"special":{"dbtable":"#__xbpersons","key":"id","type":"Person","prefix":"XbbooksTable","config":"array()"},
+--     "common":{"dbtable":"#__ucm_content","key":"ucm_id","type":"Corecontent","prefix":"JTable","config":"array()"}}',
+-- '{"common": {
+--     "core_content_item_id": "id",
+--     "core_title": "lastname",
+--     "core_state": "state",
+--     "core_alias": "alias",
+--     "core_created_time": "created",
+--     "core_body": "biography",
+--     "core_catid": "catid"
+--   }}',
+-- 'XbbooksHelperRoute::getPersonRoute',''),
+-- 
+-- ('Xbbooks Character', 'com_xbbooks.character', 
+-- '{"formFile":"administrator\\/components\\/com_xbbooks\\/models\\/forms\\/character.xml", 
+--     "hideFields":["checked_out","checked_out_time"], 
+--     "ignoreChanges":["checked_out", "checked_out_time"],
+--     "convertToInt":[], 
+--     "displayLookup":[
+--         {"sourceColumn":"catid","targetTable":"#__categories","targetColumn":"id","displayColumn":"title"}
+--     ]
+--  }',
+-- '{"special":{"dbtable":"#__xbcharacters","key":"id","type":"Character","prefix":"XbbooksTable","config":"array()"},
+--     "common":{"dbtable":"#__ucm_content","key":"ucm_id","type":"Corecontent","prefix":"JTable","config":"array()"}}',
+-- '{"common": {
+--     "core_content_item_id": "id",
+--     "core_title": "name",
+--     "core_state": "state",
+--     "core_alias": "alias",
+--     "core_created_time": "created",
+--     "core_body": "description",
+--     "core_catid": "catid"
+--   }}',
+-- 'XbbooksHelperRoute::getCharacterRoute',''),
 
 ('Xbbooks Review', 'com_xbbooks.review', 
 '{"formFile":"administrator\\/components\\/com_xbbooks\\/models\\/forms\\/review.xml", 

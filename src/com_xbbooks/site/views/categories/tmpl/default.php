@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/categories/tmpl/default.php
- * @version 0.9.9.2 11th July 2022
+ * @version 0.9.9.3 13th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,7 +40,7 @@ $prevext ='';
 ?>
 <div class="xbbooks">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbbooksHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=categories'); ?>" method="post" name="adminForm" id="adminForm">

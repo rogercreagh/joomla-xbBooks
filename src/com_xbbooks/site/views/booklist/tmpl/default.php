@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.8.9 8th June 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -47,7 +47,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 ?>
 <div class="xbbooks">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbbooksHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist'); ?>" method="post" name="adminForm" id="adminForm">       
@@ -115,10 +115,10 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 				<?php endif; ?>
                 <?php if($this->show_ctcol) : ?>
      				<th class="hidden-phone">
-    					<?php if ($this->showcats) {
+    					<?php if ($this->showcat) {
     					    echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
-    					if (($this->showcats) && ($this->showtags)) {
+    					if (($this->showcat) && ($this->showtags)) {
     						echo ' &amp; ';
     					}
     					if ($this->showtags) {
@@ -147,11 +147,11 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 					<td>
 						<p class="xbtitle">
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a></p> 
+								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php if (!empty($item->subtitle)) :?>
-                        	<p class="xb11 xbbold><?php echo $this->escape($item->subtitle); ?></p>
+                        	<br /><span class="xb09"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
-						<p>
+						</p><p>
                         <?php if($item->editcnt>0) : ?>
                            	<?php if ($item->authcnt>0) {
 								echo '<span class="xbpop xbcultpop xbfocus" data-trigger="focus" tabindex="'.$item->id;
@@ -258,19 +258,22 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
      				<?php endif; ?>
                     <?php if($this->show_ctcol) : ?>
 					<td class="hidden-phone">
-						<?php switch ($this->showcats) {
-						    case 1:
-						        echo '<span class="label label-success">'.$item->category_title.'</span>';
-						      break;
-						    case 2:
-						        echo '<a class="label label-success" href="'.$clink.$item->catid.'">'.$item->category_title.'</a>';
-						        break;
-						    default:
-						        break;
-						} ?>
-    					<?php if ($this->showfict) {
-    					   echo ($item->fiction==1) ? ' <span class="label">fiction</span>' : ' <span class="label label-inverse">non-fiction</span>'; 
-    					} ?>
+ 						<?php if($this->showcat) : ?>
+ 							<p>
+ 							<?php if($this->showcat==2) : ?>											
+								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
+							<?php else: ?>
+								<span class="label label-success"><?php echo $item->category_title; ?></span>
+							<?php endif; ?>
+							</p>
+						<?php endif; ?>
+    					<?php if ($this->showfict) : ?>
+    					   <?php if ($item->fiction==1) : ?>
+    					   		<span class="label">fiction</span>
+    					   <?php else : ?>
+    					   		<span class="label label-inverse">non-fiction</span>
+    					   <?php endif; ?> 
+    					<?php endif; ?>
     					<?php if($this->showtags) {
     						$tagLayout = new FileLayout('joomla.content.tags');
         					echo '<p>'.$tagLayout->render($item->tags).'</p>';

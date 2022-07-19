@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/characters/view.html.php
- * @version 0.9.8.7 4th June 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -38,12 +38,12 @@ class XbbooksViewCharacters extends JViewLegacy {
 		$this->hide_tag = (!empty($this->params->get('menu_tag',''))) ? true : false;
 		
 		$show_cats = $this->params->get('show_cats','1','int');
-		$this->showcats = ($show_cats) ? $this->params->get('show_bcat','1','int') : 0;
+		$this->showcat = ($show_cats) ? $this->params->get('show_ccat','1','int') : 0;
 		
 		$show_tags = $this->params->get('show_tags','1','int');
 		$this->showtags = ($show_tags) ? $this->params->get('show_ptags','1','int') : 0;
 		
-		$this->show_ctcol = $this->showcats + $this->showtags;
+		$this->show_ctcol = $this->showcat + $this->showtags;
 		
 		$this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
 		

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/onecol.php
- * @version 0.9.8.9 10th June 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -46,7 +46,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 ?>
 <div class="xbbooks">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbbooksHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist&layout=onecol'); ?>" method="post" name="adminForm" id="adminForm">       
@@ -90,7 +90,6 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.Text::_('XBCULTURE_AUTHOR').', '.
     						HtmlHelper::_('searchtools.sort','XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );
-    						  echo ', '.HtmlHelper::_('searchtools.sort','PubYear','pubyear',$listDirn,$listOrder );	
 					?>
 				</th>					
 		<tbody>
@@ -172,21 +171,32 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
         						<?php endif; ?>
                         	<?php endif; ?>
 							<br />						
-		                    <?php if($this->show_ctcol) : ?>
-		     					<?php if($this->showcats) : ?>
-		     						<span class="icon-folder"></span> &nbsp;										
-	    							<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
-    		    					<?php echo ($item->fiction==1) ? ' <span class="label">fiction</span>' : ' <span class="label label-inverse">non-fiction</span>'; ?>
-    		    					<br />
-		    					<?php endif; ?>
-        						<?php if($this->showtags) {
-        						    echo '<span class="icon-tags"></span> &nbsp;';
-        							$tagLayout = new FileLayout('joomla.content.tagline');
-            						echo $tagLayout->render($item->tags);
-        						}
-            					?>
-            					</p>
+		                    <?php if($this->show_ctcol) : ?>		                    	
+         						<?php if(($this->showcat) || ($this->showfict))  : ?>	
+		     						<span class="icon-folder"></span> &nbsp;	
+		     					<?php endif; ?>									
+         						<?php if($this->showcat) : ?>
+         							<?php if($this->showcat==2) : ?>											
+        								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
+        							<?php else: ?>
+        								<span class="label label-success"><?php echo $item->category_title; ?></span>
+        							<?php endif; ?>
+        						<?php endif; ?>
+            					<?php if ($this->showfict) : ?>
+            					   <?php if ($item->fiction==1) : ?>
+            					   		<span class="label">fiction</span>
+            					   <?php else : ?>
+            					   		<span class="label label-inverse">non-fiction</span>
+            					   <?php endif; ?> 
+            					<?php endif; ?>
+        						<?php if($this->showtags) : ?>
+        		    				<br />
+        						    <span class="icon-tags"></span> &nbsp;
+        							<?php $tagLayout = new FileLayout('joomla.content.tagline');
+            						echo $tagLayout->render($item->tags); ?>
+        						<?php endif; ?>            					
 	                		<?php endif; ?>
+	                	</p>
 					</td>
 				</tr>
 				<?php endforeach;?>

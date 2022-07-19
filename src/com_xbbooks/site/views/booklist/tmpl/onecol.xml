@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/booklist/onecol.xml v0.9.8 12th May 2022 -->
+<!-- xbBooks site/views/booklist/onecol.xml v0.9.9.3 14th July 2022 -->
 <metadata>
 	<layout title="Book List - One Column">
 		<message>Displays a list of books in a single column. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
@@ -39,17 +39,17 @@
 
 			<field name="show_bcat" type="list"
 				label="Show Book Category"
-				description="If both Category and Tag are hidden the column will be hidden."
+				description="Category label can optionally be linked to the Category view listing all items in the category"
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
 				<option value="0" >JHIDE</option>
-					<option value="1">Show without link</option>
-					<option value="2">Show with link</option>
+					<option value="1">Show (no link)</option>
+					<option value="2">Show (linked)</option>
 			</field>	
 	 		<field name="show_btags" type="radio"
 				label="Show Tags"
-				description="If both Category and Tag are hidden the column will be hidden."
+				description="Tag labels are always linked to their Tag view listing all items with that tag"
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>

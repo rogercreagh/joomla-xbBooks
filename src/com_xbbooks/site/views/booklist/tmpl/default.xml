@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/booklist/default.xml v0.9.5 10th May 2021 -->
+<!-- xbBooks site/views/booklist/default.xml v0.9.9.3 14th July 2022 -->
 <metadata>
 	<layout title="Book List">
 		<message>Displays a list (table) of books. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
@@ -39,17 +39,17 @@
 
 			<field name="show_bcat" type="list"
 				label="Show Book Category"
-				description="If both Category and Tag are hidden the column will be hidden."
+				description="If Category, Fiction, and Tag are all hidden the column will be hidden. The category label can optionally be linked to the Category view showing all items in that category"
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
 				<option value="0" >JHIDE</option>
-					<option value="1">Show without link</option>
-					<option value="2">Show with link</option>
+					<option value="1">Show (no link)</option>
+					<option value="2">Show (linked)</option>
 			</field>	
 	 		<field name="show_btags" type="radio"
 				label="Show Tags"
-				description="If both Category and Tag are hidden the column will be hidden."
+				description="If Category, Fiction, and Tag are all hidden the column will be hidden. Tag labels are always linked to their Tag view"
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>

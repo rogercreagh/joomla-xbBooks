@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/view.html.php
- * @version 0.9.8.9 10th June 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -37,12 +37,12 @@ class XbbooksViewPeople extends JViewLegacy {
 		$this->header['text'] = $this->params->get('list_headtext','','text');
 		
 		$show_cats = $this->params->get('show_cats','1','int');
-		$this->showcats = ($show_cats) ? $this->params->get('show_pcat','1','int') : 0;
+		$this->showcat = ($show_cats) ? $this->params->get('show_pcat','1','int') : 0;
 		
 		$show_tags = $this->params->get('show_fltags','1','int');
 		$this->showtags = ($show_tags) ? $this->params->get('show_btags','1','int') : 0;
 		
-		$this->show_ctcol = $this->showcats + $this->showtags;
+		$this->show_ctcol = $this->showcat + $this->showtags;
 		
 		$this->search_bar = $this->params->get('search_bar','','int');
 		$this->hide_book = $this->params->get('menu_book',0)>0 ? true : false;

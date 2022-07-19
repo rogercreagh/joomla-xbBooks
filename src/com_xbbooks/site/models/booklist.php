@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.9.8.2 17th May 2022
+ * @version 0.9.9.3 13th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -107,7 +107,7 @@ class XbbooksModelBooklist extends JModelList {
             if ($categoryId > 0) {
             	if ($dosubcats) {
             		$catlist = $categoryId;
-            		$subcatlist = XbbooksHelper::getChildCats($categoryId,'com_xbbooks');
+            		$subcatlist = XbcultureHelper::getChildCats($categoryId,'com_xbbooks');
             		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
             		$query->where('a.catid IN ('.$catlist.')');
             	} else {

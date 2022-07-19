@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/helpers/xbbooks.php
- * @version 0.9.5 10th May 2021
+ * @version 0.9.9.3 13th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,8 +35,8 @@ class XbbooksHelper {
 		return $list;
 	}
 	
-	public static function getChildCats($pid, $ext, $incroot = true) {
 /* 		
+	public static function getChildCats($pid, $ext, $incroot = true) {
  		$childarr = array();
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
@@ -51,7 +51,6 @@ class XbbooksHelper {
 			}
 			return $childarr;
 		}
- */		
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('*')->from('#__categories')->where('id='.$pid);
@@ -84,6 +83,7 @@ class XbbooksHelper {
 		}
 		return $header;
 	}
+ */		
 
 	/**
 	 * @name makeSummaryText

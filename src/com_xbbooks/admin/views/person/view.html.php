@@ -52,13 +52,13 @@ class XbbooksViewPerson extends JViewLegacy {
         
         $isNew = ($this->item->id == 0);
         
-        $title = JText::_( 'XBBOOKS' ).': ';
+        $title = Text::_( 'XBBOOKS' ).': ';
         if ($isNew) {
-            $title .= JText::_('XBCULTURE_TITLE_NEWPERSON');
+            $title .= Text::_('XBCULTURE_TITLE_NEWPERSON');
         } elseif ($checkedOut) {
             $title .= Text::_('XBCULTURE_TITLE_VIEWPERSON');
         } else {
-            $title .= JText::_('XBCULTURE_TITLE_EDITPERSON');
+            $title .= Text::_('XBCULTURE_TITLE_EDITPERSON');
         }
         
         ToolbarHelper::title($title, 'user');

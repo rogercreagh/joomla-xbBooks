@@ -119,7 +119,7 @@
 			
 		<field name= "bookmenlist"
 			type= "subform"
-			label= "XBCULTURE_APPEARS_IN"
+			label= "XBCULTURE_APPEARS"
 			description="XBBOOKS_FIELD_BOOKADD_DESC"
 			min= "0"
 			max= "10"

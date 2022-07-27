@@ -18,7 +18,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 $itemid = XbbooksHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = $xblink.'person' . $itemid.'&id=';
+$plink = 'index.php?option=com_xbpeople&view=person' . $itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getBooksRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
@@ -30,7 +30,7 @@ $rlink = $xblink.'bookreview' . $itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getCharsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$chlink = $xblink.'character' . $itemid.'&id=';
+$chlink = 'index.php?option=com_xbbooks&view=character' . $itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getTagsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';

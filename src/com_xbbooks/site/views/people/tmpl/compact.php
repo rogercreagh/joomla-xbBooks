@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.4 27th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,11 +33,11 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 $itemid = XbbooksHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = 'index.php?option=com_xbbooks&view=person' . $itemid.'&id=';
+$plink = 'index.php?option=com_xbpeople&view=person' . $itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getCategoriesRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
+$clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 
 ?>
 <div class="xbbooks">
@@ -89,24 +89,21 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 						<?php echo HTMLHelper::_('searchtools.sort','Dates','sortdate',$listDirn,$listOrder); ?>
 					</th>
                 <?php endif; ?>
-				<?php if($this->show_books != 0) : ?>
-				<th>
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_BOOKS_U','bcnt',$listDirn,$listOrder); ?>
-				</th>
-				<?php endif; ?>
-				<?php if($this->showcat || $this->showtags) : ?>
-    				<th class="hidden-tablet hidden-phone">
-    					<?php if ($this->showcat) {
-    						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
-    					}
-    					if (($this->showcat) && ($this->showtags)) {
-    					    echo ' &amp; ';
-    					}
-    					if($this->showtags) {
-    					    echo Text::_( 'XBCULTURE_TAGS_U' ); 
-    					} ?>                
+                <?php if ($this->showcnts) : ?>
+    				<th>
+    					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_BOOKS_U','bcnt',$listDirn,$listOrder); ?>
     				</th>
-                <?php endif; ?>
+				<?php endif; ?>
+				<?php if ($this->showcat) : ?>
+    				<th class="hidden-tablet hidden-phone">
+    					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ); ?>
+					</th>
+    			<?php endif; ?>
+				<?php if ($this->showtags) : ?>
+    				<th class="hidden-tablet hidden-phone">
+    					<?php echo ucfirst(Text::_( 'XBCULTURE_TAGS'));  ?>                
+    				</th>
+    			<?php endif; ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -131,41 +128,40 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 						?></p>
 					</td>
 				<?php endif; ?>
-				<?php if ($this->show_books != 0) : ?>
-				<td>
-				<td><p class="xbit xb095">
-					<?php if ($item->bcnt > 0) : ?>
-						<span tabindex="<?php echo $item->id; ?>"
-						<?php if ($this->show_books > 1) : ?>
-								class="xbpop xbcultpop xbfocus" data-trigger="focus"
-								title data-original-title="Books and Role" 
-								data-content="<?php echo htmlentities($item->allbooks); ?>"
-						<?php endif; ?>
-						>
-    					<?php echo Text::_('XBCULTURE_LISTED_WITH').' '.$item->bcnt.' '.Text::_(($item->bcnt ==1) ? 'XBCULTURE_BOOK' : 'XBCULTURE_BOOKS'); ?>
-						</span>
-					<?php endif; ?>
-					</p>
-				</td>
+                <?php if ($this->showcnts) : ?>
+    				<td>
+    				<?php if (($this->showlists == 1) && ($item->bookcnt>0)) :?>
+    					<span tabindex="<?php echo $item->id; ?>"
+							class="xbpop xbcultpop xbfocus" data-trigger="focus"
+							title data-original-title="Book List" 
+							data-content="<?php echo htmlentities($item->booklist); ?>"
+						>        				
+    				<?php  endif; ?>
+    					<span class="badge <?php echo ($item->bookcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bookcnt;?></span>
+    				<?php if (($this->showlists == 1) && ($item->bookcnt>0)) :?>
+    					</span>
+					<?php endif; ?>        					
+    				<?php if ($this->showlists == 2) :?>
+    					<?php echo $item->booklist; ?>
+    				<?php endif; ?>
+    				</td>
 				<?php endif; ?>
-    			<?php if(($this->showcat) || ($this->showtags)) : ?>
+				<?php if ($this->showcat) : ?>												
 					<td class="hidden-phone">
- 						<?php if ($this->showcat) : ?>												
-							<p>
-								<?php if($this->showcat == 2) : ?>
-    								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>">
-    									<?php  echo $item->category_title; ?></a>		
-    							<?php else: ?>
-    								<span class="label label-success"><?php  echo $item->category_title; ?></span>
-								<?php endif; ?>
-							</p>
+						<?php if($this->showcat == 2) : ?>
+							<a class="label label-success" href="<?php echo $clink.$item->catid; ?>">
+								<?php  echo $item->category_title; ?></a>		
+						<?php else: ?>
+							<span class="label label-success"><?php  echo $item->category_title; ?></span>
 						<?php endif; ?>
-						<?php if ($this->showtags) : ?>	
-						<?php  $tagLayout = new FileLayout('joomla.content.tags');
-    							echo $tagLayout->render($item->tags);?>
-    					<?php endif; ?>
 					</td>
-                <?php endif; ?>
+				<?php endif; ?>
+				<?php if ($this->showtags) : ?>	
+					<td>
+						<?php  $tagLayout = new FileLayout('joomla.content.tags');
+    						echo $tagLayout->render($item->tags);?>
+					</td>
+				<?php endif; ?>	
 				</tr>
 				
 			<?php } // endforeach; ?>

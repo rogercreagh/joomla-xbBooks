@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks config.xml v0.9.8.8 7th June 2022 -->
+<!-- xbBooks config.xml v0.9.9.4 26th July 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -409,11 +409,6 @@
 			label="Book List Specific Options"
 			class="info"
 		/>	
-		<field name="booklist_layout" type="componentlayout"
-	        label="Books Layout"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="booklist" 
-	    />		
 		<field name="show_bpiccol" type="radio"
 			label="Cover Column"
 			description="Show book cover column by default - can override in menu options"
@@ -446,11 +441,6 @@
 			label="People List Specific Options"
 			class="info"
 		/>	
-		<field name="people_layout" type="componentlayout"
-	        label="People Layout"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="people" 
-	    />
 		<field name="show_ppiccol" type="radio"
 			label="Portrait Column"
 			description="Show portrait column by default - can override in menu options"
@@ -480,26 +470,30 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	
-	 		<field name="show_books" type="list"
-				label="Show Book List"
-				description="Show list of books for each person as a simple count per role, count with mouseover popup list, a linked list in the column, or hide the column"
-				default="cnt"
-				>
-				<option value="0" >JHIDE</option>
-				<option value="1">Count per role</option>
-				<option value="2">Popover per role</option>
-				<option value="3">List per role</option>
-				<option value="4">Count all books</option>
-			</field>	
+		<field name="showcnts" type="radio"
+			label="Show counts"
+			description="Show counts for books per person"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		<field name="showlists" type="list"
+			label="Show item lists"
+			description="Show lists of books and roles as popover on the count (more compact) or full list. Popover will be click to show, and in both cases title will be linked to item entry"
+			default="1"
+			showon="showcnts!:0"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1" >Show as popover</option>
+			<option value="2" >Show as list</option>
+		</field>
+
   		<field name="charslistnote" type="note"
 			label="Characters List Specific Options"
 			class="info"
 		/>	
-		<field name="characters_layout" type="componentlayout"
-	        label="Characters Layout"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="characters" 
-	    />
 		<field name="show_cpiccol" type="radio"
 			label="Image Column"
 			description="Show image column by default - can override in menu options"
@@ -518,6 +512,25 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	 
+		<field name="showccnts" type="radio"
+			label="Show counts"
+			description="Show counts for books for each character"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		<field name="showclists" type="list"
+			label="Show item lists"
+			description="Show lists of books/films and roles as popover on the count (more compact) or full list. Popover will be click to show, and in both cases title will be linked to item entry"
+			default="1"
+			showon="showcnts!:0"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1" >Show as popover</option>
+			<option value="2" >Show as list</option>
+		</field>
 			    
   		<field name="catlistnote" type="note"
 			label="Category Counts View Options"

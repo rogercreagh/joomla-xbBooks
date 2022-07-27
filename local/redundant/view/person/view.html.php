@@ -48,7 +48,7 @@ class XbbooksViewPerson extends JViewLegacy {
 		            $roletext = '';
 		            switch ($role) {
 		                case 'mention':
-		                    $roletext = Text::_('XBCULTURE_APPEARS_IN').' '.Text::_('XBCULTURE_AS_CHAR_SUBJ');
+		                    $roletext = Text::_('XBCULTURE_APPEARS_IN');
 		                    break;
 		                case 'other':
 		                    $roletext = Text::_('XBCULTURE_OTHER_ROLE');

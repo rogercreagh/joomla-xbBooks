@@ -32,11 +32,11 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 $itemid = XbbooksHelperRoute::getCategoriesRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$clink = 'index.php?option=com_xbbooks&view=category'.$itemid.'&id=';
+$clink = 'index.php?option=com_xbpeople&view=category'.$itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getCharsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = 'index.php?option=com_xbbooks&view=character'.$itemid.'&id=';
+$plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
 
 ?>
 <div class="xbbooks">

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/view.html.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.4 27th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,7 +10,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
 
 class XbbooksViewPeople extends JViewLegacy {
 	
@@ -39,29 +38,38 @@ class XbbooksViewPeople extends JViewLegacy {
 		$show_cats = $this->params->get('show_cats','1','int');
 		$this->showcat = ($show_cats) ? $this->params->get('show_pcat','1','int') : 0;
 		
-		$show_tags = $this->params->get('show_fltags','1','int');
-		$this->showtags = ($show_tags) ? $this->params->get('show_btags','1','int') : 0;
+		$show_tags = $this->params->get('show_tags','1','int');
+		$this->showtags = ($show_tags) ? $this->params->get('show_ptags','1','int') : 0;
 		
 		$this->show_ctcol = $this->showcat + $this->showtags;
 		
 		$this->search_bar = $this->params->get('search_bar','','int');
 		$this->hide_book = $this->params->get('menu_book',0)>0 ? true : false;
-		$this->hide_cat = $this->params->get('menu_category_id',0)>0 ? true : false;
 		$this->hide_prole = $this->params->get('menu_prole',0)>0 ? true : false;
-		$this->hide_tag = (!empty($this->params->get('menu_tag',''))) ? true : false;
+		$this->hide_cat = (!$this->showcat || ($this->params->get('menu_category_id',0)>0)) ? true : false;
+		$this->hide_tag = (!$this->showtags || (!empty($this->params->get('menu_tag','')))) ? true : false;
 		
 		$this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
-//		$show_cats = ($this->xbpeople_ok) ? $this->params->get('show_cats','1','int') : 0;
-//		$this->show_cat = ($show_cats) ? $this->params->get('show_pcat','2','int') :0;
-//		$show_tags = $this->params->get('show_tags','1','int');
-//		$this->show_tags = ($show_tags) ? $this->params->get('show_ptags','1','int') : 0;
-		
-		$this->show_pic = $this->params->get('show_ppiccol','1','int');
+
+        $this->show_pic = $this->params->get('show_ppiccol','1','int');
 		$this->show_pdates = $this->params->get('show_pdates','1');
 		$this->show_sum = $this->params->get('show_psumcol','1','int');
-		$this->show_books = $this->params->get('show_books','1');
 		$this->show_cbooks = $this->params->get('show_cbooks','1');
 		//NB for compact list option 3 (linked list) is not available and shows as popup list
+
+		$this->showcnts = $this->params->get('showcnts',1);
+		$this->showlists = ($this->showcnts == 1) ? $this->params->get('showlists',1) : 0;
+		
+		foreach ($this->items as $person) {
+		    $person->booklist = '';
+		    if ($person->bookcnt > 0) {
+		        $person->booklist = "<ul style='list-style:none;margin-left:0'>";
+		        foreach ($person->books as $book) {
+		            $person->booklist .= $book->listitem;
+		        }
+		        $person->booklist .= '</ul>';
+		    }
+		}
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/people/tmpl/default.xml v0.9.8.8 7th June 2022 -->
+<!-- xbBooks site/views/people/tmpl/default.xml v0.9.9.4 27th July 2022 -->
 <metadata>
 	<layout title="Book People List">
 		<message>Displays a list (table) of people. Option to restrict to single category and filter by role and tags.</message>
@@ -38,18 +38,25 @@
 				<option value="0" >JHIDE</option>
 				<option value="1">JSHOW</option>
 			</field>	
-	 		<field name="show_books"
-				type="list"
-				label="Show Book List"
-				description="Show list of books for each person as a simple count per role, count with mouseover popup list, a linked list in the column, or hide the column"
-				class="btn-group btn-group-yesno btn-small"
+			<field name="showcnts" type="radio"
+				label="Show counts"
+				description="Show counts for books and films per person"
+				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
 				<option value="0" >JHIDE</option>
-				<option value="1">Count per role</option>
-				<option value="2">Popover per role</option>
-				<option value="3">Linked List per role</option>
-			</field>	
+				<option value="1">JSHOW</option>
+			</field>
+			<field name="showlists" type="list"
+				label="Show item lists"
+				description="Show lists of books/films and roles as popover on the count (more compact) or full list. Popover will be click to show, and in both cases title will be linked to item entry"
+				useglobal="true"
+				showon="showcnts:1"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1" >Show as popover</option>
+				<option value="2" >Show as list</option>
+			</field>
 	 		<field name="show_pcat" type="list"
 				label="Show Person Category"
 				description="If both Show Category and Show Tag are no the the column will be hidden in list view"

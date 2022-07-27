@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/default.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.4 27th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,11 +33,11 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 $itemid = XbbooksHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = 'index.php?option=com_xbbooks&view=person' . $itemid.'&id=';
+$plink = 'index.php?option=com_xbpeople&view=person' . $itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getCategoriesRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
+$clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 
 ?>
 <div class="xbbooks">
@@ -100,9 +100,9 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 					<?php echo Text::_('XBCULTURE_SUMMARY');?>
 				</th>
                 <?php endif; ?>
-				<?php if($this->show_books != 0) : ?>
+                <?php if ($this->showcnts) : ?>
     				<th>
-    					<?php echo Text::_('XBCULTURE_BOOKS_U'); ?>
+    					<?php echo ucfirst(Text::_('XBCULTURE_BOOKS')); ?>
     				</th>
                <?php endif; ?>
 				<?php if($this->showcat || $this->showtags) : ?>
@@ -114,14 +114,14 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
     					    echo ' &amp; ';
     					}
     					if($this->showtags) {
-    					    echo Text::_( 'XBCULTURE_TAGS_U' ); 
+    					    echo ucfirst(Text::_( 'XBCULTURE_TAGS'));
     					} ?>                
     				</th>
                 <?php endif; ?>
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($this->items as $i => $item) { ?>
+			<?php foreach ($this->items as $i => $item) : ?>
 				<tr class="row<?php echo $i % 2; ?>">
              		<?php if($this->show_pic) : ?>
 					<td>
@@ -184,80 +184,31 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
     					<?php endif; ?>
 				</td>
 				<?php endif; ?>
-				<?php if ($this->show_books != '0') : ?>
-				<td><p class="xb095">
-					<?php if ($item->acnt > 0) : ?>
-						<span tabindex="<?php echo $item->id; ?>"
-						<?php if ($this->show_books == '2') : ?>
-								class="xbpop xbcultpop xbfocus" data-trigger="focus"
-								title data-original-title="Books as Author" 
-								data-content="<?php echo htmlentities($item->alist); ?>"
-						<?php endif; ?>
-						>
-						<?php if ($this->show_books == '3') : ?>
-						    <span class="xbnit"><?php echo Text::_('XBBOOKS_AUTHOR_OF'); ?></span><br />
-						    <?php echo $item->alist; ?>
-						<?php  else : ?>
-						    <span class="badge bkcnt"><?php echo $item->acnt; ?></span> <?php echo Text::_('XBCULTURE_AUTHOR'); ?>
-						<?php endif; ?>
-						</span><br />
-					<?php endif; ?>
-					<?php if ($item->ecnt > 0) : ?>
-						<span tabindex="<?php echo $item->id; ?>"
-						<?php if ($this->show_books == '2') : ?>
-								class="xbpop xbcultpop xbfocus" data-trigger="focus"
-								title data-original-title="Books as Editor" 
-								data-content="<?php echo htmlentities($item->elist); ?>"
-						<?php endif; ?>
-						>
-						<?php if ($this->show_books == '3') : ?>
-						<span class="xbnit"><?php echo Text::_('XBBOOKS_EDITOR_OF'); ?></span><br />
-							<?php echo $item->elist; ?>
-						<?php  else : ?>
-							<span class="badge bkcnt"><?php echo $item->ecnt; ?></span> <?php echo Text::_('XBCULTURE_EDITOR'); ?>
-						<?php endif; ?>
-						</span><br />
-					<?php endif; ?>
-					<?php if ($item->ocnt > 0) : ?>
-						<span tabindex="<?php echo $item->id; ?>" 
-						<?php if ($this->show_books == '2') : ?>
-								class="xbpop xbcultpop xbfocus" data-trigger="focus"
-								title data-original-title="Books - other roles" 
-								data-content="<?php echo htmlentities($item->olist); ?>"
-						<?php endif; ?>
-						>
-						<?php if ($this->show_books == '3') : ?>
-						<span class="xbnit"><?php echo Text::_('XBCULTURE_OTHER_ROLE_IN'); ?></span><br />
-							<?php echo $item->olist; ?>
-						<?php  else : ?>
-							<span class="badge bkcnt"><?php echo $item->ocnt; ?></span> <?php echo Text::_('XBCULTURE_OTHER_ROLES'); ?>
-						<?php endif; ?>
-						</span><br />
-					<?php endif; ?>
-					<?php if ($item->mcnt > 0) : ?>
-						<span tabindex="<?php echo $item->id; ?>" 
-						<?php if ($this->show_books == '2') : ?>
-								class="xbpop xbcultpop xbfocus" data-trigger="focus"
-								title data-original-title="Books - mentioned in" 
-								data-content="<?php echo htmlentities($item->mlist); ?>"
-						<?php endif; ?>
-						>
-						<?php if ($this->show_books == '3') : ?>
-						<span class="xbnit"><?php echo Text::_('XBBOOKS_MENTION_IN'); ?></span><br />
-							<?php echo $item->mlist; ?>
-						<?php  else : ?>
-							<span class="badge bkcnt"><?php echo $item->mcnt; ?></span> <?php echo Text::_('XBCULTURE_MENTIONS'); ?>
-						<?php endif; ?>
-						</span></br />
-					<?php endif; ?>
-					</p>
+                <?php if ($this->showcnts) : ?>
+    				<td>
+    				<?php if (($this->showlists == 1) && ($item->bookcnt>0)) :?>
+    					<span tabindex="<?php echo $item->id; ?>"
+							class="xbpop xbcultpop xbfocus" data-trigger="focus"
+							title data-original-title="Book List" 
+							data-content="<?php echo htmlentities($item->booklist); ?>"
+						>        				
+    				<?php  endif; ?>
+    					<span class="badge <?php echo ($item->bookcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bookcnt;?></span>
+    				<?php if (($this->showlists == 1) && ($item->bookcnt>0)) :?>
+    					</span>
+					<?php endif; ?>        					
+    				<?php if ($this->showlists == 2) :?>
+    					<?php echo $item->booklist; ?>
+    				<?php endif; ?>
+    				</td>
+				<?php endif; ?>
+
     				<?php if ($item->filmcnt > 0) {
     						echo '<p class="xbit xb095"><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->filmcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
     					}
     				?>
 				</td>
-				<?php endif; ?>
-    			<?php if(($this->showcat) || ($this->showtagss)) : ?>
+    			<?php if(($this->showcat) || ($this->showtags)) : ?>
 					<td class="hidden-phone">
  						<?php if (($this->showcat) && ($this->xbpeople_ok)) : ?>												
 							<p>
@@ -276,7 +227,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 					</td>
                 <?php endif; ?>
 				</tr>
-			<?php } // endforeach; ?>
+			<?php endforeach; ?>
 		</tbody>
 		</table>
 

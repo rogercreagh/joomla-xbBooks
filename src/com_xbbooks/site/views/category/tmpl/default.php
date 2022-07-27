@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/category/tmpl/default.php
- * @version 0.9.6.a 17th December 2021
+ * @version 0.9.9.4 27th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,7 +23,7 @@ $blink = 'index.php?option=com_xbbooks&view=book&id=';
 
 $itemid = XbbooksHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = 'index.php?option=com_xbbooks&view=person'.$itemid.'&id=';
+$plink = 'index.php?option=com_xbpeople&view=person'.$itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getReviewsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';

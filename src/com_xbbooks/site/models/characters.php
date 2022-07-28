@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/characters.php
- * @version 0.9.9.3 13th July 2022
+ * @version 0.9.9.4 28th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,7 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Categories;
 use Joomla\CMS\Helper\TagsHelper;
 
 class XbbooksModelCharacters extends JModelList {
@@ -19,7 +18,7 @@ class XbbooksModelCharacters extends JModelList {
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('name', 'category_title','c.title',
-					'catid', 'a.catid', 'category_id');
+					'catid', 'a.catid', 'category_id', 'bcnt');
 		}
 		parent::__construct($config);
 	}
@@ -64,6 +63,7 @@ class XbbooksModelCharacters extends JModelList {
             $query->from('#__xbcharacters AS a')
             	->join('LEFT OUTER',$db->quoteName('#__xbbookcharacter', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.char_id'))
             	->where('p.book_id IS NOT NULL');
+            $query->select('COUNT(DISTINCT p.book_id) AS bcnt');
             	
             $query->select('c.title AS category_title');
             $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
@@ -184,7 +184,7 @@ class XbbooksModelCharacters extends JModelList {
                     $query->order('category_title '.$orderDirn.', a.ordering');
                     break;
                 case 'category_title':
-                    $query->order('category_title '.$orderDirn.', lastname');
+                    $query->order('category_title '.$orderDirn.', name');
                     break;
                 default:
                     $query->order($db->escape($orderCol.' '.$orderDirn));
@@ -208,15 +208,28 @@ class XbbooksModelCharacters extends JModelList {
 		
 		foreach ($items as $i=>$item) {
 			//get books by role if they are being displayed...
-			$item->books = XbbooksHelper::getCharacterBooksArray($item->id);
-			$item->ccnt = count($item->books);
+		    $item->books = ($item->bcnt>0) ? XbcultureHelper::getCharBooks($item->id) : ''; 
+
+		    
+		    $item->fcnt = 0;
+		    if ($this->xbfilmsStatus) {
+		        $db    = Factory::getDbo();
+		        $query = $db->getQuery(true);
+		        $query->select('COUNT(DISTINCT p.film_id) AS fcnt')->from('#__xbfilmcharacter');
+		        $query->where('person_id = '.$db->quote($item->id));
+		        $db->setQuery($query);
+		        $item->fcnt = $db->loadResult();
+		    }
+		    
+		    //  XbbooksHelper::getCharacterBooksArray($item->id);
+			//$item->ccnt = count($item->books);
 			
-			//make author/editor/char lists
-			if ($item->ccnt == 0){
-				$item->clist = '';
-			} else {
-				$item->clist = XbbooksGeneral::makeLinkedNameList($item->books,'',', ',true);
-			}
+// 			//make author/editor/char lists
+// 			if ($item->ccnt == 0){
+// 				$item->clist = '';
+// 			} else {
+// 				$item->clist = XbbooksGeneral::makeLinkedNameList($item->books,'',', ',true);
+// 			}
 			
 			$item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
 			

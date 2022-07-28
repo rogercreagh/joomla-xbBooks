@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/people/tmpl/default.xml v0.9.9.4 27th July 2022 -->
 <metadata>
-	<layout title="Book People List">
-		<message>Displays a list (table) of people. Option to restrict to single category and filter by role and tags.</message>
+	<layout title="Book People">
+		<message>Displays a list (table) of people associated with books. Option to restrict to single category and filter by role and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">
 <!-- Basic options. -->

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.9.9.4 27th July 2022
+ * @version 0.9.9.4 28th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -45,7 +45,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
-<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=people'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=people&layout=compact'); ?>" method="post" name="adminForm" id="adminForm">
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';

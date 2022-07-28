@@ -10,7 +10,7 @@
 			label="XBCULTURE_CONFIG_DEL_UNINST_LABEL"
 			description="XBCULTURE_CONFIG_DEL_UNINST_DESC"
  			class="btn-group btn-group-yesno"
-			default="1"
+			default="0"
 			>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>

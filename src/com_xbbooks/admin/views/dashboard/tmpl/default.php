@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.4 28th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,7 +32,7 @@ if (!$this->xbpeople_ok) : ?>
 		<hr />
         <div class="xbinfopane">
         	<div class="row-fluid hidden-phone">
-            	<?php echo HtmlHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => '')); ?>
+            	<?php echo HtmlHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => 'sysinfo')); ?>
                   	<?php echo HtmlHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBBOOKS_SYSINFO'), 'sysinfo','xbaccordion'); ?>
                       	<p><b><?php echo Text::_( 'XBBOOKS_COMPONENT' ); ?></b>
                         <br /><?php echo Text::_('XBCULTURE_VERSION').': '.$this->xmldata['version'].' '.
@@ -46,7 +46,7 @@ if (!$this->xbpeople_ok) : ?>
                               </i></p>
                               <?php echo Text::_('XBCULTURE_OTHER_COMPS'); ?>
                               <ul>
-                          	<?php $coms = array('com_xbfilms','com_xblive','com_xbpeople');
+                          	<?php $coms = array('com_xbfilms','com_xbevents','com_xbpeople');
                           	foreach ($coms as $element) {
                           	    echo '<li>';
                               	$ext = XbcultureHelper::getExtensionInfo($element);

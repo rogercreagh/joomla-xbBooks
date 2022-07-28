@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 0.9.9.4 27th July 2022
+ * @version 0.9.9.4 28th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,7 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Categories;
 use Joomla\CMS\Helper\TagsHelper;
 
 class XbbooksModelPeople extends JModelList {
@@ -23,7 +22,7 @@ class XbbooksModelPeople extends JModelList {
 			$config['filter_fields'] = array ( 'firstname', 'lastname',
 					'catid', 'a.catid', 'category_id', 'tagfilt',
 					'category_title', 'c.title',
-					'sortdate' );
+					'sortdate','bcnt' );
 		}
 		$this->xbfilmsStatus = Factory::getSession()->get('com_xbbooks',false);
 		parent::__construct($config);
@@ -291,15 +290,14 @@ class XbbooksModelPeople extends JModelList {
 			        $item->books = '';
 			    }
 			
-			
-			$item->filmcnt = 0;
+			$item->fcnt = 0;
 			if ($this->xbfilmsStatus) {
 				$db    = Factory::getDbo();
 				$query = $db->getQuery(true);
-				$query->select('COUNT(*)')->from('#__xbfilmperson');
+				$query->select('COUNT(DISTINCT film_id) AS fcnt')->from('#__xbfilmperson');
 				$query->where('person_id = '.$db->quote($item->id));
 				$db->setQuery($query);
-				$item->filmcnt = $db->loadResult();
+				$item->fcnt = $db->loadResult();
 			}
 		} //end foreach item
 		return $items;

@@ -34,14 +34,14 @@ class XbbooksControllerDashboard extends JControllerAdmin {
     }
     
     function live() {
-        $status = XbcultureHelper::checkComponent('com_xblive');
+        $status = XbcultureHelper::checkComponent('com_xbevents');
         if ($status == true) {
-            $this->setRedirect('index.php?option=com_xblive');
+            $this->setRedirect('index.php?option=com_xbevents');
         } elseif ($status === 0) {
-            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbLive'.Text::_('XBCULTURE_COMP_DISABLED').'</span>', 'warning');
-            $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xblive');
+            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbEvents'.Text::_('XBCULTURE_COMP_DISABLED').'</span>', 'warning');
+            $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbevents');
         } else {
-            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbLive '.Text::_('XBCULTURE_COMP_MISSING').'</span>', 'info');
+            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbEvents '.Text::_('XBCULTURE_COMP_MISSING').'</span>', 'info');
             $this->setRedirect('index.php?option=com_xbbooks&view=dashboard');
         }
     }

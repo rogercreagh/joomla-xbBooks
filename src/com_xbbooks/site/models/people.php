@@ -75,8 +75,8 @@ class XbbooksModelPeople extends JModelList {
             a.ordering AS ordering, a.params AS params, a.note AS note');
 		$query->select('IF((year_born>-9999),year_born,year_died) AS sortdate');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
-		$query->from($db->quoteName('#__xbpersons','a'))
-            	->join('LEFT OUTER',$db->quoteName('#__xbbookperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.person_id'))
+		$query->from($db->quoteName('#__xbpersons','a'));
+        $query->join('LEFT OUTER',$db->quoteName('#__xbbookperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.person_id'))
                 ->where('p.book_id IS NOT NULL');
 		$query->select('COUNT(DISTINCT p.book_id) AS bcnt');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');

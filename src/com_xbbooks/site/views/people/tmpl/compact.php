@@ -130,20 +130,27 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 				<?php endif; ?>
                 <?php if ($this->showcnts) : ?>
     				<td>
-    				<?php if (($this->showlists == 1) && ($item->bookcnt>0)) :?>
+    				<?php if (($this->showlists == 1) && ($item->bcnt>0)) :?>
     					<span tabindex="<?php echo $item->id; ?>"
 							class="xbpop xbcultpop xbfocus" data-trigger="focus"
 							title data-original-title="Book List" 
 							data-content="<?php echo htmlentities($item->booklist); ?>"
 						>        				
     				<?php  endif; ?>
-    					<span class="badge <?php echo ($item->bookcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bookcnt;?></span>
-    				<?php if (($this->showlists == 1) && ($item->bookcnt>0)) :?>
+    					<span class="badge <?php echo ($item->bcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bookcnt;
+    					if ($item->brolecnt>$item->bcnt) {
+    					    echo ' <span class="xbit xbnorm">('.$item->brolecnt.')</span>'; } ?>
+            			</span>
+    					<?php if (($this->showlists == 1) && ($item->bcnt>0)) :?>
     					</span>
 					<?php endif; ?>        					
     				<?php if ($this->showlists == 2) :?>
     					<?php echo $item->booklist; ?>
     				<?php endif; ?>
+    				<?php if ($item->fcnt > 0) {
+    						echo '<p class="xbit xb095">&amp; '.$item->fcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
+    					}
+    				?>
     				</td>
 				<?php endif; ?>
 				<?php if ($this->showcat) : ?>												

@@ -176,7 +176,7 @@ $plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
     					<?php echo $item->booklist; ?>
     				<?php endif; ?>
     				<?php if ($item->fcnt > 0) {
-    						echo '<p class="xbit xb095"><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->fcnt.' '.Text::_('XBCULTURE_BOOKS').'</p>';
+    						echo '<p class="xbit xb095">&amp; '.$item->fcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
     					}
     				?>
     				</td>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/characters.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.4 29th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,11 +15,14 @@ use Joomla\CMS\Helper\TagsHelper;
 
 class XbbooksModelCharacters extends JModelList {
 	
-	public function __construct($config = array()) {
+    protected $xbfilmsStatus;
+    
+    public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('name', 'category_title','c.title',
 					'catid', 'a.catid', 'category_id', 'bcnt');
 		}
+		$this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
 		parent::__construct($config);
 	}
 
@@ -207,32 +210,21 @@ class XbbooksModelCharacters extends JModelList {
 		$app->setUserState('characters.sortorder', $peep);
 		
 		foreach ($items as $i=>$item) {
-			//get books by role if they are being displayed...
-		    $item->books = ($item->bcnt>0) ? XbcultureHelper::getCharBooks($item->id) : ''; 
+			$item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
+
+			$item->books = ($item->bcnt>0) ? XbcultureHelper::getCharBooks($item->id) : ''; 
 
 		    
 		    $item->fcnt = 0;
 		    if ($this->xbfilmsStatus) {
 		        $db    = Factory::getDbo();
 		        $query = $db->getQuery(true);
-		        $query->select('COUNT(DISTINCT p.film_id) AS fcnt')->from('#__xbfilmcharacter');
-		        $query->where('person_id = '.$db->quote($item->id));
+		        $query->select('COUNT(DISTINCT film_id) AS fcnt')->from('#__xbfilmcharacter');
+		        $query->where('char_id = '.$db->quote($item->id));
 		        $db->setQuery($query);
 		        $item->fcnt = $db->loadResult();
 		    }
-		    
-		    //  XbbooksHelper::getCharacterBooksArray($item->id);
-			//$item->ccnt = count($item->books);
-			
-// 			//make author/editor/char lists
-// 			if ($item->ccnt == 0){
-// 				$item->clist = '';
-// 			} else {
-// 				$item->clist = XbbooksGeneral::makeLinkedNameList($item->books,'',', ',true);
-// 			}
-			
-			$item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
-			
+		  			
 		} //end foreach item
 		return $items;
 	}

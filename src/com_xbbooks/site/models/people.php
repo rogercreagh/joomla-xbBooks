@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.4 29th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,7 @@ class XbbooksModelPeople extends JModelList {
 					'category_title', 'c.title',
 					'sortdate','bcnt' );
 		}
-		$this->xbfilmsStatus = Factory::getSession()->get('com_xbbooks',false);
+		$this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
 		parent::__construct($config);
 	}
 
@@ -241,54 +241,15 @@ class XbbooksModelPeople extends JModelList {
 		$showcnts = $this->getState('params')['showcnts'];
 		
 		foreach ($items as $i=>$item) {
-// 			//get books by role if they are being displayed...
-// 			$item->books = XbbooksGeneral::getPersonRoleArray($item->id);
-// 			$cnts = array_count_values(array_column($item->books, 'role'));
-// 			$item->acnt = (key_exists('author',$cnts))?$cnts['author'] : 0;
-// 			$item->ecnt = (key_exists('editor',$cnts))?$cnts['editor'] : 0;
-// 			$item->ocnt = (key_exists('other',$cnts))?$cnts['other'] : 0;
-// 			$item->mcnt = (key_exists('mention',$cnts))?$cnts['mention'] : 0;
-// 			if (count($item->books)>0) {
-// 			    $item->allbooks = XbbooksGeneral::makeLinkedNameList($item->books,'','<br />',true,false,2);
-// 			} else {
-// 			    $item->allbooks='';
-// 			}
-// 			//make author/editor/char lists
-// 			if ($item->acnt == 0){
-// 				$item->alist = '';
-// 			} else {
-// 				$item->alist = XbbooksGeneral::makeLinkedNameList($item->books,'author',',', true);
-// 			}
-// 			if ($item->ecnt == 0){
-// 				$item->elist = '';
-// 			} else {
-// 				$item->elist = XbbooksGeneral::makeLinkedNameList($item->books,'editor',',',true);
-// 			}
-// 			if ($item->ocnt == 0){
-// 				$item->olist = '';
-// 			} else {
-// 				$item->olist = XbbooksGeneral::makeLinkedNameList($item->books,'other',', ',true);
-// 			}
-// 			if ($item->mcnt == 0){
-// 				$item->mlist = '';
-// 			} else {
-// 				$item->mlist = XbbooksGeneral::makeLinkedNameList($item->books,'mention',', ',true);
-// 			}
-			
 			$item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
 			
-			$item->bookcnt = 0;
-			    $db    = Factory::getDbo();
-			    $query = $db->getQuery(true);
-			    $query->select('COUNT(*)')->from('#__xbbookperson');
-			    $query->where('person_id = '.$db->quote($item->id));
-			    $db->setQuery($query);
-			    $item->bookcnt = $db->loadResult();
-			    if ($item->bookcnt > 0) {
-			        $item->books = XbcultureHelper::getPersonBookRoles($item->id,'','title ASC', $showcnts);
-			    } else {
-			        $item->books = '';
-			    }
+			$item->brolecnt = 0;
+		    if ($item->bcnt > 0) {
+		        $item->books = XbcultureHelper::getPersonBookRoles($item->id,'','title ASC', $showcnts);
+		        $item->brolecnt = count($item->books);
+		    } else {
+		        $item->books = '';
+		    }
 			
 			$item->fcnt = 0;
 			if ($this->xbfilmsStatus) {

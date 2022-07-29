@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/default.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.4 29th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -193,15 +193,18 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 							data-content="<?php echo htmlentities($item->booklist); ?>"
 						>        				
     				<?php  endif; ?>
-    					<span class="badge <?php echo ($item->bcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bcnt;?></span>
-    				<?php if (($this->showlists == 1) && ($item->bcnt>0)) :?>
+    					<span class="badge <?php echo ($item->bcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bcnt;
+    					if ($item->brolecnt > $item->bcnt) {
+    					    echo ' <span class="xbit xbnorm">('.$item->brolecnt.')</span>'; } ?>
+        					</span>
+    					<?php if (($this->showlists == 1) && ($item->bcnt>0)) :?>
     					</span>
 					<?php endif; ?>        					
     				<?php if ($this->showlists == 2) :?>
     					<?php echo $item->booklist; ?>
     				<?php endif; ?>
     				<?php if ($item->fcnt > 0) {
-    						echo '<p class="xbit xb095"><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->fcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
+    						echo '<p class="xbit xb095">and '.$item->fcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
     					}
     				?>
     				</td>

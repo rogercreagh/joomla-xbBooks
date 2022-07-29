@@ -69,7 +69,6 @@ class XbbooksModelTags extends JModelList {
          t.checked_out_time AS checked_out_time, t.lft');
 		$query->from('#__tags AS t');
 		$query->join('LEFT','#__contentitem_tag_map AS m ON m.tag_id = t.id');
-		
 		//input group will override search group
 		$filtype = $this->getState('filter.tagtype');
 		$tagtype = $this->getState('tagtype');

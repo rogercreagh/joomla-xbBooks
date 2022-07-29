@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/view.html.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.4 29th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -59,7 +59,7 @@ class XbbooksViewPeople extends JViewLegacy {
 		
 		foreach ($this->items as $person) {
 		    $person->booklist = '';
-		    if ($person->bookcnt > 0) {
+		    if ($person->brolecnt > 0) {
 		        $person->booklist = "<ul style='list-style:none;margin-left:0'>";
 		        foreach ($person->books as $book) {
 		            $person->booklist .= $book->listitem;

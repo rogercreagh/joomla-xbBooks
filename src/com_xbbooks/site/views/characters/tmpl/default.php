@@ -94,7 +94,7 @@ $plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
                 <?php endif; ?>
                <?php if ($this->showccnts) : ?>
     				<th class="hidden-phone">
-    					<?php echo ucfirst(Text::_('XBCULTURE_BOOKS')); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Books','bcnt',$listDirn,$listOrder); ?>
     				</th>
                 <?php endif; ?>
 				<?php if($this->showcat || $this->showtags) : ?>
@@ -106,7 +106,7 @@ $plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
     					    echo ' &amp; ';
     					}
     					if($this->showtags) {
-    					    echo Text::_( 'XBCULTURE_TAGS_U' ); 
+    					    echo ucfirst(Text::_( 'XBCULTURE_TAGS') ); 
     					} ?>                
     				</th>
                 <?php endif; ?>

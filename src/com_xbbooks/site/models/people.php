@@ -68,7 +68,7 @@ class XbbooksModelPeople extends JModelList {
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		
-		$query->select('a.id AS id, a.firstname AS firstname, a.lastname AS lastname, 
+		$query->select('DISTINCT(a.id) AS id, a.firstname AS firstname, a.lastname AS lastname, 
             a.summary AS summary, a.year_born AS year_born, a.year_died AS year_died, a.catid AS catid,
             a.portrait AS portrait, a.biography AS biography, a.state AS published,
             a.created AS created, a.created_by_alias AS created_by_alias,
@@ -76,10 +76,14 @@ class XbbooksModelPeople extends JModelList {
 		$query->select('IF((year_born>-9999),year_born,year_died) AS sortdate');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
 		$query->from($db->quoteName('#__xbpersons','a'));
-        $query->join('LEFT OUTER',$db->quoteName('#__xbbookperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.person_id'))
-                ->where('p.book_id IS NOT NULL');
-		$query->select('COUNT(DISTINCT p.book_id) AS bcnt');
-        $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
+		
+		if ($this->xbfilmsStatus) $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
+		$query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
+		
+		//only get book people
+		$query->join('INNER','#__xbbookperson AS bp ON bp.person_id = a.id');
+		
+		$query->join('LEFT', '#__categories AS c ON c.id = a.catid');
         $query->select('c.title AS category_title');
            
         // Filter by published state, we only show published items in the front-end. Both item and its category must be published.
@@ -251,15 +255,6 @@ class XbbooksModelPeople extends JModelList {
 		        $item->books = '';
 		    }
 			
-			$item->fcnt = 0;
-			if ($this->xbfilmsStatus) {
-				$db    = Factory::getDbo();
-				$query = $db->getQuery(true);
-				$query->select('COUNT(DISTINCT film_id) AS fcnt')->from('#__xbfilmperson');
-				$query->where('person_id = '.$db->quote($item->id));
-				$db->setQuery($query);
-				$item->fcnt = $db->loadResult();
-			}
 		} //end foreach item
 		return $items;
 	}

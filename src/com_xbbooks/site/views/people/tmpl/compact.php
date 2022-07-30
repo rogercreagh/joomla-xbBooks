@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.4 30th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -91,7 +91,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
                 <?php endif; ?>
                 <?php if ($this->showcnts) : ?>
     				<th>
-    					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_BOOKS_U','bcnt',$listDirn,$listOrder); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Books','bcnt',$listDirn,$listOrder); ?>
     				</th>
 				<?php endif; ?>
 				<?php if ($this->showcat) : ?>
@@ -137,7 +137,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 							data-content="<?php echo htmlentities($item->booklist); ?>"
 						>        				
     				<?php  endif; ?>
-    					<span class="badge <?php echo ($item->bcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bookcnt;
+    					<span class="badge <?php echo ($item->bcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bcnt;
     					if ($item->brolecnt>$item->bcnt) {
     					    echo ' <span class="xbit xbnorm">('.$item->brolecnt.')</span>'; } ?>
             			</span>

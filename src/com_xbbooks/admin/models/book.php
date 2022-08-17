@@ -97,7 +97,7 @@ class XbbooksModelBook extends JModelAdmin {
 			if (empty($item->last_read)) {
 			    $item->last_read = $item->lastrat['rev_date'];
 			}
-		
+		}
 		return $item;
 	}
 		

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 0.9.8.6 1st June 2022
+ * @version 0.9.9.6 17th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\Registry\Registry;
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Component\ComponentHelper;
@@ -20,7 +21,60 @@ use Joomla\CMS\Table\Table;
 
 class XbbooksModelBook extends JModelAdmin {
     
-	public $typeAlias = 'com_xbbooks.book';
+    // batch processes supported by helloworld (over and above the standard batch processes)
+    protected $xbbooks_batch_commands = array(
+        'fiction' => 'batchFiction',
+    );
+    
+    public $typeAlias = 'com_xbbooks.book';
+    
+    /**
+     * Method overriding batch in JModelAdmin so that we can include the additional batch processes
+     * which the helloworld component supports.
+     */
+    public function batch($commands, $pks, $contexts)
+    {
+        $this->batch_commands = array_merge($this->batch_commands, $this->xbbooks_batch_commands);
+        return parent::batch($commands, $pks, $contexts);
+    }
+    
+    /**
+     * Method implementing the batch setting of fiction/non-fiction value
+     */
+    protected function batchFiction($value, $pks, $contexts) {
+        
+        if (!empty($value)) {
+            if (empty($this->batchSet)) {
+                // Set some needed variables.
+                $this->user = Factory::getUser();
+                $this->table = $this->getTable();
+                $this->tableClassName = get_class($this->table);
+                $this->contentType = new JUcmType;
+                $this->type = $this->contentType->getTypeByTable($this->tableClassName);
+            }
+            
+            $db = Factory::getDbo();
+            
+            foreach ($pks as $pk) {
+                if ($this->user->authorise('core.edit', $contexts[$pk])) {
+                    $query = $db->getQuery(true)
+                        ->update($db->quoteName('#__xbbooks'))
+                        ->set('fiction = ' . (int) $value-2)
+                        ->where('id='.$pk);
+                    $db->setQuery($query);
+                    if (!($db->execute())) {
+                        $this->setError($db->getErrorMsg());
+                        return false;
+                    }
+                } else {
+                    $this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));                    
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
 	
 	public function getItem($pk = null) {
 		
@@ -40,7 +94,9 @@ class XbbooksModelBook extends JModelAdmin {
 			->where('br.book_id='.$db->quote($item->id))->order('rev_date DESC');
 			$db->setQuery($query);
 			$item->lastrat = $db->loadAssoc();
-		}
+			if (empty($item->last_read)) {
+			    $item->last_read = $item->lastrat['rev_date'];
+			}
 		
 		return $item;
 	}
@@ -99,24 +155,16 @@ class XbbooksModelBook extends JModelAdmin {
         if (empty($table->alias)) {
             $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
-        // Set the values
+        //if acq_date empty then if last_read is set copy it to acq_date
+        //if acq_date empty and last_read not set then set acq_date to today
         if (empty($table->acq_date)) {
-        	//default to today
-        	$table->acq_date = $date->toSql();
-        }
-        if (empty($table->last_read)) {
-            //if there are reviews do we want to force a read date??? - this will, perhaps make an option
-        	if ($table->id>0) { //we must have already saved and have an id
-        		$query=$db->getQuery(true);
-        		$query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastrev')->from('#__xbbookreviews AS r')
-        		->where('r.book_id = '.$table->id);
-        		$db->setQuery($query);
-        		$revs=$db->loadAssoc();
-        		if ($revs['revcnt']>0) {
-        			$table->last_read = $revs['lastrev'];
-        		}
-        	}            
-        }
+            if (!empty($table->last_read)) {
+                $table->acq_date = $table->last_read;
+            } else {
+        	   //default to today
+            	$table->acq_date = $date->toSql();
+            }
+        }            
         if (empty($table->created)) {
             $table->created = $date->toSql();
         }
@@ -126,8 +174,7 @@ class XbbooksModelBook extends JModelAdmin {
         if (empty($table->created_by_alias)) {           
         	$table->created_by_alias = Factory::getUser()->username; //make it an option to use name instead of username
         }
-        if (empty($table->id)) {
-            
+        if (empty($table->id)) {           
             // Set ordering to the last item if not set
             if (empty($table->ordering)) {
                 $query = $db->getQuery(true)

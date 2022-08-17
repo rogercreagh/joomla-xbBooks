@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views//tmpl/edit.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.9.6 16th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,7 +60,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
                  				<?php echo $this->form->renderField('reviewer'); ?>
                  				<?php echo $this->form->renderField('rev_date'); ?>
-                 				<?php echo $this->form->renderField('rev2read'); ?>
+                 				<?php // echo $this->form->renderField('rev2read'); ?>
 			</div>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('XBBOOKS_FIELDSET_PUBLISHING')); ?>

@@ -283,8 +283,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					</td>
 					<td class="hidden-phone">
 						<?php if ($item->revcnt==0) : ?>
-						    <a href="'.Route::_($relink.'0&bk='.$item->id).'">
-                            <i><?php echo Text::_('XBBOOKS_NOREVIEW'); ?></i></a><br /> 
+                            <i><?php echo Text::_('XBBOOKS_NOREVIEW'); ?></i><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
                             <div class="xbbb1">

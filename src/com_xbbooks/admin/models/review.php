@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/review.php
- * @version 0.9.8.6 3rd June 2022
+ * @version 0.9.9.6 16th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -128,14 +128,15 @@ class XbbooksModelReview extends JModelAdmin {
         if (parent::save($data)) {
             //get the saved id (valid for new items as well where $data['id'] will still = 0
             $rid = $this->getState('review.id');
-            if ((array_key_exists('rev2read', $data)) && ($data['rev2read']==1)) {               
+            //if ((array_key_exists('rev2read', $data)) && ($data['rev2read']==1)) {    
+            //just do it if the date is later than existing
                 $db = $this->getDbo();
                 $query= $db->getQuery(true);
                 $query = 'UPDATE `#__xbbooks` SET `last_read` =  '.$db->quote($data['rev_date']).' ';
-                $query .= 'WHERE id  ='.$data['book_id'].' AND COALESCE(a.last_read, STR_TO_DATE("1000-01-01","%Y-%m-%d")) < STR_TO_DATE("'.$data['rev_date'].'","%Y-%m-%d")';
+                $query .= 'WHERE id  ='.$data['book_id'].' AND COALESCE(last_read, STR_TO_DATE("1000-01-01","%Y-%m-%d")) < STR_TO_DATE("'.$data['rev_date'].'","%Y-%m-%d")';
                 $db->setQuery($query);
                 $db->execute();               
-            }
+            //}
             return true;
         }
         return false;

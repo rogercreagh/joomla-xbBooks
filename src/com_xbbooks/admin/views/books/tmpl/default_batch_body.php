@@ -23,6 +23,9 @@ $published = $this->state->get('filter.published');
 			<div class="controls">
 				<?php echo LayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_xbbooks')); ?>
 			</div>
+			<div class="controls">
+				<?php echo LayoutHelper::render('fiction', array()); ?>
+			</div>
 		</div>
 
 		<div class="control-group span6">

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controlers/review.php
- * @version 0.9.8.3 25th May 2022
+ * @version 0.9.9.6 16th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -47,7 +47,7 @@ class XbbooksControllerReview extends FormController {
 		switch ($task) {
 		    case 'saveback':
 		        $bid = $validData['book_id'];
-		        $redirectTo =('index.php?option=com_xbfilms&task=book.edit&id='.$bid);
+		        $redirectTo =('index.php?option=com_xbbooks&task=book.edit&id='.$bid);
 		        $this->setRedirect(Route::_($redirectTo,false ));
 		        break;
 		}

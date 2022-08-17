@@ -58,7 +58,7 @@ class XbbooksViewReview extends JViewLegacy {
         ToolBarHelper::apply('review.apply');
         ToolBarHelper::save('review.save');
         ToolBarHelper::save2new('review.save2new');
-        ToolbarHelper::custom('review.saveback', 'reply', '', 'Save->Film', false) ;
+        ToolbarHelper::custom('review.saveback', 'reply', '', 'Save->Book', false) ;
         if ($isNew) {
             ToolBarHelper::cancel('review.cancel','JTOOLBAR_CANCEL');
         } else {

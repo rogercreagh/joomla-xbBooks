@@ -94,7 +94,7 @@ class XbbooksModelBook extends JModelAdmin {
 			->where('br.book_id='.$db->quote($item->id))->order('rev_date DESC');
 			$db->setQuery($query);
 			$item->lastrat = $db->loadAssoc();
-			if (empty($item->last_read)) {
+			if ((!empty($item->lastrat)) && (empty($item->last_read))) {
 			    $item->last_read = $item->lastrat['rev_date'];
 			}
 		}

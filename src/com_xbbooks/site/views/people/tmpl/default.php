@@ -203,10 +203,11 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
     				<?php if ($this->showlists == 2) :?>
     					<?php echo $item->booklist; ?>
     				<?php endif; ?>
-    				<?php if ($item->fcnt > 0) {
-    						echo '<p class="xbit xb095">&amp; '.$item->fcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
-    					}
-    				?>
+    				<?php if ($item->fcnt > 0) : ?>
+    						<p class="xbit xb095"><span class="badge">
+    							<?php echo $item->fcnt; ?>
+    						</span> <?php echo Text::_('XBCULTURE_FILMS'); ?></p>;
+    					<?php endif; ?>
     				</td>
 				<?php endif; ?>
 

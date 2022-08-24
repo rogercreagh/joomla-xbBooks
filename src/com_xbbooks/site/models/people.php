@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 0.9.9.4 29th July 2022
+ * @version 0.9.9.6 22nd August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -131,24 +131,24 @@ class XbbooksModelPeople extends JModelList {
         		case 1: //all
          			break;
         		case 2: //authors
-        			$query->where('p.role = '. $db->quote('author'));
+        			$query->where('bp.role = '. $db->quote('author'));
         			break;
         		case 3: //editors
-         			$query->where('p.role = '. $db->quote('editor'));
+         			$query->where('bp.role = '. $db->quote('editor'));
        			break;
         		case 4: //mention
-        			$query->where('p.role = '. $db->quote('mention'));
+        			$query->where('bp.role = '. $db->quote('mention'));
         			break;
         		case 5: //other
-        		    $query->where('p.role = '. $db->quote('other'));
+        		    $query->where('bp.role = '. $db->quote('other'));
         		    break;
         		default:
         			break;        			
         	}
            
             //filter by tag
-            $tagfilt = array($this->getState('tagId'));
-            $this->setState('tagId','');
+            $tagfilt = $this->getState('tagId');
+//            $this->setState('tagId','');
             $taglogic = 0;
             if (empty($tagfilt)) {
                 $tagfilt = $this->getState('params')['menu_tag'];

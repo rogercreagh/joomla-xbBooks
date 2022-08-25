@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/models/forms/filter_people.xml v0.9.5 10th May 2021 -->
+<!-- xbBooks site/models/forms/filter_people.xml v0.9.9.6 24th August 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
         <field name="search"
@@ -52,14 +52,16 @@
 			onchange="this.form.submit();"
 		/>
 		<field name="taglogic" type="radio"
-			default=""
+			default="0"
 			label="XBCULTURE_TAGFILT_MULTI_LABEL"
 			description="XBCULTURE_TAGFILT_MULTI_DESC"
   			class="btn-group btn-small radiotop"
 			showon="tagfilt!:"
+			onchange="this.form.submit();"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
-			<option value="" onchange="this.form.submit();">XBCULTURE_ANY</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_NONE</option>
 		</field>	
 				
     </fields>

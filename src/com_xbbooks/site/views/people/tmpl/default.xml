@@ -129,7 +129,7 @@
 				mode="nested"
 			/>
 			<field name="menu_taglogic" type="radio"
-				default=""
+				default="0"
 				label="XBCULTURE_TAGFILT_MULTI_LABEL"
 				description="XBCULTURE_TAGFILT_MULTI_DESC"
 	  			class="btn-group btn-small radiotop"

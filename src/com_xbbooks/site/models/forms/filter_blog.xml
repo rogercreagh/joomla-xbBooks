@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/models/forms/filter_blog.xml v0.9.5 10th May 2021 -->
+<!-- xbBooks site/models/forms/filter_blog.xml v0.9.9.6 24th August 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
         <field name="search"

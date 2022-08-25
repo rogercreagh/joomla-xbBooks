@@ -86,8 +86,8 @@
 				name="menu_category_id"
 				type="category"
 				label="XBCULTURE_CATFILT_LABEL"
-				extension="com_xbpeople"
 				description="XBCULTURE_CATFILT_DESC"
+				extension="com_xbbooks"
 				>
 					<option value="0">XBCULTURE_ALL_CATS</option>
 			</field>
@@ -112,7 +112,7 @@
 			/>
 			<field name="menu_taglogic"
 				type="radio"
-				default=""
+				default="0"
 				label="XBCULTURE_TAGFILT_MULTI_LABEL"
 				description="XBCULTURE_TAGFILT_MULTI_DESC"
 	  			class="btn-group btn-small radiotop"

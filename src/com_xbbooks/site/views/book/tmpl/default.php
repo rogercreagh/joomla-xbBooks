@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 0.9.8.9 10th June 2022
+ * @version 0.9.9.7 5th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -63,10 +63,13 @@ if ($imgok) {
 					echo Text::_('XBBOOKS_FIRSTPUB').': '.$item->pubyear; 
 				} ?></h4>
 				<?php if($this->show_fict) : ?>
-				<p><span class="label
-            		<?php echo ($item->fiction==1) ? '">'.Text::_('XBCULTURE_FICTION') : 
-                      ' label-inverse">'.Text::_('XBCULTURE_NONFICTION'); ?>
-				</span></p>
+				<p>
+					<?php if ($item->fiction==1) : ?>
+						<span class="label">'<?php echo Text::_('XBCULTURE_FICTION'); ?></span>
+					<?php else : ?>
+						<span class="label label-inverse"><?php echo Text::_('XBCULTURE_NONFICTION'); ?></span>
+					<?php endif; ?>	
+				</p>
 				<?php endif; ?>
 			</div>
 			<h2><?php echo $item->title; ?></h2>
@@ -154,52 +157,61 @@ if ($imgok) {
 	</div>
 </div>
 <hr />
-<div class="row-fluid">
-    <?php if ($item->ext_links_cnt > 0) : ?>
+<?php if ((($item->mencnt + $item->othcnt + $item->charcnt) > 0) || (!$hide_empty)) : ?>
+    <div class="row-fluid">
+    	<?php if ((($item->mencnt + $item->charcnt) > 0) || (!$hide_empty)) : ?>
+    		<div class="span6">
+            	<p><b><i>People mentioned & Characters</i></b></p>
+              	<?php if (($item->mencnt > 0) || (!$hide_empty)) : ?>
+          			<div class="pull-left xbnit xbmr10">
+            			<?php echo Text::_('XBBOOKS_APPEARING_BOOK'); ?>: 
+            		</div>
+            		<?php if ($item->mencnt == 0) : ?>
+            			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
+            		<?php else : ?>
+            			<div class="clearfix"></div>
+            			<div class="xbmt2 xbml20"><?php echo $item->mlist ; ?></div>
+            		<?php  endif; ?>
+            		<div class="clearfix"></div>
+            	<?php endif; ?>
+            	<?php if (($item->charcnt > 0) || (!$hide_empty)) : ?>
+            		<div class="pull-left xbnit xbmr10">
+            			<?php echo Text::_('XBBOOKS_FICTIONAL_CHARS'); ?>: 
+            		</div>
+            		<?php if ($item->charcnt == 0) : ?>
+            			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
+            		<?php else : ?>
+            			<div class="clearfix"></div>
+            			<div class="xbmt2 xbml20"><?php echo $item->clist ; ?></div>
+            		<?php  endif; ?>
+            	<?php endif; ?>
+    		</div>
+    	<?php endif; ?>
+    	<?php if (($item->othcnt > 0) || (!$hide_empty)) : ?>
+    		<div class="span6">
+            	<p><b><i>Other Production Roles</i></b></p>
+        		<?php if (($item->othcnt > 0) || (!$hide_empty)) : ?>
+        			<?php if ($item->othcnt == 0) : ?>
+        				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOOTHERS'); ?></div>
+        			<?php else : ?>
+        				<div class="xbmt2"><?php echo $item->olist ; ?></div>
+        			<?php  endif; ?>
+        		<?php endif; ?>
+    		</div>
+    	<?php endif; ?>
+    </div>
+    <hr />
+<?php endif; ?>
+<?php if ($item->ext_links_cnt > 0) : ?>
+	<div class="row-fluid">
     	<div class="span<?php echo (($item->mencnt > 0) || ($item->charcnt > 0) || ($item->othcnt > 0))? '6' : '12'; ?>">
     		<p><b><i><?php echo Text::_('XBBOOKS_EXT_LINKS'); ?></i></b></p>   					
     		<?php echo $item->ext_links_list; ?>		
     	</div>
-    <?php endif; ?>
-    <?php if (($item->mencnt > 0) || ($item->charcnt > 0) || ($item->othcnt > 0)) : ?>
-        <div class="span<?php echo ($item->ext_links_cnt > 0)? '6' : '12'; ?>">
-        	<p><b><i>Production Roles, People Mentioned and Characters</i></b></p>
-    		<?php if (($item->othcnt > 0) || (!$hide_empty)) : ?>
-    			<?php if ($item->othcnt == 0) : ?>
-    				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOOTHERS'); ?></div>
-    			<?php else : ?>
-    				<div class="xbmt2"><?php echo $item->olist ; ?></div>
-    			<?php  endif; ?>
-    		<?php endif; ?>
-        	<?php if (($item->mencnt > 0) || (!$hide_empty)) : ?>
-        		<div class="pull-left xbnit xbmr10">
-        			<?php echo Text::_('XBBOOKS_APPEARING_BOOK'); ?>: 
-        		</div>
-        		<?php if ($item->mencnt == 0) : ?>
-        			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
-        		<?php else : ?>
-        			<div class="clearfix"></div>
-        			<div class="xbmt2 xbml20"><?php echo $item->mlist ; ?></div>
-        		<?php  endif; ?>
-        		<div class="clearfix"></div>
-        	<?php endif; ?>
-        	<?php if (($item->charcnt > 0) || (!$hide_empty)) : ?>
-        		<div class="pull-left xbnit xbmr10">
-        			<?php echo Text::_('XBBOOKS_FICTIONAL_CHARS'); ?>: 
-        		</div>
-        		<?php if ($item->charcnt == 0) : ?>
-        			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
-        		<?php else : ?>
-        			<div class="clearfix"></div>
-        			<div class="xbmt2 xbml20"><?php echo $item->clist ; ?></div>
-        		<?php  endif; ?>
-        	<?php endif; ?>
-        
-        </div>
-	<?php endif; ?>
-</div>    
+    </div>
+    <hr />
+ <?php endif; ?>
 <?php if ($this->show_bdates) : ?>
-	<hr />
 	<div class="row-fluid">
 		<div class="span1"></div>
 		<div class="span5">
@@ -216,8 +228,8 @@ if ($imgok) {
 		</div>
 		<div class="span1"></div>
 	</div>
+    <hr />
 <?php endif; ?>
-<hr />
 <div class="row-fluid">
 	<div class="span<?php echo ($this->show_brevs ==0)? 12 : 6; ?>">
 		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>

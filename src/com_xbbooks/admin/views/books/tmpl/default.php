@@ -270,7 +270,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                             if ($list != '') {
                             	echo trim($list,', ').' '.Text::_('XBCULTURE_LISTED');
                             } else {
-                            	echo Text::_('XBCULTURE_NO_PEOPLE');
+                            	echo Text::_('XBCULTURE_NO_PEOPLE_LISTED');
                             } ?>
 						</p>
 						<?php if($item->ext_links_cnt >0 ) : ?>

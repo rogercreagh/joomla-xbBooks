@@ -15,15 +15,17 @@ $item = $this->item;
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
-$itemid = XbbooksHelperRoute::getCategoriesRoute();
+$itemid = XbbooksHelperRoute::getBooksRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$clink = 'index.php?option=com_xbbooks&view=category'.$itemid.'&id=';
-
-$blink = 'index.php?option=com_xbbooks&view=book&id=';
+$blink = 'index.php?option=com_xbbooks&view=book'.$itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $plink = 'index.php?option=com_xbpeople&view=person'.$itemid.'&id=';
+
+$itemid = XbbooksHelperRoute::getCharsRoute();
+$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
+$chlink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
 
 $itemid = XbbooksHelperRoute::getReviewsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
@@ -113,7 +115,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     			<?php if ($item->chcnt > 0 ) : ?>
     				<ul>
     				<?php foreach ($item->chars as $i=>$char) { 
-    					echo '<li><a href="'.$clink.$char->pid.'">'.$char->title.'</a></li> ';
+    					echo '<li><a href="'.$chlink.$char->pid.'">'.$char->title.'</a></li> ';
     				} ?>			
     				</ul>
     			<?php endif; ?>

@@ -382,6 +382,36 @@
 			<option value="1">JSHOW</option>
 		</field>
 		
+ 		<field name="catnote" type="note"
+			label="Category Settings"
+			showon="show_cats:1"
+		/>	
+		<field name="show_catpath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) in count and item views. For count view setting can be overridden in menu options"
+			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		
+ 		<field name="tagssnote" type="note"
+			label="Tag Settings"
+			showon="show_tags:1"
+		/>	
+		<field name="show_tagpath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) in count and item views. For count view setting can be overridden in menu options"
+			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		
 	</fieldset>
 
 <!-- LIST LAYOUTS TAB -->				

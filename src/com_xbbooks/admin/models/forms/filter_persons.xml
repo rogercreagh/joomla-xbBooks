@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/filter_persons.xml v0.2.0 23rd February 2021 -->
+<!-- xbBooks admin/models/forms/filter_persons.xml v0.9.9.8 19th October 2022 -->
 <form>
 	<fields name="filter"  addfieldpath="administrator/components/com_xbbooks/models/fields">
 		<field
@@ -25,14 +25,14 @@
 			default="book"
 			onchange="this.form.submit();"			
 		>
-			<option value="all">All people</option>
-			<option value="book">Book people</option>
-			<option value="author">Authors</option>
-			<option value="editor">Editors</option>
-			<option value="other">Other roles</option>
-			<option value="mention">Mentions</option>
+			<option value="all">XBCULTURE_ALL_PEOPLE</option>
+			<option value="book">XBCULTURE_ALL_BOOKROLES</option>
+			<option value="author">XBCULTURE_AUTHORS</option>
+			<option value="editor">XBCULTURE_EDITORS</option>
+			<option value="other">XBCULTURE_OTHER_ROLES</option>
+			<option value="mention">XBCULTURE_MENTIONED</option>
 			<option value="notbook">Not with a book</option>
-			<option value="orphans">Orphans</option>
+			<option value="orphans">XBCULTURE_ORPHANS</option>
 		</field>
 		
 		<field

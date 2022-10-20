@@ -279,7 +279,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 						}?>
 						<?php if ($item->ocnt>0) { 
 							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->olist.'">';
-							echo Text::_('XBCULTURE_OTHER_ROLE_IN').' '.$item->ocnt.' ';
+							echo Text::_('XBCULTURE_OTHER_ROLE_ON').' '.$item->ocnt.' ';
                             echo Text::_(($item->ocnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS'); 
                             echo '</span><br />';
 						}?>

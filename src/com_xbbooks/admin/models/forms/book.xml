@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/book.xml v0.9.9.6 16th August 2022 -->
+<!-- xbBooks admin/models/forms/book.xml v0.9.9.8 21st Octobert 2022 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbbooks/models/fields">
@@ -72,11 +72,19 @@
 			label="XBBOOKS_PUBYEAR" description="XBBOOKS_PUBYEAR_DESC"
 			class="inputbox" size="5" maxlength="4" />
 
+<!-- 
 		<field name="acq_date" type="calendar"
 			label="XBBOOKS_DATE_ACQ_LABEL" description="XBBOOKS_DATE_ACQ_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
 			required="false"
 			showtime="false" translateformat="true" />
+ -->
+		<field name="first_read" type="calendar"
+			label="First Read" description="Date book was first read"
+			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
+			required="false"
+			showtime="false" translateformat="true" 
+			/>
 
 		<field name="last_read" type="calendar"
 			label="XBBOOKS_DATE_READ_LABEL" description="XBBOOKS_DATE_READ_DESC"

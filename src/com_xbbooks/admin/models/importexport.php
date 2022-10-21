@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/importexport.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -1192,7 +1192,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	    	case '#__xbbooks' :
 	    		$select = 'title AS book_title, subtitle, alias AS book_alias, summary AS book_summary, synopsis, 
 					cover_img,pubyear, publisher, orig_lang,edition,format, 
-					 fiction, acq_date, last_read, note AS book_note';
+					 fiction, first_read, last_read, note AS book_note';
 	    		break;
 	    	case '#__xbbookreviews' :
 	    		$select = 'a.title AS review_title, a.alias AS review_alias, b.alias AS book_alias, a.summary AS review_summary, review, 
@@ -1380,7 +1380,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						// $importcnts['mess'] .= $bookalias.', ';
 					} else {
 						$sqlbook = "INSERT INTO #__xbbooks (title,subtitle,alias,summary,synopsis,
-							cover_img,pubyear,publisher,orig_lang,edition,format,acq_date,last_read,
+							cover_img,pubyear,publisher,orig_lang,edition,format,first_read,last_read,
 							note,fiction,catid,state) VALUES ('";
 						$sqlbook .= $db->escape($row['book_title']).$qcq;
 						$sqlbook .= (key_exists('subtitle',$row) ? $db->escape($row['subtitle']) : '').$qcq;
@@ -1403,7 +1403,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						$sqlbook .= (key_exists('orig_lang',$row) ? $db->escape($row['orig_lang']) : '').$qcq;
 						$sqlbook .= (key_exists('edition',$row) ? $db->escape($row['edition']) : '').$qcq;
 						$sqlbook .= (key_exists('format',$row) ? $db->escape($row['format']) : '').$qcq;
-						$sqlbook .= (key_exists('acq_date',$row) ? date('Y-m-d',strtotime($row['acq_date'])) : '').$qcq;
+						$sqlbook .= (key_exists('first_read',$row) ? date('Y-m-d',strtotime($row['first_read'])) : '').$qcq;
 						$sqlbook .= (key_exists('last_read',$row) ? date('Y-m-d',strtotime($row['last_read'])) : '').$qcq;
 											
 						

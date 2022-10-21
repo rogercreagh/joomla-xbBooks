@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 0.9.8.3 23rd May 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -30,7 +30,7 @@ if (!$listOrder) {
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_PUBYEARCOL'),
-	'id'=>'id','acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+	'id'=>'id','first_read'=>Text::_('First Read'),'last_READ'=>Text::_('lAST rEAD'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 	'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 
@@ -131,10 +131,13 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<th class="hidden-phone" style="width:15%;">
 						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
+					<th>
+						<?php echo HTMLHelper::_('searchtools.sort','First','first_read',$listDirn,$listOrder ).'/'; 
+						echo HTMLHelper::_('searchtools.sort','Last','last_read',$listDirn,$listOrder ).' read'; ?>					    
+					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','sort_date',$listDirn,$listOrder ).', '.
-										HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
-						Text::_( 'XBCULTURE_TAGS_U' ); ?>
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';						
+						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
 					<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
 						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
@@ -331,12 +334,15 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						</div>
 										
 					</td>
+					<td><?php if($item->first_read) {
+						  echo HtmlHelper::date($item->first_read , 'd M Y');                      
+                        } ?>
+						<br />
+						<?php  if(($item->last_read) && ($item->last_read != $item->first_read)) {
+						  echo HtmlHelper::date($item->last_read , 'd M Y'); 
+                        } ?>
+					</td>
 					<td>
-    					<p class="xb09"><?php if($item->last_read=='') {
-    						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date ,'d M Y').'</span>';
-    					} else {
-    						echo HtmlHelper::date($item->last_read ,'d M Y'); 
-    					}?> </p>
 						<p><a class="label label-success" href="<?php echo $cvlink.$item->catid; ?>" 
 							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
 								<?php echo $item->category_title; ?>

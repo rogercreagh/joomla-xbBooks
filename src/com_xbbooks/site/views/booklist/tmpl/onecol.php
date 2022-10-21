@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/onecol.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+    'first_read'=>Text::_('First Read'),'last_read'=>Text::_('Last Read'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -91,6 +91,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     						', '.Text::_('XBCULTURE_AUTHOR').', '.
     						HtmlHelper::_('searchtools.sort','XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );
 					?>
+					<?php echo HtmlHelper::_('searchtools.sort','First Read','first_read',$listDirn,$listOrder).', ';
+					   echo HtmlHelper::_('searchtools.sort','Last Read','last_read',$listDirn,$listOrder); ?>
 				</th>					
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>
@@ -104,20 +106,118 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         	<br /><span class="xb08" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
 						</h3>
+						<table>
+						<tr class="xbrow<?php echo $i % 2; ?>">
                   		<?php if($this->show_pic) : ?>
-                          <div class="pull-left" style="width:90px;margin-right:20px;">
-    						<?php  $src = trim($item->cover_img);
+                  			<td style="width:100px;padding-right:20px;">
+    							<?php  $src = trim($item->poster_img);
     							if ((!$src=='') && (file_exists(JPATH_ROOT.'/'.$src))) : 
     								$src = Uri::root().$src; 
-    								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; 
-    								?>
-    								<img class="img-polaroid hasTooltip" title="" 
-    									data-original-title="<?php echo $tip; ?> data-placement="right"
-    									src="<?php echo $src; ?>" border="0" alt="" />							                          
-    	                     <?php  endif; ?>
-                          </div>   
+    								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; ?>
+    								<img class="img-polaroid hasPopover" title="" 
+    									data-original-title="" data-content="<?php echo $tip; ?> data-placement="right"
+    									src="<?php echo $src; ?>" border="0" alt="" 
+    								/>
+    	                  		<?php  endif; ?>
+                          </td>   
                         <?php endif; ?>
-						<p>
+                        <td>
+						<p><span class="<?php echo ($item->authcnt>1) ? 'icon-users' : 'icon-user'; ?>"></span>&nbsp;
+                        	<?php if ($item->authcnt==0) {
+                        		echo '<span class="xbnit">'.Text::_('unlisted author').'</span>';
+                        	} else { ?> 
+	                        	<span class="xbnit">
+	                        		<?php echo $item->authcnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR' ); ?>
+	                        	</span>: 
+                        		<?php echo $item->alist; 
+                        	} ?>                          	
+							<br />
+							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
+								<?php echo Text::_('Published'); ?>
+							</span>
+							<?php if($item->pubyear > 0) { echo ': '.$item->pubyear; } else { echo '<i>'.Text::_('uknown').'</i>';}?>	
+							<br />
+							<span class="icon-screen"></span>&nbsp;
+                            <?php if($this->show_sum) : ?>
+    							<?php if (!empty($item->summary)) : ?>
+    								<?php echo '<i>'.Text::_('Summary').'</i>: '.$item->summary; ?>
+        						<?php else : ?>
+        							<span class="xbnit">
+        							<?php if (!empty($item->synopsis)) : ?>
+        								<?php echo Text::_('synopsis extract'); ?>: </span>
+        								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,250); ?>
+        							<?php else : ?>
+                						<span class="xbnote">
+        								<?php echo Text::_('No summary or synopsis provided'); ?>
+        								</span></span>
+        							<?php endif; ?>
+        						<?php endif; ?>
+                                <?php if (!empty($item->synopsis)) : ?>
+                                	&nbsp;<span class="xbnit xb09">   
+                                     <?php 
+                                     	echo Text::_('XBCULTURE_SYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
+                                     ?>
+                                     </span>
+        						<?php endif; ?>
+                        	<?php endif; ?>
+							<br />	
+							<?php if($this->show_rev) : ?>
+								<span class="icon-pencil-2"></span> &nbsp;
+								<?php if ($item->revcnt==0) : ?>
+									<i><?php echo Text::_('No reviews available'); ?></i>
+								<?php else : ?>
+									<i>
+								    <?php if($item->revcnt==1) {
+								        echo $item->revcnt.' '.Text::_('review with rating');
+								    } else {
+								        echo $item->revcnt.' '.Text::_('reviews, average rating');
+								    } ?>
+									</i> &nbsp;
+								    <?php $stars = (round(($item->averat)*2)/2); 
+								    if (($this->zero_rating) && ($stars==0)) : ?>
+    								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+    								<?php else : 
+    								    echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
+    								    if (($item->averat - floor($item->averat))>0) : ?>
+    	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
+    	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
+    	                                <?php  endif; ?> 
+    	                             <?php endif; ?>                        								    
+								<?php endif; ?>
+								<br />
+							<?php endif; ?>					
+		                    <?php if(($this->showcat) || ($this->showtags)) : ?>
+         						<?php if($this->showcat) : ?>	
+		     						<span class="icon-folder"></span> &nbsp;	
+         							<?php if($this->showcat==2) : ?>											
+        								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
+        							<?php else: ?>
+        								<span class="label label-success"><?php echo $item->category_title; ?></span>
+        							<?php endif; ?>
+        						<?php endif; ?>
+        						<?php if($this->showtags) : ?>
+        							<br />
+        						    <span class="icon-tags"></span> &nbsp;
+        							<?php $tagLayout = new FileLayout('joomla.content.tagline');
+            						echo $tagLayout->render($item->tags); ?>
+        						<?php endif; ?>
+	                		<?php endif; ?>
+	                		<?php if ($this->show_bdates) : ?>       				
+        						<br />
+        						<?php if($item->first_read) {
+						          echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('First read').'</i>: '.HtmlHelper::date($item->first_read , 'D jS M Y'); 
+								}
+								if(($item->last_read) && ($item->last_read != $item->first_read)) {
+								    echo ' -&nbsp;<i>'.Text::_('Last read').'</i>: '.HtmlHelper::date($item->last_read , 'D jS M Y'); 
+        					   }
+        					   if((!$item->last_read) && (!$item->first_read)) {
+        					       echo '<i>'.Text::_('not yet read').'</i>';
+        					   }
+        					?>
+							<?php endif; ?>
+	                	</p>
+	                	
+	                							<p>
                         <?php if($item->editcnt>0) : ?>
                            	<?php if ($item->authcnt>0) {
 								echo '<span class="xbpop xbcultpop xbfocus" data-trigger="focus" tabindex="'.$item->id.'" 
@@ -140,69 +240,19 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         	} ?>                          	
                         <?php endif; ?>
 						</p>
-						
-						<p>
-							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
-								<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
-							</span>
-							<?php if($item->pubyear > 0) { echo ': '.$item->pubyear; }?>	
-							<br />
-							<span class="icon-book"></span>&nbsp;
-                            <?php if($this->show_sum) : ?>
-    							<?php if (!empty($item->summary)) : ?>
-    								<?php echo $item->summary; ?>
-        						<?php else : ?>
-        							<span class="xbnit">
-        							<?php if (!empty($item->synopsis)) : ?>
-        								<?php echo Text::_('XBBOOKS_SYNOPSIS_EXTRACT'); ?>: </span>
-        								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,250); ?>
-        							<?php else : ?>
-                						<span class="xbnote">
-        								<?php echo Text::_('XBBOOKS_NO_SUMMARY_SYNOPSIS'); ?>
-        								</span></span>
-        							<?php endif; ?>
-        						<?php endif; ?>
-                                <?php if (!empty($item->synopsis)) : ?>
-                                	&nbsp;<span class="xbnit xb09">   
-                                     <?php 
-                                     	echo Text::_('XBCULTURE_SYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
-                                     ?>
-                                     </span>
-        						<?php endif; ?>
-                        	<?php endif; ?>
-							<br />						
-		                    <?php if($this->show_ctcol) : ?>		                    	
-         						<?php if(($this->showcat) || ($this->showfict))  : ?>	
-		     						<span class="icon-folder"></span> &nbsp;	
-		     					<?php endif; ?>									
-         						<?php if($this->showcat) : ?>
-         							<?php if($this->showcat==2) : ?>											
-        								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
-        							<?php else: ?>
-        								<span class="label label-success"><?php echo $item->category_title; ?></span>
-        							<?php endif; ?>
-        						<?php endif; ?>
-            					<?php if ($this->showfict) : ?>
-            					   <?php if ($item->fiction==1) : ?>
-            					   		<span class="label">fiction</span>
-            					   <?php else : ?>
-            					   		<span class="label label-inverse">non-fiction</span>
-            					   <?php endif; ?> 
-            					<?php endif; ?>
-        						<?php if($this->showtags) : ?>
-        		    				<br />
-        						    <span class="icon-tags"></span> &nbsp;
-        							<?php $tagLayout = new FileLayout('joomla.content.tagline');
-            						echo $tagLayout->render($item->tags); ?>
-        						<?php endif; ?>            					
-	                		<?php endif; ?>
-	                	</p>
+	                	
+						</td></tr></table>
 					</td>
 				</tr>
 				<?php endforeach;?>
 			</tbody>
 		</table>
-		<?php echo $this->pagination->getListFooter(); ?>
+						
+						
+						
+						
+
+			<?php echo $this->pagination->getListFooter(); ?>
 	<?php endif; ?>
 	<?php echo HtmlHelper::_('form.token'); ?>
       </div>

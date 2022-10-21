@@ -18,8 +18,8 @@ class XbbooksModelBooklist extends JModelList {
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
-					'pubyear','a.pubyear', 'fiction',
-					'averat', 'sort_date', 'last_read', 'a.last_read',
+			    'pubyear','a.pubyear', 'fiction', 'first_read', 'a.first_read', 
+					'averat', 'last_read', 'a.last_read',
 					'catid', 'a.catid', 'category_id', 'tagfilt',
 					'category_title' );
 		}
@@ -57,7 +57,7 @@ class XbbooksModelBooklist extends JModelList {
 		$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias,
             a.summary AS summary, a.pubyear AS pubyear, a.catid AS catid, a.fiction AS fiction,
             a.cover_img AS cover_img, a.synopsis AS synopsis, a.state AS published,
-            a.created AS created, a.acq_date AS acq_date, a.last_read AS last_read,
+            a.created AS created, a.first_read AS first_read, a.last_read AS last_read,
             a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
@@ -71,7 +71,7 @@ class XbbooksModelBooklist extends JModelList {
 //           $query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS br WHERE br.book_id=a.id AND br.state=1) AS revcnt');
             $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
 //          $query->select('(SELECT MAX(r.rev_date) FROM #__xbbookreviews AS r WHERE r.book_id=a.id) AS lastread');
-            $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
+//            $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
             
             // Filter by published state, we only show published items in front end. Both item and its category must be published.
             $query->where('a.state = 1');
@@ -211,10 +211,14 @@ class XbbooksModelBooklist extends JModelList {
             
             
             // Add the list ordering clause.
-            $orderCol       = $this->state->get('list.ordering', 'sort_date');
+            $orderCol       = $this->state->get('list.ordering', 'last_read');
             $orderDirn      = $this->state->get('list.direction', 'DESC');
             switch($orderCol) {
-            	case 'a.ordering' :
+                case 'last_read' :
+                case 'first_read' :
+                    $query->order('CASE WHEN '.$orderCol.' IS NULL THEN 1 ELSE 0 END, '.$orderCol.' '.$orderDirn.', title');
+                    break;
+                case 'a.ordering' :
             	case 'a.catid' :
             		//needs a menu option to set orderCol to ordering. Also menu option to alllow user to reorder on table
             		$query->order('category_title '.$orderDirn.', a.ordering');

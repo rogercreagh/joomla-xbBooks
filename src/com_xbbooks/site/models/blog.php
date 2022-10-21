@@ -32,8 +32,8 @@ class XbbooksModelBlog extends JModelList {
 					'category_title', 'c.title',
 					'catid', 'a.catid', 'category_id', 'tagfilt',
 					'bcatid', 'b.catid', 'bcategory_id',
-					'acq_date', 'a.acq_date',
-					'published','a.state',
+			    'first_read', 'a.first_read', 'last_read', 'a.last_read',
+			    'published','a.state',
 					'rel_year','a.rel_year');
 		}
 		parent::__construct($config);

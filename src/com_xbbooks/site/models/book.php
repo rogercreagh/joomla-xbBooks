@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,7 +33,7 @@ class XbbooksModelBook extends JModelItem {
 			$db = $this->getDbo();
 			$query = $db->getQuery(true);
 			$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.cover_img AS cover_img, a.pubyear AS pubyear,
-				a.summary AS summary, a.synopsis AS synopsis, a.publisher AS publisher, a.acq_date AS acq_date, a.last_read AS last_read,
+				a.summary AS summary, a.synopsis AS synopsis, a.publisher AS publisher, a.first_read AS first_read, a.last_read AS last_read,
 				a.ext_links AS ext_links, a.fiction AS fiction, a.orig_lang AS orig_lang, a.edition AS edition, a.format AS format,
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
 			$query->from('#__xbbooks AS a');

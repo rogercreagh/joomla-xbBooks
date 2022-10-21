@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.8.6 1st June 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -97,14 +97,20 @@ $document->addStyleDeclaration($style);
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBCULTURE_DETAILS')); ?>
 		<div class="row-fluid">
     		<div class="span6">
-          		<h4>Content</h4>
-          		<p>Synopsis</p>
-    			<?php echo $this->form->getInput('synopsis'); ?>
-    		</div>
+    			<div class="row_fluid">
+    				<div class="span6">
+                 		<?php echo $this->form->renderField('first_read'); ?>
+        			</div>
+        			<div class="span6">
+        				<?php echo $this->form->renderField('last_read'); ?>
+        			</div>
+				</div>
+      			<h4>Content</h4>
+      			<p>Synopsis</p>
+				<?php echo $this->form->getInput('synopsis'); ?>
+			</div>
     		<div class="span3 form-vertical">
           		<h4>Book Info</h4>
-        		<?php echo $this->form->renderField('acq_date'); ?>
-        		<?php echo $this->form->renderField('last_read'); ?>
           		<?php echo $this->form->renderField('fiction'); ?>   					
         		<?php echo $this->form->renderField('format'); ?>
         		<?php echo $this->form->renderField('orig_lang'); ?>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 0.9.9.8 20th October 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,7 +26,7 @@ class XbbooksModelBooks extends JModelList
         		'category_title', 'c.title',
         		'catid', 'a.catid', 'category_id',
         		'acq_date', 'a.acq_date',
-                'sort_date', 'a.sort_date',
+                'a.first_read', 'last_read',
         		'published','a.state',
         		'pubyear','a.pubyear'
             );
@@ -46,7 +46,7 @@ class XbbooksModelBooks extends JModelList
         $query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias, 
             a.summary AS summary, a.pubyear AS pubyear, a.catid AS catid, a.fiction AS fiction,
             a.cover_img AS cover_img, a.synopsis AS synopsis, a.state AS published, 
-            a.created AS created, a.created_by AS created_by, a.acq_date AS acq_date, a.last_read AS last_read,
+            a.created AS created, a.created_by AS created_by, a.first_read AS first_read, a.last_read AS last_read,
             a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
@@ -63,7 +63,7 @@ class XbbooksModelBooks extends JModelList
 
         $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
 //        $query->select('(SELECT MAX(fr.rev_date) FROM #__xbbookreviews AS fr WHERE fr.book_id=a.id) AS lastread');
-        $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
+//        $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
         
         
 		// Filter by published state
@@ -77,7 +77,7 @@ class XbbooksModelBooks extends JModelList
         // Filter by category.
         $categoryId = $app->getUserStateFromRequest('catid', 'catid','');
         $app->setUserState('catid', '');
-        $subcats=0;
+//        $subcats=0;
         if ($categoryId=='') {
         	$categoryId = $this->getState('filter.category_id');
 //        $subcats = $this->getState('filter.subcats');
@@ -178,15 +178,17 @@ class XbbooksModelBooks extends JModelList
         } //end if $tagfilt
         
         // Add the list ordering clause.
-        $orderCol       = $this->state->get('list.ordering', 'sort_date');
+        $orderCol       = $this->state->get('list.ordering', 'last_read');
         $orderDirn      = $this->state->get('list.direction', 'DESC');
-        if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
-                $orderCol = 'category_title '.$orderDirn.', a.ordering'; 
+        if (($orderCol == 'last_read') || ($orderCol == 'first_read')) {
+            $query->order('CASE WHEN '.$orderCol.' IS NULL THEN 1 ELSE 0 END, '.$orderCol.' '.$orderDirn);
+        } else {
+            if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
+                $orderCol = 'category_title '.$orderDirn.', a.ordering';
+            }
+            $query->order($db->escape($orderCol.' '.$orderDirn.', title'));
         }
-
-        $query->order($db->escape($orderCol.' '.$orderDirn));
-
-		$query->group('a.id');
+        $query->group('a.id');
         return $query;
     }
 

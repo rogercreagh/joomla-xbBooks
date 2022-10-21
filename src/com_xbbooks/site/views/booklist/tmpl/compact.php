@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,7 +26,7 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 
-    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'), 'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), );
+    'first_read'=>Text::_('First Read'), 'last_read'=>Text::_('Last Read'), );
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -87,7 +87,8 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				<?php endif; ?>
 				<?php if ($this->show_bdates) : ?>				
     				<th class="hidden-phone">
-    					<?php echo HTMLHelper::_('searchtools.sort','XBBOOKS_DATE_READ','sort_date',$listDirn,$listOrder ); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','First','first_read',$listDirn,$listOrder ).'-'; ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Last','last_read',$listDirn,$listOrder ).' read'; ?>
     				</th>
     			<?php endif; ?>
 			</tr>
@@ -149,11 +150,14 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     				<?php endif; ?>
     				<?php if ($this->show_bdates ) : ?>   				
     					<td class="hidden-phone">
-        					<p><?php if($item->last_read=='') {
-        						echo '<span class="xbnit">(Acq.)'.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
-        					} else {
-        						echo HtmlHelper::date($item->last_read , 'd M Y'); 
-        					}?> </p>
+        					<p><?php if($item->first_read) {
+						          echo HtmlHelper::date($item->first_read , 'j M y');
+        					   }
+    					       echo ' - ';
+        					   if(($item->last_read) && ($item->last_read != $item->first_read)) {
+        					       echo HtmlHelper::date($item->last_read , 'j M y'); 
+        					   }
+        					?> </p>
     					</td>
     				<?php endif; ?>
 				</tr>

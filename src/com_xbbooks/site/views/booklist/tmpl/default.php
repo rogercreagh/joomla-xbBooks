@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,8 +27,8 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_YEARPUB'), 
-    'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),
-    'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+    'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 'first_read'=>Text::_('First Read'),
+    'last_read'=>Text::_('Last Read'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -110,7 +110,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                 <?php endif; ?>
                 <?php if ($this->show_bdates) : ?>
     				<th>
-    					<?php echo HtmlHelper::_('searchtools.sort','Read/Acquired','sort_date',$listDirn,$listOrder ); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','First','first_read',$listDirn,$listOrder ).'/'; ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Last','last_read',$listDirn,$listOrder ).' read'; ?>
     				</th>
 				<?php endif; ?>
                 <?php if($this->show_ctcol) : ?>
@@ -249,11 +250,14 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     				<?php endif; ?>
     				<?php if($this->show_bdates) :?>
     				<td>
-    					<p><?php if($item->last_read=='') {
-    						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
-    					} else {
-    						echo HtmlHelper::date($item->last_read , 'd M Y'); 
-    					}?> </p>
+        					<p><?php if($item->first_read) {
+        					    echo HtmlHelper::date($item->first_read , 'D j M Y');
+        					   }
+    					       echo '<br />';
+    					       if(($item->last_read) && ($item->last_read != $item->first_read)) {
+    					           echo HtmlHelper::date($item->last_read , 'D j M Y'); 
+        					   }
+        					?> </p>
      				</td>
      				<?php endif; ?>
                     <?php if($this->show_ctcol) : ?>

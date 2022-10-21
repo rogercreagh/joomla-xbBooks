@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/characters.php
- * @version 0.9.9.6 24th August 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -120,13 +120,15 @@ class XbbooksModelCharacters extends JModelList {
                 $taglogic = $this->getState('params')['menu_taglogic']; //1=AND otherwise OR
             }
             
-            if (($searchbar==1) && (empty($tagfilt))) { 	//look for menu options
-                //look for filter options and ignore menu options
-                $tagfilt = $this->getState('filter.tagfilt');
-                $taglogic = $this->getState('filter.taglogic'); //1=AND otherwise OR
-            }
-            
-            if ($tagfilt && is_array($tagfilt)) {
+            if (empty($tagfilt)) {
+                $subQuery = '(SELECT content_item_id FROM #__contentitem_tag_map
+ 					WHERE type_alias LIKE '.$db->quote('com_xbpeople.character').')';
+                if ($taglogic === '1') {
+                    $query->where('a.id NOT IN '.$subQuery);
+                } elseif ($taglogic === '2') {
+                    $query->where('a.id IN '.$subQuery);
+                }
+            } else {
                 $tagfilt = ArrayHelper::toInteger($tagfilt);
                 $subquery = '(SELECT tmap.tag_id AS tlist FROM #__contentitem_tag_map AS tmap
                 WHERE tmap.type_alias = '.$db->quote('com_xbpeople.character').'
@@ -143,14 +145,19 @@ class XbbooksModelCharacters extends JModelList {
                         }
                         break;
                     default: //any
-                        $conds = array();
-                        for ($i = 0; $i < count($tagfilt); $i++) {
-                            $conds[] = $tagfilt[$i].' IN '.$subquery;
+                        if (count($tagfilt)==1) {
+                            $query->where($tagfilt[0].' IN '.$subquery);
+                        } else {
+                            $tagIds = implode(',', $tagfilt);
+                            if ($tagIds) {
+                                $subQueryAny = '(SELECT DISTINCT content_item_id FROM #__contentitem_tag_map
+                                WHERE tag_id IN ('.$tagIds.') AND type_alias = '.$db->quote('com_xbpeople.character').')';
+                                $query->innerJoin('(' . (string) $subQueryAny . ') AS tagmap ON tagmap.content_item_id = a.id');
+                            }
                         }
-                        $query->extendWhere('AND', $conds, 'OR');
                         break;
                 }
-            } //endif tagfilt
+            } //end if $tagfilt
             
             // Add the list ordering clause.
             $orderCol       = $this->state->get('list.ordering', 'name');

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks config.xml v0.9.9.4 26th July 2022 -->
+<!-- xbBooks config.xml v0.9.9.8 22nd October 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -382,36 +382,6 @@
 			<option value="1">JSHOW</option>
 		</field>
 		
- 		<field name="catnote" type="note"
-			label="Category Settings"
-			showon="show_cats:1"
-		/>	
-		<field name="show_catpath" type="radio"
-			label="Show Parents (hierarchy)"
-			description="Show parents (if not level 1) in count and item views. For count view setting can be overridden in menu options"
-			class="btn-group btn-group-yesno"
-			showon="show_cats:1"
-			default="1"
-			>
-			<option value="0" >JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
-		
- 		<field name="tagssnote" type="note"
-			label="Tag Settings"
-			showon="show_tags:1"
-		/>	
-		<field name="show_tagpath" type="radio"
-			label="Show Parents (hierarchy)"
-			description="Show parents (if not level 1) in count and item views. For count view setting can be overridden in menu options"
-			class="btn-group btn-group-yesno"
-			showon="show_tags:1"
-			default="1"
-			>
-			<option value="0" >JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
-		
 	</fieldset>
 
 <!-- LIST LAYOUTS TAB -->				
@@ -564,6 +534,12 @@
 			    
   		<field name="catlistnote" type="note"
 			label="Category Counts View Options"
+			showon="show_cats:1"
+			class="info"
+		/>	
+  		<field name="nocatlistnote" type="note"
+			label="Categories are disabled for xbFilms Component"
+			showon="show_cats:0"
 			class="info"
 		/>	
 		<field name="show_cat_desc" type="radio"
@@ -571,6 +547,7 @@
 			label="Show Description"
 			description="Show category description column"
   			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
 			>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>
@@ -580,11 +557,23 @@
 			label="Show Empty Categories"
 			description="Show categories which have no items"
   			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
 			>
 				<option value="0" >No</option>
 				<option value="1">Yes</option>
 		</field>	
-		<field name="show_cat_parent" type="radio"
+		<field name="show_catspath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) as column before title in list views."
+			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+<!-- 
+ 		<field name="show_cat_parent" type="radio"
 			default="1"
 			label="Show Category parents"
 			description="Show category hierarchy - requires showing empty categories, sort will be by parent then title"
@@ -594,11 +583,39 @@
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>
 		</field>	
+ -->
 		
   		<field name="taglistnote" type="note"
 			label="Tag Counts View Options"
 			class="info"
+			showon="show_tags:1"
 		/>	
+  		<field name="notaglistnote" type="note"
+			label="Tags are disabled for xbFilms Component"
+			showon="show_tags:0"
+			class="info"
+		/>	
+		<field name="show_tlist_desc" type="radio"
+			default="1"
+			label="Show Description"
+			description="Show description column"
+  			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
+			>
+				<option value="0" >No</option>
+				<option value="1">Yes</option>
+		</field>	
+		<field name="show_tagspath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) as column before title in list view."
+			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		<!-- 
 		<field name="show_tag_desc" type="radio"
 			default="1"
 			label="Show Description"
@@ -617,6 +634,7 @@
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>
 		</field>	
+		 -->
 		
  	</fieldset>
  	
@@ -631,8 +649,8 @@
 			description="Hide empty fields or show labels for them. Showing empty fields will make the display consistent between items, but wastes space if you are not using some fields"
  			class="btn-group btn-group-yesno"
 			>
-				<option value="0" >JNO</option>
-				<option value="1">JYES</option>
+				<option value="0" >JSHOW</option>
+				<option value="1">JHIDE</option>
 		</field>	
 		
   		<field name="booknote" type="note"
@@ -648,6 +666,7 @@
  		<field name="show_bimage" type="list"
 			label="Show Image"
 			description="Show image, and in which position"
+			default="1"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Show to left of title</option>
@@ -661,7 +680,8 @@
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Rating only</option>
-			<option value="2">Show Ratings and Reviews</option>
+			<option value="2">Summary</option>
+			<option value="3">Full Reviews</option>
 		</field>	
 
   		<field name="revnote" type="note"
@@ -686,11 +706,12 @@
 			<option value="1">Show to left of title</option>
 			<option value="2">Show to right of title</option>
 		</field>	
-
-  		<field name="personnote" type="note"
-			label="Person View Options"
+  		<field name="personcharnote" type="note"
+			label="Person &amp; Character View Options"
+			description="Options for indivdual people and character views are set in the xbPeople Component options"
 			class="info"
-		/>			
+		/>		
+<!-- 
 		<field name="person_layout" type="componentlayout"
 	        label="JFIELD_ALT_LAYOUT_LABEL"
 	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
@@ -726,46 +747,71 @@
 			<option value="1">Show to left of name</option>
 			<option value="2">Show to right of name</option>
 		</field>       
+ -->	
 
   		<field name="categorynote" type="note"
 			label="Category View Options"
 			description="Options for the Category view which lists all the items in a category."
 			class="info"
+			showon="show_cats:1"
 		/>			
-		<field name="category_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="category" 
-	    />
+  		<field name="nocatnote" type="note"
+			label="Categories are disabled for xbFilms Component"
+			showon="show_cats:0"
+			class="info"
+		/>	
 		<field name="show_catdesc" type="radio" 
 	        label="Show Description"
 	        description="Show category description under the name"
 			class="btn-group btn-group-yesno"
 			default="1"
+			showon="show_cats:1"
 	    	>
 	        	<option value="0">JNO</option>
 	        	<option value="1">JYES</option>
 		</field>       
+		<field name="show_catpath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) before title."
+			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
 
   		<field name="tagnote" type="note"
 			label="Tag View Options"
 			description="Options for the Category view which lists all the items in a category."
 			class="info"
+			showon="show_tags:1"
 		/>			
-		<field name="tag_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="tag" 
-	    />
+  		<field name="notagnote" type="note"
+			label="Tags are disabled for xbFilms Component"
+			showon="show_cats:0"
+			class="info"
+		/>	
 		<field name="show_tagdesc" type="radio" 
 	        label="Show Description"
 	        description="Show tag description under the name and above the lists,"
 			class="btn-group btn-group-yesno"
 			default="1"
+			showon="show_tags:1"
 	    	>
 	        	<option value="0">JNO</option>
 	        	<option value="1">JYES</option>
 		</field>       
+		<field name="show_tagpath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) as column before title in list view."
+			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
 
 	</fieldset>
 

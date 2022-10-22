@@ -23,7 +23,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='acq_date';
+    $listOrder='last_read';
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_YEARPUB'), 

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooksgeneral.php
- * @version 0.9.8.9 10th June 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -46,6 +46,100 @@ class XbbooksGeneral {
             $r->tagcnt = count($r->tags);
         }
         return $revs;
+    }
+    
+    /**
+     * @name getBookPeople
+     * @desc given a book id returns array of people objects, can be filtered by role
+     * @param int $bookid
+     * @param string $role if set return only those with a specific role, or '' for all roles
+     * @return Array of objects (empty if no match) with properties name, link, role, note (plus others not used outside this function : firstname, lastname, id, pstate
+     */
+    public static function getBookPeople($bookid, $role='') {
+        $isadmin = Factory::getApplication()->isClient('administrator');
+        $plink = 'index.php?option=com_xbpeople&view=person';
+        if ($isadmin) {
+            $plink .= '&layout=edit';
+        }
+        $plink .= '&id=';
+        //$plink .= $edit ? '&task=person.edit&id=' : '&view=person&id=';
+        $db = Factory::getDBO();
+        $query = $db->getQuery(true);
+        $query->select('a.role, a.role_note AS note, p.firstname, p.lastname, p.id, p.state AS pstate')
+        ->from('#__xbbookperson AS a')
+        ->join('LEFT','#__xbpersons AS p ON p.id=a.person_id')
+        ->join('LEFT','#__xbbooks AS f ON f.id=a.book_id')
+        ->where('a.book_id = "'.$bookid.'"' );
+        if (!$isadmin) {
+            $query->where('p.state = 1');
+        }
+        if (!empty($role)) {
+            $query->where('a.role = "'.$role.'"');
+        } else { //order by role and listorder first
+            //TODO make role names and order into param or table
+            $query->order('(case a.role when '.$db->quote('author').' then 0
+            when '.$db->quote('editor').' then 1
+            when '.$db->quote('other').' then 2
+            when '.$db->quote('mention').' then 3
+            end)');
+            $query->order('a.listorder ASC');
+        }
+        //TODO use global name order param
+        $query->order(array('p.lastname','p.firstname'));
+        
+        $db->setQuery($query);
+        $people = $db->loadObjectList();
+        
+        foreach ($people as $i=>$p){
+            $p->link = Route::_($plink . $p->id);
+            $p->name = ($p->firstname!='') ? $p->firstname.' ' : '';
+            $p->name .= $p->lastname;
+            //if not published highlight in yellow if editable
+            if ($p->pstate != 1) {
+                $p->name = '<span class="xbhlt">'.$p->name.'</span>';
+            }
+        }
+        return $people;
+    }
+    
+    /**
+     * @name getBookChars
+     * @desc given a book id returns array of chaaracter objects, can be filtered by role
+     * @param int $bookid
+     * @return Array of objects (empty if no match) with properties name, link, role, note including actor name if available
+     */
+    public static function getBookChars($filmid) {
+        $admin = Factory::getApplication()->isClient('administrator');
+        $link = 'index.php?option=com_xbbooks'. ($admin) ? '&task=character.edit&id=' : '&view=character&id=';
+        $db = Factory::getDBO();
+        $query = $db->getQuery(true);
+        
+        $query->select('c.name, c.id, c.state AS chstate, a.char_note, a.actor_id AS aid, p.firstname AS firstname,p.lastname AS lastname')
+        ->from('#__xbbookcharacter AS a')
+        ->join('LEFT','#__xbcharacters AS c ON c.id=a.char_id')
+        ->where('a.book_id = "'.$bookid.'"' );
+        if (!$admin) {
+            $query->where('c.state = 1');
+        }
+        $query->order('a.book_id, a.listorder', 'ASC');
+        try {
+            $db->setQuery($query);
+            $list = $db->loadObjectList();
+        } catch (Exception $e) {
+            return '';
+        }
+        if (!empty($list)) {
+            foreach ($list as $i=>$item){
+                $item->link = Route::_($link . $item->id);
+                if ($item->chstate != 1) {
+                    $item->name = '<span style="background:yellow;">'.$item->name.'</span>';
+                }
+                $item->role='char';
+                $item->note = $item->char_note;
+                
+            }
+        }
+        return $list;
     }
     
     /**

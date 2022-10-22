@@ -158,14 +158,14 @@ class XbbooksModelBook extends JModelAdmin {
         }
         //if acq_date empty then if last_read is set copy it to acq_date
         //if acq_date empty and last_read not set then set acq_date to today
-        if (empty($table->acq_date)) {
-            if (!empty($table->last_read)) {
-                $table->acq_date = $table->last_read;
-            } else {
-        	   //default to today
-            	$table->acq_date = $date->toSql();
-            }
-        }            
+//         if (empty($table->acq_date)) {
+//             if (!empty($table->last_read)) {
+//                 $table->acq_date = $table->last_read;
+//             } else {
+//         	   //default to today
+//             	$table->acq_date = $date->toSql();
+//             }
+//         }            
         if (empty($table->created)) {
             $table->created = $date->toSql();
         }

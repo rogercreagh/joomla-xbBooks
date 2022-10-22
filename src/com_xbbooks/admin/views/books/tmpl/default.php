@@ -26,7 +26,7 @@ $userId         = $user->get('id');
 $listOrder     = $this->escape($this->state->get('list.ordering'));
 $listDirn      = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='sort_date';
+    $listOrder='last_read';
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_PUBYEARCOL'),

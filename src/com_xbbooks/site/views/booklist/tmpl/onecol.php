@@ -23,7 +23,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='sort_date';
+    $listOrder='last_read';
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
@@ -110,7 +110,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<tr class="xbrow<?php echo $i % 2; ?>">
                   		<?php if($this->show_pic) : ?>
                   			<td style="width:100px;padding-right:20px;">
-    							<?php  $src = trim($item->poster_img);
+    							<?php  $src = trim($item->cover_img);
     							if ((!$src=='') && (file_exists(JPATH_ROOT.'/'.$src))) : 
     								$src = Uri::root().$src; 
     								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; ?>

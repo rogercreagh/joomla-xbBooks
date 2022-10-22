@@ -16,6 +16,8 @@ use Joomla\CMS\Router\Route;
 
 class XbbooksModelCharacters extends JModelList {
 
+    protected $xbfilmsStatus;
+    
     public function __construct($config = array()) {
         
         if (empty($config['filter_fields'])) {
@@ -24,7 +26,7 @@ class XbbooksModelCharacters extends JModelList {
             		'name', 'a.name',
             		'ordering','a.ordering',
             		'category_title', 'c.title',
-            		'catid', 'a.catid', 'category_id',
+                'catid', 'a.catid', 'category_id', 'tagfilt', 'taglogic',
             		'published','a.state'	
             );
         }
@@ -48,9 +50,11 @@ class XbbooksModelCharacters extends JModelList {
 
             ->from($db->quoteName('#__xbcharacters','a'));
         
-        $query->select('(GROUP_CONCAT(b.book_id SEPARATOR '.$db->quote(',') .')) AS booklist')
-            ->join('LEFT OUTER',$db->quoteName('#__xbbookcharacter', 'b') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('b.char_id'));
-        
+        $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookcharacter AS bp WHERE bp.char_id = a.id) AS bcnt');
+            if ($this->xbfilmsStatus) $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmcharacter AS fp WHERE fp.char_id = a.id) AS fcnt');
+            //        $query->select('(GROUP_CONCAT(b.film_id SEPARATOR '.$db->quote(',') .')) AS filmlist');
+        $query->join('LEFT OUTER',$db->quoteName('#__xbbookcharacter', 'b') . ' ON ' . $db->quoteName('b.char_id') . ' = ' .$db->quoteName('a.id'));
+                    
         $query->select('c.title AS category_title')
             ->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
@@ -188,30 +192,34 @@ class XbbooksModelCharacters extends JModelList {
         // we are going to add the list of characters for each book
         $tagsHelper = new TagsHelper;
         foreach ($items as $i=>$item) { 
-            $item->books = $this->getCharacterArray($item->id);
-            
+            $item->books = ($item->bcnt>0) ? XbcultureHelper::getCharBooks($item->id) : '';
+            $item->booklist = '';
+            foreach ($item->books as $book) {
+                $item->booklist .= $book->listitem;
+            }           
 	        $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
         } //end foreach item
-	        return $items;
+	    return $items;
     }
+    
 
-    public function getCharacterArray($personid) {
-        $link = 'index.php?option=com_xbbooks&task=book.edit&id=';
-        $db = Factory::getDBO();
-        $query = $db->getQuery(true);
+//     public function getCharacterArray($personid) {
+//         $link = 'index.php?option=com_xbbooks&task=book.edit&id=';
+//         $db = Factory::getDBO();
+//         $query = $db->getQuery(true);
         
-        $query->select('b.title, b.subtitle, b.pubyear, b.id')
-            ->from('#__xbbookcharacter AS a')
-            ->join('LEFT','#__xbbooks AS b ON b.id=a.book_id')
-            ->where('a.char_id = "'.$personid.'"' )
-            ->order('b.pubyear, b.title', 'ASC');
-        $db->setQuery($query);
-        $list = $db->loadObjectList();
-        foreach ($list as $i=>$item){
-            $tlink = Route::_($link . $item->id);
-            $item->link = '<a href="'.$tlink.'">'.$item->title.'</a>';
-            $item->display = $item->title;
-        }
-        return $list;
-    }   
+//         $query->select('b.title, b.subtitle, b.pubyear, b.id')
+//             ->from('#__xbbookcharacter AS a')
+//             ->join('LEFT','#__xbbooks AS b ON b.id=a.book_id')
+//             ->where('a.char_id = "'.$personid.'"' )
+//             ->order('b.pubyear, b.title', 'ASC');
+//         $db->setQuery($query);
+//         $list = $db->loadObjectList();
+//         foreach ($list as $i=>$item){
+//             $tlink = Route::_($link . $item->id);
+//             $item->link = '<a href="'.$tlink.'">'.$item->title.'</a>';
+//             $item->display = $item->title;
+//         }
+//         return $list;
+//     }   
 }

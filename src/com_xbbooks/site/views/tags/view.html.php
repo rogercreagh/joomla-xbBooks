@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/tags/view.html.php
- * @version 0.8.3 18th March 2021
+ * @version 0.9.9.8 18th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,8 +32,8 @@ class XbbooksViewTags extends JViewLegacy {
 		$this->header['subtitle'] = $this->params->get('list_subtitle','','text');
 		$this->header['text'] = $this->params->get('list_headtext','','text');
 		
-		$this->show_desc = $this->params->get('show_desc','','int');
-		$this->show_parent = $this->params->get('show_parent','','int');
+		$this->show_desc = $this->params->get('show_desc','1','int');
+		$this->show_tagspath = $this->params->get('show_tagspath','1','int');
 		
 		$app = Factory::getApplication();
 		$this->tagtype = $app->getUserState('fmtype');

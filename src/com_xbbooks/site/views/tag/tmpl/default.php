@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/tag/tmpl/default.php
- * @version 0.9.9.8 17th October 2022
+ * @version 0.9.9.8 18th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,17 +50,14 @@ $tclink = $xblink.'tags' . $itemid;
 		<h4><?php echo JText::_('XBBOOKS_ITEMSTAGGED').': '; ?></h4>		
 	</div>	
 	<div class="span9">
-		<div class="badge badge-info pull-left"><h3><?php echo $item->title; ?></h3></div>
-		
-		<?php if ((!$this->hide_empty) && (strpos($item->path,'/')!==false)) : ?>
-			<div class="xb11 pull-right" style="padding-top:5px;margin-left:40px;">
-				<i><?php echo JText::_('XBCULTURE_HEIRARCHY_U'); ?>:</i><span class="xb09">
-                    <?php $path = explode('/', $item->path);
-                    for ($i = 0; $i < count($path); $i++) {
-                        echo '<br /><span style="padding-left:'.($i*10).'px;">'.'&boxur;&boxh;&nbsp;'.$path[$i].'</span>';
-                    } ?></span>
+		<?php if (($this->show_tagpath) && (strpos($item->path,'/')!==false)) : ?>
+			<div class="xb11 pull-left xbpt17 xbmr20 xbit xbgrey" >
+				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
+					$path = str_replace('/', ' - ', $path);
+					echo $path; ?>
         	</div>
         <?php endif; ?>
+		<div class="badge badge-info pull-left"><h3><?php echo $item->title; ?></h3></div>
 	</div>	
 </div>
 <?php if ($item->description != '') : ?>

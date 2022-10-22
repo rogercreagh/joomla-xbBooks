@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/category/view.html.php
- * @version 0.9.6.a 17th December 2021
+ * @version 0.9.9.8 22nd October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,6 +27,7 @@ class XbbooksViewCategory extends JViewLegacy {
 		}
 		
 		$this->hide_empty = $this->params->get('hide_empty','','int');
+		$this->show_catpath = $this->params->get('show_catpath',1,'int');
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle('Category view: '.$this->item->title);

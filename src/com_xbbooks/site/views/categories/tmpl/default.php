@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/categories/tmpl/default.php
- * @version 0.9.9.3 13th July 2022
+ * @version 0.9.9.8 18th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -83,11 +83,11 @@ $prevext ='';
         		<tr>
 	 				<td>
 						<p class="xbml20">
- 						<?php  if ($this->show_parent != 0) : ?>      
+ 						<?php  if ($this->show_catspath != 0) : ?>      
 					<span class="xbnote"> 
  					<?php 	$path = substr($item->path, 0, strrpos($item->path, '/'));
 						$path = str_replace('/', ' - ', $path);
-						echo $path.($path!='') ? ' - <br/>' : ''; ?>
+						echo $path.($path!='') ? '<br/>' : ''; ?>
 						
 					 </span>
 						<?php endif; //show_parent?>

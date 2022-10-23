@@ -122,7 +122,10 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                           </td>   
                         <?php endif; ?>
                         <td>
-						<p><span class="<?php echo ($item->authcnt>1) ? 'icon-users' : 'icon-user'; ?>"></span>&nbsp;
+						<p>
+                       <?php //if (($item->authcnt>0) || ($item->editcnt>0)) : ?>
+						
+							<span class="<?php echo ($item->authcnt>1) ? 'icon-users' : 'icon-user'; ?>"></span>&nbsp;
                         	<?php if ($item->authcnt==0) {
                         		echo '<span class="xbnit">'.Text::_('unlisted author').'</span>';
                         	} else { ?> 
@@ -132,12 +135,22 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         		<?php echo $item->alist; 
                         	} ?>                          	
 							<br />
+						<?php // endif; ?>
+                        	<?php if ($item->editcnt>0) : ?>
+							<span class="icon-checkmark-circle"></span>&nbsp;
+	                        	<span class="xbnit">
+	                        	<?php echo $item->editcnt>1 ? Text::_('XBCULTURE_EDITORS') : Text::_('XBCULTURE_EDITOR' ); ?>
+	                        	</span>: 
+                        		<?php echo $item->elist; ?> 
+							<br />
+                        	<?php endif; ?>                          	
+							
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
 								<?php echo Text::_('Published'); ?>
 							</span>
 							<?php if($item->pubyear > 0) { echo ': '.$item->pubyear; } else { echo '<i>'.Text::_('uknown').'</i>';}?>	
 							<br />
-							<span class="icon-screen"></span>&nbsp;
+							<span class="icon-book"></span>&nbsp;
                             <?php if($this->show_sum) : ?>
     							<?php if (!empty($item->summary)) : ?>
     								<?php echo '<i>'.Text::_('Summary').'</i>: '.$item->summary; ?>
@@ -161,7 +174,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
         						<?php endif; ?>
                         	<?php endif; ?>
 							<br />	
-							<?php if($this->show_rev) : ?>
+							<?php if($this->show_revs) : ?>
 								<span class="icon-pencil-2"></span> &nbsp;
 								<?php if ($item->revcnt==0) : ?>
 									<i><?php echo Text::_('No reviews available'); ?></i>
@@ -216,30 +229,6 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
         					?>
 							<?php endif; ?>
 	                	</p>
-	                	
-	                							<p>
-                        <?php if($item->editcnt>0) : ?>
-                           	<?php if ($item->authcnt>0) {
-								echo '<span class="xbpop xbcultpop xbfocus" data-trigger="focus" tabindex="'.$item->id.'" 
-                                    title data-original-title="Authors: " data-content="'.$item->alist.'">';
-                            } else {
-                              echo '<span>';
-                            } ?>
-                       	<span class="xbnit">
-                        		<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
-                        	</span></span>: 
-                        	<?php echo $item->elist; ?>
-                        <?php else : ?>
-                        	<?php if ($item->authcnt==0) {
-                        		echo '<span class="xbnit">'.Text::_('XBBOOKS_NOAUTHOR').'</span>';
-                        	} else { ?> 
-	                        	<span class="xbnit">
-	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
-	                        	</span>: 
-                        		<?php echo $item->alist; 
-                        	} ?>                          	
-                        <?php endif; ?>
-						</p>
 	                	
 						</td></tr></table>
 					</td>

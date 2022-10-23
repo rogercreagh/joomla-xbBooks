@@ -285,19 +285,19 @@ class XbbooksModelBook extends JModelAdmin {
         	    $db = $this->getDbo();
         	    $query= $db->getQuery(true);
         	    if ($data['pubyear']=='') {
-        	        $query = 'UPDATE `#__xbfilms`  AS a SET `pubyear` = NULL ';
+        	        $query = 'UPDATE `#__xbbooks`  AS a SET `pubyear` = NULL ';
         	        $query .= 'WHERE a.id  ='.$bid.' ';
         	        $db->setQuery($query);
         	        $db->execute();
         	    }
         	    if ($data['last_read']=='') {
-        	        $query = 'UPDATE `#__xbfilms`  AS a SET `last_read` = NULL ';
+        	        $query = 'UPDATE `#__xbbooks`  AS a SET `last_read` = NULL ';
         	        $query .= 'WHERE a.id  ='.$bid.' ';
         	        $db->setQuery($query);
         	        $db->execute();
         	    }
         	    if ($data['first_seen']=='') {
-        	        $query = 'UPDATE `#__xbfilms`  AS a SET `first_read` = NULL ';
+        	        $query = 'UPDATE `#__xbbooks`  AS a SET `first_read` = NULL ';
         	        $query .= 'WHERE a.id  ='.$bid.' ';
         	        $db->setQuery($query);
         	        $db->execute();
@@ -315,7 +315,7 @@ class XbbooksModelBook extends JModelAdmin {
             	$params = ComponentHelper::getParams('com_xbbooks');
             	$date = Factory::getDate();
             	$db = $this->getDbo();
-            	//need to create a title (unique from rev cnt), alias, filmid, catid (uncategorised), reviewer
+            	//need to create a title (unique from rev cnt), alias, bookid, catid (uncategorised), reviewer
             	$query= $db->getQuery(true);
             	$query->select('COUNT(r.id) as revcnt')->from('#__xbbookreviews AS r')
             	->where('r.book_id = '.$bid);

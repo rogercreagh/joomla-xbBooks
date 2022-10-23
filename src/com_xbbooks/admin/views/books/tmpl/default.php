@@ -30,7 +30,7 @@ if (!$listOrder) {
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_PUBYEARCOL'),
-	'id'=>'id','first_read'=>Text::_('First Read'),'last_READ'=>Text::_('lAST rEAD'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+	'id'=>'id','first_read'=>Text::_('First Read'),'last_read'=>Text::_('Last Read'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 	'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 
@@ -225,17 +225,17 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 								<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
 							: </span>
 							<span class="hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo ($item->editcnt>0)? Text::_('XBCULTURE_AUTHOR').': '.strip_tags($item->alist) : ''; ?>
+								<?php echo ($item->editcnt>0)? Text::_('XBCULTURE_AUTHOR').': '.strip_tags($item->authlist) : ''; ?>
 								"> 
-								<?php echo $item->elist; ?>
+								<?php echo $item->editlist; ?>
 							</span>						
 						<?php elseif ($item->authcnt>0) : ?>
 							<span class="xbnit"><?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>: </span>
-							<?php echo $item->alist; ?>
+							<?php echo $item->authlist; ?>
 						<?php endif; ?>
-						<?php if($item->othcnt>0) :?>
-							<br /><span class="xb085 hasTooltip" title data-original-title="<?php echo $item->olist; ?>">
-							<?php echo $item->othcnt; ?> other roles</span>
+						<?php if($item->othercnt>0) :?>
+							<br /><span class="xbnit">
+							<?php echo $item->othercnt.' '.Text::_('other roles listed'); ?></span>
 						<?php endif; ?>
 						<br />
 						</span>
@@ -268,12 +268,21 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                                     
 						<p class="xbnit xb095">
                             <?php $list = '';
-                            if ($item->mencnt>0) { $list .= '<span class="hasTooltip" data-original-title="'.htmlentities($item->mlist).'">'.$item->mencnt.' subjects<span>, ';}
-                            if ($item->charcnt>0) { $list .= '<span class="hasTooltip" data-original-title="'.htmlentities($item->clist).'">'. $item->charcnt.' characters<span> ';}
-                            if ($list != '') {
-                            	echo trim($list,', ').' '.Text::_('XBCULTURE_LISTED');
-                            } else {
-                            	echo Text::_('XBCULTURE_NO_PEOPLE_LISTED');
+                            if ($item->mencnt>0) { 
+                                echo $item->mencnt.' ';
+                                echo ($item->mencnt==1) ? Text::_('subject') : Text::_('subjects');
+                                echo ' '.Text::_('XBCULTURE_LISTED');
+                            }
+                            if (($item->mencnt>0) && ($item->charcnt>0)) {
+                                echo '<br />';
+                            }
+                            if ($item->charcnt>0) {
+                                echo $item->charcnt.' ';
+                                echo ($item->charcnt==1) ? Text::_('character') : Text::_('characters');
+                                echo ' '.Text::_('XBCULTURE_LISTED');
+                            }
+                            if (($item->mencnt==0) && ($item->charcnt==0)) {
+                            	    echo Text::_('XBCULTURE_NO_PEOPLE_LISTED');
                             } ?>
 						</p>
 						<?php if($item->ext_links_cnt >0 ) : ?>

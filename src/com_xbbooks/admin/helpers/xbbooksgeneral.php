@@ -108,13 +108,13 @@ class XbbooksGeneral {
      * @param int $bookid
      * @return Array of objects (empty if no match) with properties name, link, role, note including actor name if available
      */
-    public static function getBookChars($filmid) {
+    public static function getBookChars($bookid) {
         $admin = Factory::getApplication()->isClient('administrator');
         $link = 'index.php?option=com_xbbooks'. ($admin) ? '&task=character.edit&id=' : '&view=character&id=';
         $db = Factory::getDBO();
         $query = $db->getQuery(true);
         
-        $query->select('c.name, c.id, c.state AS chstate, a.char_note, a.actor_id AS aid, p.firstname AS firstname,p.lastname AS lastname')
+        $query->select('c.name, c.id, c.state AS chstate, a.char_note')
         ->from('#__xbbookcharacter AS a')
         ->join('LEFT','#__xbcharacters AS c ON c.id=a.char_id')
         ->where('a.book_id = "'.$bookid.'"' );

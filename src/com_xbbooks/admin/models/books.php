@@ -202,14 +202,17 @@ class XbbooksModelBooks extends JModelList
             $roles = array_column($item->people,'role');
             $item->authcnt = count(array_keys($roles, 'author'));
             $item->editcnt = count(array_keys($roles, 'editor'));
-            $item->othcnt = count(array_keys($roles, 'other'));
+            $item->othercnt = count(array_keys($roles, 'other'));
             $item->mencnt = count(array_keys($roles, 'mention'));
             
             $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','comma');
             $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','comma');
+            $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','comma');
+//            $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','comma');
             
             $item->chars = XbbooksGeneral::getBookChars($item->id);
             $item->charcnt = (empty($item->chars)) ? 0 : count($item->chars);
+//            $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','comma');
             
 //             $item->people = XbbooksGeneral::getBookRolesArray($item->id,'',true);
 //             $cnts = array_count_values(array_column($item->people, 'role'));

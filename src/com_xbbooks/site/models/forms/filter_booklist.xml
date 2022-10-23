@@ -102,7 +102,6 @@
 			label="XBCULTURE_TAGFILT_MULTI_LABEL"
 			description="XBCULTURE_TAGFILT_MULTI_DESC"
   			class="btn-group btn-small radiotop"
-			showon="tagfilt!:"
 			onchange="this.form.submit();"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/characters/tmpl/default.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.8 23rd October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -161,24 +161,21 @@ $plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
 				<?php endif; ?>
                 <?php if ($this->showccnts) : ?>
     				<td>
-    				<?php if (($this->showclists == 1) && ($item->bcnt>0)) :?>
-    					<span tabindex="<?php echo $item->id; ?>"
-							class="xbpop xbcultpop xbfocus" data-trigger="focus"
-							title data-original-title="Book List" 
-							data-content="<?php echo htmlentities($item->booklist); ?>"
-						>        				
-    				<?php  endif; ?>
-    					<span class="badge <?php echo ($item->bcnt>0) ? 'bkcnt' : ''?>"><?php echo $item->bcnt;?></span>
-    				<?php if (($this->showclists == 1) && ($item->bcnt>0)) :?>
-    					</span>
-					<?php endif; ?>        					
-    				<?php if ($this->showclists == 2) :?>
-    					<?php echo $item->booklist; ?>
-    				<?php endif; ?>
-    				<?php if ($item->fcnt > 0) {
-    						echo '<p class="xbit xb095">&amp; '.$item->fcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
-    					}
-    				?>
+						<?php if ($item->fcnt>0) :?>
+    					<details>
+    						<summary><span class="xbnit">
+								<?php echo $item->bcnt.' ';
+								    echo $item->bcnt ==1 ? Text::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS'); ?>       					
+    						</span></summary>
+    						<?php echo $item->booklist; ?>    						
+    					</details>
+    					<?php endif; ?>
+	    				<?php if ($item->fcnt > 0) : ?>
+    						<p class="xbit xb095 xbmt10">
+    							<?php echo Text::_('XBCULTURE_ALSO').' '.$item->fcnt.' '; 
+    						  echo $item->fcnt == 1 ? Text::_('XBCULTURE_FILM') :Text::_('XBCULTURE_FILMS'); ?>
+    						  </p>
+    					<?php endif; ?>
     				</td>
 				<?php endif; ?>
     			<?php if(($this->showcat) || ($this->showtags)) : ?>

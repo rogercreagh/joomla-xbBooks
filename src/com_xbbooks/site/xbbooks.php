@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/xbbooks.php
- * @version 0.9.8.9 10th June 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -63,6 +63,7 @@ Factory::getSession()->set('xbbooks_ok',true);
 //detect related components and set session flag
 XbcultureHelper::checkComponent('com_xbpeople');
 XbcultureHelper::checkComponent('com_xbfilms');
+XbcultureHelper::checkComponent('com_xbevents');
 
 // Get an instance of the controller 
 $controller = BaseController::getInstance('Xbbooks');

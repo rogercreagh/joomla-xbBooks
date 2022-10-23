@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/filter_tags.xml v0.8.6.1 5th April 2021 -->
+<!-- xbBooks admin/models/forms/filter_tags.xml v0.9.9.8 23rd October 2022 -->
 <form>
 	<fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
 		<field
@@ -30,16 +30,5 @@
 			>
 			<option value="">XBBOOKS_ENTIRE_TREE</option>
 		</field>
-	</fields>
-	<fields name="list">
-		<field
-			name="limit"
-			type="limitbox"
-			class="inputbox input-mini"
-			default="20"
-			label="COM_CONTENT_LIST_LIMIT"
-			description="COM_CONTENT_LIST_LIMIT_DESC"
-			onchange="this.form.submit();"
-		/>
 	</fields>
 </form>

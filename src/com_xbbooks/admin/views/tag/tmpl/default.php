@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/tag/tmpl/edit.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.9.8 23rd October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -30,6 +30,11 @@ $xblink = 'index.php?option=com_xbbooks';
 				  <h3><?php echo JText::_('XBBOOKS_TAG_ITEMS'); ?></h3>
 			</div>
 			<div class="span5">
+    			<div class="xb11 pull-left xbit xbpt17 xbgrey xbmr20">    				 
+    				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
+    					$path = str_replace('/', ' - ', $path);
+    					echo 'root - '.$path; ?>
+            	</div>
 				<a href="<?php echo $telink.$item->id; ?>" class="badge badge-info">
 					<h2><?php echo $item->title; ?></h2>
 				</a>
@@ -42,12 +47,6 @@ $xblink = 'index.php?option=com_xbbooks';
 			</div>
 		</div>
 		<div class="row-fluid xbmb8">
-			<div class= "span6">
-					<p class="xb11"><i><?php echo JText::_('XBCULTURE_TAG_U').' '.Jtext::_('XBCULTURE_HEIRARCHY_U'); ?>: </i>
-					<?php $path = str_replace('/', ' - ', $item->path);
-						echo 'root - '.$path; ?>
-					</p>
-			</div>
 			<div class= "span6">
 				<p><i><?php echo Jtext::_('XBCULTURE_ADMIN_NOTE'); ?>:</i>  <?php echo $item->note; ?></p>
 			</div>

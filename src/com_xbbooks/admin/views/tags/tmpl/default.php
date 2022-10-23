@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/tags/tmpl/default.php
- * @version 0.9.6.e 8th January 2022
+ * @version 0.9.9.8 23rd October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -45,7 +45,7 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
 	
 	<div class="pull-right span2">
 		<p style="text-align:right;">
-			<?php $fnd = $this->pagination->total;
+			<?php $fnd = count($this->items);
 			echo $fnd .' '. JText::_(($fnd==1)?'XBCULTURE_TAG':'XBCULTURE_TAGS').' '.JText::_('XBCULTURE_FOUND'); ?>
 		</p>
 	</div>
@@ -98,13 +98,6 @@ $chvlink = 'index.php?option=com_xbbooks&view=characters&tagid=';
 			</th>
 		</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="5">
-					<?php echo $this->pagination->getListFooter(); ?>
-				</td>
-			</tr>
-		</tfoot>
 		<tbody>
 			<?php foreach ($this->items as $i => $item) :
 				$canCheckin = $user->authorise('core.manage', 'com_checkin')

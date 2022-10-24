@@ -141,7 +141,7 @@ class XbbooksModelDashboard extends JModelList {
     
     public function getTagcnts() {
         $result = array('tagcnts' => array('bkcnt' =>0, 'percnt' => 0, 'charcnt' => 0, 'revcnt' => 0), 'tags' => array(), 'taglist' => '' );
-    	$db = $this->getDbo();
+        $db = Factory::getDbo();
     	$query =$db->getQuery(true);
     	//first we get the total number of each type of item with one or more tags   	
     	$query->select('type_alias,core_content_id, COUNT(*) AS numtags')
@@ -151,24 +151,18 @@ class XbbooksModelDashboard extends JModelList {
     	//not checking that tag is published, not using numtags at this stage - poss in future
     	$db->setQuery($query);
     	$db->execute();
-    	$items = $db->loadObjectList();
-    	foreach ($items as $it) {
+    	$bitems = $db->loadObjectList();
+    	foreach ($bitems as $it) {
     		switch ($it->type_alias) {
     			case 'com_xbbooks.book' :
     				$result['tagcnts']['bkcnt'] ++;
     				break;
-    			case 'com_xbpeople.person':
-    			    $result['tagcnts']['percnt'] ++;
-    			    break;
-    			case 'com_xbpeople.character':
-    			    $result['tagcnts']['charcnt'] ++;
-    			    break;
     			case 'com_xbbooks.review':
     				$result['tagcnts']['revcnt'] ++;
     				break;
     		}
     	}
-        //now we get the number of each type of item assigned to each tag
+     	//now we get the number of each type of item assigned to each tag
     	$query->clear();
     	$query->select('type_alias,t.id, t.title AS tagname ,COUNT(*) AS tagcnt')
         	->from('#__contentitem_tag_map')
@@ -200,6 +194,32 @@ class XbbooksModelDashboard extends JModelList {
     		}
     	}
     	return $result;
+    }
+    
+    public function getBookPeopleTagCnts() {
+        $db = Factory::getDbo();
+        $query =$db->getQuery(true);
+        $query->select('COUNT(*) AS numtags')
+            ->from('#__contentitem_tag_map');
+        $query->join('INNER', '#__xbbookperson AS bp WHERE bp.person_id = content_item_id');
+            -$query>where('type_alias = '.$db->quote('com_xbpeople.person'))
+            ->group('core_content_id, type_alias');
+        //not checking that tag is published
+        $db->setQuery($query);
+        return $db->loadResult();        
+    }
+    
+    public function getBookCharsTagCnts() {
+        $db = Factory::getDbo();
+        $query =$db->getQuery(true);
+        $query->select('COUNT(*) AS numtags')
+        ->from('#__contentitem_tag_map');
+        $query->join('INNER', '#__xbbookcharacter AS bp WHERE bp.char_id = content_item_id');
+        -$query>where('type_alias = '.$db->quote('com_xbpeople.person'))
+        ->group('core_content_id, type_alias');
+        //not checking that tag is published
+        $db->setQuery($query);
+        return $db->loadResult();
     }
     
     /**

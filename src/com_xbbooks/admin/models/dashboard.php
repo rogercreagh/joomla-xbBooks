@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/dashboard.php
- * @version 0.9.0 8th April 2021
+ * @version 0.9.9.8 25th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -140,60 +140,20 @@ class XbbooksModelDashboard extends JModelList {
     }
     
     public function getTagcnts() {
-        $result = array('tagcnts' => array('bkcnt' =>0, 'percnt' => 0, 'charcnt' => 0, 'revcnt' => 0), 'tags' => array(), 'taglist' => '' );
-        $db = Factory::getDbo();
-    	$query =$db->getQuery(true);
-    	//first we get the total number of each type of item with one or more tags   	
-    	$query->select('type_alias,core_content_id, COUNT(*) AS numtags')
-    	->from('#__contentitem_tag_map')
-    	->where('type_alias LIKE '.$db->quote('com_xbbooks%'))
-    	->group('core_content_id, type_alias');
-    	//not checking that tag is published, not using numtags at this stage - poss in future
-    	$db->setQuery($query);
-    	$db->execute();
-    	$bitems = $db->loadObjectList();
-    	foreach ($bitems as $it) {
-    		switch ($it->type_alias) {
-    			case 'com_xbbooks.book' :
-    				$result['tagcnts']['bkcnt'] ++;
-    				break;
-    			case 'com_xbbooks.review':
-    				$result['tagcnts']['revcnt'] ++;
-    				break;
-    		}
-    	}
-     	//now we get the number of each type of item assigned to each tag
-    	$query->clear();
-    	$query->select('type_alias,t.id, t.title AS tagname ,COUNT(*) AS tagcnt')
-        	->from('#__contentitem_tag_map')
-        	->join('LEFT', '#__tags AS t ON t.id = tag_id')
-        	->where('type_alias LIKE '.$db->quote('%xbbooks%'))
-        	->where('t.published = 1') //only published tags
-        	->group('type_alias, tagname');   	
-    	$db->setQuery($query);
-    	$db->execute();
-    	$tags = $db->loadObjectList();
-    	foreach ($tags as $k=>$t) {
-    		if (!key_exists($t->tagname, $result['tags'])) {
-    		    $result['tags'][$t->tagname]=array('id' => $t->id, 'tbcnt' =>0, 'tpcnt' => 0, 'tccnt' => 0, 'trcnt' => 0, 'tagcnt'=>0); 
-    		}
-    		$result['tags'][$t->tagname]['tagcnt'] += $t->tagcnt;
-    		switch ($t->type_alias) {
-    			case 'com_xbbooks.book' :
-    				$result['tags'][$t->tagname]['tbcnt'] += $t->tagcnt;
-    				break;
-    			case 'com_xbpeople.person':
-    				$result['tags'][$t->tagname]['tpcnt'] += $t->tagcnt;
-    				break;
-    			case 'com_xbpeople.character':
-    			    $result['tags'][$t->tagname]['tccnt'] += $t->tagcnt;
-    			    break;
-    			case 'com_xbbooks.review':
-    				$result['tags'][$t->tagname]['trcnt'] += $t->tagcnt;
-    				break;
-    		}
-    	}
-    	return $result;
+        //we need number of books tagged, number of reviews tagged, number of tags used for films, number of tags used for reviews
+        // people tagged, chars tagged, people tags, char tags
+        $result = array('bookscnt' => 0, 'revscnt' =>0, 'booktags' => 0, 'revtags' => 0,
+            'bookper' => 0, 'bookchar' => 0, 'bookpertags' => 0, 'bookchartags' => 0 );
+        
+        $result['bookscnt'] = XbcultureHelper::getTagtypeItemCnt('com_xbbooks.book','');
+        $result['revscnt'] = XbcultureHelper::getTagtypeItemCnt('com_xbbooks.review','');
+        $result['booktags']= XbcultureHelper::getTagtypeTagCnt('com_xbbooks.book','');
+        $result['revtags']= XbcultureHelper::getTagtypeTagCnt('com_xbbooks.review','');
+        $result['bookper'] = XbcultureHelper::getTagtypeItemCnt('com_xbpeople.person','book');
+        $result['bookchar'] = XbcultureHelper::getTagtypeItemCnt('com_xbpeople.character','book');
+        $result['bookpertags']= XbcultureHelper::getTagtypeTagCnt('com_xbpeople.person','book');
+        $result['bookchartags']= XbcultureHelper::getTagtypeTagCnt('com_xbpeople.character','book');
+        return $result;
     }
     
     public function getBookPeopleTagCnts() {

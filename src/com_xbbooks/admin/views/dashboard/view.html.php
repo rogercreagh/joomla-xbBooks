@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/view.html.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.8 25th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -135,14 +135,6 @@ class XbbooksViewDashboard extends JViewLegacy
             }
             $this->pcatlist .= '</ul>';
             
-            $tlink='index.php?option=com_xbbooks&view=tag&id=';
-            $this->taglist = '<ul class="inline">';
-            foreach ($this->tags['tags'] as $key=>$value) {
-            	//       	$result[$key] = $t->tagcnt;
-                $this->taglist .= '<li><a class="label label-info" href="'.$tlink.$value['id'].'">'.$key.'</a>&nbsp;(<i>'.$value['tbcnt'].':'.$value['trcnt'].':'.$value['tpcnt'].':'.$value['tccnt'].')</i></li> ';
-            }
-            $this->taglist .= '</ul>';
-            //        $result['taglist'] = trim($result['taglist'],', ');
             $this->sidebar = JHtmlSidebar::render();
 	    }
         

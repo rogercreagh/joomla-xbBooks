@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 0.9.9.6 17th August 2022
+ * @version 0.9.9.8 25th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -422,38 +422,82 @@ if (!$this->xbpeople_ok) : ?>
 				</div>
 <?php endif; ?>
 			</div>
-			<div class="xbbox xbboxgrey">
-				<h2 class="xbtitle">
-					<span class="badge badge-info pull-right"><?php echo ($this->tags['tagcnts']['bkcnt'] + $this->tags['tagcnts']['percnt']   + $this->tags['tagcnts']['charcnt']  + $this->tags['tagcnts']['revcnt']) ; ?></span> 
-					<?php echo Text::_('XBCULTURE_TAGGED_ITEMS'); ?>
-				</h2>
-				<div class="row-striped">
-					<div class="row-fluid">
-                      <?php echo Text::_('XBCULTURE_BOOKS_U').': ';
-						echo '<span class="bkcnt badge  pull-right">'.$this->tags['tagcnts']['bkcnt'].'</span>'; ?>
-                    </div>  
-                    <div class="row-fluid">
-                      <?php echo Text::_('XBCULTURE_REVIEWS_U').': ';
-						echo '<span class="revcnt badge pull-right">'.$this->tags['tagcnts']['revcnt'].'</span>'; ?>
-                    </div>  
-                    <div class="row-fluid">
-                      <?php echo Text::_('XBCULTURE_PEOPLE_U').': ';
-						echo '<span class="percnt badge pull-right">'.$this->tags['tagcnts']['percnt'].'</span>'; ?>
-                    </div>  
-                    <div class="row-fluid">
-                      <?php echo Text::_('XBCULTURE_CHARACTERS_U').': ';
-						echo '<span class="chcnt badge pull-right">'.$this->tags['tagcnts']['charcnt'].'</span>'; ?>
-                    </div>  
-                 </div>
-				 <h2 class="xbtitle"><?php echo Text::_('XBCULTURE_TAG_COUNTS').': '; ?><span class="xb09 xbnorm"><i>(books:reviews:people:chars)</i></span></h2>
-              <div class="row-fluid">
-                 <div class="row-striped">
-					<div class="row-fluid">
-						<?php echo $this->taglist; ?>
-                   </div>
-                 </div>
-			</div>
-          	</div></div></div>
+          	</div>
+     			<div class="xbbox xbboxgrey">
+    				<div class="row-fluid"><div class="span12">
+    					<h2 class="xbtitle"><?php echo Text::_('xbBooks number of items tagged'); ?>
+    						<span class="pull-right">
+    							<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
+            					<span class="badge badge-info" style="border: blue solid 1px;"><?php echo ($this->tags['bookscnt']  + $this->tags['revscnt']) ; ?></span> 
+    						</span>
+    					</h2>
+    				</div></div>
+    				<div class="row-striped">
+    					<h4>Items tagged per type</h4>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Books'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="flmcnt badge  pull-right"><?php echo $this->tags['bookscnt']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Book Reviews'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="revcnt badge  pull-right"><?php echo $this->tags['revscnt']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('People'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="percnt badge  pull-right"><?php echo $this->tags['bookper']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Characters'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="chcnt badge  pull-right"><?php echo $this->tags['bookchar']; ?></span>
+    						</div>
+    					</div>
+    				</div>
+     				<hr style="margin: 8px 0;" />
+     				<div class="row-striped">
+     					<h4>Tags used per type</h4>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Books'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="flmcnt badge  pull-right"><?php echo $this->tags['booktags']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Book Reviews'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="revcnt badge  pull-right"><?php echo $this->tags['revtags']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('People'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="percnt badge  pull-right"><?php echo $this->tags['bookpertags']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Characters'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="chcnt badge  pull-right"><?php echo $this->tags['bookchartags']; ?></span>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+          	</div>
+          	
             <div class="span2">
 				<div class="xbbox xbboxwht">
 					<h4><?php echo Text::_('XBCULTURE_CONFIG_OPTIONS'); ?></h4>

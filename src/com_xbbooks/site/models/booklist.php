@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.9.9 1st November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -159,12 +159,15 @@ class XbbooksModelBooklist extends JModelList {
             $tagfilt = $this->getState('tagId');
             // $this->setState('tagId','');
             $taglogic = 0;
-            if (empty($tagfilt)) {
+            if (empty($tagfilt)) { //look for menu options
                 $tagfilt = $this->getState('params')['menu_tag'];
                 $taglogic = $this->getState('params')['menu_taglogic']; //1=AND otherwise OR
             }
+            if ((!is_array($tagfilt)) && (!empty($tagfilt))) {
+                $tagfilt = array($tagfilt);
+            }
             
-            if (($searchbar==1) && (empty($tagfilt))) { 	//look for menu options
+            if (($searchbar==1) && (empty($tagfilt))) { 	
                 //look for filter options and ignore menu options
                 $tagfilt = $this->getState('filter.tagfilt');
                 $taglogic = $this->getState('filter.taglogic'); //1=AND otherwise OR

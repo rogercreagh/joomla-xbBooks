@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.9.9 1st November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -277,32 +277,39 @@ class XbbooksModelBook extends JModelAdmin {
             // standard Joomla practice is to set the new copy record as unpublished
             $data['published'] = 0;
         }
+        //if only first_seen or last_seen is set then copy to other one
+        if (($data['first_read']=='') && ($data['last_read']!='')) {
+            $data['first_read']=$data['last_read'];
+        }
+        if (($data['last_read']=='') && ($data['first_read']!='')) {
+            $data['last_read']=$data['first_read'];
+        }
         if (parent::save($data)) {
             //get the saved id (valid for new items as well where $data['id'] will still = 0
         	$bid = $this->getState('book.id');
+        	$db = $this->getDbo();
             // set nulls for empty year and last_read (otherwise empty value defaults to 0000-00-00 00:00:00 which is invalid in latest myql strict mode)
-        	if (($data['first_read']=='') || ($data['last_read']=='') || ($data['pubyear']=='')){
-        	    $db = $this->getDbo();
-        	    $query= $db->getQuery(true);
-        	    if ($data['pubyear']=='') {
-        	        $query = 'UPDATE `#__xbbooks`  AS a SET `pubyear` = NULL ';
-        	        $query .= 'WHERE a.id  ='.$bid.' ';
-        	        $db->setQuery($query);
-        	        $db->execute();
-        	    }
-        	    if ($data['last_read']=='') {
-        	        $query = 'UPDATE `#__xbbooks`  AS a SET `last_read` = NULL ';
-        	        $query .= 'WHERE a.id  ='.$bid.' ';
-        	        $db->setQuery($query);
-        	        $db->execute();
-        	    }
-        	    if ($data['first_seen']=='') {
-        	        $query = 'UPDATE `#__xbbooks`  AS a SET `first_read` = NULL ';
-        	        $query .= 'WHERE a.id  ='.$bid.' ';
-        	        $db->setQuery($query);
-        	        $db->execute();
-        	    }        	    
-        	}
+    	    if ($data['pubyear']=='') {
+    	        $query= $db->getQuery(true);
+    	        $query = 'UPDATE `#__xbbooks`  AS a SET `pubyear` = NULL ';
+    	        $query .= 'WHERE a.id  ='.$bid.' ';
+    	        $db->setQuery($query);
+    	        $db->execute();
+    	    }
+    	    if ($data['last_read']=='') {
+    	        $query= $db->getQuery(true);
+    	        $query = 'UPDATE `#__xbbooks`  AS a SET `last_read` = NULL ';
+    	        $query .= 'WHERE a.id  ='.$bid.' ';
+    	        $db->setQuery($query);
+    	        $db->execute();
+    	    }
+    	    if ($data['first_read']=='') {
+    	        $query= $db->getQuery(true);
+    	        $query = 'UPDATE `#__xbbooks`  AS a SET `first_read` = NULL ';
+    	        $query .= 'WHERE a.id  ='.$bid.' ';
+    	        $db->setQuery($query);
+    	        $db->execute();
+    	    }        	    
         	//the checkedouttime has been set to null in the table constructor
         	$this->storeBookPersons($bid,'author', $data['authorlist']);
         	$this->storeBookPersons($bid,'editor', $data['editorlist']);

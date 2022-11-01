@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/onecol.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.9.9 31st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -218,10 +218,12 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 	                		<?php if ($this->show_bdates) : ?>       				
         						<br />
         						<?php if($item->first_read) {
-						          echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('First read').'</i>: '.HtmlHelper::date($item->first_read , 'D jS M Y'); 
+        						    $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'D jS M Y');
+        						    echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('First read').'</i>: '.HtmlHelper::date($item->first_read , $datefmt); 
 								}
 								if(($item->last_read) && ($item->last_read != $item->first_read)) {
-								    echo ' -&nbsp;<i>'.Text::_('Last read').'</i>: '.HtmlHelper::date($item->last_read , 'D jS M Y'); 
+								    $datefmt = xbCultureHelper::getDateFmt($item->last_read, 'D jS M Y');
+								    echo ' -&nbsp;<i>'.Text::_('Last read').'</i>: '.HtmlHelper::date($item->last_read , $datefmt); 
         					   }
         					   if((!$item->last_read) && (!$item->first_read)) {
         					       echo '<i>'.Text::_('not yet read').'</i>';

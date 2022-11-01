@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.9.9 31st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -151,11 +151,13 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     				<?php if ($this->show_bdates ) : ?>   				
     					<td class="hidden-phone">
         					<p><?php if($item->first_read) {
-						          echo HtmlHelper::date($item->first_read , 'j M y');
+        					    $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'j M Y');
+        					    echo HtmlHelper::date($item->first_read , $datefmt);
         					   }
     					       echo ' - ';
-        					   if(($item->last_read) && ($item->last_read != $item->first_read)) {
-        					       echo HtmlHelper::date($item->last_read , 'j M y'); 
+    					       if(($item->last_read) && ($item->last_read != $item->first_read)) {
+        					       $datefmt = xbCultureHelper::getDateFmt($item->last_read, 'j M Y');
+        					       echo HtmlHelper::date($item->last_read , $datefmt); 
         					   }
         					?> </p>
     					</td>

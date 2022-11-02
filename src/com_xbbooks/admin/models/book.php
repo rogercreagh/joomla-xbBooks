@@ -335,7 +335,7 @@ class XbbooksModelBook extends JModelAdmin {
             	if ($params->get('def_new_revcat')>0) {
             		$catid=$params->get('def_new_revcat');
             	} else {
-            		$catid = XbbooksHelper::getIdFromAlias('#__categories', 'uncategorised');
+            		$catid = XbcultureHelper::getIdFromAlias('#__categories', 'uncategorised','com_xbbooks');
             	}
             	$qry = 'INSERT INTO '.$db->quoteName('#__xbbookreviews').' (title, alias, book_id, catid, reviewer, rating, rev_date, created, created_by, state ) ';
               	$qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$bid.','.$catid.','.$db->quote($reviewer).','.

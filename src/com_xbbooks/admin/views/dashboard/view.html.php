@@ -150,7 +150,7 @@ class XbbooksViewDashboard extends JViewLegacy
            
         if ($this->xbpeople_ok) {
             ToolBarHelper::title(Text::_( 'XBCULTURE_XBBOOKS' ).': '.Text::_('XBCULTURE_DASHBOARD'),'info-2');
-	        $samplesexist = XbbooksHelper::getIdFromAlias('#__categories', 'sample-books');
+            $samplesexist = XbcultureHelper::getIdFromAlias('#__categories', 'sample-books','com_xbbooks');
 	        if ($this->show_sample==1) {
 	        	if ($samplesexist > 0) {
 	        		ToolBarHelper::custom('dashboard.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;

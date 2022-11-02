@@ -22,6 +22,8 @@ if (!Factory::getUser()->authorise('core.manage', 'com_xbbooks')) {
 }
 
 $document = Factory::getDocument();
+Factory::getLanguage()->load('com_xbculture');
+
 //add the component, xbculture and fontawesome css
 $params = ComponentHelper::getParams('com_xbbooks');
 if ($params->get('savedata','notset')=='notset') {
@@ -46,8 +48,6 @@ if ($exticon) {
 //add fontawesome5
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 $document->addStyleSheet($cssFile);
-
-Factory::getLanguage()->load('com_xbculture');
 
 // Require helper file
 JLoader::register('XbbooksHelper', JPATH_ADMINISTRATOR . '/components/com_xbbooks/helpers/xbbooks.php');

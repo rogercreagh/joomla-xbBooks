@@ -56,7 +56,7 @@ class XbbooksTableBook extends Table
 	        if ($params->get('def_new_bookcat')>0) {
 	            $defcat=$params->get('def_new_bookcat');
 	        } else {
-	            $defcat = XbbooksHelper::getIdFromAlias('#__categories', 'uncategorised');
+	            $defcat = XbcultureHelper::getIdFromAlias('#__categories', 'uncategorised','com_xbbooks');
 	        }
 	        if ($defcat>0) {
 	            $this->catid = $defcat;

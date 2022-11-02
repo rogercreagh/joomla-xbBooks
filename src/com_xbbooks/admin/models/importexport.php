@@ -244,8 +244,8 @@ class XbbooksModelImportexport extends JModelAdmin {
     	$messtype = 'success';
     	$db = Factory::getDbo();
     	//get the id of the samples category
-    	$scatid = XbbooksHelper::getIdFromAlias('#__categories','sample-books');
-    	$pscatid = XbbooksHelper::getIdFromAlias('#__categories','sample-bookpeople','com_xbpeople');
+    	$scatid = XbcultureHelper::getIdFromAlias('#__categories','sample-books','com_xbbooks');
+    	$pscatid = XbcultureHelper::getIdFromAlias('#__categories','sample-bookpeople','com_xbpeople');
     	if ($scatid==0) {
     		$deletecnts['mess']='No sample-films category found; nothing deleted';
     		Factory::getApplication()->enqueueMessage($deletecnts['mess'],'information');
@@ -396,13 +396,13 @@ class XbbooksModelImportexport extends JModelAdmin {
 		$query = $db->getQuery(true); 
 		$qcnt = 0;
 		//check that we have an imported category for fallback in case it has been deleted
-		$impcatid = XbbooksHelper::getIdFromAlias('#__categories','imported');
+		$impcatid = XbcultureHelper::getIdFromAlias('#__categories','imported','com_xbbooks');
 		if (!$impcatid>0) {
 			$wynik = $this->createCat('Imported');
 			//TODO test result ok
 			$impcatid = $wynik['id'];
 		}
-		$imppcatid = XbbooksHelper::getIdFromAlias('#__categories','imported','com_xbpeople');
+		$imppcatid = XbcultureHelper::getIdFromAlias('#__categories','imported','com_xbpeople');
 		if (!$imppcatid>0) {
 		    $wynik = $this->createCat('Import.People','imported','com_xbpeople');
 			//TODO test result ok
@@ -445,8 +445,8 @@ class XbbooksModelImportexport extends JModelAdmin {
 						//bookpersons is a special case, will only work if books and persons have already been added
 	                 	//for bookpersons get alias cols and replace ids with new aliases
 	                 	//if both aliases not found then drop the link
-	                 	$book_id = XbbooksHelper::getIdFromAlias('#__xbbooks',$qryarr['bookalias']);
-	                 	$per_id = XbbooksHelper::getIdFromAlias('#__xbpersons',$qryarr['personalias']);
+	                 	$book_id = XbcultureHelper::getIdFromAlias('#__xbbooks',$qryarr['bookalias']);
+	                 	$per_id = XbcultureHelper::getIdFromAlias('#__xbpersons',$qryarr['personalias']);
 	                 	if (($per_id>0) && ($book_id>0) && (!$this->checkBookPerson($book_id, $per_id))) {
 	                 		$qryarr['book_id'] = $book_id;
 	                 		$qryarr['person_id'] = $per_id;
@@ -471,8 +471,8 @@ class XbbooksModelImportexport extends JModelAdmin {
 	                	//bookpersons is a special case, will only work if books and persons have already been added
 	                	//for bookpersons get alias cols and replace ids with new aliases
 	                	//if both aliases not found then drop the link
-	                	$book_id = XbbooksHelper::getIdFromAlias('#__xbbooks',$qryarr['bookalias']);
-	                	$char_id = XbbooksHelper::getIdFromAlias('#__xbcharacters',$qryarr['characteralias']);
+	                	$book_id = XbcultureHelper::getIdFromAlias('#__xbbooks',$qryarr['bookalias']);
+	                	$char_id = XbcultureHelper::getIdFromAlias('#__xbcharacters',$qryarr['characteralias']);
 	                	if (($char_id>0) && ($book_id>0) && (!$this->checkBookCharacter($book_id, $char_id))) {
 	                		$qryarr['book_id'] = $book_id;
 	                		$qryarr['char_id'] = $char_id;
@@ -509,7 +509,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	                         }
 	                    }                     
                         //get alias col (creating if necessary) and check if item already exists
-                     	if (XbbooksHelper::getIdFromAlias($table,trim($qryarr['alias']))>0) {
+	                    if (XbcultureHelper::getIdFromAlias($table,trim($qryarr['alias'],'com_xbbooks'))>0) {
                      		$importcnts['mess'] .= ' '.$table.':'.$qryarr['alias'].' already existed. Item not imported';
                      		$importcnts['skipcnt'] ++;
                      	} else {  
@@ -559,7 +559,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	                      		} else {
 	                      			if (key_exists('catalias', $qryarr)) {
 	                      				$catalias = $qryarr['catalias'];
-	                      				$catid = XbbooksHelper::getIdFromAlias('#__categories',$catalias, true); //$this->$qryarr['catalias']);
+	                      				$catid = XbcultureHelper::getIdFromAlias('#__categories',$catalias,'com_xbpeople'); //$this->$qryarr['catalias']);
 	                      				if ($catid==0) { $catid = $imppcatid; }
 	                      			} else {
 	                      				$catid = $imppcatid;
@@ -571,7 +571,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	                      		} else {
 	                      			if (key_exists('catalias', $qryarr)) {
 	                      				$catalias = $qryarr['catalias'];
-	                      				$catid = XbbooksHelper::getIdFromAlias('#__categories',$catalias); //$this->$qryarr['catalias']);
+	                      				$catid = XbcultureHelper::getIdFromAlias('#__categories',$catalias,'com_xbbooks'); //$this->$qryarr['catalias']);
 	                      				if ($catid==0) { $catid = $impcatid; }
 	                      			} else {
 	                      				$catid = $impcatid;
@@ -582,7 +582,7 @@ class XbbooksModelImportexport extends JModelAdmin {
                       		
                       		if ($table === '#__xbbookreviews') {
                      			if (key_exists('bookalias', $qryarr)){
-                     				$bkid = XbbooksHelper::getIdFromAlias('#__xbbooks', trim($qryarr['bookalias'])," '");
+                     			    $bkid = XbcultureHelper::getIdFromAlias('#__xbbooks', trim($qryarr['bookalias'],'com_xbbooks')," '");
                      				if ($bkid>0) {
                      				    $qryarr['book_id'] = $bkid;
                      				} else {
@@ -712,7 +712,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	    $report = array ('id'=> 0, 'mess'=>'', 'existed'=>false );
 	    //check if alias already exists
 	    if ($alias == '') { $alias = OutputFilter::stringURLSafe($title); }
-	    $cid = XbbooksHelper::getIdFromAlias('#__categories', $alias, 'com_xbpeople');
+	    $cid = XbcultureHelper::getIdFromAlias('#__categories', $alias, 'com_xbpeople');
 	    if ($cid > 0) {
 	    	$report['msg'] = $qarr['alias'].' already exists. ';
 	    	$report['id'] = $cid;
@@ -1373,7 +1373,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 					}
 					//check if book already exists
 					if ($bookalias != '') {
-						$bookid = XbbooksHelper::getIdFromAlias('#__xbbooks', $bookalias);
+						$bookid = XbcultureHelper::getIdFromAlias('#__xbbooks', $bookalias);
 					}
 					if ($bookid>0) {
 						$importcnts['skipcnt'] ++;
@@ -1441,7 +1441,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						$personalias = preg_replace('/\s+/', '-', $personalias);						
 					}
 					//check if person already exists
-					$personid = XbbooksHelper::getIdFromAlias('#__xbpersons', $personalias);
+					$personid = XbcultureHelper::getIdFromAlias('#__xbpersons', $personalias);
 					if ($personid>0) {
 						$importcnts['skipcnt'] ++;
 						$importcnts['mess'] .= $personalias.', ';
@@ -1496,7 +1496,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 						$characteralias = preg_replace('/\s+/', '-', $characteralias);
 					}
 					//check if character already exists
-					$characterid = XbbooksHelper::getIdFromAlias('#__xbcharacters', $characteralias);
+					$characterid = XbcultureHelper::getIdFromAlias('#__xbcharacters', $characteralias);
 					if ($characterid>0) {
 						$importcnts['skipcnt'] ++;
 						$importcnts['mess'] .= $characteralias.', ';
@@ -1543,10 +1543,10 @@ class XbbooksModelImportexport extends JModelAdmin {
 				if ($bookpersoncheck && ($row['role'] != 'character')) {
 					//check we have a book and person id
 					//book/person id will have been set already if row contains a valid book or person columns
-					$bookid = ($bookid == 0) ? XbbooksHelper::getIdFromAlias('#__xbbooks', $bookalias) : $bookid;
+					$bookid = ($bookid == 0) ? XbcultureHelper::getIdFromAlias('#__xbbooks', $bookalias) : $bookid;
 					$role = $row['role'];
 					if ($role =='') { $role = 'author'; }
-					$personid = ($personid == 0) ? XbbooksHelper::getIdFromAlias('#__xbpersons', $row['person_alias']) : $personid;
+					$personid = ($personid == 0) ? XbcultureHelper::getIdFromAlias('#__xbpersons', $row['person_alias']) : $personid;
 					
 										
 					if (($bookid>0) && ($personid>0)) {
@@ -1581,8 +1581,8 @@ class XbbooksModelImportexport extends JModelAdmin {
 				if ($bookcharactercheck && ($row['role'] == 'character')) {
 					//check we have a book and person id
 					//book/person id will have been set already if row contains a valid book or person columns
-					$bookid = ($bookid == 0) ? XbbooksHelper::getIdFromAlias('#__xbbooks', $bookalias) : $bookid;
-					$characterid = ($characterid == 0) ? XbbooksHelper::getIdFromAlias('#__xbcharacters', $row['character_alias']) : $characterid;
+					$bookid = ($bookid == 0) ? XbcultureHelper::getIdFromAlias('#__xbbooks', $bookalias) : $bookid;
+					$characterid = ($characterid == 0) ? XbcultureHelper::getIdFromAlias('#__xbcharacters', $row['character_alias']) : $characterid;
 										
 					if (($bookid>0) && ($characterid>0)) {
 						$query->clear();
@@ -1629,12 +1629,12 @@ class XbbooksModelImportexport extends JModelAdmin {
 							$revalias = preg_replace('/\s+/', '-', $revalias);
 						}
 						//check if review already exists
-						$revid = XbbooksHelper::getIdFromAlias('#__xbbookreviews', $revalias);
+						$revid = XbcultureHelper::getIdFromAlias('#__xbbookreviews', $revalias);
 						if ($revid>0) {
 							$importcnts['skipcnt'] ++;
 							$importcnts['mess'] .= $revalias.', ';
 						} else {						
-							$bookid = $bookid>0 ? $bookid : XbbooksHelper::getIdFromAlias('#__xbbooks', $row['book_alias']);
+							$bookid = $bookid>0 ? $bookid : XbcultureHelper::getIdFromAlias('#__xbbooks', $row['book_alias']);
 							$sqlrev = "INSERT INTO #__xbbookreviews (title,alias,book_id,summary,review,rev_date,reviewer,rating,note,catid,state) VALUES ('";
 							$sqlrev .= $rev_title.$qcq;
 							$sqlrev .= $revalias.$qcq;

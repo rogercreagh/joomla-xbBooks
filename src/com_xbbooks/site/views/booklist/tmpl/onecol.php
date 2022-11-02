@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/onecol.php
- * @version 0.9.9.9 31st October 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -122,29 +122,29 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                           </td>   
                         <?php endif; ?>
                         <td>
-						<p>
-                       <?php //if (($item->authcnt>0) || ($item->editcnt>0)) : ?>
-						
-							<span class="<?php echo ($item->authcnt>1) ? 'icon-users' : 'icon-user'; ?>"></span>&nbsp;
+						<p><span class="<?php echo ($item->authcnt>1) ? 'icon-users' : 'icon-user'; ?>"></span>&nbsp;
                         	<?php if ($item->authcnt==0) {
-                        		echo '<span class="xbnit">'.Text::_('unlisted author').'</span>';
+                        		echo '<span class="xbnit">'.Text::_('unlisted authorR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo $item->authcnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR' ); ?>
+	                        		<?php echo $item->dircnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->alist; 
+                        		<?php echo $item->authlist; 
                         	} ?>                          	
 							<br />
-						<?php // endif; ?>
-                        	<?php if ($item->editcnt>0) : ?>
-							<span class="icon-checkmark-circle"></span>&nbsp;
-	                        	<span class="xbnit">
-	                        	<?php echo $item->editcnt>1 ? Text::_('XBCULTURE_EDITORS') : Text::_('XBCULTURE_EDITOR' ); ?>
+							<?php if ($item->editcnt >0 ) : ?>
+	                        	<span class="icon-checkmark-circle"></span>&nbsp;<span class="xbnit">
+	                        		<?php echo $item->editcnt>1 ? Text::_('XBCULTURE_EDITORS') : Text::_('XBCULTURE_EDITOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->elist; ?> 
-							<br />
-                        	<?php endif; ?>                          	
-							
+                        		<?php echo $item->editlist; ?>
+                        	<br />
+							<?php endif; ?>
+							<?php $othercnt = $item->othcnt + $item->mencntt;
+							if ($othercnt>0) : ?>
+								<span class="icon-users"></span>&nbsp;
+								<span class="xbnit"><?php echo $othercnt.' '.Text::_('other people listed'); ?> </span>
+								<br />
+							<?php endif; ?>	
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
 								<?php echo Text::_('Published'); ?>
 							</span>

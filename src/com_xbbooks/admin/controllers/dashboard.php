@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controllers/dashboard.php
- * @version 0.9.8.4 25th May 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Filesystem\Folder;
 
 class XbbooksControllerDashboard extends JControllerAdmin {
 
@@ -55,10 +57,15 @@ class XbbooksControllerDashboard extends JControllerAdmin {
         $filename = 'xbbooks-sample-data.sql';
         $src = JPATH_ROOT.'/media/com_xbbooks/samples/'.$filename;
         $dest = JPATH_COMPONENT_ADMINISTRATOR ."/uploads/". $filename;
-        JFile::copy($src, $dest);
+        File::copy($src, $dest);
+        
+        $bimpcat = XbcultureHelper::getIdFromAlias('#__categories', 'imported', 'com_xbbooks');
+        //if ($fimpcat==0) $fimpcat=1;
+        $pimpcat = XbcultureHelper::getIdFromAlias('#__categories', 'imported', 'com_xbpeople');
+        //if ($pimpcat==0) $pimpcat=1;
         $dummypost = array('setpub'=>1, 
-            'impcat'=>XbbooksHelper::createCategory('sample-books','','com_xbbooks','Sample book data - anything in this category will be deleted when xbBooks Sample Data is removed'),
-            'imppcat'=>XbbooksHelper::createCategory('sample-bookpeople','','com_xbpeople','Sample book people data - anything in this category will be deleted when xbBooks Sample Data is removed'),
+            'impcat'=>XbcultureHelper::createCategory('sample-books','', $bimpcat,'com_xbbooks','Sample book data - anything in this category will be deleted when xbBooks Sample Data is removed'),
+            'imppcat'=>XbcultureHelper::createCategory('sample-bookpeople','',$pimpcat,'com_xbpeople','Sample book people data - anything in this category will be deleted when xbBooks Sample Data is removed'),
             'poster_path'=>'/images/xbbooks/samples/books/',
             'portrait_path'=>'/images/xbbooks/samples/people/',
             'reviewer'=>'');              
@@ -81,12 +88,12 @@ class XbbooksControllerDashboard extends JControllerAdmin {
         	//copy sample images folder to images
         	$src = '/media/com_xbbooks/samples/images/';
         	$dest = '/images/xbbooks/samples';
-        	if (JFolder::exists(JPATH_ROOT.$dest))
+        	if (Folder::exists(JPATH_ROOT.$dest))
         	{
         		$mess .= '<br />'.Text::sprintf('XBCULTURE_SAMPLE_IMAGES_EXIST', $dest) ;
         		$msgtype = 'info';
         	} else {
-        		if (JFolder::copy(JPATH_ROOT.$src,JPATH_ROOT.$dest)){
+        		if (Folder::copy(JPATH_ROOT.$src,JPATH_ROOT.$dest)){
         			$mess .= '<br /> Sample images copied to '.$dest;
         		} else {
         			$mess .= '<br />Warning, problem copying sample images to'.$dest;

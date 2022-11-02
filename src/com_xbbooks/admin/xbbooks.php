@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/xbbooks.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.9 2nd November 2022
  * @since 0.2.0 23rd February 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,17 +12,21 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\MVC\Controller\BaseController;
 
 if (!Factory::getUser()->authorise('core.manage', 'com_xbbooks')) {
-	Factory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'),'warning');	
+	Factory::getApplication()->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'),'warning');	
     return false;
 }
 
 $document = Factory::getDocument();
 //add the component, xbculture and fontawesome css
 $params = ComponentHelper::getParams('com_xbbooks');
+if ($params->get('savedata','notset')=='notset') {
+    Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_OPTIONS_UNSAVED'),'Error');
+}
 $usexbcss = $params->get('use_xbcss',1);
 if ($usexbcss<2) {
     $cssFile = Uri::root(true)."/media/com_xbpeople/css/xbculture.css";

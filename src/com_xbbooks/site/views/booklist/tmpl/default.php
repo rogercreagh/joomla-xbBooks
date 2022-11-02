@@ -264,6 +264,13 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
      				<?php endif; ?>
                     <?php if($this->show_ctcol) : ?>
 					<td class="hidden-phone">
+    					<?php if ($this->showfict) : ?>
+    					   <?php if ($item->fiction==1) : ?>
+    					   		<span class="label">fiction</span>
+    					   <?php else : ?>
+    					   		<span class="label label-inverse">non-fiction</span>
+    					   <?php endif; ?> 
+    					<?php endif; ?>
  						<?php if($this->showcat) : ?>
  							<p>
  							<?php if($this->showcat==2) : ?>											
@@ -273,13 +280,6 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 							<?php endif; ?>
 							</p>
 						<?php endif; ?>
-    					<?php if ($this->showfict) : ?>
-    					   <?php if ($item->fiction==1) : ?>
-    					   		<span class="label">fiction</span>
-    					   <?php else : ?>
-    					   		<span class="label label-inverse">non-fiction</span>
-    					   <?php endif; ?> 
-    					<?php endif; ?>
     					<?php if($this->showtags) {
     						$tagLayout = new FileLayout('joomla.content.tags');
         					echo '<p>'.$tagLayout->render($item->tags).'</p>';

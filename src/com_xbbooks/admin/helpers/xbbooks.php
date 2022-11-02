@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooks.php
- * @version 0.9.6.e 8th January 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -126,23 +126,23 @@ class XbbooksHelper extends ContentHelper
 	        );
 		} else {
 			JHtmlSidebar::addEntry(
-					'xbBooks Dashboard',
+			    Text::_('XBCULTURE_BOOKS_DASHBOARD'),
 					'index.php?option=com_xbbooks&view=dashboard',
 					$vName == 'dashboard'
 					);
 			
 			JHtmlSidebar::addEntry(
-					'Books',
+			    Text::_('XBCULTURE_BOOKS'),
 					'index.php?option=com_xbbooks&view=books',
 					$vName == 'films'
 					);
 			JHtmlSidebar::addEntry(
-					'Reviews',
+			    Text::_('XBCULTURE_BOOK_REVIEWS'),
 					'index.php?option=com_xbbooks&view=reviews',
 					$vName == 'reviews'
 					);
 			JHtmlSidebar::addEntry(
-					'Books Cat.Counts',
+			    Text::_('XBCULTURE_BOOKS_CAT_CNTS'),	
 					'index.php?option=com_xbbooks&view=bcategories',
 					$vName == 'bcategories'
 					);
@@ -169,21 +169,6 @@ class XbbooksHelper extends ContentHelper
     	return $db->loadObjectList()[0];
     }
     
-    public static function getIdFromAlias($table,$alias, $ext = 'com_xbbooks') {
-        $alias = trim($alias,"' ");
-        $table = trim($table,"' ");
-        $db = Factory::getDBO();
-        $query = $db->getQuery(true);
-        $query->select('id')->from($db->quoteName($table))->where($db->quoteName('alias')." = ".$db->quote($alias));
-        if ($table === '#__categories') {
-            $query->where($db->quoteName('extension')." = ".$db->quote($ext));
-        }
-        $db->setQuery($query);
-        $res =0;
-        $res = $db->loadResult();
-        return $res;
-    }
-    
     public static function getColCounts($srcarr,$col) {
     	return array_count_values(array_column($srcarr, $col));
     }
@@ -208,55 +193,7 @@ class XbbooksHelper extends ContentHelper
         }
         return $cnt;
     }
-    
-    /**
-     * @name createCategory
-     * @param string $name - name of category to create
-     * @param string $alias - alias if not to be derived from name
-     * @param string $ext - component to own category
-     * @param string $desc - optional description
-     * @return false or existing category id (if it exists) on new id if created
-     */
-    public static function createCategory($name, $alias='', $ext='com_xbbooks', $desc='') {
-    	if ($alias=='') {
-    		//create alias from name
-    		$alias = OutputFilter::stringURLSafe(strtolower($name));    		
-    	}
-    	//check category doesn't already exist
-    	$db = Factory::getDbo();
-    	$query = $db->getQuery(true);
-    	$query->select('id')->from($db->quoteName('#__categories'))->where($db->quoteName('alias')." = ".$db->quote($alias));
-    	$query->where($db->quoteName('extension')." = ".$db->quote($ext));
-    	$db->setQuery($query);
-    	$id =0;
-    	$res = $db->loadResult();
-    	if ($res>0) {
-    		return $res;
-    	}
-    	//get category model
-    	$basePath = JPATH_ADMINISTRATOR.'/components/com_categories';
-    	require_once $basePath.'/models/category.php';
-    	$config  = array('table_path' => $basePath.'/tables');
-    	//setup data for new category
-    	$category_model = new CategoriesModelCategory($config);
-    	$category_data['id'] = 0;
-    	$category_data['parent_id'] = 0;
-    	$category_data['published'] = 1;
-    	$category_data['language'] = '*';
-    	$category_data['params'] = array('category_layout' => '','image' => '');
-    	$category_data['metadata'] = array('author' => '','robots' => '');
-    	$category_data['extension'] = $ext;
-    	$category_data['title'] = $name;
-    	$category_data['alias'] = $alias;
-		$category_data['description'] = $desc;
-    	if(!$category_model->save($category_data)){
-    		Factory::getApplication()->enqueueMessage('Error creating category: '.$category_model->getError(), 'error');
-    		return false;
-    	}
-    	$id = $category_model->getItem()->id;    	
-    	return $id;
-    }
-    
+       
     public static function checkPersonExists($firstname, $lastname) {
         $db = Factory::getDbo();
         $query = $db->getQuery(true);

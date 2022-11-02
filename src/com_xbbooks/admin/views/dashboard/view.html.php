@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/view.html.php
- * @version 0.9.9.8 25th October 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -63,7 +63,7 @@ class XbbooksViewDashboard extends JViewLegacy
     		
     		$params = ComponentHelper::getParams('com_xbbooks');
     		
-    		$this->killdata = $params->get('killdata',1);
+    		$this->savedata = $params->get('savedata',0);
     		
     		$this->show_sample = $params->get('show_sample',1);
     		$this->zero_rating = $params->get('zero_rating');

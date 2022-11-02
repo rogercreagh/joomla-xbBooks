@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 0.9.9.8 25th October 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -502,7 +502,7 @@ if (!$this->xbpeople_ok) : ?>
 				<div class="xbbox xbboxwht">
 					<h4><?php echo Text::_('XBCULTURE_CONFIG_OPTIONS'); ?></h4>
 					<p>
-						<?php echo ($this->killdata) ? '<b>Uninstall deletes all book data</b>' : 'Data not deleted on unistall'; ?>
+						<?php echo ($this->savedata) ? 'Data not deleted on unistall' : '<b>Uninstall deletes all book data</b>'; ?>
 					</p>
         			<p>
             		<?php echo '<b>'.Text::_('XBCULTURE_CATEGORIES_U').'</b><br />';

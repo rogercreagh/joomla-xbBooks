@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 0.9.8.3 25th May 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -52,8 +52,8 @@ class com_xbbooksInstallerScript
         $componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbbooks/xbbooks.xml'));
     	$message = 'Uninstalling xbBooks component v.'.$componentXML['version'].' '.$componentXML['creationDate'];
     	//are we also clearing data?
-    	$killdata = ComponentHelper::getParams('com_xbbooks')->get('killdata',0);
-    	if ($killdata) {
+    	$savedata = ComponentHelper::getParams('com_xbbooks')->get('savedata',0);
+    	if ($savedata == 0) {
     	    if ($this->uninstalldata()) {
     	        $message .= ' ... xbBooks data tables deleted';
     	    }

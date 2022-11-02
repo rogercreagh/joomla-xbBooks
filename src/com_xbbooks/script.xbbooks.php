@@ -67,7 +67,7 @@ class com_xbbooksInstallerScript
     	        }
     	    }
     	} else {
-    	    $message .= ' xbBOOKS data tables and images folder have <b>NOT</b> been deleted.';
+    	    $message .= ' xbBooks data tables and images folder have <b>NOT</b> been deleted. CATEGORIES may be recovered on re-install, but TAG links will be lost although tags have not been deleted.';
     	    // allow categories to be recovered with same id
     	    $db = Factory::getDbo();
     	    $db->setQuery(
@@ -80,7 +80,7 @@ class com_xbbooksInstallerScript
     	        $cnt = $db->getAffectedRows();
     	        
     	        if ($cnt>0) {
-    	            $message .= '<br />'.$cnt.' xbBooks categories renamed as "<b>!</b>com_xbbooks<b>!</b>". They will be recovered on reinstall with original ids.';
+    	            $message .= '<br />'.$cnt.' xbBooks category extensions renamed as "<b>!</b>com_xbbooks<b>!</b>". They will be recovered on reinstall with original ids.';
     	        }
     	}
     	$app->enqueueMessage($message,'Info');
@@ -125,7 +125,9 @@ class com_xbbooksInstallerScript
             // create default categories using category table
             $cats = array(
             		array("title"=>"Uncategorised","desc"=>"default fallback category for all xbBooks items"),
-            		array("title"=>"Imported","desc"=>"default category for xbBooks imported data"));
+            		array("title"=>"Imported","desc"=>"default category for xbBooks imported data"),
+                    array("title"=>"Books","desc"=>"default parent category for Books"),
+                    array("title"=>"Book Reviews","desc"=>"default parent category for Book Reviews"));
             $message .= $this->createCategory($cats);
             $app->enqueueMessage($message,'Info');
             

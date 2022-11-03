@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.9.9.9 2nd November 2022
+ * @version 0.9.9.9 3rd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -258,7 +258,7 @@ class XbbooksModelBooklist extends JModelList {
 		    $item->mencnt = count(array_keys($roles, 'mention'));
 		    $item->othcnt = count(array_keys($roles, 'other'));
 			
-			$item->chars = XbbooksHelper::getBookChars($item->id);
+		    $item->chars = XbbooksGeneral::getBookChars($item->id);
 			$item->charcnt = count($item->chars);
 			
 			$item->reviews = XbbooksGeneral::getBookReviews($item->id);

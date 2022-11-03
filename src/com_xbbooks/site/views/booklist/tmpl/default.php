@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 0.9.9.9 31st October 2022
+ * @version 0.9.9.9 3rd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -152,18 +152,22 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb09"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
-						</p><p>
+						</p>
+						<p class="xbmb0" style="margin-bottom:0;">
                         <?php if($item->editcnt>0) : ?>
-                           	<?php if ($item->authcnt>0) {
-								echo '<span class="xbpop xbcultpop xbfocus" data-trigger="focus" tabindex="'.$item->id;
-								echo '" title data-original-title="Authors:" data-content="'.htmlentities($item->alist).'">';
-                            } else {
-                              echo '<span>';
-                            } ?>
-                       	<span class="xbnit">
-                        		<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
-                        	</span></span>: 
-                        	<?php echo $item->elist; ?>
+                           	<span class="xbnit">
+                            	<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
+                            </span>: <?php echo $item->editlist; ?>
+							<?php if ($item->authcnt == 1) : ?>
+								<br /><span class="xbnit">
+									<?php echo Text::_('XBCULTURE_AUTHOR'); ?>
+								</span>: <?php echo $item->authlist; ?>
+							<?php  elseif ($item->authcnt > 1 ) : ?>
+								<details>
+									<summary><span class="xbnit"><?php echo Text::_('XBCULTURE_AUTHORS'); ?></span></summary>
+									<span class="xb09"><?php echo $item->authlist; ?></span>
+								</details>
+							<?php endif; ?>
                         <?php else : ?>
                         	<?php if ($item->authcnt==0) {
                         		echo '<span class="xbnit">'.Text::_('XBBOOKS_NOAUTHOR').'</span>';
@@ -171,10 +175,10 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 	                        	<span class="xbnit">
 	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->alist; 
+                        		<?php echo $item->authlist; 
                         	} ?>                          	
                         <?php endif; ?>
-						<br />
+						</p>
 						<span class="xb09">
 							<?php if($item->pubyear > 0) {
 								echo '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').'</span>: '.$item->pubyear.'<br />'; 

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/view.html.php
- * @version 0.9.9.4 29th July 2022
+ * @version 0.9.9.9 6th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -55,18 +55,18 @@ class XbbooksViewPeople extends JViewLegacy {
 		$this->show_sum = $this->params->get('show_psumcol','1','int');
 
 		$this->showcnts = $this->params->get('showcnts',1);
-		$this->showlists = ($this->showcnts == 1) ? $this->params->get('showlists',1) : 0;
+//		$this->showlists = ($this->showcnts == 1) ? $this->params->get('showlists',1) : 0;
 		
-		foreach ($this->items as $person) {
-		    $person->booklist = '';
-		    if ($person->brolecnt > 0) {
-		        $person->booklist = "<ul style='list-style:none;margin-left:0'>";
-		        foreach ($person->books as $book) {
-		            $person->booklist .= $book->listitem;
-		        }
-		        $person->booklist .= '</ul>';
-		    }
-		}
+// 		foreach ($this->items as $person) {
+// 		    $person->booklist = '';
+// 		    if ($person->brolecnt > 0) {
+// 		        $person->booklist = "<ul style='list-style:none;margin-left:0'>";
+// 		        foreach ($person->books as $book) {
+// 		            $person->booklist .= $book->listitem;
+// 		        }
+// 		        $person->booklist .= '</ul>';
+// 		    }
+// 		}
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');

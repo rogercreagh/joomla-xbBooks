@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.9.9 6th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,12 +16,14 @@ use Joomla\CMS\Helper\TagsHelper;
 class XbbooksModelPeople extends JModelList {
 
 	protected $xbfilmsStatus;
+	protected $prole;
 	
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ( 'firstname', 'lastname',
 					'catid', 'a.catid', 'category_id', 'tagfilt',
 					'category_title', 'c.title',
+			    'a.nationality', 'nationality',
 					'sortdate','bcnt' );
 		}
 		$this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
@@ -99,7 +101,13 @@ class XbbooksModelPeople extends JModelList {
             	}
             }
             
-           // Filter by category and subcats
+            //filter by nationality
+            $natfilt = $this->getState('filter.nationality');
+            if (!empty($natfilt)) {
+                $query->where('a.nationality = '.$db->quote($natfilt));
+            }
+            
+            // Filter by category and subcats
             $categoryId = $this->getState('categoryId');
             $this->setState('categoryId','');
             $dosubcats = 0;
@@ -235,13 +243,17 @@ class XbbooksModelPeople extends JModelList {
 		foreach ($items as $i=>$item) {
 			$item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
 			
-			$item->brolecnt = 0;
-		    if ($item->bcnt > 0) {
-		        $item->books = XbcultureHelper::getPersonBookRoles($item->id,'','title ASC', $showcnts);
-		        $item->brolecnt = count($item->books);
-		    } else {
-		        $item->books = '';
-		    }
+			$item->books = XbcultureHelper::getPersonBooks($item->id);
+			$item->brolecnt = count($item->books);
+			$item->booklist = $item->brolecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'','ul',true,3);
+						
+// 			$item->brolecnt = 0;
+// 		    if ($item->bcnt > 0) {
+// 		        $item->books = XbcultureHelper::getPersonBookRoles($item->id,'','title ASC', $showcnts);
+// 		        $item->brolecnt = count($item->books);
+// 		    } else {
+// 		        $item->books = '';
+// 		    }
 			
 		} //end foreach item
 		return $items;

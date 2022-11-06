@@ -127,7 +127,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         		echo '<span class="xbnit">'.Text::_('unlisted authorR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo $item->dircnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR' ); ?>
+	                        		<?php echo $item->authcnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->authlist; 
                         	} ?>                          	
@@ -139,7 +139,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         		<?php echo $item->editlist; ?>
                         	<br />
 							<?php endif; ?>
-							<?php $othercnt = $item->othcnt + $item->mencntt;
+							<?php $othercnt = $item->othcnt + $item->mencnt;
 							if ($othercnt>0) : ?>
 								<span class="icon-users"></span>&nbsp;
 								<span class="xbnit"><?php echo $othercnt.' '.Text::_('other people listed'); ?> </span>

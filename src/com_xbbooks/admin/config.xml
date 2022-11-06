@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks config.xml v0.9.9.9 2nd November 2022 -->
+<!-- xbBooks config.xml v0.9.9.9 5th November 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -224,8 +224,9 @@
  			class="btn-group btn-group-yesno"
 			showon="show_revs!:0"
 			>
-				<option value="0" >Name</option>
-				<option value="1">Username</option>
+				<option value="0" >no name</option>
+				<option value="1">Name</option>
+				<option value="2">Username</option>
 		</field>	
  		<field name="show_rtags" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_RTAG_LABEL"
@@ -572,18 +573,6 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>
-<!-- 
- 		<field name="show_cat_parent" type="radio"
-			default="1"
-			label="Show Category parents"
-			description="Show category hierarchy - requires showing empty categories, sort will be by parent then title"
-  			class="btn-group btn-group-yesno"
-  			showon="show_clist_empty:1"
-			>
-				<option value="0" >JNO</option>
-				<option value="1">JYES</option>
-		</field>	
- -->
 		
   		<field name="taglistnote" type="note"
 			label="Tag Counts View Options"
@@ -615,26 +604,6 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>
-		<!-- 
-		<field name="show_tag_desc" type="radio"
-			default="1"
-			label="Show Description"
-			description="show description column"
-  			class="btn-group btn-group-yesno"
-			>
-				<option value="0" >JNO</option>
-				<option value="1">JYES</option>
-		</field>	
-		<field name="show_tag_parent" type="radio"
-			default="1"
-			label="Show Tag parents"
-			description="show tag hierarchy - if shown sort will be by parent, then title"
-  			class="btn-group btn-group-yesno"
-			>
-				<option value="0" >JNO</option>
-				<option value="1">JYES</option>
-		</field>	
-		 -->
 		
  	</fieldset>
  	
@@ -658,11 +627,6 @@
 			description="These settings apply to the individual book view"
 			class="info"
 		/>	
-		<field name="book_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="book" 
-	    />
  		<field name="show_bimage" type="list"
 			label="Show Image"
 			description="Show image, and in which position"
@@ -690,12 +654,6 @@
 			class="info"
 			showon="show_revs:1"
 		/>	
-		<field name="rev_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="bookreview" 
-			showon="show_revs:1"
-	    />
  		<field name="show_rimage" type="list"
 			label="Show Image"
 			description="Show image, and in which position"
@@ -711,44 +669,7 @@
 			description="Options for indivdual people and character views are set in the xbPeople Component options"
 			class="info"
 		/>		
-<!-- 
-		<field name="person_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="person" 
-	    />
-		<field name="show_pimage" type="list"
-	        label="Show Picture"
-	        description="Show picture of person with their name"
-			default="2"
-	    	>
-			<option value="0" >JHIDE</option>
-			<option value="1">Show to left of name</option>
-			<option value="2">Show to right of name</option>
-		</field>       
-
-	    	    
-  		<field name="charnote" type="note"
-			label="Character View Options"
-			description="These global options to do with images are common for both real people and characters"
-			class="info"
-		/>			
-		<field name="character_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbbooks" view="character" 
-	    />
-		<field name="show_cimage" type="list" 
-	        label="Show Picture"
-	        description="Show picture of character with their name"
-			default="2"
-	    	>
-			<option value="0" >JHIDE</option>
-			<option value="1">Show to left of name</option>
-			<option value="2">Show to right of name</option>
-		</field>       
- -->	
-
+ 
   		<field name="categorynote" type="note"
 			label="Category View Options"
 			description="Options for the Category view which lists all the items in a category."

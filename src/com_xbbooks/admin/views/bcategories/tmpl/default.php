@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/bcategories/tmpl/default.php
- * @version 0.9.6.e 8th January 2022
+ * @version 0.9.9.9 5th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -154,7 +154,7 @@ $prevext ='';
 					<span class="xbnote"> 
  					<?php 	$path = substr($item->path, 0, strrpos($item->path, '/'));
 						$path = str_replace('/', ' - ', $path);
-						echo $path.($path!='') ? ' - <br/>' : ''; ?>
+						echo ($path!='') ? $path.' - <br/>' : ''; ?>
 						</span>
     					<a href="<?php echo Route::_($cvlink . $item->id); ?>" title="Details" 
     						class="label label-success" style="padding:2px 8px;">

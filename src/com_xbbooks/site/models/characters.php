@@ -20,7 +20,7 @@ class XbbooksModelCharacters extends JModelList {
     public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('name', 'category_title','c.title',
-					'catid', 'a.catid', 'category_id', 'bcnt','tagfilt');
+					'catid', 'a.catid', 'category_id', 'bcnt', 'tagfilt');
 		}
 		$this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
 		parent::__construct($config);
@@ -61,7 +61,7 @@ class XbbooksModelCharacters extends JModelList {
             a.ordering AS ordering, a.params AS params, a.note AS note');
         $query->from('#__xbcharacters AS a');
         $query->select('(SELECT COUNT(DISTINCT(bc.book_id)) FROM #__xbbookcharacter AS bc WHERE bc.char_id = a.id) AS bcnt');
-        if ($this->xbfilmsStatus) $query->select('(SELECT COUNT(DISTINCT(fc.film_id)) FROM #__xbfilmcharacter AS fc WHERE fc.char_id = a.id) AS bcnt');
+        if ($this->xbfilmsStatus) $query->select('(SELECT COUNT(DISTINCT(fc.film_id)) FROM #__xbfilmcharacter AS fc WHERE fc.char_id = a.id) AS fcnt');
         
         //only get book chars
         $query->join('INNER','#__xbbookcharacter AS bp ON bp.char_id = a.id');
@@ -121,6 +121,12 @@ class XbbooksModelCharacters extends JModelList {
             if (empty($tagfilt)) {
                 $tagfilt = $this->getState('params')['menu_tag'];
                 $taglogic = $this->getState('params')['menu_taglogic']; //1=AND otherwise OR
+            }
+            
+            if (($searchbar==1) && (empty($tagfilt))) { 	//look for menu options
+                //look for filter options and ignore menu options
+                $tagfilt = $this->getState('filter.tagfilt');
+                $taglogic = $this->getState('filter.taglogic'); //1=AND otherwise OR
             }
             
             if (empty($tagfilt)) {
@@ -194,6 +200,7 @@ class XbbooksModelCharacters extends JModelList {
     		Factory::getApplication()->setUserState('characters.sortorder', $peep);
     		
     		foreach ($items as $i=>$item) {
+    		    $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);   
     		    if ($item->bcnt>0) {
     		        $item->books = XbcultureHelper::getCharFilms($item->id);
     		        $item->booklist = '<ul class="xblist">';
@@ -205,7 +212,6 @@ class XbbooksModelCharacters extends JModelList {
     		        $item->books = '';
     		        $item->booklist = '';
     		    }
-    		    $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);   
     		} //end foreach item
 		}
 		return $items;

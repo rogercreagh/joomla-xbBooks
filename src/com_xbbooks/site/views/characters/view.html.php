@@ -53,17 +53,6 @@ class XbbooksViewCharacters extends JViewLegacy {
 		$this->showccnts = $this->params->get('showccnts',1);
 		$this->showclists = ($this->showccnts == 1) ? $this->params->get('showclists',1) : 0;
 		
-		foreach ($this->items as $char) {
-		    $char->booklist = '';
-		    if ($char->bcnt > 0) {
-		        $char->booklist = "<ul style='list-style:none;margin-left:0'>";
-		        foreach ($char->books as $book) {
-		            $char->booklist .= $book->listitem;
-		        }
-		        $char->booklist .= '</ul>';
-		    }
-		}
-		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
 			return false;

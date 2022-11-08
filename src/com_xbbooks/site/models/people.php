@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 0.9.9.9 6th November 2022
+ * @version 0.9.9.9 8th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -247,14 +247,6 @@ class XbbooksModelPeople extends JModelList {
 			$item->brolecnt = count($item->books);
 			$item->booklist = $item->brolecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'','ul',true,3);
 						
-// 			$item->brolecnt = 0;
-// 		    if ($item->bcnt > 0) {
-// 		        $item->books = XbcultureHelper::getPersonBookRoles($item->id,'','title ASC', $showcnts);
-// 		        $item->brolecnt = count($item->books);
-// 		    } else {
-// 		        $item->books = '';
-// 		    }
-			
 		} //end foreach item
 		return $items;
 	}

@@ -134,6 +134,10 @@ class XbbooksModelReview extends JModelAdmin {
     }
     
     public function save($data) {
+        if ($data['revtaggroup']) {
+            $data['tags'] = ($data['tags']) ? array_unique(array_merge($data['tags'],$data['revtaggroup'])) : $data['revtaggroup'];
+        }
+        
         if (parent::save($data)) {
             //get the saved id (valid for new items as well where $data['id'] will still = 0
             $rid = $this->getState('review.id');

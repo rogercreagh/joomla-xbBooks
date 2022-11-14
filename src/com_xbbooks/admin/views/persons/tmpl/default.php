@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.9.10.2 14th November 2022
+ * @version 0.9.10.3 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -308,7 +308,7 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 						</a></p>						
 						
 						<ul class="inline">
-						<?php foreach ($item->persontags as $t) : ?>
+						<?php foreach ($item->tags as $t) : ?>
 							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label percnt">
 								<?php echo $t->title; ?></a>
 							</li>													

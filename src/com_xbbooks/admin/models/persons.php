@@ -219,43 +219,8 @@ class XbbooksModelPersons extends JModelList {
                 }
                 $item->ext_links_list = trim($item->ext_links_list,', ');
             
- //           $item->books = XbbooksGeneral::getPersonRoleArray($item->id,'',true);
- //           $cnts = array_count_values(array_column($item->books, 'role'));
- //           $item->acnt = (key_exists('author',$cnts))?$cnts['author'] : 0;
-//            $item->ecnt = (key_exists('editor',$cnts))?$cnts['editor'] : 0;
- //           $item->mcnt = (key_exists('mention',$cnts))?$cnts['mention'] : 0;
-//            $item->ocnt = (key_exists('other',$cnts))?$cnts['other'] : 0;;
-  
-            
-//             $item->filmcnt = 0;
-//             if ($this->xbfilmsStatus) {
-//             	$db    = Factory::getDbo();
-//             	$query = $db->getQuery(true);
-//             	$query->select('COUNT(*)')->from('#__xbfilmperson');
-//             	$query->where('person_id = '.$db->quote($item->id));
-//             	$db->setQuery($query);
-//             	$item->filmcnt = $db->loadResult();
-//             }
-    
-//             $item->alist='';
-//             if ($item->acnt>0) {
-//             	$item->alist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'author',', ',false,true));
-//             }
-//             $item->elist='';
-//             if ($item->ecnt>0) {
-//             	$item->elist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'editor',', ',false,true));
-//             }
-//             $item->mlist='';
-//             if ($item->mcnt>0) {
-//             	$item->mlist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'mention',', ',false,true));
-//             }
-//             $item->olist='';
-//             if ($item->ocnt>0) {
-//             	$item->olist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'other',', ',false,true,true));
-//            }
-            
 	        } //end if is_object
-	        $item->persontags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
+	        $item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
         } //end foreach item
 	    return $items;
     }

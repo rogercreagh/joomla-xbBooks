@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.9.6.e 8th January 2022
+ * @version 0.9.10.3 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -232,13 +232,27 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							
                     </td>
 					<td>
-						<?php if (count($item->books)>0) { 
-						    echo '<span class="xb09 xbnorm"><i>';
-						    echo Text::_('XBCULTURE_APPEARS_IN').' '.count($item->books).' ';
-						    echo Text::_((count($item->books)==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS'); 
-						    echo '</i><br />';
-						    echo XbbooksGeneral::makeLinkedNameList($item->books,'','<br />',true).'</span><br />';
-						}?> 
+						<?php if (($item->bcnt==1) || ($item->bcnt==2)) : ?> 
+                            <ul class="xbdetails">
+								<?php echo $item->booklist; ?>
+							</ul>
+						<?php elseif ($item->bcnt>2) : ?> 
+						    <details>
+						    <summary><span class="xbnit">
+						    <?php echo Text::_('XBCULTURE_APPEARS_IN').' '.$item->bcnt.' ';
+						    echo Text::_('XBCULTURE_BOOKS');   ?>
+                            </span></summary>
+                            <ul class="xbdetails">
+								<?php echo $item->booklist; ?>
+							</ul>
+                          </details>
+						<?php endif; ?> 
+						<?php if ($item->fcnt>0) {
+							echo '<span class="xbnit">';
+							echo Text::_('also in').' <a href="'.$pelink.$item->id.'">'.$item->bcnt.' ';
+							echo Text::_(($item->fcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');
+							echo '</a></span>';
+						}?>
 					</td>
 					<td>
 						<?php if ($this->xbpeople_ok!==false): ?>						
@@ -249,7 +263,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php endif; ?>
 						<ul class="inline">
 						<?php foreach ($item->tags as $t) : ?>
-							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label label-info">
+							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label chcnt">
 								<?php echo $t->title; ?></a>
 							</li>												
 						<?php endforeach; ?>

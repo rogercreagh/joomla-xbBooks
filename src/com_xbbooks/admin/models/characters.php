@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/characters.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.10.3 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,8 +36,6 @@ class XbbooksModelCharacters extends JModelList {
     }
     
     protected function getListQuery() {
-        //TODO need to also get roles list with book titles
-        // Initialize variables.
         $db    = Factory::getDbo();
         $query = $db->getQuery(true);
         
@@ -202,24 +200,4 @@ class XbbooksModelCharacters extends JModelList {
 	    return $items;
     }
     
-
-//     public function getCharacterArray($personid) {
-//         $link = 'index.php?option=com_xbbooks&task=book.edit&id=';
-//         $db = Factory::getDBO();
-//         $query = $db->getQuery(true);
-        
-//         $query->select('b.title, b.subtitle, b.pubyear, b.id')
-//             ->from('#__xbbookcharacter AS a')
-//             ->join('LEFT','#__xbbooks AS b ON b.id=a.book_id')
-//             ->where('a.char_id = "'.$personid.'"' )
-//             ->order('b.pubyear, b.title', 'ASC');
-//         $db->setQuery($query);
-//         $list = $db->loadObjectList();
-//         foreach ($list as $i=>$item){
-//             $tlink = Route::_($link . $item->id);
-//             $item->link = '<a href="'.$tlink.'">'.$item->title.'</a>';
-//             $item->display = $item->title;
-//         }
-//         return $list;
-//     }   
 }

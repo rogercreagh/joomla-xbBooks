@@ -30,7 +30,7 @@ class XbbooksModelCharacters extends JModelList {
             		'published','a.state'	
             );
         }
-        $this->xbfilmsStatus = Factory::getSession()->get('com_xbfilms',false);
+        $this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
         
         parent::__construct($config);
     }

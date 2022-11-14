@@ -156,6 +156,62 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	
+		<field name="taggrpsnote" type="note"
+			label="Film Tag Groups"
+			description="XBCULTURE_CONFIG_TAGGROUPNOTE_DESC"
+		/>	
+		
+ 		<field name="enable_taggroups" type="radio"
+			label="Organise tags in groups"
+			description="This will allow you to define up to four tag groups, each with a sparate parent tag."
+			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
+			default="0"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>	
+		<field name="taggroup1_parent" type="tag"
+			mode="nested" published="1"
+			label="XBCULTURE_CONFIG_TAGGROUP1_PARENT" description="XBCULTURE_CONFIG_TAGGROUP_DESC"
+			multiple="false"
+			showon="show_tags:1[AND]enable_taggroups:1"
+			default=""
+		>
+			<option value="">- not used -</option>
+		</field>
+		<field name="taggroup2_parent" type="tag"
+			mode="nested" published="1"
+			label="XBCULTURE_CONFIG_TAGGROUP2_PARENT" description="XBCULTURE_CONFIG_TAGGROUP_DESC"
+			multiple="false"
+			showon="show_tags:1[AND]enable_taggroups:1"
+			default=""
+		>
+			<option value="">- not used -</option>
+		</field>
+		<field name="taggroup3_parent" type="tag"
+			mode="nested" published="1"
+			label="XBCULTURE_CONFIG_TAGGROUP3_PARENT" description="XBCULTURE_CONFIG_TAGGROUP_DESC"
+			multiple="false"
+			showon="show_tags:1[AND]enable_taggroups:1"
+			default=""
+		>
+			<option value="">- not used -</option>
+		</field>
+		<field name="taggroup4_parent" type="tag"
+			mode="nested" published="1"
+			label="XBCULTURE_CONFIG_TAGGROUP4_PARENT" description="XBCULTURE_CONFIG_TAGGROUP_DESC"
+			multiple="false"
+			showon="show_tags:1[AND]enable_taggroups:1"
+			default=""
+		>
+			<option value="">- not used -</option>
+		</field>
+		
+		<field name="bdatespsnote" type="note"
+			label="Book Dates"
+			description="A book can have first and last read dates. These are separate to the review dates, but can be updated by a new review. If both dates are not set the film is deemed not to have been seen (yet!)"
+		/>			
  		<field name="show_bdates" type="radio"
 			label="Show Book Dates"
 			description="A book has an acquistion date (when it was entered in the catalogue) and a last read date. For some sites you might not wish to use these fields on the front-end. If you want to use acquisition date, but not read date then simple leave the read dates blank. When sorting by date the latest of both dates are used. NB this does not affect publication year which is a property of the book itself."
@@ -217,6 +273,7 @@
 			>			
 			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
 		</field>
+		
  		<field name="rev_auth" type="radio"
 			default="0"
 			label="XBCULTURE_CONFIG_REVIEWER_NAME_LABEL"
@@ -238,6 +295,16 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	
+		<field name="revtaggroup_parent" type="tag" 
+			mode="nested" published="1"
+			label="Review tag group" description="Show additional tag selector on review edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
+			multiple="false"
+			showon="show_tags:1[AND]show_rtags:1"
+			default=""
+		>
+			<option value="">- not used -</option>
+		</field>
+				
   		<field name="starsnote" type="note"
 			label="XBCULTURE_CONFIG_STARS_NOTE"
 			description="XBCULTURE_CONFIG_STARS_NOTE_DESC"
@@ -331,7 +398,17 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	
- 		<field name="charsnote" type="note"
+		<field name="peeptaggroup_parent" type="tag" 
+			mode="nested" published="1"
+			label="People tag group" description="Show additional tag selector on review edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
+			multiple="false"
+			showon="show_tags:1[AND]show_ptags:1"
+			default=""
+		>
+			<option value="">- not used -</option>
+		</field>
+				
+  		<field name="charsnote" type="note"
 			label="XBCULTURE_CONFIG_CHAR_SETTINGS"
 		/>	
  		<field name="show_ccat" type="radio"
@@ -381,6 +458,15 @@
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
+		</field>
+		<field name="chartaggroup_parent" type="tag" 
+			mode="nested" published="1"
+			label="Character tag group" description="Show additional tag selector on edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
+			multiple="false"
+			showon="show_tags:1[AND]show_ctags:1"
+			default=""
+		>
+			<option value="">- not used -</option>
 		</field>
 		
 	</fieldset>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/person.xml v0.9.8.5 30th May 2022 -->
+<!-- xbBooks admin/models/forms/person.xml v0.9.10.2 14th November 2022 -->
 <form>
-	<fieldset addfieldpath="/administrator/components/com_xbbooks/models/fields">
+	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
 		<field name="id" default="0" 
 			label="JGLOBAL_FIELD_ID_LABEL"
 			readonly="true" class="readonly" />
@@ -74,6 +74,13 @@
 				description="JTAG_DESC"
 				multiple="true"
 		>
+		<field name="peeptaggroup" type="childtags"
+			label="People Tags" description="Description to be taken from parent tag"
+			parent="com_xbbooks.peeptaggroup_parent"
+			multiple="true"  published="1"
+			mode="nested" custom="deny"
+		/>
+
 		</field>
 
 		<field name="note" type="textarea" rows="3" cols="50"

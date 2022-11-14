@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 0.9.9.9 1st November 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -141,6 +141,29 @@ class XbbooksModelBook extends JModelAdmin {
 	        $data->charlist=$this->getBookCharlist();
         }
              
+        $tagsHelper = new TagsHelper;
+        $params = ComponentHelper::getParams('com_xbbooks');
+        $taggroup1_parent = $params->get('taggroup1_parent','');
+        if ($taggroup1_parent && !(empty($data->tags))) {
+            $taggroup1_tags = $tagsHelper->getTagTreeArray($taggroup1_parent);
+            $data->taggroup1 = array_intersect($taggroup1_tags, explode(',', $data->tags));
+        }
+        $taggroup2_parent = $params->get('taggroup2_parent','');
+        if ($taggroup2_parent && !(empty($data->tags))) {
+            $taggroup2_tags = $tagsHelper->getTagTreeArray($taggroup2_parent);
+            $data->taggroup2 = array_intersect($taggroup2_tags, explode(',', $data->tags));
+        }
+        $taggroup3_parent = $params->get('taggroup3_parent','');
+        if ($taggroup3_parent && !(empty($data->tags))) {
+            $taggroup3_tags = $tagsHelper->getTagTreeArray($taggroup3_parent);
+            $data->taggroup3 = array_intersect($taggroup3_tags, explode(',', $data->tags));
+        }
+        $taggroup4_parent = $params->get('taggroup4_parent','');
+        if ($taggroup4_parent && !(empty($data->tags))) {
+            $taggroup4_tags = $tagsHelper->getTagTreeArray($taggroup4_parent);
+            $data->taggroup4 = array_intersect($taggroup4_tags, explode(',', $data->tags));
+        }
+        
         return $data;
     }
     
@@ -277,6 +300,21 @@ class XbbooksModelBook extends JModelAdmin {
             // standard Joomla practice is to set the new copy record as unpublished
             $data['published'] = 0;
         }
+        
+        //merge groups back into tags
+        if ($data['taggroup1']) {
+            $data['tags'] = ($data['tags']) ? array_unique(array_merge($data['tags'],$data['taggroup1'])) : $data['taggroup1'];
+        }
+        if ($data['taggroup2']) {
+            $data['tags'] = ($data['tags']) ? array_unique(array_merge($data['tags'],$data['taggroup2'])) : $data['taggroup2'];
+        }
+        if ($data['taggroup3']) {
+            $data['tags'] = ($data['tags']) ? array_unique(array_merge($data['tags'],$data['taggroup3'])) : $data['taggroup3'];
+        }
+        if ($data['taggroup4']) {
+            $data['tags'] = ($data['tags']) ? array_unique(array_merge($data['tags'],$data['taggroup4'])) : $data['taggroup4'];
+        }
+        
         //if only first_seen or last_seen is set then copy to other one
         if (($data['first_read']=='') && ($data['last_read']!='')) {
             $data['first_read']=$data['last_read'];

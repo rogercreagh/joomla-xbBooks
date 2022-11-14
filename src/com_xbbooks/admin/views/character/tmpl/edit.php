@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/character/tmpl/edit.php
- * @version 0.9.6.c 6th January 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,13 +10,15 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
-HtmlHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => JText::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
+HtmlHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => Text::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
 HtmlHelper::_('formbehavior.chosen', 'select');
 
 ?>
@@ -53,7 +55,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
       <div class="span12">
 		<?php echo HtmlHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('XBBOOKS_FIELDSET_GENERAL')); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'general', Text::_('XBBOOKS_FIELDSET_GENERAL')); ?>
 		<div class="row-fluid">
 			<div class="span9">
 				<fieldset class="adminform form-vertical">
@@ -68,17 +70,26 @@ HtmlHelper::_('formbehavior.chosen', 'select');
  				<fieldset class="form-vertical">
            			<?php echo $this->form->renderField('image'); ?>
  				</fieldset>
-				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
+					<?php if ($this->chartaggroup_parent) : ?>
+				        <h4>Character Tags</h4>
+ 						<?php  $this->form->setFieldAttribute('tags','label',Text::_('XBCULTURE_ALLTAGS'));
+ 						    $this->form->setFieldAttribute('tags','description',Text::_('XBCULTURE_ALLTAGS_DESC'));						    
+ 						    $this->form->setFieldAttribute('chartaggroup','label',$this->taggroupinfo[$this->chartaggroup_parent]['title']);
+ 						    $this->form->setFieldAttribute('chartaggroup','description',$this->taggroupinfo[$this->chartaggroup_parent]['description']);
+ 						    echo $this->form->renderField('chartaggroup'); 
+						endif; ?>
+ 				<h4><?php echo Text::_('XBCULTURE_STATUS_CATS_TAGS'); ?></h4> 				
+				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>
 		</div>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('XBBOOKS_FIELDSET_PUBLISHING')); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('XBBOOKS_FIELDSET_PUBLISHING')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
-				<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+				<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
 			</div>
 			<div class="span6">
-				<?php echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
+				<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
 			</div>
 		</div>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>

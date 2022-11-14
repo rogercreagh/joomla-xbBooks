@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/persons.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -30,7 +30,7 @@ class XbbooksModelPersons extends JModelList {
             		'sortdate' );
         }
         
-        $this->xbfilmsStatus = Factory::getSession()->get('com_xbfilms',false);
+        $this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
         parent::__construct($config);
     }
     
@@ -48,8 +48,13 @@ class XbbooksModelPersons extends JModelList {
             
         $query->from($db->quoteName('#__xbpersons','a'));
         
-        $query->select('(GROUP_CONCAT(b.book_id SEPARATOR '.$db->quote(',') .')) AS booklist');
-        $query->join('LEFT',$db->quoteName('#__xbbookperson', 'b') . ' ON ' .$db->quoteName('b.person_id') . ' = ' . $db->quoteName('a.id'));
+        $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
+        if ($this->xbfilmsStatus) $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
+        
+        $query->join('LEFT',$db->quoteName('#__xbbookperson', 'b') . ' ON ' . $db->quoteName('b.person_id') . ' = ' .$db->quoteName('a.id'));
+        
+        //        $query->select('(GROUP_CONCAT(b.book_id SEPARATOR '.$db->quote(',') .')) AS booklist');
+//        $query->join('LEFT',$db->quoteName('#__xbbookperson', 'b') . ' ON ' .$db->quoteName('b.person_id') . ' = ' . $db->quoteName('a.id'));
         
         $query->select('c.title AS category_title')
             ->join('LEFT', '#__categories AS c ON c.id = a.catid');
@@ -76,6 +81,12 @@ class XbbooksModelPersons extends JModelList {
             $query->where('state = ' . (int) $published);
 //        } elseif ($published === '') {
 //            $query->where('(state IN (0, 1))');
+        }
+        
+        //filter by nationality
+        $natfilt = $this->getState('filter.nationality');
+        if (!empty($natfilt)) {
+            $query->where('a.nationality = '.$db->quote($natfilt));
         }
         
         //Filter by role
@@ -184,59 +195,69 @@ class XbbooksModelPersons extends JModelList {
         $tagsHelper = new TagsHelper;
         
         foreach ($items as $i=>$item) { 
-            $item->books = XbbooksGeneral::getPersonRoleArray($item->id,'',true);
-            $cnts = array_count_values(array_column($item->books, 'role'));
-            $item->acnt = (key_exists('author',$cnts))?$cnts['author'] : 0;
-            $item->ecnt = (key_exists('editor',$cnts))?$cnts['editor'] : 0;
-            $item->mcnt = (key_exists('mention',$cnts))?$cnts['mention'] : 0;
-            $item->ocnt = (key_exists('other',$cnts))?$cnts['other'] : 0;;
-  
             
-            $item->filmcnt = 0;
-            if ($this->xbfilmsStatus) {
-            	$db    = Factory::getDbo();
-            	$query = $db->getQuery(true);
-            	$query->select('COUNT(*)')->from('#__xbfilmperson');
-            	$query->where('person_id = '.$db->quote($item->id));
-            	$db->setQuery($query);
-            	$item->filmcnt = $db->loadResult();
-            }
-    
-            $item->alist='';
-            if ($item->acnt>0) {
-            	$item->alist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'author',', ',false,true));
-            }
-            $item->elist='';
-            if ($item->ecnt>0) {
-            	$item->elist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'editor',', ',false,true));
-            }
-            $item->mlist='';
-            if ($item->mcnt>0) {
-            	$item->mlist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'mention',', ',false,true));
-            }
-            $item->olist='';
-            if ($item->ocnt>0) {
-            	$item->olist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'other',', ',false,true,true));
-            }
+            $item->books = XbcultureHelper::getPersonBooks($item->id);
             
-
+            $roles = array_column($item->books,'role');
+            $item->acnt = count(array_keys($roles, 'author'));
+            $item->ecnt = count(array_keys($roles, 'editor'));
+            $item->mcnt = count(array_keys($roles, 'mention'));
+            $item->ocnt = count(array_keys($roles, 'other'));
             
+            $item->alist = $item->acnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'author','ul',true,1);
+            $item->elist = $item->ecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'editor','ul',true,1);
+            $item->mlist = $item->mcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'mention','ul',true,1);
+            $item->olist = $item->ocnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'other','ul',true,1);
             
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';
-            $item->ext_links_cnt = 0; 
+            $item->ext_links_cnt = 0;
             if(is_object($item->ext_links)) {
-            	$item->ext_links_cnt = count((array)$item->ext_links);
-            	foreach($item->ext_links as $lnk) {
-					$item->ext_links_list .= '<a href="'.$lnk->link_url.'" target="_blank">'.$lnk->link_text.'</a>, ';
-				}
-				$item->ext_links_list = trim($item->ext_links_list,', ');
+                $item->ext_links_cnt = count((array)$item->ext_links);
+                foreach($item->ext_links as $lnk) {
+                    $item->ext_links_list .= '<a href="'.$lnk->link_url.'" target="_blank">'.$lnk->link_text.'</a>, ';
+                }
+                $item->ext_links_list = trim($item->ext_links_list,', ');
+            
+ //           $item->books = XbbooksGeneral::getPersonRoleArray($item->id,'',true);
+ //           $cnts = array_count_values(array_column($item->books, 'role'));
+ //           $item->acnt = (key_exists('author',$cnts))?$cnts['author'] : 0;
+//            $item->ecnt = (key_exists('editor',$cnts))?$cnts['editor'] : 0;
+ //           $item->mcnt = (key_exists('mention',$cnts))?$cnts['mention'] : 0;
+//            $item->ocnt = (key_exists('other',$cnts))?$cnts['other'] : 0;;
+  
+            
+//             $item->filmcnt = 0;
+//             if ($this->xbfilmsStatus) {
+//             	$db    = Factory::getDbo();
+//             	$query = $db->getQuery(true);
+//             	$query->select('COUNT(*)')->from('#__xbfilmperson');
+//             	$query->where('person_id = '.$db->quote($item->id));
+//             	$db->setQuery($query);
+//             	$item->filmcnt = $db->loadResult();
+//             }
+    
+//             $item->alist='';
+//             if ($item->acnt>0) {
+//             	$item->alist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'author',', ',false,true));
+//             }
+//             $item->elist='';
+//             if ($item->ecnt>0) {
+//             	$item->elist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'editor',', ',false,true));
+//             }
+//             $item->mlist='';
+//             if ($item->mcnt>0) {
+//             	$item->mlist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'mention',', ',false,true));
+//             }
+//             $item->olist='';
+//             if ($item->ocnt>0) {
+//             	$item->olist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->books,'other',', ',false,true,true));
+//            }
+            
 	        } //end if is_object
 	        $item->persontags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
-	        $item->filmtags = $tagsHelper->getItemTags('com_xbfilms.person' , $item->id);
-	        $item->booktags = $tagsHelper->getItemTags('com_xbbooks.person' , $item->id);
         } //end foreach item
-	        return $items;
+	    return $items;
     }
 
 }

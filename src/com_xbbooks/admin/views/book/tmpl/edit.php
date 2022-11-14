@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -121,7 +121,33 @@ $document->addStyleDeclaration($style);
 			<div class="span3">
  				<fieldset class="form-vertical">
            			<?php echo $this->form->renderField('cover_img'); ?>
+           			<?php if ($this->taggroups) : ?>
+ 						<?php  $this->form->setFieldAttribute('tags','label',Text::_('XBCULTURE_ALLTAGS'));
+ 						    $this->form->setFieldAttribute('tags','description',Text::_('XBCULTURE_ALLTAGS_DESC'));	?>	    
+           				<h4><?php echo Text::_('XBCULTURE_TAG_GROUPS'); ?></h4>
+ 						<?php if ($this->taggroup1_parent) {
+ 						    $this->form->setFieldAttribute('taggroup1','label',$this->taggroupinfo[$this->taggroup1_parent]['title']);
+ 						    $this->form->setFieldAttribute('taggroup1','description',$this->taggroupinfo[$this->taggroup1_parent]['description']);
+      						echo $this->form->renderField('taggroup1'); 
+						} ?>
+ 						<?php if ($this->taggroup2_parent) {
+ 						    $this->form->setFieldAttribute('taggroup2','label',$this->taggroupinfo[$this->taggroup2_parent]['title']);
+ 						    $this->form->setFieldAttribute('taggroup2','description',$this->taggroupinfo[$this->taggroup2_parent]['description']);
+      						echo $this->form->renderField('taggroup2'); 
+						} ?>
+ 						<?php if ($this->taggroup3_parent) {
+ 						    $this->form->setFieldAttribute('taggroup3','label',$this->taggroupinfo[$this->taggroup3_parent]['title']);
+ 						    $this->form->setFieldAttribute('taggroup3','description',$this->taggroupinfo[$this->taggroup3_parent]['description']);
+      						echo $this->form->renderField('taggroup3'); 
+						} ?>
+ 						<?php if ($this->taggroup4_parent) {
+ 						    $this->form->setFieldAttribute('taggroup4','label',$this->taggroupinfo[$this->taggroup4_parent]['title']);
+ 						    $this->form->setFieldAttribute('taggroup4','description',$this->taggroupinfo[$this->taggroup4_parent]['description']);
+      						echo $this->form->renderField('taggroup4'); 
+						} ?>
+ 					<?php endif; ?>
  				</fieldset>
+ 				<h4><?php echo Text::_('XBCULTURE_STATUS_CATS_TAGS'); ?></h4> 				
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>
    		</div>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/review.php
- * @version 0.9.9.6 16th August 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\Registry\Registry;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Application\ApplicationHelper;
@@ -69,6 +70,14 @@ class XbbooksModelReview extends JModelAdmin {
         
         if (empty($data)) {
             $data = $this->getItem();
+        }
+        
+        $tagsHelper = new TagsHelper;
+        $params = ComponentHelper::getParams('com_xbbooks');
+        $revtaggroup_parent = $params->get('revtaggroup_parent','');
+        if ($revtaggroup_parent && !(empty($data->tags))) {
+            $revtaggroup_tags = $tagsHelper->getTagTreeArray($revtaggroup_parent);
+            $data->revtaggroup = array_intersect($revtaggroup_tags, explode(',', $data->tags));
         }
         
         return $data;

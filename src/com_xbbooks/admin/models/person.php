@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/person.php
- * @version 0.9.6.a 18th December 2021
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -74,6 +74,15 @@ class XbbooksModelPerson extends JModelAdmin {
         if (empty($data)) {
             $data = $this->getItem();
         }
+
+        $tagsHelper = new TagsHelper;
+        $params = ComponentHelper::getParams('com_xbbooks');
+        $peeptaggroup_parent = $params->get('peeptaggroup_parent','');
+        if ($peeptaggroup_parent && !(empty($data->tags))) {
+            $peeptaggroup_tags = $tagsHelper->getTagTreeArray($peeptaggroup_parent);
+            $data->peeptaggroup = array_intersect($peeptaggroup_tags, explode(',', $data->tags));
+        }
+        
         if (is_object($data)) {
 	        $data->bookauthorlist=$this->getPersonBookslist('author');
 	        $data->bookeditorlist=$this->getPersonBookslist('editor');
@@ -183,6 +192,10 @@ class XbbooksModelPerson extends JModelAdmin {
 		// allow nulls for year (therwise mysql empty value defaults to 0)
 		if ($data['year_born']=='') { $data['year_born'] = NULL; }
 		if ($data['year_died']=='') { $data['year_died'] = NULL; }
+		
+		if ($data['peeptaggroup']) {
+		    $data['tags'] = ($data['tags']) ? array_unique(array_merge($data['tags'],$data['peeptaggroup'])) : $data['peeptaggroup'];
+		}
 		
 		if (parent::save($data)) {
 			$this->storePersonBooks($this->getState('person.id'),'author', $data['bookauthorlist']);

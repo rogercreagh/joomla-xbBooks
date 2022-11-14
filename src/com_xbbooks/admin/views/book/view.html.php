@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/view.html.php
- * @version 0.9.3 12th April 2021
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 class XbbooksViewBook extends JViewLegacy {
     
     protected $form = null;
+    protected $params = '';
     
     public function display($tpl = null) {
 
@@ -23,10 +24,30 @@ class XbbooksViewBook extends JViewLegacy {
         $this->item = $this->get('Item');
         $this->canDo = XbbooksHelper::getActions('com_xbbooks', 'book', $this->item->id);
         
-        $params      = $this->get('State')->get('params');
-        $this->zero_class = $params->get('zero_class','fas fas-thumbs-down');
-        $this->star_class = $params->get('star_class','fa fa-star');
-        $this->halfstar_class = $params->get('halfstar_class');
+        $this->params      = $this->get('State')->get('params');
+        $this->zero_class = $this->params->get('zero_class','fas fas-thumbs-down');
+        $this->star_class = $this->params->get('star_class','fa fa-star');
+        $this->halfstar_class = $this->params->get('halfstar_class');
+        
+        $this->taggroups = $this->params->get('enable_taggroups',0);
+        if ($this->taggroups) {
+            $taggroup_ids = array();
+            $this->taggroup1_parent = $this->params->get('taggroup1_parent',0);
+            if ($this->taggroup1_parent) $taggroup_ids[] = $this->taggroup1_parent;
+            $this->taggroup2_parent = $this->params->get('taggroup2_parent',0);
+            if ($this->taggroup2_parent) $taggroup_ids[] = $this->taggroup2_parent;
+            $this->taggroup3_parent = $this->params->get('taggroup3_parent',0);
+            if ($this->taggroup3_parent) $taggroup_ids[] = $this->taggroup3_parent;
+            $this->taggroup4_parent = $this->params->get('taggroup4_parent',0);
+            if ($this->taggroup4_parent) $taggroup_ids[] = $this->taggroup4_parent;
+            
+            $db = Factory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select('id, title, description')->from($db->quoteName('#__tags'))
+            ->where('id IN ('.implode(',',$taggroup_ids).')');
+            $db->setQuery($query);
+            $this->taggroupinfo = $db->loadAssocList('id');
+        }
         
         if (count($errors = $this->get('Errors'))) {
         	Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/review.xml v0.9.9.6 16th August 2022 -->
+<!-- xbBooks admin/models/forms/review.xml v0.9.10.2 14th November 2022 -->
 <form>
-	<fieldset>
+	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
 		<field
 			name="id" default="0" 
 			label="JGLOBAL_FIELD_ID_LABEL"
@@ -79,6 +79,12 @@
 				multiple="true"
 		>
 		</field>
+		<field name="revtaggroup" type="childtags"
+			label="Review Tags" description="Description to be taken from parent tag"
+			parent="com_xbbooks.revtaggroup_parent"
+			multiple="true"  published="1"
+			mode="nested" custom="deny"
+		/>
 
 		<field name="rev_date" type="calendar"
 			label="XBBOOKS_FIELD_REVIEWED_LABEL" description="XBBOOKS_FIELD_REVIEWED_DESC"

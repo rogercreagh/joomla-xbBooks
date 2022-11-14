@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/importexport.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,7 @@ class XbbooksModelImportexport extends JModelAdmin {
 	
 	public function __construct() {
 		//$user = Factory::getUser();
-		$this->xbfilmsStatus = Factory::getSession()->get('com_xbfilms',false);
+		$this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
 		parent::__construct();
 	}
 

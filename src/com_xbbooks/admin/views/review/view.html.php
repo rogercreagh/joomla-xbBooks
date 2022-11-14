@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/review/view.html.php
- * @version 0.9.8.3 25th May 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -21,6 +21,15 @@ class XbbooksViewReview extends JViewLegacy {
         // Get the Data
         $this->form = $this->get('Form');
         $this->item = $this->get('Item');
+        
+        $this->params      = $this->get('State')->get('params');
+        $this->revtaggroup_parent = $this->params->get('revtaggroup_parent',0);
+        $db = Factory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('id, title, description')->from($db->quoteName('#__tags'))
+        ->where('id = '.$this->revtaggroup_parent);
+        $db->setQuery($query);
+        $this->taggroupinfo = $db->loadAssocList('id');
         
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {

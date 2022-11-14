@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/fields/catsubtree.php
- * @version 0.9.8.9 29th January 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,7 +23,7 @@ class JFormFieldCatsubtree extends JFormFieldList {
 		
 		$params = ComponentHelper::getParams('com_xbbooks');
 		$options = array();
-		$extension = $this->element['extension'] ? (string) $this->element['extension'] : 'com_xbfilms';
+		$extension = $this->element['extension'] ? (string) $this->element['extension'] : 'com_xbbooks';
 		$published = (string) $this->element['published'];
 		$language  = (string) $this->element['language'];
 		if (!empty($this->element['itemtype'])) {

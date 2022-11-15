@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -213,38 +213,7 @@ class XbbooksModelBooks extends JModelList
             $item->chars = XbbooksGeneral::getBookChars($item->id);
             $item->charcnt = (empty($item->chars)) ? 0 : count($item->chars);
 //            $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','comma');
-            
-//             $item->people = XbbooksGeneral::getBookRolesArray($item->id,'',true);
-//             $cnts = array_count_values(array_column($item->people, 'role'));
-//             $item->authcnt = (key_exists('author',$cnts))? $cnts['author'] : 0;
-//             $item->editcnt = (key_exists('editor',$cnts))? $cnts['editor'] : 0;
-//             $item->mencnt = (key_exists('mention',$cnts))? $cnts['mention'] : 0;
-//             $item->othcnt = (key_exists('other',$cnts))? $cnts['other'] : 0;
-            
-//             $item->chars = XbbooksGeneral::getBookCharsArray($item->id);
-//             $item->charcnt = count($item->chars);
-            
-//             $item->alist ='';
-//             if ($item->authcnt > 0) {
-//             	$item->alist = XbbooksGeneral::makeLinkedNameList($item->people,'author');
-//             }
-//             $item->elist = '';
-//             if ($item->editcnt > 0) {
-//             	$item->elist = XbbooksGeneral::makeLinkedNameList($item->people,'editor');
-//             }          
-//             $item->mlist = '';
-//             if (($item->mencnt)>0){
-//             	$item->mlist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->people,'mention',', ',false));
-//             }
-//             $item->olist = '';
-//             if (($item->othcnt)>0){
-//             	$item->olist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->people,'other',', ',false, true, 2));
-//             }
-//             $item->clist = '';
-//             if (($item->charcnt)>0){
-//             	$item->clist = htmlentities(XbbooksGeneral::makeLinkedNameList($item->chars,'',', ',false));
-//             }
-            
+                        
             $item->reviews = XbbooksGeneral::getBookReviews($item->id);
         	
             $item->ext_links = json_decode($item->ext_links);

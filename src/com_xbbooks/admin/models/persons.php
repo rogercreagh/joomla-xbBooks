@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/persons.php
- * @version 0.9.10.2 14th November 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -204,10 +204,10 @@ class XbbooksModelPersons extends JModelList {
             $item->mcnt = count(array_keys($roles, 'mention'));
             $item->ocnt = count(array_keys($roles, 'other'));
             
-            $item->alist = $item->acnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'author','ul',true,1);
-            $item->elist = $item->ecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'editor','ul',true,1);
-            $item->mlist = $item->mcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'mention','ul',true,1);
-            $item->olist = $item->ocnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'other','ul',true,1);
+            $item->alist = $item->acnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'author','ul',true,4);
+            $item->elist = $item->ecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'editor','ul',true,4);
+            $item->mlist = $item->mcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'mention','ul',true,4);
+            $item->olist = $item->ocnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'other','ul',true,4);
             
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';

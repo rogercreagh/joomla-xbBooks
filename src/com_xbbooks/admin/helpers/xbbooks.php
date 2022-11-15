@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooks.php
- * @version 0.9.9.9 2nd November 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -159,66 +159,4 @@ class XbbooksHelper extends ContentHelper
         return $db->loadResult();       
     }
        
-    public static function getCat($catid) {
-    	$db = Factory::getDBO();
-    	$query = $db->getQuery(true);
-    	$query->select('a.title, a.description')
-    	->from('#__categories AS a ')
-    	->where('a.id = '.$catid);
-    	$db->setQuery($query);
-    	return $db->loadObjectList()[0];
-    }
-    
-    public static function getColCounts($srcarr,$col) {
-    	return array_count_values(array_column($srcarr, $col));
-    }
-    
-    /**
-     * @name getItemCnt
-     * @desc returns the number of items in a table
-     * @param string $table
-     * @return integer
-     */
-    public static function getItemCnt($table) {
-        $db = Factory::getDbo();
-        $query = $db->getQuery(true);
-        $query->select('COUNT(*)')->from($db->quoteName($table));
-        $db->setQuery($query);
-        $cnt=-1;
-        try {
-            $cnt = $db->loadResult();
-        } catch (Exception $e) {
-            $dberr = $e->getMessage();
-            Factory::getApplication()->enqueueMessage($dberr.'<br />Query: '.$query, 'error');
-        }
-        return $cnt;
-    }
-       
-    public static function checkPersonExists($firstname, $lastname) {
-        $db = Factory::getDbo();
-        $query = $db->getQuery(true);
-        $query->select('id')->from('#__xbpersons')
-        ->where('LOWER('.$db->quoteName('firstname').')='.$db->quote(strtolower($firstname)).' AND LOWER('.$db->quoteName('lastname').')='.$db->quote(strtolower($lastname)));
-        $db->setQuery($query);
-        $res = $db->loadResult();
-        if ($res > 0) {
-            return true;
-        }
-        return false;
-    }
-    
-    public static function checkTitleExists($title, $table) {
-        $col = ($table == '#__xbcharacters') ? 'name' : 'title';
-        $db = Factory::getDbo();
-        $query = $db->getQuery(true);
-        $query->select('id')->from($db->quoteName($table))
-        ->where('LOWER('.$db->quoteName($col).')='.$db->quote(strtolower($title)));
-        $db->setQuery($query);
-        $res = $db->loadResult();
-        if ($res > 0) {
-            return true;
-        }
-        return false;
-    }
-    
 }

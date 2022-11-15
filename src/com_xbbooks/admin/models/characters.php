@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/characters.php
- * @version 0.9.10.3 14th November 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -190,11 +190,14 @@ class XbbooksModelCharacters extends JModelList {
         // we are going to add the list of characters for each book
         $tagsHelper = new TagsHelper;
         foreach ($items as $i=>$item) { 
-            $item->books = ($item->bcnt>0) ? XbcultureHelper::getCharBooks($item->id) : '';
-            $item->booklist = '';
-            foreach ($item->books as $book) {
-                $item->booklist .= $book->listitem;
-            }           
+            $item->bookcnt = 0;
+            $item->booklist='';
+            if ($item->bcnt>0) {
+                $item->books = XbcultureHelper::getCharBooks($item->id);
+                $item->bookcnt = count($item->books);
+                $item->booklist = $item->bookcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'','ul',true,4);
+            } //bcnt is the number of books, bookcnt is the number of roles (maybe 2 roles in a book)
+            
 	        $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
         } //end foreach item
 	    return $items;

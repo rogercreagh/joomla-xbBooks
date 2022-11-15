@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/blog.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -80,7 +80,7 @@ class XbbooksModelBlog extends JModelList {
 		$query->select('c.title AS category_title');
 		$query->join('LEFT', '#__categories AS c ON c.id = a.catid');
 		$query->join('LEFT', '#__xbbooks AS b ON b.id = a.book_id');
-		$query->select('b.title AS book_title, b.subtitle AS subtitle, b.cover_img AS cover_img,b.summary AS book_summary, 
+		$query->select('b.id AS bid, b.title AS book_title, b.subtitle AS subtitle, b.cover_img AS cover_img,b.summary AS book_summary, 
 			b.synopsis AS synopsis, b.pubyear AS pubyear, b.orig_lang AS orig_lang');
 		$query->join('LEFT', '#__categories AS fc ON fc.id = b.catid');
 		$query->select('fc.title AS bcat_title');
@@ -257,16 +257,14 @@ class XbbooksModelBlog extends JModelList {
 		$app->setUserState('bookreviews.sortorder', $bks);
 
 		foreach ($items as $i=>$item) {			
-			$auts = XbbooksGeneral::getBookRolesArray($item->book_id,'author');
-			$item->acnt = count($auts);
-			if ($item->acnt==0){
-				$item->alist = ''; 
-			} else {
-				$item->alist = XbbooksGeneral::makeLinkedNameList($auts,'author',', ',true, false);
-			}
-			$item->tags = $tagsHelper->getItemTags('com_xbbooks.review' , $item->id);	
-			
-			//get bookauthors) or editor
+		    $auts = XbbooksGeneral::getBookPeople($item->film_id,'author');
+		    //TODO what about other roles - cast etc
+		    $item->acnt = count($auts);
+		    $item->alist = $item->acnt==0 ? '' : XbcultureHelper::makeLinkedNameList($auts,'author','comma',true, 1);
+		    
+		    $item->tags = $tagsHelper->getItemTags('com_xbbooks.review' , $item->id);
+		    $item->btags = $tagsHelper->getItemTags('com_xbbooks.book' , $item->bid);
+		    //get film director(s) stars
 		} //foreach item
 		
 		return $items;		

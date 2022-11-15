@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -76,48 +76,23 @@ class XbbooksModelBook extends JModelItem {
 				
 				
 				//get authors,editors,characters
-				$item->people = XbbooksGeneral::getBookRolesArray($item->id,'',false);
-				$cnts = array_count_values(array_column($item->people, 'role'));
-				$item->authcnt = (key_exists('author',$cnts))? $cnts['author'] : 0;
-				$item->editcnt = (key_exists('editor',$cnts))? $cnts['editor'] : 0;
-				$item->mencnt = (key_exists('mention',$cnts))? $cnts['mention'] : 0;
-				$item->othcnt = (key_exists('other',$cnts))? $cnts['other'] : 0;
+				$item->people = XbbooksGeneral::getBookPeople($item->id);
+				//get counts for director,producers,cast,crew,appearances
+				$roles = array_column($item->people,'role');
+				$item->authcnt = count(array_keys($roles, 'author'));
+				$item->editcnt = count(array_keys($roles, 'editor'));
+				$item->mencnt = count(array_keys($roles, 'mention'));
+				$item->othcnt = count(array_keys($roles, 'other'));
 				
-				$item->chars = XbbooksGeneral::getBookCharsArray($item->id);
-				$item->charcnt = count($item->chars);
+				$item->alist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','comma');
+				$item->elist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','comma');
+				$item->mlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','ul',true,1);
+				$item->olist =$item->othcnt==0 ? '' :  XbcultureHelper::makeLinkedNameList($item->people,'other','ul',true,1);				
 				
-				
-				//make author/editor/char lists
-				if ($item->authcnt==0){
-					$item->alist = ''; //'<i>'.JText::_( 'XBBOOKS_NOAUTHOR' ).'</i>';
-				} else {
-					$item->alist = XbbooksGeneral::makeLinkedNameList($item->people,'author',',', (($item->editcnt)==0)? true:false);
-				}
-				if (($item->editcnt)==0){
-					$item->elist = '';
-				} else {
-					$item->elist = ': '.XbbooksGeneral::makeLinkedNameList($item->people,'editor',',');
-				}
-				if (($item->charcnt)==0){
-					$item->clist = '';
-				} elseif ($item->charcnt < 4) {
-					$item->clist = XbbooksGeneral::makeLinkedNameList($item->chars,'','<br />',true, false);
-				} else {
-					$item->clist = XbbooksGeneral::makeLinkedNameList($item->chars,'',', ',false);
-				}
-				if (($item->mencnt)==0){
-				    $item->mlist = '';
-				} elseif ($item->mencnt < 4) {
-				    $item->mlist = XbbooksGeneral::makeLinkedNameList($item->people,'mention','<br />',true, false);
-				} else {
-				    $item->mlist = XbbooksGeneral::makeLinkedNameList($item->people,'mention',', ',false);
-				}
-				if (($item->othcnt)==0){
-				    $item->olist = '';
-				} else {
-				    $item->olist = XbbooksGeneral::makeLinkedNameList($item->people,'other','<br />',true, false, 1);
-				}
-				
+				$item->chars = XbbooksGeneral::getBookChars($item->id);
+				$item->charcnt = empty($item->chars) ? 0 : count($item->chars);
+				$item->clist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','ul',true,1);
+								
 				//order by review rating or date?
 				$item->reviews = XbbooksGeneral::getBookReviews($item->id);
 				$item->revcnt = count($item->reviews);

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/character.php
- * @version 0.9.8.2 17th May 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -46,7 +46,7 @@ class XbbooksTableCharacter extends Table
     	    return false;
     	}
     	
-    	if (($this->id == 0) && (XbbooksHelper::checkTitleExists($name,'#__xbcharacters'))) {
+    	if (($this->id == 0) && (XbcultureHelper::checkTitleExists($name,'#__xbcharacters'))) {
     		$this->setError(Text::_('Character "'.$title.'" already exists; if this is a different individual with the same name please append something to the name to distinguish them'));
     		return false;
     	}
@@ -75,7 +75,7 @@ class XbbooksTableCharacter extends Table
             }
             if ($defcat>0) {
                 $this->catid = $defcat;
-                Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
+                Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbcultureHelper::getCat($this->catid)->title.')');
             } else {
             	// this shouldn't happen unless uncategorised has been deleted or xbpeople not installed
             	if (Factory::getSession()->get('xbpeople_ok')==true) {

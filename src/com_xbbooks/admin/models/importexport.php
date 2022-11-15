@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/importexport.php
- * @version 0.9.10.2 14th November 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -67,10 +67,10 @@ class XbbooksModelImportexport extends JModelAdmin {
         }
         $expcat = '';
         if (($export['exptables']=='xbpersons') || ($export['exptables']=='xbcharacters')) {
-        	$expcat = ($export['exppcat'] >0 )? '-'.XbbooksHelper::getCat($export['exppcat'])->title: '';
+        	$expcat = ($export['exppcat'] >0 )? '-'.XbcultureHelper::getCat($export['exppcat'])->title: '';
         	
         } elseif (($export['exptables']=='xbbooks') || ($export['exptables']=='xbbookreviews')) {
-        	$expcat = ($export['expcat'] >0 )? '-'.XbbooksHelper::getCat($export['expcat'])->title: '';
+            $expcat = ($export['expcat'] >0 )? '-'.XbcultureHelper::getCat($export['expcat'])->title: '';
         }
         return $export['exptables'].$expcat;
     }

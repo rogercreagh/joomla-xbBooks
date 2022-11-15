@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.9.9.9 3rd November 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -270,14 +270,6 @@ class XbbooksModelBooklist extends JModelList {
 			
 			$item->charlist = $item->charcnt==0 ? '': XbcultureHelper::makeLinkedNameList($item->chars,'char','li',true,1);
 			
-			if (($item->mencnt)==0){
-				$item->mlist = '';
-			} elseif ($item->mencnt == 1) {
-				$item->mlist = XbbooksGeneral::makeLinkedNameList($item->people,'mention',', ',true);
-			} else {
-				$item->mlist = XbbooksGeneral::makeLinkedNameList($item->people,'mention',', ',false);
-			}
-						
 			$item->tags = $tagsHelper->getItemTags('com_xbbooks.book' , $item->id);			
 			
 		} //foreach item

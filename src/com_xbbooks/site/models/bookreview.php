@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.9.8.7 4th June 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 
 class XbbooksModelBookreview extends JModelItem {
@@ -23,8 +24,7 @@ class XbbooksModelBookreview extends JModelItem {
         }
         parent::__construct($config);
     }
-    
-    
+       
 	protected function populateState() {
 		$app = Factory::getApplication('site');
 		
@@ -68,23 +68,24 @@ class XbbooksModelBookreview extends JModelItem {
 				$item->params = $params;				
 				
 				//get people and counts
-				$item->people = XbbooksGeneral::getBookRolesArray($item->book_id,'',false);
-				$cnts = array_count_values(array_column($item->people, 'role'));
-				$item->authcnt = (key_exists('author',$cnts))? $cnts['author'] : 0;
-				$item->editcnt = (key_exists('editor',$cnts))? $cnts['editor'] : 0;
-				
+				$item->people = XbbooksGeneral::getBookPeople($item->book_id);
+				//get counts for director,producers,cast,crew,appearances
+				$roles = array_column($item->people,'role');
+				$item->authcnt = count(array_keys($roles, 'author'));
+				$item->editcnt = count(array_keys($roles, 'editor'));
+								
 				//make author/editor list
 				$item->edauths = '<i>';
 				if ($item->editcnt == 0){
 					if ($item->authcnt == 0){
-						$item->edauths .= JText::_( 'XBBOOKS_NOAUTHOR' ).'</i>';
+						$item->edauths .= Text::_( 'XBBOOKS_NOAUTHOR' ).'</i>';
 					} else {
-						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_AUTHORS'):JText::_('XBCULTURE_AUTHOR');
-						$item->edauths .= '</i>: '.XbbooksGeneral::makeLinkedNameList($item->people,'author',',',false);
+						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_AUTHORS'):Text::_('XBCULTURE_AUTHOR');
+						$item->edauths .= '</i>: '.XbcultureHelper::makeLinkedNameList($item->people,'author','comma',false);
 					}
 				} else {
-					$item->edauths .= JText::_('XBCULTURE_EDITOR').'</i>: '.
-							XbbooksGeneral::makeLinkedNameList($item->people,'editor',',',false);
+					$item->edauths .= Text::_('XBCULTURE_EDITOR').'</i>: '.
+							XbcultureHelper::makeLinkedNameList($item->people,'editor','comma',false);
 				}
 				
 				//get other reviews

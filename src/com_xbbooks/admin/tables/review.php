@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/review.php
- * @version 0.9.9.9 5th November 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -54,7 +54,7 @@ class XbbooksTableReview extends Table
     			$title = 'Review of '.$btitle;
     			Factory::getApplication()->enqueueMessage('No review title supplied; default created - please check and change as necessary','Warning');
     		}
-    		if (($this->id == 0) && (XbbooksHelper::checkTitleExists($title,'#__xbbookreviews'))) {
+    		if (($this->id == 0) && (XbcultureHelper::checkTitleExists($title,'#__xbbookreviews'))) {
     			$this->setError(Text::_('Review "'.$title.'" already exists; if this is a different review with the same title please append something to the title to distinguish them'));
     			return false;
     		}
@@ -94,7 +94,7 @@ class XbbooksTableReview extends Table
     		}
     		if ($defcat>0) {
     			$this->catid = $defcat;
-    			Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
+    			Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbcultureHelper::getCat($this->catid)->title.')');
     		} else {
     			// this shouldn't happen unless uncategorised has been deleted
     			$this->setError(Text::_('XBCULTURE_CATEGORY_MISSING'));

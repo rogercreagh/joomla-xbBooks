@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/book.php
- * @version 0.9.8.2 17th May 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -38,7 +38,7 @@ class XbbooksTableBook extends Table
 	        return false;
 	    }
 	    
-	    if (($this->id == 0) && (XbbooksHelper::checkTitleExists($title,'#__xbbooks'))) {
+	    if (($this->id == 0) && (XbcultureHelper::checkTitleExists($title,'#__xbbooks'))) {
 	    	$this->setError(Text::_('Book "'.$title.'" already exists; if this is a different book with the same title please append something to the title to distinguish them'));
 	    	return false;
 	    }
@@ -60,7 +60,7 @@ class XbbooksTableBook extends Table
 	        }
 	        if ($defcat>0) {
 	            $this->catid = $defcat;
-	            Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbbooksHelper::getCat($this->catid)->title.')');
+	            Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbcultureHelper::getCat($this->catid)->title.')');
 	        } else {
 	        	// this shouldn't happen unless uncategorised has been deleted
 	        	$this->setError(Text::_('XBCULTURE_CATEGORY_MISSING'));

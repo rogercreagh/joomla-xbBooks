@@ -30,7 +30,7 @@ if (!$listOrder) {
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_PUBYEARCOL'),
-	'id'=>'id','first_read'=>Text::_('First Read'),'last_read'=>Text::_('Last Read'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+	'id'=>'id','first_read'=>Text::_('XBBOOKS_FIRST_READ'),'last_read'=>Text::_('XBBOOKS_LAST_READ'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 	'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 
@@ -235,7 +235,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php endif; ?>
 						<?php if($item->othercnt>0) :?>
 							<br /><span class="xbnit">
-							<?php echo $item->othercnt.' '.Text::_('other roles listed'); ?></span>
+							<?php echo $item->othercnt.' '.Text::_('XBBOOKS_OTHER_ROLES_LISTED'); ?></span>
 						<?php endif; ?>
 						<br />
 						</span>
@@ -270,7 +270,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                             <?php $list = '';
                             if ($item->mencnt>0) { 
                                 echo $item->mencnt.' ';
-                                echo ($item->mencnt==1) ? Text::_('subject') : Text::_('subjects');
+                                echo ($item->mencnt==1) ? Text::_('XBCULTURE_SUBJECT') : Text::_('XBCULTURE_SUBJECTS');
                                 echo ' '.Text::_('XBCULTURE_LISTED');
                             }
                             if (($item->mencnt>0) && ($item->charcnt>0)) {
@@ -278,7 +278,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                             }
                             if ($item->charcnt>0) {
                                 echo $item->charcnt.' ';
-                                echo ($item->charcnt==1) ? Text::_('character') : Text::_('characters');
+                                echo ($item->charcnt==1) ? Text::_('XBCULTURE_CHARACTER') : Text::_('XBCULTURE_CHARACTERS');
                                 echo ' '.Text::_('XBCULTURE_LISTED');
                             }
                             if (($item->mencnt==0) && ($item->charcnt==0)) {

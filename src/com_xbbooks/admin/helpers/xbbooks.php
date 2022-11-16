@@ -126,7 +126,7 @@ class XbbooksHelper extends ContentHelper
 	        );
 		} else {
 			JHtmlSidebar::addEntry(
-			    Text::_('XBCULTURE_BOOKS_DASHBOARD'),
+			    Text::_('XBBOOKS_BOOKS_DASHBOARD'),
 					'index.php?option=com_xbbooks&view=dashboard',
 					$vName == 'dashboard'
 					);
@@ -137,12 +137,12 @@ class XbbooksHelper extends ContentHelper
 					$vName == 'films'
 					);
 			JHtmlSidebar::addEntry(
-			    Text::_('XBCULTURE_BOOK_REVIEWS'),
+			    Text::_('XBBOOKS_BOOK_REVIEWS'),
 					'index.php?option=com_xbbooks&view=reviews',
 					$vName == 'reviews'
 					);
 			JHtmlSidebar::addEntry(
-			    Text::_('XBCULTURE_BOOKS_CAT_CNTS'),	
+			    Text::_('XBBOOKS_BOOKS_CAT_CNTS'),	
 					'index.php?option=com_xbbooks&view=bcategories',
 					$vName == 'bcategories'
 					);

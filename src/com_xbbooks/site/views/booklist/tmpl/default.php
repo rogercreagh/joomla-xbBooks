@@ -27,8 +27,8 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_YEARPUB'), 
-    'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 'first_read'=>Text::_('First Read'),
-    'last_read'=>Text::_('Last Read'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+    'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 'first_read'=>Text::_('XBBOOKS_FIRST_READ'),
+    'last_read'=>Text::_('XBBOOKS_LAST_READ'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 

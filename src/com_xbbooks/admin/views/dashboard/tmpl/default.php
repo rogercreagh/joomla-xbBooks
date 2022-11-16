@@ -425,7 +425,7 @@ if (!$this->xbpeople_ok) : ?>
           	</div>
      			<div class="xbbox xbboxgrey">
     				<div class="row-fluid"><div class="span12">
-    					<h2 class="xbtitle"><?php echo Text::_('xbBooks number of items tagged'); ?>
+    					<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_NUM_ITEMS_TAGGED'); ?>
     						<span class="pull-right">
     							<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
             					<span class="badge badge-info" style="border: blue solid 1px;"><?php echo ($this->tags['bookscnt']  + $this->tags['revscnt']) ; ?></span> 
@@ -435,28 +435,28 @@ if (!$this->xbpeople_ok) : ?>
     				<div class="row-striped">
     					<h4>Items tagged per type</h4>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Books'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_BOOKS_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="flmcnt badge  pull-right"><?php echo $this->tags['bookscnt']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Book Reviews'); ?>:
+    						<div class="span8"><?php echo Text::_('XBBOOKS_BOOK_REVIEWS'); ?>:
     						</div>
     						<div class="span4">
     							<span class="revcnt badge  pull-right"><?php echo $this->tags['revscnt']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('People'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="percnt badge  pull-right"><?php echo $this->tags['bookper']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Characters'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="chcnt badge  pull-right"><?php echo $this->tags['bookchar']; ?></span>
@@ -467,28 +467,28 @@ if (!$this->xbpeople_ok) : ?>
      				<div class="row-striped">
      					<h4>Tags used per type</h4>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Books'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_BOOKS_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="flmcnt badge  pull-right"><?php echo $this->tags['booktags']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Book Reviews'); ?>:
+    						<div class="span8"><?php echo Text::_('XBBOOKS_BOOK_REVIEWS'); ?>:
     						</div>
     						<div class="span4">
     							<span class="revcnt badge  pull-right"><?php echo $this->tags['revtags']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('People'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="percnt badge  pull-right"><?php echo $this->tags['bookpertags']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Characters'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="chcnt badge  pull-right"><?php echo $this->tags['bookchartags']; ?></span>

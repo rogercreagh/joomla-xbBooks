@@ -17,10 +17,10 @@ use Joomla\CMS\HTML\HTMLHelper;
 <hr />
 <label id="batch-fiction-lbl" for="batch-fiction" class="modalTooltip" title="
 	title="<?php echo HTMLHelper::_('tooltipText', 'Fiction/non-Fiction', 'Set fiction/non-fiction vCategory'); ?>">
-	Set Fiction/non-Fiction	
+	<?php echo Text::_('XBBOOKS_FICTION_NON'); ?>	
 </label>
 <select name="batch[fiction]" class= "inputbox" id="batch-fiction">
-	<option value=""><?php echo Text::_('No change'); ?></option>
+	<option value=""><?php echo Text::_('XBCULTURE_NO_CHANGE'); ?></option>
 	<option value="2"><?php echo Text::_('XBCULTURE_NONFICTION'); ?></option>
 	<option value="3"><?php echo Text::_('XBCULTURE_FICTION'); ?></option>
 </select>

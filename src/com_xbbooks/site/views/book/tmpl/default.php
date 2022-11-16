@@ -215,7 +215,7 @@ if ($imgok) {
 	<div class="row-fluid">
 		<div class="span1"></div>
 		<div class="span5">
-			<span class="xbnit"><?php echo  Text::_('Date acquired').': '; ?>
+			<span class="xbnit"><?php echo  Text::_('XBBOOKS_DATE_ACQ').': '; ?>
 			</span>
 			<?php $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'D jS M Y');
 			echo HtmlHelper::date($item->first_read , $datefmt) ; ?>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks admin/models/forms/filter_reviews.xml v0.6.8 24th January 2021 -->
 <form>
-	<fields name="filter"  addfieldpath="administrator/components/com_xbbooks/models/fields">
+	<fields name="filter"  addfieldpath="administrator/components/com_xbpeople/models/fields">
 		<field
 			name="search"
 			type="text"
@@ -32,19 +32,11 @@
 			<option value="">Filter by Book</option>
 		</field>
 		<field
-			name="ratfilt" type="list" 
-			label="XBBOOKS_RATING_LABEL" description="XBBOOKS_RATING_DESC" 
-			default="" first="0" last="7" step="1" 
+			name="ratfilt" type="rating" 
+			label="XBFILMS_RATING_LABEL" description="XBFILMS_RATING_DESC" 
+			default="" 
 			onchange="this.form.submit();">
-			<option value="">Filter by Rating</option>
-			<option value="0">XBBOOKS_NOSTAR<i class="icon-smiley-sad-2"></i></option>
-			<option value="1">XBBOOKS_1STAR</option>
-			<option value="2">XBBOOKS_2STAR</option>
-			<option value="3">XBBOOKS_3STAR</option>
-			<option value="4">XBBOOKS_4STAR</option>
-			<option value="5">XBBOOKS_5STAR</option>
-			<option value="6">XBBOOKS_6STAR</option>
-			<option value="7">XBBOOKS_7STAR</option>
+			<option value="">XBCULTURE_FILTER_BY_RATING</option>
 		</field>
 		<field
 			name="category_id"

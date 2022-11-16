@@ -26,7 +26,7 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 
-    'first_read'=>Text::_('First Read'), 'last_read'=>Text::_('Last Read'), );
+    'first_read'=>Text::_('XBBOOKS_FIRST_READ'), 'last_read'=>Text::_('XBBOOKS_LAST_READ'), );
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -134,7 +134,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 					<?php if ($this->showrevs != 0 ) : ?>					
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->showrevs == 1)? Text::_( 'Not rated yet' ) : Text::_( 'XBBOOKS_NOREVIEW' ); ?></i><br />
+    						   <i><?php  echo ($this->showrevs == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBBOOKS_NOREVIEW' ); ?></i><br />
     						<?php else : ?> 
 	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
 	                            <div class="xbstar">

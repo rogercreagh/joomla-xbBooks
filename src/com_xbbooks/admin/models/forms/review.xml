@@ -37,20 +37,12 @@
     		query="SELECT id AS value, title FROM #__xbbooks ORDER BY title ASC"
     	/>
 
-		<field name="rating" type="list" 
-			label="XBBOOKS_RATING_LABEL" description="XBBOOKS_RATING_DESC" 
-			default="" 
-			required="true"
-			first="0" last="7" step="1" >
-			<option value="">Please Select</option>
-			<option value="0">XBBOOKS_NOSTAR<i class="icon-smiley-sad-2"></i></option>
-			<option value="1">XBBOOKS_1STAR</option>
-			<option value="2">XBBOOKS_2STAR</option>
-			<option value="3">XBBOOKS_3STAR</option>
-			<option value="4">XBBOOKS_4STAR</option>
-			<option value="5">XBBOOKS_5STAR</option>
-			<option value="6">XBBOOKS_6STAR</option>
-			<option value="7">XBBOOKS_7STAR</option>
+		<field
+			name="rating" type="rating" 
+			label="XBCULTURE_RATING" description="XBCULTURE_RATING_DESC" 
+			default="" required="true"
+		>
+			<option value="">XBCULTURE_PLEASE_SELECT</option>
 		</field>
 		
 		<field name="review" type="editor"

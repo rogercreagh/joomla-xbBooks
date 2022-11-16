@@ -27,7 +27,7 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-    'first_read'=>Text::_('First Read'),'last_read'=>Text::_('Last Read'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+    'first_read'=>Text::_('XBBOOKS_FIRST_READ'),'last_read'=>Text::_('XBBOOKS_LAST_READ'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -124,7 +124,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         <td>
 						<p><span class="<?php echo ($item->authcnt>1) ? 'icon-users' : 'icon-user'; ?>"></span>&nbsp;
                         	<?php if ($item->authcnt==0) {
-                        		echo '<span class="xbnit">'.Text::_('unlisted authorR').'</span>';
+                        		echo '<span class="xbnit">'.Text::_('XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
 	                        		<?php echo $item->authcnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR' ); ?>
@@ -142,26 +142,26 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 							<?php $othercnt = $item->othcnt + $item->mencnt;
 							if ($othercnt>0) : ?>
 								<span class="icon-users"></span>&nbsp;
-								<span class="xbnit"><?php echo $othercnt.' '.Text::_('other people listed'); ?> </span>
+								<span class="xbnit"><?php echo $othercnt.' '.Text::_('XBBOOKS_OTHER_ROLES_LISTED'); ?> </span>
 								<br />
 							<?php endif; ?>	
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
-								<?php echo Text::_('Published'); ?>
+								<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
 							</span>
-							<?php if($item->pubyear > 0) { echo ': '.$item->pubyear; } else { echo '<i>'.Text::_('uknown').'</i>';}?>	
+							<?php if($item->pubyear > 0) { echo ': '.$item->pubyear; } else { echo '<i>'.Text::_('XBCULTURE_UNKNOWN').'</i>';}?>	
 							<br />
 							<span class="icon-book"></span>&nbsp;
                             <?php if($this->show_sum) : ?>
     							<?php if (!empty($item->summary)) : ?>
-    								<?php echo '<i>'.Text::_('Summary').'</i>: '.$item->summary; ?>
+    								<?php echo '<i>'.Text::_('XBCULTURE_SUMMARY').'</i>: '.$item->summary; ?>
         						<?php else : ?>
         							<span class="xbnit">
         							<?php if (!empty($item->synopsis)) : ?>
-        								<?php echo Text::_('synopsis extract'); ?>: </span>
+        								<?php echo Text::_('XBCULTURE_SYNOPSIS_EXTRACT'); ?>: </span>
         								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,250); ?>
         							<?php else : ?>
                 						<span class="xbnote">
-        								<?php echo Text::_('No summary or synopsis provided'); ?>
+        								<?php echo Text::_('XBCULTURE_NO_SUMMARY_SYNOP'); ?>
         								</span></span>
         							<?php endif; ?>
         						<?php endif; ?>
@@ -177,13 +177,13 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 							<?php if($this->show_revs) : ?>
 								<span class="icon-pencil-2"></span> &nbsp;
 								<?php if ($item->revcnt==0) : ?>
-									<i><?php echo Text::_('No reviews available'); ?></i>
+									<i><?php echo Text::_('XBCULTURE_NO_REVIEWS_AVAILABLE'); ?></i>
 								<?php else : ?>
 									<i>
 								    <?php if($item->revcnt==1) {
-								        echo $item->revcnt.' '.Text::_('review with rating');
+								        echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEW_RATING');
 								    } else {
-								        echo $item->revcnt.' '.Text::_('reviews, average rating');
+								        echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEWS_AVE_RATING');
 								    } ?>
 									</i> &nbsp;
 								    <?php $stars = (round(($item->averat)*2)/2); 
@@ -219,14 +219,14 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
         						<br />
         						<?php if($item->first_read) {
         						    $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'D jS M Y');
-        						    echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('First read').'</i>: '.HtmlHelper::date($item->first_read , $datefmt); 
+        						    echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('XBBOOKS_FIRST_READ').'</i>: '.HtmlHelper::date($item->first_read , $datefmt); 
 								}
 								if(($item->last_read) && ($item->last_read != $item->first_read)) {
 								    $datefmt = xbCultureHelper::getDateFmt($item->last_read, 'D jS M Y');
-								    echo ' -&nbsp;<i>'.Text::_('Last read').'</i>: '.HtmlHelper::date($item->last_read , $datefmt); 
+								    echo ' -&nbsp;<i>'.Text::_('XBBOOKS_LAST_READ').'</i>: '.HtmlHelper::date($item->last_read , $datefmt); 
         					   }
         					   if((!$item->last_read) && (!$item->first_read)) {
-        					       echo '<i>'.Text::_('not yet read').'</i>';
+        					       echo '<i>'.Text::_('XBBOOKS_NOT_YET_READ').'</i>';
         					   }
         					?>
 							<?php endif; ?>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/models/forms/filter_people.xml v0.9.9.9 7th November 2022 -->
+<!-- xbBooks site/models/forms/filter_people.xml v0.9.11.2 17th November 2022 -->
 <form>
-    <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+    <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
         <field name="search"
             type="text"
             label="COM_CONTENT_FILTER_SEARCH_DESC"

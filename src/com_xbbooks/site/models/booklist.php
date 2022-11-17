@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.9.11.0 15th November 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -127,9 +127,9 @@ class XbbooksModelBooklist extends JModelList {
             //filter by read/unread
             $readfilt = $this->getState('filter.readfilt');
             if ((int)$readfilt==1) {
-                $query->where('a.last_read > 0');
+                $query->where('a.first_read > 0');
             } elseif ($readfilt==2) {
-                $query->where('COALESCE(a.last_read,0) = 0');
+                $query->where('COALESCE(a.first_read,0) = 0');
             }
             
             //filter by person 

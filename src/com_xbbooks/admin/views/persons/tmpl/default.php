@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.9.10.3 14th November 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -259,40 +259,57 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 						<?php endif; ?>
                     </td>
 					<td>
-						<?php if ($item->acnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo Text::_('XBCULTURE_AUTHOR_OF').' '.$item->acnt.' ';
-                                echo ($item->acnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
-                            </span></summary>
- 							<?php echo $item->alist; ?>
-                          </details>
+						<?php if ($item->acnt>0) : ?>						
+        					<?php if (($item->brcnt == 1) && ($item->acnt < 3)) : ?>
+        						<?php echo $item->alist; ?>
+							<?php else : ?>
+                                <details>
+                                <summary><span class="xbnit">
+                                	<?php echo Text::_('XBCULTURE_AUTHOR_OF').' '.$item->acnt.' ';
+                                    echo ($item->acnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
+                                </span></summary>
+                                <?php echo $item->alist; ?>
+                                </details>
+        					<?php endif; ?>
 						<?php endif; ?> 
 						<?php if ($item->ecnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo Text::_('XBCULTURE_EDITOR_OF').' '.$item->ecnt.' ';
-                                echo ($item->ecnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
-                            </span></summary>
- 							<?php echo $item->elist; ?>
-                          </details>
+        					<?php if (($item->brcnt == 1) && ($item->ecnt < 3)) : ?>
+        						<?php echo $item->elist; ?>
+							<?php else : ?>
+                                  <details>
+                                  	<summary><span class="xbnit">
+         								<?php echo Text::_('XBCULTURE_EDITOR_OF').' '.$item->ecnt.' ';
+                                        echo ($item->ecnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
+                                    </span></summary>
+         							<?php echo $item->elist; ?>
+                                  </details>
+							<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->ocnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo $item->ocnt.' '.Text::_('XBCULTURE_OTHER_ROLE_ON').' '; ?>
-                            </span></summary>
- 							<?php echo $item->olist; ?>
-                          </details>
+        					<?php if (($item->brcnt == 1) && ($item->ocnt < 3)) : ?>
+        						<?php echo $item->olist; ?>
+							<?php else : ?>
+                                  <details>
+                                  	<summary><span class="xbnit">
+         								<?php echo Text::_('XBCULTURE_OTHER_ROLE_ON').' '.$item->ocnt.' '; 
+                                        echo ($item->ocnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
+                                    </span></summary>
+         							<?php echo $item->olist; ?>
+                                  </details>
+							<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->mcnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo Text::_('XBBOOKS_MENTION_IN').' '.$item->mcnt.' ';
-                                echo ($item->mcnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
-                            </span></summary>
- 							<?php echo $item->mlist; ?>
-                          </details>
+        					<?php if (($item->brcnt == 1) && ($item->mcnt < 3)) : ?>
+        						<?php echo $item->mlist; ?>
+							<?php else : ?>
+                                  <details>
+                                  	<summary><span class="xbnit">
+         								<?php echo Text::_('XBBOOKS_MENTION_IN').' '.$item->mcnt.' ';
+                                        echo ($item->mcnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
+                                    </span></summary>
+         							<?php echo $item->mlist; ?>
+                                  </details>
+							<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->fcnt>0) {
 							echo '<span class="xbnit">';

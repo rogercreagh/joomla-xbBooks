@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/persons.php
- * @version 0.9.11.0 15th November 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,7 +23,8 @@ class XbbooksModelPersons extends JModelList {
             $config['filter_fields'] = array(
             		'id', 'a,id',
             		'firstname', 'lastname',
-            		'published', 'a.state',
+                'nationality', 'a.nationality',
+                'published', 'a.state',
             		'ordering', 'a.ordering',
             		'category_title', 'c.title',
             		'catid', 'a.catid', 'category_id',
@@ -49,6 +50,7 @@ class XbbooksModelPersons extends JModelList {
         $query->from($db->quoteName('#__xbpersons','a'));
         
         $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
+        $query->select('(SELECT COUNT(DISTINCT(br.role)) FROM #__xbbookperson AS br WHERE br.person_id = a.id) AS brcnt');
         if ($this->xbfilmsStatus) $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
         
         $query->join('LEFT',$db->quoteName('#__xbbookperson', 'b') . ' ON ' . $db->quoteName('b.person_id') . ' = ' .$db->quoteName('a.id'));
@@ -204,9 +206,10 @@ class XbbooksModelPersons extends JModelList {
             $item->mcnt = count(array_keys($roles, 'mention'));
             $item->ocnt = count(array_keys($roles, 'other'));
             
-            $item->alist = $item->acnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'author','ul',true,4);
-            $item->elist = $item->ecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'editor','ul',true,4);
-            $item->mlist = $item->mcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'mention','ul',true,4);
+            $rfmt = ($item->brcnt <3) ? 1 : 4;
+            $item->alist = $item->acnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'author','ul',true,$rfmt);
+            $item->elist = $item->ecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'editor','ul',true,$rfmt);
+            $item->mlist = $item->mcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'mention','ul',true,$rfmt);
             $item->olist = $item->ocnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'other','ul',true,4);
             
             $item->ext_links = json_decode($item->ext_links);

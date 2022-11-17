@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 0.9.9.9 31st October 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -213,22 +213,24 @@ if ($imgok) {
  <?php endif; ?>
 <?php if ($this->show_bdates) : ?>
 	<div class="row-fluid">
-		<div class="span1"></div>
-		<div class="span5">
-			<span class="xbnit"><?php echo  Text::_('XBBOOKS_DATE_ACQ').': '; ?>
+		<div class="span4">
+			<span class="xbnit"><?php echo  Text::_('XBBOOKS_FIRST_READ').': '; ?>
 			</span>
 			<?php $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'D jS M Y');
 			echo HtmlHelper::date($item->first_read , $datefmt) ; ?>
 		</div>
-		<div class="span5">
-	    	<?php if ($item->last_read) : ?>
-	    		<span class="xbnit"><?php echo  Text::_('XBBOOKS_DATE_READ').': '; ?>
+		<div class="span4">
+	    	<?php if (($item->last_read) && ($item->last_read <> $item->first_read)) : ?>
+	    		<span class="xbnit"><?php echo  Text::_('XBBOOKS_LAST_READ').': '; ?>
 	    		</span>
 	    		<?php $datefmt = xbCultureHelper::getDateFmt($item->last_read, 'D jS M Y');
 	    		echo HtmlHelper::date($item->last_read , $datefmt) ; ?>
     		<?php endif; ?>
 		</div>
-		<div class="span1"></div>
+		<div class="span4">
+			   <span class="xbnit xbgrey"><?php echo  Text::_('XBCULTURE_CATALOGUED').': '.HtmlHelper::date($item->created ,'jS M Y'); ?>
+	    		</span>
+		</div>
 	</div>
     <hr />
 <?php endif; ?>

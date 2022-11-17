@@ -34,6 +34,15 @@
 			<option value="notbook">Not with a book</option>
 			<option value="orphans">XBCULTURE_ORPHANS</option>
 		</field>
+		<field name="nationality" type="natlist"
+			label="XBCULTURE_NATIONALITY"
+			description="XBCULTURE_NATIONALITY_DESCs"
+			size="40" class="inputbox" maxlength="40"
+			onchange="this.form.submit();"
+			default="" 
+		>
+			<option value="">XBCULTURE_NAT_FILTER</option>
+		</field>	
 		
 		<field
 			name="category_id"

@@ -132,9 +132,9 @@ class XbbooksHelper extends ContentHelper
 					);
 			
 			JHtmlSidebar::addEntry(
-			    Text::_('XBCULTURE_BOOKS'),
+			    Text::_('XBBOOKS_BOOKS'),
 					'index.php?option=com_xbbooks&view=books',
-					$vName == 'films'
+					$vName == 'books'
 					);
 			JHtmlSidebar::addEntry(
 			    Text::_('XBBOOKS_BOOK_REVIEWS'),

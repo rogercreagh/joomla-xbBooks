@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.9.11.0 15th November 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,7 +35,7 @@ class XbbooksModelBook extends JModelItem {
 			$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.cover_img AS cover_img, a.pubyear AS pubyear,
 				a.summary AS summary, a.synopsis AS synopsis, a.publisher AS publisher, a.first_read AS first_read, a.last_read AS last_read,
 				a.ext_links AS ext_links, a.fiction AS fiction, a.orig_lang AS orig_lang, a.edition AS edition, a.format AS format,
-				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
+				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata, a.created AS created ');
 			$query->from('#__xbbooks AS a');
 			$query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
 			$query->select('c.title AS category_title');

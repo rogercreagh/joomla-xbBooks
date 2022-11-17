@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/view.html.php
- * @version 0.9.11.0 15th November 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -95,7 +95,7 @@ class XbbooksViewCharacters extends JViewLegacy {
         
         ToolbarHelper::custom(); //spacer
         if ($this->xbpeople_ok) {
-        	ToolbarHelper::custom('characters.people', 'users', '', 'xbPeople', false) ;
+        	ToolbarHelper::custom('characters.people', 'users', '', 'All Characters', false) ;
         }
         
         if ($canDo->get('core.admin')) {

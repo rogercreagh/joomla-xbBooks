@@ -157,7 +157,7 @@
 			<option value="1">JSHOW</option>
 		</field>	
 		<field name="taggrpsnote" type="note"
-			label="Film Tag Groups"
+			label="Book Tag Groups"
 			description="XBCULTURE_CONFIG_TAGGROUPNOTE_DESC"
 		/>	
 		

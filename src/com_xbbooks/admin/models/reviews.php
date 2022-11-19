@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/reviews.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.11.2 18th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,16 +42,10 @@ class XbbooksModelReviews extends JModelList {
             a.created_by AS created_by, a.rev_date AS rev_date, a.note as note, a.ordering AS ordering,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time')
             ->from($db->quoteName('#__xbbookreviews','a'));
-
-            
-            
+                   
         $query->select('c.title AS category_title')
             ->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
-            // we have reviewer column now, this not used
-//        $query->select($db->quoteName('u.username', 'username'))
-//            ->join('LEFT', $db->quoteName('#__users', 'u') . ' ON u.id = a.created_by');
-        
         // Join with books table to get the book title
         $query->select($db->quoteName('b.id','bookid').','.$db->quoteName('b.title', 'booktitle'))
             ->join('LEFT', $db->quoteName('#__xbbooks', 'b') . ' ON b.id = a.book_id');
@@ -72,12 +66,9 @@ class XbbooksModelReviews extends JModelList {
         }
             
         // Filter by published state
-        $published = $this->getState('filter.published');
-        
+        $published = $this->getState('filter.published');        
         if (is_numeric($published)) {
             $query->where('a.state = ' . (int) $published);
-        } elseif ($published === '') {
-            $query->where('(a.state IN (0, 1))');
         }
         
         // Filter by category.

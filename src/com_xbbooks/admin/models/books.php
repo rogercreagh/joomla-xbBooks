@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 0.9.11.0 15th November 2022
+ * @version 0.9.11.2 18th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -34,8 +34,6 @@ class XbbooksModelBooks extends JModelList
         parent::__construct($config);
     }
     
-    //??? should there be a populateState function ???
-
     protected function getListQuery() {
 	
     	$app = Factory::getApplication();
@@ -61,17 +59,12 @@ class XbbooksModelBooks extends JModelList
         
         $query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS revcnt');
 
-        $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
-//        $query->select('(SELECT MAX(fr.rev_date) FROM #__xbbookreviews AS fr WHERE fr.book_id=a.id) AS lastread');
-//        $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
-        
+        $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');        
         
 		// Filter by published state
         $published = $this->getState('filter.published');
         if (is_numeric($published)) {
                 $query->where('state = ' . (int) $published);
-        } else if ($published === '') {
-                $query->where('(state IN (0, 1))');
         }
 
         // Filter by category.
@@ -234,57 +227,4 @@ class XbbooksModelBooks extends JModelList
     }
     
 }
-
-/****
- protected function populateState($ordering = 'a.ordering', $direction = 'asc') {
- $app = JFactory::getApplication();
- 
- // Adjust the context to support modal layouts.
- //    	if ($layout = $app->input->get('layout'))
- //    	{
- //    		$this->context .= '.' . $layout;
- //    	}
- 
- $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
- $this->setState('filter.search', $search);
- 
- $published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
- $this->setState('filter.published', $published);
- 
- //    	$level = $this->getUserStateFromRequest($this->context . '.filter.level', 'filter_level');
- //    	$this->setState('filter.level', $level);
- 
- //    	$language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
- //    	$this->setState('filter.language', $language);
- 
- $formSubmited = $app->input->post->get('form_submited');
- 
- //    	$access     = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access');
- //    	$authorId   = $this->getUserStateFromRequest($this->context . '.filter.author_id', 'filter_author_id');
- $categoryId = $this->getUserStateFromRequest($this->context . '.filter.category_id', 'filter_category_id');
- $this->setState('filter.categoryId', $categoryId);
- 
- $tagfilt = $this->getUserStateFromRequest($this->context . '.filter.tagfilt', 'filter_tagfilt', '');
- $this->setState('filter.tagfilt', $tagfilt);
- 
- if ($formSubmited)
- {
- //   		$access = $app->input->post->get('access');
- //   		$this->setState('filter.access', $access);
- 
- //    		$authorId = $app->input->post->get('author_id');
- //    		$this->setState('filter.author_id', $authorId);
- 
- $categoryId = $app->input->post->get('category_id');
- $this->setState('filter.category_id', $categoryId);
- 
- $tagfilt = $app->input->post->get('tagfilt');
- $this->setState('filter.tagfilt', $tagfilt);
- }
- 
- // List state information.
- parent::populateState($ordering, $direction);
- 
- }
- ***/
  

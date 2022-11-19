@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/category.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.11.2 18th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,7 +41,8 @@ class XbbooksModelCategory extends JModelItem {
 			$id    = is_null($id) ? $this->getState('cat.id') : $id;
 			$db = $this->getDbo();
 			$query = $db->getQuery(true);
-			$query->select('c.id AS id, c.path AS path, c.title AS title, c.description AS description, c.note AS note, c.metadata AS metadata, c.extension AS extension');
+			$query->select('c.id AS id, c.path AS path, c.title AS title, c.description AS description, c.note AS note, 
+                c.level AS level, c.metadata AS metadata, c.extension AS extension');
 			$query->select('(SELECT COUNT(*) FROM #__xbbooks AS mb WHERE mb.catid = c.id) AS bcnt');
 			$query->select('(SELECT COUNT(*) FROM #__xbpersons AS mp WHERE mp.catid = c.id) AS pcnt');
 			$query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS mr WHERE mr.catid = c.id) AS rcnt');

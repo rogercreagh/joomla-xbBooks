@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/category/tmpl/default.php
- * @version 0.9.9.8 22nd October 2022
+ * @version 0.9.11.2 18th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -68,57 +68,65 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 <?php endif; ?>
 <div class="row-fluid">
 	<?php if($item->extension == 'com_xbbooks') : ?>
-    	<div class= "span6">
-    		<div class="xbbox xbboxcyan xbyscroll xbmh300">
-    			<p><?php echo $item->bcnt; ?> books</p>
-    			<?php if ($item->bcnt > 0 ) : ?>
-    				<ul>
-    				<?php foreach ($item->bks as $i=>$bk) { 
-    					echo '<li><a href="'.$blink.$bk->bid.'">'.$bk->title.'</a></li> ';
-    				} ?>				
-    				</ul>
-    			<?php else: ?>
-    				<p class="xbnit"><?php echo Text::_('XBCULTURE_CAT_NO_ITEMS')?></p>
-    			<?php endif; ?>
-    		</div>
-    	</div>
-    	<div class="span6">
-    		<div class="xbbox xbboxmag xbyscroll xbmh300">
-    			<p><?php echo $item->rcnt; ?> reviews</p>
-    			<?php if ($item->rcnt > 0 ) : ?>
-    				<ul>
-    				<?php foreach ($item->revs as $i=>$rev) { 
-    					echo '<li><a href="'.$rlink.$rev->rid.'">'.$rev->title.'</a></li> ';
-    				} ?>				
-    				</ul>
-    			<?php endif; ?>
-    		</div>
-    	</div>
+    	<?php if(($item->bcnt > 0) || (!$this->hide_empty)) : ?>
+        	<div class= "span6">
+        		<div class="xbbox xbboxcyan xbyscroll xbmh300">
+        			<p><?php echo $item->bcnt; ?> books</p>
+        			<?php if ($item->bcnt > 0 ) : ?>
+        				<ul>
+        				<?php foreach ($item->bks as $i=>$bk) { 
+        					echo '<li><a href="'.$blink.$bk->bid.'">'.$bk->title.'</a></li> ';
+        				} ?>				
+        				</ul>
+        			<?php else: ?>
+        				<p class="xbnit"><?php echo Text::_('XBCULTURE_CAT_NO_ITEMS')?></p>
+        			<?php endif; ?>
+        		</div>
+        	</div>
+      	<?php endif; ?>
+    	<?php if(($item->rcnt > 0) || (!$this->hide_empty)) : ?>
+        	<div class="span6">
+        		<div class="xbbox xbboxmag xbyscroll xbmh300">
+        			<p><?php echo $item->rcnt; ?> reviews</p>
+        			<?php if ($item->rcnt > 0 ) : ?>
+        				<ul>
+        				<?php foreach ($item->revs as $i=>$rev) { 
+        					echo '<li><a href="'.$rlink.$rev->rid.'">'.$rev->title.'</a></li> ';
+        				} ?>				
+        				</ul>
+        			<?php endif; ?>
+        		</div>
+        	</div>
+    	<?php endif; ?>
 	<?php else: ?>
-    	<div class= "span6">
-    		<div class="xbbox xbboxgrn  xbyscroll xbmh300">
-    			<p><?php echo $item->pcnt; ?> people</p>
-    			<?php if ($item->pcnt > 0 ) : ?>
-    				<ul>
-    				<?php foreach ($item->people as $i=>$per) { 
-    					echo '<li><a href="'.$plink.$per->pid.'">'.$per->title.'</a></li> ';
-    				} ?>				
-    				</ul>
-    			<?php endif; ?>
-    		</div>
-    	</div>
-    	<div class="span6">
-    		<div class="xbbox xbboxcyan  xbyscroll xbmh300">
-    			<p><?php echo $item->chcnt; ?> characters</p>
-    			<?php if ($item->chcnt > 0 ) : ?>
-    				<ul>
-    				<?php foreach ($item->chars as $i=>$char) { 
-    					echo '<li><a href="'.$chlink.$char->pid.'">'.$char->title.'</a></li> ';
-    				} ?>			
-    				</ul>
-    			<?php endif; ?>
-    		</div>
-    	</div>
+    	<?php if(($item->pcnt > 0) || (!$this->hide_empty)) : ?>
+        	<div class= "span6">
+        		<div class="xbbox xbboxgrn  xbyscroll xbmh300">
+        			<p><?php echo $item->pcnt; ?> people</p>
+        			<?php if ($item->pcnt > 0 ) : ?>
+        				<ul>
+        				<?php foreach ($item->people as $i=>$per) { 
+        					echo '<li><a href="'.$plink.$per->pid.'">'.$per->title.'</a></li> ';
+        				} ?>				
+        				</ul>
+        			<?php endif; ?>
+        		</div>
+        	</div>
+     	<?php endif; ?>
+    	<?php if(($item->chcnt > 0) || (!$this->hide_empty)) : ?>
+        	<div class="span6">
+        		<div class="xbbox xbboxcyan  xbyscroll xbmh300">
+        			<p><?php echo $item->chcnt; ?> characters</p>
+        			<?php if ($item->chcnt > 0 ) : ?>
+        				<ul>
+        				<?php foreach ($item->chars as $i=>$char) { 
+        					echo '<li><a href="'.$chlink.$char->pid.'">'.$char->title.'</a></li> ';
+        				} ?>			
+        				</ul>
+        			<?php endif; ?>
+        		</div>
+        	</div>
+     	<?php endif; ?>
 	<?php endif; ?>
 </div>
 <div class="clearfix"></div>

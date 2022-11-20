@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.9.10.3 14th November 2022
+ * @version 0.10.0.0 20th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -84,6 +84,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 		}
 		echo '</p>';
 	} ?> 
+	<?php if ($this->catid>0) { 
+		echo 'Showing only those in category <span class="label label-success">'.$this->cat->title.'</span> ';
+	}
 
 	<div class="pagination">
 		<?php  echo $this->pagination->getPagesLinks(); ?>

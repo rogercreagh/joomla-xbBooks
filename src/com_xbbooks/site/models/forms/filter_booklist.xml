@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/models/forms/filter_booklist.xml v0.9.5 10th May 2021 -->
+<!-- xbBooks site/models/forms/filter_booklist.xml v0.10.0.0 22nd November 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
         <field name="search"
@@ -51,28 +51,26 @@
 				<option value="1">XBCULTURE_NONFICTION</option>
 				<option value="2">XBCULTURE_FICTION</option>
 		</field>	
-		<field name="readfilt"
-			type="list"
+		<field name="readfilt" type="radio"
 			default="0"
-			label="Read or Unread only"
+			label="Read/Unread"
 			description="Show all books or only those read or those not-yet read"
   			class="btn-group btn-small radiotop"
 			onchange="this.form.submit();"
 			>
-				<option value="0" >XBCULTURE_BOTH</option>
-				<option value="1">Read books only</option>
-				<option value="2">Unread books only</option>
+				<option value="0" >XBCULTURE_ALL</option>
+				<option value="1">Read</option>
+				<option value="2">Unread</option>
 		</field>	
 		<field
-			name="category_id" type="catsubtree"
+			name="category_id" type="xbitemcats"
 			label="XBCULTURE_CATFILT_LABEL"
-			extension="com_xbbooks"
-			itemtype="book"
-			published="1"
 			description="XBCULTURE_CATFILT_DESC"
+			extension="com_xbbooks"
+			itemtable="#__xbbooks"
+			published="1"
 			onchange="this.form.submit();"
 			>
-			<option value="">XBCULTURE_ALL_CATS</option>
 		</field>
 		<field name="subcats"
 			type="radio"

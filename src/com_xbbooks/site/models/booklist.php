@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.9.11.2 17th November 2022
+ * @version 0.10.0.0 23rd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -89,7 +89,7 @@ class XbbooksModelBooklist extends JModelList {
             	}
             }
             
-             $searchbar = (int)$this->getState('params',0)['search_bar'];
+             $searchbar = (int)$this->getState('params')['search_bar'];
             //if a menu filter is set this takes priority and serch filter field is hidden
  
            // Filter by category and subcats 
@@ -97,22 +97,30 @@ class XbbooksModelBooklist extends JModelList {
              $this->setState('categoryId','');
              $dosubcats = 0;
              if (empty($categoryId)) {
-	            $categoryId = $this->getState('params',0,'int')['menu_category_id'];
-	            $dosubcats=$this->getState('params',0)['menu_subcats'];            	
+	            $categoryId = $this->getState('params')['menu_category_id'];
+	            $dosubcats=$this->getState('params')['menu_subcats'];            	
              }
             if (($searchbar==1) && ($categoryId==0)){
             	$categoryId = $this->getState('filter.category_id');
             	$dosubcats=$this->getState('filter.subcats');
             }
-            if ($categoryId > 0) {
-            	if ($dosubcats) {
-            		$catlist = $categoryId;
-            		$subcatlist = XbcultureHelper::getChildCats($categoryId,'com_xbbooks');
-            		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
-            		$query->where('a.catid IN ('.$catlist.')');
-            	} else {
-            		$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-            	}
+            $catlist = '';
+            if ($dosubcats) {
+                if (is_array($categoryId)) {
+                    foreach ($categoryId as $cat) {
+                        $catlist .= implode(',',XbcultureHelper::getChildCats($categoryId,'com_xbfilms',true));
+                    }
+                } elseif ((is_numeric($categoryId)) && ($categoryId > 0) ) {
+                    $catlist .= implode(',',XbcultureHelper::getChildCats($categoryId,'com_xbfilms',true));
+                }
+                $query->where($db->quoteName('a.catid') . ' IN ('.$catlist.')');
+            } else {
+                if ((is_numeric($categoryId)) && ($categoryId > 0) ){
+                    $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+                } elseif (is_array($categoryId)) {
+                    $catlist = implode(',', $categoryId);
+                    $query->where($db->quoteName('a.catid') . ' IN ('.$catlist.')');
+                }
             }
             
             //filter by fiction/non

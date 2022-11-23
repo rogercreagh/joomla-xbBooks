@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks config.xml v0.9.9.9 5th November 2022 -->
+<!-- xbBooks config.xml v0.10.0.0 22nd November 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -91,7 +91,7 @@
 	</fieldset>
 
 <!-- ITEMS DEFAULTS TAB -->				
-	<fieldset name="itemdefaults" 
+	<fieldset name="itemdefaults"  addfieldpath="administrator/components/com_xbpeople/models/fields"
 		label="XBCULTURE_CONFIG_ITEMS_NOTE_LABEL" 
 		description="XBCULTURE_CONFIG_ITEMS_NOTE_DESC"
 	>	
@@ -123,25 +123,18 @@
 			extension="com_xbbooks"
 			label="Books Root Category"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
-			default=""
+			default="" show_root="true"
+			onchange="Joomla.submitbutton('config.save.component.apply');"			
 			showon="show_cats!:0[AND]show_bcat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
-		<field name="incroot_book" type="radio"
-			label="XBCULTURE_CONFIG_INCROOT_LABEL"
-			description="XBCULTURE_CONFIG_INCROOT_DESC"
-			class="btn-group btn-group-yesno"
-			showon="show_cats!:0[AND]show_bcat!:0[AND]rootcat_book!:"
-		>
-			<option value="0" >JNO</option>
-			<option value="1">JYES</option>
-		</field>
   		<field
-			name="def_new_bookcat" type="category"
+			name="def_new_bookcat" type="xbcats"
 			label="New Book Category"
 			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
 			extension="com_xbbooks"
+			parent="com_xbbooks.rootcat_book"
 			showon="show_cats!:0[AND]show_bcat!:0"
 			>			
 			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
@@ -250,24 +243,17 @@
 			extension="com_xbbooks"
 			label="XBCULTURE_CONFIG_RCAT_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
-			default=""
+			default="" show_root="true"
+			onchange="Joomla.submitbutton('config.save.component.apply');"
 			showon="show_cats!:0[AND]show_rcat!:0[AND]show_revs!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
-		<field name="incroot_review" type="radio"
-			label="XBCULTURE_CONFIG_INCROOT_LABEL"
-			description="XBCULTURE_CONFIG_INCROOT_DESC"
-			class="btn-group btn-group-yesno"
-			showon="show_cats!:0[AND]show_revs!:0[AND]rootcat_review!:"
-		>
-			<option value="0" >JNO</option>
-			<option value="1">JYES</option>
-		</field>
 		<field
-			name="def_new_revcat" type="category"
+			name="def_new_revcat" type="xbcats"
 			label="XBCULTURE_CONFIG_NEW_REV_CAT_LABEL"
 			extension="com_xbbooks"
+			parent="com_xbbooks.rootcat_review"
 			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
 			showon="show_cats!:0[AND]show_rcat!:0[AND]show_revs!:0"
 			>			
@@ -340,16 +326,9 @@
 		/>
  		<field name="peepnote" type="note"
 			label="XBCULTURE_CONFIG_PEOPLE_SETTINGS"
+			description="For Category defaults for People see xbPeople Options"
 		/>	
-   		<field name="people_sort" type="radio"
-			default="0"
-			label="XBCULTURE_CONFIG_NAME_ORDER_LABEL"
-			description="XBCULTURE_CONFIG_NAME_ORDER_DESC"
- 			class="btn-group btn-group-yesno"
-			>
-				<option value="0" >First Last</option>
-				<option value="1">Last, First</option>
-		</field>			
+		<!-- 
  		<field name="show_pcat" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_PCAT_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -361,6 +340,15 @@
 			<option value="1">XBCULTURE_CONFIG_YES_NO_LINK</option>
 			<option value="2">XBCULTURE_CONFIG_YES_LINKED</option>
 		</field>	
+   		<field name="people_sort" type="radio"
+			default="0"
+			label="XBCULTURE_CONFIG_NAME_ORDER_LABEL"
+			description="XBCULTURE_CONFIG_NAME_ORDER_DESC"
+ 			class="btn-group btn-group-yesno"
+			>
+				<option value="0" >First Last</option>
+				<option value="1">Last, First</option>
+		</field>			
 		<field name="rootcat_person" type="category"
 			extension="com_xbpeople"
 			label="XBCULTURE_CONFIG_PCAT_INCROOT_LABEL"
@@ -388,6 +376,7 @@
 			>			
 			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
 		</field>
+		 -->
  		<field name="show_ptags" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_PTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -410,7 +399,9 @@
 				
   		<field name="charsnote" type="note"
 			label="XBCULTURE_CONFIG_CHAR_SETTINGS"
+			description="For Category defaults for Characters see xbPeople Options"
 		/>	
+		<!-- 
  		<field name="show_ccat" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_CCAT_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -449,7 +440,8 @@
 			>			
 			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
 		</field>
- 		<field name="show_ctags" type="radio"
+ 		 -->
+		<field name="show_ctags" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_CTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"

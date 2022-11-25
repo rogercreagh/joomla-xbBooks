@@ -28,9 +28,9 @@ if (!$listOrder) {
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'booktitle'=>Text::_('XBBOOKS_BOOKTITLE'),
-		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
-		'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
-		'rating'=>Text::_('XBCULTURE_RATING')
+		'id'=>'id','rev_date'=>Text::_('Review date'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+		'published'=>Text::_('Status'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
+		'rating'=>Text::_('XBCULTURE_RATING'),'a.created'=>Text::_('Date added')
 );
 
 $saveOrder      = $listOrder == 'ordering';
@@ -59,16 +59,17 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<?php else : ?>
         <div id="j-main-container">
 	<?php endif;?>
-	<div class="pull-right span2">
-		<p style="text-align:right;">
-			<?php $fnd = $this->pagination->total;
-			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_REVIEW':'XBCULTURE_REVIEWS').' '.Text::_('XBCULTURE_FOUND');
+ 	<div class="pull-right span6 xbtr xbm0">
+ 			<?php $fnd = $this->pagination->total;
+			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_REVIEW':'XBCULTURE_REVIEWS').' '.Text::_('XBCULTURE_FOUND').', ';
 			?>
-			</p>
+            <?php echo 'sorted by '.$orderNames[$listOrder].' '.$listDirn ; ?>
 	</div>
 	<div class="clearfix"></div>
-	<?php
-        // Search tools bar
+    <div class="pull-right pagination xbm0" style="padding-left:10px;">
+        <?php echo $this->pagination->getPagesLinks(); ?>
+    </div>
+	<?php // Search tools bar
         echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
     ?>
 	<div class="clearfix"></div>
@@ -118,19 +119,22 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         		</th>
         		<th>
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_RATING', 'rating', $listDirn, $listOrder); ?>
-        			&amp;
+        			<br />
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_DATE', 'rev_date', $listDirn, $listOrder); ?>
         		</th>
         		<th class="hidden-phone">
         			<?php echo Text::_('XBBOOKS_REVIEW_SUMMARY_LABEL');?>
         		</th>
  					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).'<br />'.
 						Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
-        		
-        		<th class="nowrap hidden-phone" style="width:45px;">
-        			<?php echo HTMLHelper::_('grid.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
+         		<th class="nowrap hidden-phone" style="width:55px;">
+         			<p class="xbtc">
+        				<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
+                    	<br />
+                    	<?php echo HTMLHelper::_('searchtools.sort', 'Added', 'a.created', $listDirn, $listOrder); ?>
+                    </p>
         		</th>
         	</tr>
 		</thead>
@@ -245,23 +249,25 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                                     
 						</td>
 						<td>
-						<p><a  class="label label-success" 	href="<?php echo $cvlink . $item->catid.'&extension=com_xbbooks'; ?>" 
-							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
-								<?php echo $item->category_title; ?>
-						</a></p>						
-						
-						<ul class="inline">
-						<?php foreach ($item->tags as $t) : ?>
-							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label label-info">
-								<?php echo $t->title; ?></a>
-							</li>													
-						<?php endforeach; ?>
-						</ul>						    											
-					</td>
-						
+    						<p><a  class="label label-success" 	href="<?php echo $cvlink . $item->catid.'&extension=com_xbbooks'; ?>" 
+    							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
+    								<?php echo $item->category_title; ?>
+    						</a></p>						
+    						
+    						<ul class="inline">
+    						<?php foreach ($item->tags as $t) : ?>
+    							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label label-info">
+    								<?php echo $t->title; ?></a>
+    							</li>													
+    						<?php endforeach; ?>
+    						</ul>						    											
 						</td>
-						<td align="center">
-							<?php echo $item->id; ?>
+						<td>
+							<p class="xbtc">
+								<?php echo $item->id; ?>
+                            	<br /><span class="xb09">
+                            	<?php echo HtmlHelper::date($item->created,'d.m.y'); ?></span>
+                            </p>
 						</td>
 					</tr>
 				<?php endforeach; ?>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/filter_books.xml v0.7.0 22nd February 2021 -->
+<!-- xbBooks admin/models/forms/filter_books.xml v0.10.0.1 25th November 2022 -->
 <form>
-	<fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+	<fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
 		<field
 			name="search"
 			type="text"
@@ -61,11 +61,12 @@
 				<option value="1">XBCULTURE_FICTION</option>
 		</field>	
 		<field
-			name="category_id"
-			type="category"
+			name="category_id" type="xbitemcats"
 			label="JOPTION_FILTER_CATEGORY"
-			extension="com_xbbooks"
 			description="JOPTION_FILTER_CATEGORY_DESC"
+			extension="com_xbbooks"
+			itemtable="#__xbbooks"
+			multiple="true"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
@@ -89,7 +90,7 @@
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
 			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
-			<option value="2" onchange="this.form.submit();">Exclude</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_EXCLUDE</option>
 		</field>	
 	</fields>
 	<fields name="list">

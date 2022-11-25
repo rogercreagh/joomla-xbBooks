@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 0.9.8 15th May 2022
+ * @version 0.10.0.1 25th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -29,8 +29,8 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'booktitle'=>Text::_('XBBOOKS_BOOKTITLE'),
 		'id'=>'id','rev_date'=>Text::_('Review date'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
-		'published'=>Text::_('Status'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
-		'rating'=>Text::_('XBCULTURE_RATING'),'a.created'=>Text::_('Date added')
+		'published'=>Text::_('XBCULTURE_STATUS'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
+		'rating'=>Text::_('XBCULTURE_RATING'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
 );
 
 $saveOrder      = $listOrder == 'ordering';
@@ -86,12 +86,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 		}
 		echo '</p>';
 	} ?> 
-
-	<div class="pagination">
-		<?php  echo $this->pagination->getPagesLinks(); ?>
-		<br />
-	    <?php echo 'sorted by '.$orderNames[$listOrder].' '.$listDirn ; ?>
-	</div>
 
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">

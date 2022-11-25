@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.10.0.1 25th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -31,7 +31,8 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_PUBYEARCOL'),
 	'id'=>'id','first_read'=>Text::_('XBBOOKS_FIRST_READ'),'last_read'=>Text::_('XBBOOKS_LAST_READ'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
-	'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
+    'published'=>Text::_('XBCULTURE_STATUS'),'ordering'=>Text::_('XBCULTURE_ORDERING'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
+);
 
 
 $saveOrder      = $listOrder == 'ordering';
@@ -63,20 +64,20 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<?php else : ?>
         <div id="j-main-container">
 	<?php endif;?>
-	<div class="pull-right span2">
-		<p style="text-align:right;">
-			<?php $fnd = $this->pagination->total;
-			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS').' '.Text::_('XBCULTURE_FOUND');
-            ?>
-		</p>
+ 	<div class="pull-right span6 xbtr xbm0">
+ 			<?php $fnd = $this->pagination->total;
+			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS').' '.Text::_('XBCULTURE_FOUND').', ';
+			?>
+            <?php echo 'sorted by '.$orderNames[$listOrder].' '.$listDirn ; ?>
 	</div>
 	<div class="clearfix"></div>
-	<?php
-        // Search tools bar
+    <div class="pull-right pagination xbm0" style="padding-left:10px;">
+        <?php echo $this->pagination->getPagesLinks(); ?>
+    </div>
+	<?php // Search tools bar
         echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
     ?>
-	<div class="clearfix"></div>
-	
+	<div class="clearfix"></div>	
 	<?php $search = $this->searchTitle; ?>
 	<?php if ($search) : ?>
 		<?php echo '<p>Searched for <b>'; ?>
@@ -90,11 +91,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 			echo '</p>';
         ?>	
 	<?php endif; ?> 
-	<div class="pagination">
-		<?php  echo $this->pagination->getPagesLinks(); ?>
-		<br />
-	    <?php echo 'sorted by '.$orderNames[$listOrder].' '.$listDirn ; ?>
-	</div>
 
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">

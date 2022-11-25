@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 0.9.11.2 18th November 2022
+ * @version 0.10.0.1 25th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,7 +28,8 @@ class XbbooksModelBooks extends JModelList
                 'a.first_read', 'first_read',
                 'a.last_read', 'last_read',
                 'published','a.state',
-        		'pubyear','a.pubyear'
+                'created', 'a.created',
+                'pubyear','a.pubyear',
             );
         }
         parent::__construct($config);
@@ -45,7 +46,7 @@ class XbbooksModelBooks extends JModelList
             a.summary AS summary, a.pubyear AS pubyear, a.catid AS catid, a.fiction AS fiction,
             a.cover_img AS cover_img, a.synopsis AS synopsis, a.state AS published, 
             a.created AS created, a.created_by AS created_by, a.first_read AS first_read, a.last_read AS last_read,
-            a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
+            a.created_by_alias AS created_by_alias, a.ext_links AS ext_links, a.created AS created,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');

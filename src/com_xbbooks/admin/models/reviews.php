@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/reviews.php
- * @version 0.9.11.2 18th November 2022
+ * @version 0.10.0.1 25th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,6 +25,7 @@ class XbbooksModelReviews extends JModelList {
             		'published', 'a.state',
             		'ordering', 'a.ordering',
             		'category_title', 'c.title',
+                    'created', 'a.created',
             		'catid', 'a.catid', 'category_id');
         }
         
@@ -40,7 +41,7 @@ class XbbooksModelReviews extends JModelList {
         $query->select('a.id AS id, a.title AS title, a.alias AS alias, a.summary AS summary, a.catid AS catid,
             a.review AS review, a.rating AS rating, a.state AS published, a.reviewer AS reviewer,
             a.created_by AS created_by, a.rev_date AS rev_date, a.note as note, a.ordering AS ordering,
-            a.checked_out AS checked_out, a.checked_out_time AS checked_out_time')
+            a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, a.created AS created')
             ->from($db->quoteName('#__xbbookreviews','a'));
                    
         $query->select('c.title AS category_title')

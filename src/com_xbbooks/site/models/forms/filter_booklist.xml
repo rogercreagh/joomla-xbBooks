@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/models/forms/filter_booklist.xml v0.10.0.0 22nd November 2022 -->
+<!-- xbBooks site/models/forms/filter_booklist.xml v0.10.0.2 26th November 2022 -->
 <form>
-    <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+    <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
         <field name="search"
             type="text"
             label="COM_CONTENT_FILTER_SEARCH_DESC"
@@ -39,17 +39,17 @@
 			>
 			<option value="">XBBOOKS_PERFILT_HINT</option>
 		</field>
+  <field name="br1" type="note" description="br" />
 		<field name="fictionfilt"
 			type="list"
 			default="0"
 			label="XBBOOKS_FILT_FICT_LBL"
 			description="XBBOOKS_FILT_FICT_DESC"
   			class="btn-group btn-small radiotop"
-			onchange="this.form.submit();"
 			>
-				<option value="0" >XBCULTURE_BOTH</option>
-				<option value="1">XBCULTURE_NONFICTION</option>
-				<option value="2">XBCULTURE_FICTION</option>
+				<option value="0" onchange="this.form.submit();">XBCULTURE_BOTH</option>
+				<option value="1" onchange="this.form.submit();">XBCULTURE_NONFICTION</option>
+				<option value="2" onchange="this.form.submit();">XBCULTURE_FICTION</option>
 		</field>	
 		<field name="readfilt" type="radio"
 			default="0"
@@ -59,30 +59,20 @@
 			onchange="this.form.submit();"
 			>
 				<option value="0" >XBCULTURE_ALL</option>
-				<option value="1">Read</option>
-				<option value="2">Unread</option>
+				<option value="1">XBCULTURE_READ</option>
+				<option value="2">XBCULTURE_UNREAD</option>
 		</field>	
+  <field name="br2" type="note" description="br" />
 		<field
 			name="category_id" type="xbitemcats"
 			label="XBCULTURE_CATFILT_LABEL"
 			description="XBCULTURE_CATFILT_DESC"
 			extension="com_xbbooks"
 			itemtable="#__xbbooks"
-			published="1"
+			published="1" multiple="true"
 			onchange="this.form.submit();"
 			>
 		</field>
-		<field name="subcats"
-			type="radio"
-			default=""
-			label="XBCULTURE_CATFILT_SUBS_LABEL"
-			description="XBCULTURE_CATFILT_SUBS_DESC"
-  			class="btn-group btn-small radiotop"
-  			showon="category_id!:"
-		>
-			<option value="" onchange="this.form.submit();">XBCULTURE_EXCLUDE</option>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_INCLUDE</option>
-		</field>	
        
 		<field
 			name="tagfilt"

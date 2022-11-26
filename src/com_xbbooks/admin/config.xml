@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks config.xml v0.10.0.1 24th November 2022 -->
+<!-- xbBooks config.xml v0.10.0.2 26th November 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -118,7 +118,7 @@
 			<option value="1">JSHOW</option>
 		</field>	
  		<field name="show_bcat" type="radio"
-			label="XBCULTURE_CONFIG_SHOBCAT_LABEL"
+			label="XBCULTURE_CONFIG_SHOW_BCAT_LABEL"
 			description="XBCULTURE_CONFIG_SHOW_CATS_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_cats!:0"
@@ -262,6 +262,7 @@
 			label="XBCULTURE_CONFIG_NEW_REV_CAT_LABEL"
 			extension="com_xbbooks"
 			parent="com_xbbooks.rootcat_review"
+			incParent="true"
 			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
 			showon="show_revs!:0[AND]rootcat_review!:"
 			>			

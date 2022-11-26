@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/models/forms/filter_blog.xml v0.9.9.6 24th August 2022 -->
 <form>
-    <fields name="filter" addfieldpath="administrator/components/com_xbbooks/models/fields">
+    <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
         <field name="search"
             type="text"
             label="COM_CONTENT_FILTER_SEARCH_DESC"
@@ -28,27 +28,17 @@
 			<option value="">XBCULTURE_ALL_CATS</option>
 		</field>
 		<field
-			name="bcategory_id" type="catsubtree"
+			name="bcategory_id" type="xbitemcats"
 			label="Book Category"
 			description="XBBOOKS_FILTER_CATEGORY_DESC"
 			extension="com_xbbooks"
-			itemtype="book"
-			published="1"
+			itemtable="#__xbbooks"
+			published="1" mutiple="true"
 			onchange="this.form.submit();"
 			showon="category_id:"
 			>
 			<option value="">XBCULTURE_ALL_CATS</option>
 		</field>
-		<field name="subcats" type="radio"
-			default=""
-			label="XBCULTURE_CATFILT_SUBS_LABEL"
-			description="XBCULTURE_CATFILT_SUBS_DESC"
-  			class="btn-group btn-small radiotop"
-  			showon="category_id!:[OR]bcategory_id!:"
-		>
-			<option value="" onchange="this.form.submit();">XBCULTURE_EXCLUDE</option>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_INCLUDE</option>
-		</field>	
        
 		<field
 			name="tagfilt"

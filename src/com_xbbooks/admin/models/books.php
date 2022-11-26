@@ -46,7 +46,7 @@ class XbbooksModelBooks extends JModelList
             a.summary AS summary, a.pubyear AS pubyear, a.catid AS catid, a.fiction AS fiction,
             a.cover_img AS cover_img, a.synopsis AS synopsis, a.state AS published, 
             a.created AS created, a.created_by AS created_by, a.first_read AS first_read, a.last_read AS last_read,
-            a.created_by_alias AS created_by_alias, a.ext_links AS ext_links, a.created AS created,
+            a.created_by_alias AS created_by_alias, a.ext_links AS ext_links, 
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');

@@ -34,7 +34,8 @@
 			itemtable="#__xbbookreviews"
 			multiple="true"
 			onchange="this.form.submit();"
-			>		</field>
+			>		
+		</field>
 		<field
 			name="tagfilt"
 			type="tag"

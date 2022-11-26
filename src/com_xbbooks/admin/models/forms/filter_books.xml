@@ -69,7 +69,6 @@
 			multiple="true"
 			onchange="this.form.submit();"
 			>
-			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field
 			name="tagfilt"

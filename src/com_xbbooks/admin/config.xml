@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks config.xml v0.10.0.2 26th November 2022 -->
+<!-- xbBooks config.xml v0.10.0.3 27th November 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -262,7 +262,7 @@
 			label="XBCULTURE_CONFIG_NEW_REV_CAT_LABEL"
 			extension="com_xbbooks"
 			parent="com_xbbooks.rootcat_review"
-			incParent="true"
+			incparent="true"
 			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
 			showon="show_revs!:0[AND]rootcat_review!:"
 			>			

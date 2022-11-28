@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/tag/tmpl/default.php
- * @version 0.9.9.9 8th November 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -44,7 +44,7 @@ $tclink = $xblink.'tags' . $itemid;
 // $chlink = $xblink.'character&id=';
 // $tclink = $xblink.'tags';
 ?>
-<div class="xbbooks">
+<div class="xbculture ">
 <div class="row-fluid" style="margin-bottom:20px;">
 	<div class="span3">
 		<h4><?php echo JText::_('XBBOOKS_ITEMSTAGGED').': '; ?></h4>		
@@ -171,7 +171,8 @@ $tclink = $xblink.'tags' . $itemid;
 		<?php echo JText::_('XBCULTURE_TAG_COUNTS'); ?>
 	</a>
 </p>
+</div>
+</div>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
-</div>
 

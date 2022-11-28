@@ -266,7 +266,7 @@
 			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
 			showon="show_revs!:0[AND]rootcat_review!:"
 			>			
-			<option value="" >XBCULTURE_CONFIG_UNCAT</option>
+			<option value="" >XBCULTURE_CONFIG_CAT_UNCAT</option>
 		</field>
 		
  		<field name="rev_auth" type="radio"

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/category/tmpl/default.php
- * @version 0.9.11.2 18th November 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,6 +41,7 @@ if ($itemid !== null) {
 $show_catdesc = $this->params->get('show_catdesc',1);
 
 ?>
+<div class="xbculture ">
 <div class="row-fluid" style="margin-bottom:20px;">
 	<div class="span3">
 		<h3 style="padding-top:3px;"><?php echo Text::_('XBCULTURE_CATEGORY'); ?>:</h3>		
@@ -136,5 +137,6 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 	</a>
 </p>
 <div class="clearfix"></div>
+</div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 

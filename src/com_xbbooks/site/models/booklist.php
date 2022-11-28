@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.10.0.0 23rd November 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -94,33 +94,18 @@ class XbbooksModelBooklist extends JModelList {
  
            // Filter by category and subcats 
              $categoryId = $this->getState('categoryId');
-             $this->setState('categoryId','');
-             $dosubcats = 0;
+             $this->setState('categoryId','');             
              if (empty($categoryId)) {
 	            $categoryId = $this->getState('params')['menu_category_id'];
-	            $dosubcats=$this->getState('params')['menu_subcats'];            	
              }
             if (($searchbar==1) && ($categoryId==0)){
             	$categoryId = $this->getState('filter.category_id');
-            	$dosubcats=$this->getState('filter.subcats');
-            }
-            $catlist = '';
-            if ($dosubcats) {
-                if (is_array($categoryId)) {
-                    foreach ($categoryId as $cat) {
-                        $catlist .= implode(',',XbcultureHelper::getChildCats($categoryId,'com_xbfilms',true));
-                    }
-                } elseif ((is_numeric($categoryId)) && ($categoryId > 0) ) {
-                    $catlist .= implode(',',XbcultureHelper::getChildCats($categoryId,'com_xbfilms',true));
-                }
+             }
+            if ((is_numeric($categoryId)) && ($categoryId > 0) ){
+                $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+            } elseif (is_array($categoryId)) {
+                $catlist = implode(',', $categoryId);
                 $query->where($db->quoteName('a.catid') . ' IN ('.$catlist.')');
-            } else {
-                if ((is_numeric($categoryId)) && ($categoryId > 0) ){
-                    $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-                } elseif (is_array($categoryId)) {
-                    $catlist = implode(',', $categoryId);
-                    $query->where($db->quoteName('a.catid') . ' IN ('.$catlist.')');
-                }
             }
             
             //filter by fiction/non

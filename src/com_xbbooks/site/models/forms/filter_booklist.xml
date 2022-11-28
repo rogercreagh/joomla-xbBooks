@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/models/forms/filter_booklist.xml v0.10.0.2 26th November 2022 -->
+<!-- xbBooks site/models/forms/filter_booklist.xml v0.10.0.4 28th November 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
         <field name="search"

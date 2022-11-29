@@ -28,7 +28,7 @@ if (!$listOrder) {
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'booktitle'=>Text::_('XBBOOKS_BOOKTITLE'),
-		'id'=>'id','rev_date'=>Text::_('Review date'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+		'id'=>'id','rev_date'=>Text::_('XBCULTURE_REVIEW_DATE'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_STATUS'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
 		'rating'=>Text::_('XBCULTURE_RATING'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
 );

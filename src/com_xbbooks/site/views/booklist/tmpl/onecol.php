@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/onecol.php
- * @version 0.10.0.4 28th November 2022
+ * @version 0.10.0.5 30th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -142,7 +142,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 							<?php $othercnt = $item->othcnt + $item->mencnt;
 							if ($othercnt>0) : ?>
 								<span class="icon-users"></span>&nbsp;
-								<span class="xbnit"><?php echo $othercnt.' '.Text::_('XBBOOKS_OTHER_ROLES_LISTED'); ?> </span>
+								<span class="xbnit"><?php echo $othercnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?> </span>
 								<br />
 							<?php endif; ?>	
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">

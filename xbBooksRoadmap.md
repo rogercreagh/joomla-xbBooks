@@ -1,13 +1,22 @@
 ### xbBooks Roadmap
 
-#### Improvements and bug fixes
+#### Planned
 
-v1.0 - All text in language files
-v2.0 - Joomla 4 compatible version
-v4.0 - Joomla 4 native version
+#### v1.1
+
+- create site reviews list view
+- rework site blog view
+
+#### v1.2
+
+- rework data manager
+- refresh sample data
 
 
-#### Possible New features
+
+#### Future ideas
+
+- Joomla 4 compatibility - only when required by paying client
 
 - ability to specify rating scale limits (allow 5 or 10 star systems)
 - front-end editing and creation of reviews

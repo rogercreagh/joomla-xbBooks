@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/models/forms/filter_blog.xml v0.9.9.6 24th August 2022 -->
+<!-- xbBooks site/models/forms/filter_blog.xml v0.12.0.1 7th Deceber 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
         <field name="search"
@@ -61,37 +61,7 @@
 			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
 			<option value="2" onchange="this.form.submit();">XBCULTURE_NONE</option>
 		</field>	
-		
-		<field name="rev_year" type="revyear"
-			label="Year Reviewed"
-			description="Filter by the year seen and reviewed"
-			default=""
-			onchange="this.form.submit();"
-			>
-			<option value="">Select year</option>
-		</field>
-		<field name="rev_month" type="list"
-			label="Month of review"
-			description="Filter by the month in the selected year. NB there may be no reviews in the selected month"
-			default=""
-			onchange="this.form.submit();"
-			showon="rev_year!:"
-			>
-			<option value="">Any month</option>
-			<option value="1">January</option>
-			<option value="2">February</option>
-			<option value="3">March</option>
-			<option value="4">April</option>
-			<option value="5">May</option>
-			<option value="6">June</option>
-			<option value="7">July</option>
-			<option value="8">August</option>
-			<option value="9">September</option>
-			<option value="10">October</option>
-			<option value="11">November</option>
-			<option value="12">December</option>
-		</field>
-		
+				
     </fields>
 
 </form>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 0.9.9.9 2nd November 2022
+ * @version 0.12.0.1 12th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -92,6 +92,34 @@ class com_xbbooksInstallerScript
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbbooks/changelog" target="_blank">
             www.crosborne.co.uk/xbbooks/changelog</a></p>';
     	Factory::getApplication()->enqueueMessage($message,'Message');
+    	
+    	$delfiles = '/models/fields/allpeople.php,/models/fields/bookchars.php,/models/fields/bookpeople.php,/models/fields/bookyear.php,
+            /models/fields/catsubtree.php,/models/fields/characters.php,/models/fields/nationality.php,
+            /models/fields/natlist.php,/models/fields/people.php,/models/fields/revformat.php,
+            /models/fields/revyear.php,/models/forms/booklist.xml,/models/forms/peoplelist.xml';
+    	$delfiles = explode(',',$delfiles);
+    	$cnt = 0;
+    	$ecnt = 0;
+    	$message = 'Deleting Redundant Files in '.JPATH_ADMINISTRATOR.'/components/com_xbbooks/ <br />';
+    	foreach ($delfiles as $f) {
+    	    if (file_exists(JPATH_ADMINISTRATOR.'/components/com_xbbooks/'.$f)) {
+    	        if (unlink(JPATH_ADMINISTRATOR.'/components/com_xbbooks/'.$f)) {
+    	           // $message .= $f.'<br />';
+    	            $cnt ++;
+    	        } else {
+    	            $message .= 'DELETE FAILED: '.$f.'<br />';
+    	            $ecnt ++;
+    	        }
+    	    } else {
+    	        //$message .= 'FILE NOT FOUND: '.$f.'<br />';
+    	    }
+    	    if (($cnt+$ecnt)>0) {
+    	        $message .= $cnt.' old files cleared';
+    	        $mtype = ($ecnt>0) ? 'Warning' : 'Message';
+    	        Factory::getApplication()->enqueueMessage($message, $mtype);
+    	    }
+    	}
+	    Factory::getApplication()->enqueueMessage($message,'Warning');
     }
     
     function postflight($type, $parent) {

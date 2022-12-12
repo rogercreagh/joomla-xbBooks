@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/view.html.php
- * @version 0.9.9.9 2nd November 2022
+ * @version 0.12.0.1 11th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -46,11 +46,7 @@ class XbbooksViewDashboard extends JViewLegacy
     		$this->totPeople = XbcultureHelper::getItemCnt('#__xbpersons');
     		$this->totChars = XbcultureHelper::getItemCnt('#__xbcharacters');
     		$this->otherRoles = $this->get('OtherRoles');
-    		
-    		$this->orphanrevs = $this->get('OrphanReviews');
-    		$this->orphanpeep = $this->get('OrphanPeople');
-    		$this->orphanchars = $this->get('OrphanChars');
-    		
+    		    		
     		$this->books = $this->get('BookCnts');  //getting fiction and nonfiction and reviews
     		$this->ratCnts = $this->get('RatCnts'); 
     		$this->people = $this->get('RoleCnts');

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 0.9.9.9 2nd November 2022
+ * @version 0.12.0.1 7th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -316,40 +316,6 @@ if (!$this->xbpeople_ok) : ?>
 					</div>
 				</div>
 			</div>
-			<?php if((!empty($this->orphanrevs)) || (!empty($this->orphanpeep)) || (!empty($this->orphanchar))) : ?>
-			<div class="xbbox xbboxred">
-				<h2 class="xbtitle">
-					<?php echo Text::_('XBCULTURE_ORPHANS'); ?>
-				</h2>
-               <?php if(!empty($this->orphanrevs)) : ?>
-				<div class="row-striped">
-					<span class="badge badge-important pull-right"><?php echo count($this->orphanrevs); ?></span>
-					<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
-					<?php foreach($this->orphanrevs as $rev) {
-					        echo '<br /><a class="xbml10" href="'.$relink.$rev['id'].'">'.$rev['title'].' ('.$rev['id'].')</a> ';
-					}?>
-				</div>
-                <?php endif; ?>
-                <?php if(!empty($this->orphanpeep)) : ?>
-				<div class="row-striped">
-					<span class="badge badge-important pull-right"><?php echo count($this->orphanpeep); ?></span>
-					<?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>
-					<?php foreach($this->orphanpeep as $rev) {
-						echo '<br /><a class="xbml10" href="'.$pelink.$rev['id'].'">'.$rev['name'].' ('.$rev['id'].')</a> ';
-					}?>
-				</div>
-                <?php endif; ?>
-                <?php if(!empty($this->orphanchars)) : ?>
-				<div class="row-striped">
-					<span class="badge badge-important pull-right"><?php echo count($this->orphanchars); ?></span>
-					<?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>
-					<?php foreach($this->orphanchars as $rev) {
-						echo '<br /><a class="xbml10" href="'.$chelink.$rev['id'].'">'.$rev['name'].' ('.$rev['id'].')</a> ';
-					}?>
-				</div>
-                <?php endif; ?>
-			</div>
-			<?php  endif; ?>
 		</div>
             <div class="span5">
 			<div class="xbbox xbboxyell">

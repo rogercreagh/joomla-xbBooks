@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/filter_books.xml v0.10.0.1 25th November 2022 -->
+<!-- xbBooks admin/models/forms/filter_books.xml v0.12.0.1 8th December 2022 -->
 <form>
 	<fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
 		<field
@@ -19,9 +19,19 @@
 			>
 			<option value="">JOPTION_SELECT_PUBLISHED</option>
 		</field>
+		<field
+			name="perfilt"
+			type="bookpeople"
+			label="XBCULTURE_PEOPLE_U"
+			description="Filter by peson in any role, or select specific role once you have selected person"
+			published="0,1,2,-2"
+			onchange="this.form.submit();"
+			>
+			<option value="">XBBOOKS_SELECT_PERSON</option>
+		</field>
 		<field name="pertype" type= "list"
 			label="Role type" description="only find books where selected person has this type of role"
-			class="inputbox input-mini"
+			class="inputbox input-medium"
 			showon="perfilt!:"
 			onchange="this.form.submit();"
 		>
@@ -29,21 +39,13 @@
 			<option value="author">Author</option>
 			<option value="editor">Editor</option>
 			<option value="mention">Appear in</option>			
-		</field>
-		<field
-			name="perfilt"
-			type="people"
-			label="XBCULTURE_PEOPLE_U"
-			description="Filter by peson"
-			onchange="this.form.submit();"
-			>
-			<option value="">XBBOOKS_SELECT_PERSON</option>
+			<option value="other">Other roles</option>			
 		</field>
 		<field
 			name="charfilt"
 			type="characters"
 			label="XBCULTURE_CHARACTERS_U"
-			description="Filter by peson"
+			description="Filter by character"
 			onchange="this.form.submit();"
 			>
 			<option value="">XBBOOKS_SELECT_CHARACTER</option>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/xbbooks.php
- * @version 0.9.9.9 2nd November 2022
+ * @version 0.12.0 6th December 2022
  * @since 0.2.0 23rd February 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -39,11 +39,6 @@ if ($usexbcss<2) {
         }
     }
     $document->addStyleSheet($cssFile);
-}
-$exticon = $params->get('ext_icon',0);
-if ($exticon) {
-    $style = 'a[target="_blank"]:after {font-style: normal; font-weight:bold; content: "\2197";}' ;
-        $document->addStyleDeclaration($style);       
 }
 //add fontawesome5
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";

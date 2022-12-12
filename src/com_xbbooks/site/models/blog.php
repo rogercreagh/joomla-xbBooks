@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/blog.php
- * @version 0.9.11.0 15th November 2022
+ * @version 0.12.0.1 7th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -257,7 +257,7 @@ class XbbooksModelBlog extends JModelList {
 		$app->setUserState('bookreviews.sortorder', $bks);
 
 		foreach ($items as $i=>$item) {			
-		    $auts = XbbooksGeneral::getBookPeople($item->film_id,'author');
+		    $auts = XbbooksGeneral::getBookPeople($item->book_id,'author');
 		    //TODO what about other roles - cast etc
 		    $item->acnt = count($auts);
 		    $item->alist = $item->acnt==0 ? '' : XbcultureHelper::makeLinkedNameList($auts,'author','comma',true, 1);

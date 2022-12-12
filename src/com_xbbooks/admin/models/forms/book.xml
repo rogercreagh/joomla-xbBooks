@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/book.xml v0.9.10.2 14th November 2022 -->
+<!-- xbBooks admin/models/forms/book.xml v0.12.0.1 8th December 2022 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
@@ -72,13 +72,6 @@
 			label="XBBOOKS_PUBYEAR" description="XBBOOKS_PUBYEAR_DESC"
 			class="inputbox" size="5" maxlength="4" />
 
-<!-- 
-		<field name="acq_date" type="calendar"
-			label="XBBOOKS_DATE_ACQ_LABEL" description="XBBOOKS_DATE_ACQ_DESC"
-			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
-			required="false"
-			showtime="false" translateformat="true" />
- -->
 		<field name="first_read" type="calendar"
 			label="First Read" description="Date book was first read"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
@@ -100,9 +93,15 @@
 		<field name="cover_img" type="media"
 			label="XBBOOKS_FIELD_COVER_LABEL" description="XBBOOKS_FIELD_COVER_DESC" />
 		
-		<field name="catid" type="category" extension="com_xbbooks" class="chzn-custom-value"
+		<field name="catid" type="xbcats" 
+			label="JCATEGORY" description="XBBOOKS_CATEGORY_DESC" 
+			extension="com_xbbooks" 
+            published="1"
+			parent="com_xbbooks.rootcat_book"
+            incparent="true"
+			class="chzn-custom-value"
 			required="true"
-			label="JCATEGORY" description="XBBOOKS_CATEGORY_DESC" >
+		>
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="state" type="list"
@@ -162,7 +161,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="person_id" type="people" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
+				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
@@ -181,7 +180,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="person_id" type="people" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
+				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
@@ -200,7 +199,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="person_id" type="people" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
+				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="otherrole" label="Role" size="20" maxlength="50"
@@ -219,7 +218,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="person_id" type="people" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
+				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
@@ -238,7 +237,7 @@
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="char_id" type="characters" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
+				<field name="char_id" type="allcharacters" label="Add characters in the book" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="char_note" type="text" label="Note" size="20" maxlength="50"

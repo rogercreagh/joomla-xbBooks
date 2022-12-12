@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 0.10.0.1 25th November 2022
+ * @version 0.12.0.1 7th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,6 +25,7 @@ class XbbooksModelBooks extends JModelList
         		'ordering','a.ordering',
         		'category_title', 'c.title',
         		'catid', 'a.catid', 'category_id',
+                'tagfilt', 'taglogic',                
                 'a.first_read', 'first_read',
                 'a.last_read', 'last_read',
                 'published','a.state',
@@ -59,7 +60,6 @@ class XbbooksModelBooks extends JModelList
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
         
         $query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS revcnt');
-
         $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');        
         
 		// Filter by published state
@@ -199,14 +199,14 @@ class XbbooksModelBooks extends JModelList
             $item->othercnt = count(array_keys($roles, 'other'));
             $item->mencnt = count(array_keys($roles, 'mention'));
             
-            $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','comma');
-            $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','comma');
-            $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','comma');
-//            $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','comma');
+            $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','comma',true,5);
+            $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','comma',true,5);
+            $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','comma',true,4);
+            $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','comma',true,4);
             
             $item->chars = XbbooksGeneral::getBookChars($item->id);
             $item->charcnt = (empty($item->chars)) ? 0 : count($item->chars);
-//            $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','comma');
+            $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','comma',true, 5);
                         
             $item->reviews = XbbooksGeneral::getBookReviews($item->id);
         	

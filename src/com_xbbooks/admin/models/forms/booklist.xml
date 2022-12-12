@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<form>
-	<field name="book_id" type="books" label="XBBOOKS_FIELD_ADDBOOK_LABEL" >
-		<option value="">JSELECT</option>	
-	</field>
-</form>

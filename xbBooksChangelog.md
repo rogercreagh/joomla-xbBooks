@@ -1,6 +1,6 @@
 ### xbBooks Changelog
 
-**v0.12.0.1** 12th Dec 2022
+**v1.0.0** = v0.12.0.2 12th Dec 2022
 
 - removed ext link hint option (see [blog](https://blog.crosborne.uk/link-hinting-revisited))
 - legacy files deleted on upgrade

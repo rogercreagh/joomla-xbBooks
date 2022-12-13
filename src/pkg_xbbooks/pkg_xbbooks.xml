@@ -2,15 +2,15 @@
 <extension type="package" version="3.9" method="upgrade">
 	<name>xbBooks Package</name>
 	<packagename>xbbooks</packagename>
-	<version>0.9.11.2</version>
-	<creationDate>18th November 2022</creationDate>
+	<version>1.0.0</version>
+	<creationDate>12th December 2022</creationDate>
 	<author>Roger C-O</author>
 	<copyright>Copyright (c) Roger Creagh-Osborne, 2021,2022. All rights reserved.</copyright>
 	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>www.crosborne.co.uk</authorUrl>
-	<xbbooks_version>0.9.11,2</xbbooks_version>
-	<xbpeople_version>0.9.11.2</xbpeople_version>
+	<xbbooks_version>1.0.0</xbbooks_version>
+	<xbpeople_version>1.0.0</xbpeople_version>
 	<url>https://www.crosborne.co.uk/xbbooks</url>
 	<packager>Roger C-O</packager>
 	<packagerurl>https://www.crosborne.co.uk/xbbooks</packagerurl>
@@ -22,7 +22,7 @@
 	</updateservers>
 	<scriptfile>pkg_xbbooks_script.php</scriptfile>
 	<files folder="packages">
-		<file type="component" id="com_xbpeople" >com_xbpeople_v0.9.11.2.zip</file>
-		<file type="component" id="com_xbbooks" >com_xbbooks_v0.9.11.2.zip</file>
+		<file type="component" id="com_xbpeople" >com_xbpeople_v1.0.0.zip</file>
+		<file type="component" id="com_xbbooks" >com_xbbooks_v1.0.0.zip</file>
 	</files>
 </extension>

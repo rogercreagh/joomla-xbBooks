@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/dashboard.php
- * @version 0.9.9.8 25th October 2022
+ * @version 1.0.0.1 14th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -155,7 +155,7 @@ class XbbooksModelDashboard extends JModelList {
         $result['bookchartags']= XbcultureHelper::getTagtypeTagCnt('com_xbpeople.character','book');
         return $result;
     }
-    
+/*     
     public function getBookPeopleTagCnts() {
         $db = Factory::getDbo();
         $query =$db->getQuery(true);
@@ -181,7 +181,7 @@ class XbbooksModelDashboard extends JModelList {
         $db->setQuery($query);
         return $db->loadResult();
     }
-    
+ */    
     /**
      * @name getOtherRoles()
      * @desc get an array of other roles in bookperson table

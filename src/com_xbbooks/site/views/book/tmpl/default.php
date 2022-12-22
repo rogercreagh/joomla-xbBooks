@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.0.1 22nd December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -217,8 +217,12 @@ if ($imgok) {
 		<div class="span4">
 			<span class="xbnit"><?php echo  Text::_('XBBOOKS_FIRST_READ').': '; ?>
 			</span>
-			<?php $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'D jS M Y');
-			echo HtmlHelper::date($item->first_read , $datefmt) ; ?>
+			<?php if($item->first_read) : ?>
+				<?php $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'D jS M Y');
+				echo HtmlHelper::date($item->first_read , $datefmt) ; ?>
+			<?php else: 
+			     echo Text::_('unknown');
+			endif; ?>
 		</div>
 		<div class="span4">
 	    	<?php if (($item->last_read) && ($item->last_read <> $item->first_read)) : ?>

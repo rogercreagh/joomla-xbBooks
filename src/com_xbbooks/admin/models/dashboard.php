@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/dashboard.php
- * @version 1.0.0.1 14th December 2022
+ * @version 1.0.1.1 31st December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -30,20 +30,24 @@ class XbbooksModelDashboard extends JModelList {
 		return $this->stateCnts('#__categories','published','com_xbbooks');
 	}
 	
-	public function getPcatStates() {
-		return $this->stateCnts('#__categories','published','com_xbpeople');
-	}
+// 	public function getPcatStates() {
+// 		return $this->stateCnts('#__categories','published','com_xbpeople');
+// 	}
 	
 	public function getRevStates() {
 		return $this->stateCnts('#__xbbookreviews');
 	}
 	
 	public function getPerStates() {
-		return $this->stateCnts('#__xbpersons');
+	    return $this->stateCnts('#__xbpersons','state','com_xbpeople');
+	}
+	
+	public function getGroupStates() {
+	    return $this->stateCnts('#__xbgroups','state','com_xbpeople');
 	}
 	
 	public function getCharStates() {
-		return $this->stateCnts('#__xbcharacters');
+	    return $this->stateCnts('#__xbcharacters','state','com_xbpeople');
 	}
 	
 	public function getBookCnts() {
@@ -82,18 +86,18 @@ class XbbooksModelDashboard extends JModelList {
     	return $db->loadAssocList('alias');    	
     }
     
-    public function getPeopleCats() {
-    	$db = $this->getDbo();
-    	$query = $db->getQuery(true);
-    	$query->select('a.*')
-    	->select('(SELECT COUNT(*) FROM #__xbcharacters AS c WHERE c.catid=a.id) AS chrcnt')
-    	->select('(SELECT COUNT(*) FROM #__xbpersons AS p WHERE p.catid=a.id) AS percnt')
-    	->from('#__categories AS a')
-    	->where('a.extension = '.$db->quote("com_xbpeople"))
-    	->order($db->quoteName('path') . ' ASC');
-    	$db->setQuery($query);
-    	return $db->loadAssocList('alias');
-    }
+//     public function getPeopleCats() {
+//     	$db = $this->getDbo();
+//     	$query = $db->getQuery(true);
+//     	$query->select('a.*')
+//     	->select('(SELECT COUNT(*) FROM #__xbcharacters AS c WHERE c.catid=a.id) AS chrcnt')
+//     	->select('(SELECT COUNT(*) FROM #__xbpersons AS p WHERE p.catid=a.id) AS percnt')
+//     	->from('#__categories AS a')
+//     	->where('a.extension = '.$db->quote("com_xbpeople"))
+//     	->order($db->quoteName('path') . ' ASC');
+//     	$db->setQuery($query);
+//     	return $db->loadAssocList('alias');
+//     }
     
     public function getRoleCnts() {
         $result = array();
@@ -155,33 +159,7 @@ class XbbooksModelDashboard extends JModelList {
         $result['bookchartags']= XbcultureHelper::getTagtypeTagCnt('com_xbpeople.character','book');
         return $result;
     }
-/*     
-    public function getBookPeopleTagCnts() {
-        $db = Factory::getDbo();
-        $query =$db->getQuery(true);
-        $query->select('COUNT(*) AS numtags')
-            ->from('#__contentitem_tag_map');
-        $query->join('INNER', '#__xbbookperson AS bp WHERE bp.person_id = content_item_id');
-            -$query>where('type_alias = '.$db->quote('com_xbpeople.person'))
-            ->group('core_content_id, type_alias');
-        //not checking that tag is published
-        $db->setQuery($query);
-        return $db->loadResult();        
-    }
     
-    public function getBookCharsTagCnts() {
-        $db = Factory::getDbo();
-        $query =$db->getQuery(true);
-        $query->select('COUNT(*) AS numtags')
-        ->from('#__contentitem_tag_map');
-        $query->join('INNER', '#__xbbookcharacter AS bp WHERE bp.char_id = content_item_id');
-        -$query>where('type_alias = '.$db->quote('com_xbpeople.person'))
-        ->group('core_content_id, type_alias');
-        //not checking that tag is published
-        $db->setQuery($query);
-        return $db->loadResult();
-    }
- */    
     /**
      * @name getOtherRoles()
      * @desc get an array of other roles in bookperson table
@@ -268,88 +246,5 @@ class XbbooksModelDashboard extends JModelList {
 		
 		return $wynik;
 	}
-		
-/***
-	public function getOrphanReviewsCnt() {
-	    $db = Factory::getDbo();
-	    $query = $db->getQuery(true);
-	    $query->select('COUNT(a.id)')->from('#__xbbookreviews AS a');
-	    $query->join('LEFT','#__xbbooks AS b ON b.id = a.book_id');
-	    $query->where('b.id IS NULL');
-	    $db->setQuery($query);
-	    return $db->loadResult();
-	}
-
-	public function getOrphanReviews() {
-	    $db = Factory::getDbo();
-	    $query = $db->getQuery(true);
-	    $query->select('a.id, a.title')->from('#__xbbookreviews AS a');
-	    $query->join('LEFT','#__xbbooks AS b ON b.id = a.book_id');
-	    $query->where('b.id IS NULL');
-	    $db->setQuery($query);
-	    return $db->loadAssocList();
-	}
-		
-	public function getOrphanPeopleCnt() {
-	    $db = Factory::getDbo();
-	    $query = $db->getQuery(true);
-	    $query->select('COUNT(DISTINCT p.id)')->from('#__xbpersons AS p');
-	    $query->join('LEFT','#__xbbookperson AS bp ON bp.person_id = p.id');
-	    $query->where('bp.person_id IS NULL');
-	    if ($this->xbfilmsStatus) {
-	        $query->join('LEFT','#__xbfilmperson AS fp ON fp.person_id = p.id');
-	        $query->where('fp.person_id IS NULL');
-	    }
-	    $db->setQuery($query);
-	    return $db->loadResult();
-	}
-	
-	public function getOrphanPeople() {
-	    $db = Factory::getDbo();
-	    $query = $db->getQuery(true);
-	    $query->select('p.id, CONCAT(p.firstname, " ", p.lastname) AS name')->from('#__xbpersons AS p');
-	    $query->join('LEFT','#__xbbookperson AS bp ON bp.person_id = p.id');
-	    $query->where('bp.person_id IS NULL');
-	    if ($this->xbfilmsStatus) {
-	        $query->join('LEFT','#__xbfilmperson AS fp ON fp.person_id = p.id');
-	        $query->where('fp.person_id IS NULL');
-	    }
-	    $db->setQuery($query);
-	    return $db->loadAssocList();
-	}
-	
-	public function getOrphanCharsCnt() {
-	    //$filmsinstalled = XbcultureHelper::checkComponent('com_xbfilms') !==false;
-	    $db = Factory::getDbo();
-	    $query = $db->getQuery(true);
-	    $query->select('COUNT(DISTINCT p.id)')->from('#__xbcharacters AS p');
-	    $query->join('LEFT','#__xbbookcharacter AS bp ON bp.person_id = p.id');
-	    $query->where('bp.person_id IS NULL');
-	    if ($this->xbfilmsStatus) {
-	        $query->join('LEFT','#__xbfilmcharacter AS fp ON fp.person_id = p.id');
-	        $query->where('fp.person_id IS NULL');
-	    }
-	    $query->order('name');
-	    $db->setQuery($query);
-	    return $db->loadResult();
-	}
-	
-	
-	public function getOrphanChars() {
-	    //$filmsinstalled = XbcultureHelper::checkComponent('com_xbfilms') !==false;
-	    $db = Factory::getDbo();
-	    $query = $db->getQuery(true);
-	    $query->select('p.id, p.name')->from('#__xbcharacters AS p');
-	    $query->join('LEFT','#__xbbookcharacter AS bp ON bp.char_id = p.id');
-	    $query->where('bp.char_id IS NULL');
-	    if ($this->xbfilmsStatus) {
-	        $query->join('LEFT','#__xbfilmcharacter AS fp ON fp.char_id = p.id');
-	        $query->where('fp.char_id IS NULL');
-	    }
-	    $query->order('name');
-	    $db->setQuery($query);
-	    return $db->loadAssocList();
-	}
-	*****/
-	
+			
 }	

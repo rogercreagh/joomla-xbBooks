@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 0.12.0.1 7th December 2022
+ * @version 1.0.1.1 31st December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,10 +16,11 @@ use Joomla\CMS\Router\Route;
 
 //jimport('joomla.html.html.bootstrap');
 
-$belink='index.php?option=com_xbbooks&view=book&layout=edit&id=';
-$relink='index.php?option=com_xbbooks&view=review&layout=edit&id=';
-$pelink='index.php?option=com_xbbooks&view=person&layout=edit&id=';
-$chelink='index.php?option=com_xbbooks&view=character&layout=edit&id=';
+// $belink='index.php?option=com_xbbooks&view=book&layout=edit&id=';
+// $relink='index.php?option=com_xbbooks&view=review&layout=edit&id=';
+// $pelink='index.php?option=com_xbbooks&view=person&layout=edit&id=';
+// $chelink='index.php?option=com_xbbooks&view=character&layout=edit&id=';
+$clink='index.php?option=com_xbbooks&view=bcategory&id=';
 
 if (!$this->xbpeople_ok) : ?>
     <div class="alert alert-error"><?php echo Text::_('XBBOOKS_PEOPLE_WARNING'); ?></div>
@@ -100,301 +101,120 @@ if (!$this->xbpeople_ok) : ?>
 		<h4><?php echo Text::_( 'XBCULTURE_SUMMARY' ); ?></h4>
         <div class="row-fluid">
         	<div class="span5">
-			<div class="xbbox xbboxcyan">
-				<h2 class="xbtitle">
-					<span class="badge badge-info pull-right"><?php echo $this->bookStates['total']; ?></span> 
-					<?php echo Text::_('XBCULTURE_BOOKS_U'); ?>
-				</h2>
-				<div class="row-striped">
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge badge-success xbmr10"><?php echo $this->bookStates['published']; ?></span>
-							<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->bookStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->bookStates['unpublished']; ?></span>
-							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge <?php echo $this->bookStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->bookStates['archived']; ?></span>
-							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->bookStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->bookStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge xbml10"><?php echo $this->books['fiction']; ?></span>
-							<?php echo Text::_('XBCULTURE_FICTION'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge badge-inverse xbml10"><?php echo $this->books['nonfiction']; ?></span>
-							<?php echo Text::_('XBCULTURE_NONFICTION'); ?>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge badge-success xbml10"><?php echo $this->books['reviewed']; ?></span>
-							<?php echo Text::_('XBCULTURE_REVIEWED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge badge-important xbml10"><?php echo $this->bookStates['total']-$this->books['reviewed']; ?></span>
-							<?php echo Text::_('XBCULTURE_UNREVIEWED'); ?>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="xbbox xbboxmag">
-				<h2 class="xbtitle">
-					<span class="badge badge-info pull-right">
-						<?php echo $this->revStates['total']; ?>
-					</span> 
-					<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
-				</h2>
-				<div class="row-striped">
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge badge-success xbmr10"><?php echo $this->revStates['published']; ?></span>
-							<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->revStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->revStates['unpublished']; ?></span>
-							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge <?php echo $this->revStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->revStates['archived']; ?></span>
-							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->revStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->revStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-						</div>
-					</div>
-				</div>
-				<h2 class="xbsubtitle"><?php echo Text::_('XBCULTURE_PUBRATINGS');?></h2>
-				<div class="xbratingrow">
-					<div class="row-fluid clearfix">
-                    	<table style="width:100%;"><tr>
-                    		<tr>
-	     						<?php $s = $this->zero_rating ? 0 : 1;
-	     						for ($i = $s; $i < 8; $i++): ?>
-		                     		<td class="center xbstarcell">
-							        	<?php if (($this->zero_rating) && ($i==0)) {
-							            	echo '<span class="'.$this->zero_class.' "></span>';
-							        	} else { ?>
-			                      			<span style="font-size:9px;">
-			                      				<?php echo str_repeat('&#11088',$i); ?>
-			                      			</span>
-			                          	<?php } //endif; ?>
-		                      		</td>
-	                      		<?php endfor; ?>
-                      		</tr><tr>
-								<?php for ($i = $s; $i < 8; $i++): ?>
-                     				<td class="center" style="padding-top:5px;">
-                       					<span class="badge <?php echo (key_exists($i,$this->ratCnts)) ? 'badge-info':''; ?> " >
-                       					<?php echo (key_exists($i,$this->ratCnts))? $this->ratCnts[$i]:'0';?></span>
-	                    			</td>
-                      			<?php endfor; ?>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>			
-			<div class="xbbox xbboxgrn">
-				<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>
-					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge percnt xbmr20"><?php echo $this->totPeople;?></span>
-					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info "><?php echo $this->perStates['total'];?></span></span>	
-				</h2>
-				<div class="row-striped">
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge badge-success xbmr10"><?php echo $this->perStates['published']; ?></span>
-							<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->perStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->perStates['unpublished']; ?></span>
-							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge <?php echo $this->perStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->perStates['archived']; ?></span>
-							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->perStates['archived']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->perStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-						</div>
-					</div>
-
-					<div class="row-fluid">
-						<div class="span1"></div><div class="span11">
-							<span class="badge badge-info xbmr10"><?php echo $this->people['authpub']+$this->people['authunpub'];?></span>
-							<?php echo Text::_('XBCULTURE_AUTHORS'); ?>
-							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
-							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
-							 	<span class="badge badge-success xbmr10"><?php echo $this->people['authpub'];?></span>
-								<?php echo Text::_('XBCULTURE_UNPUBCOLON'); ?>
-								<span class="badge <?php echo $this->people['authunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['authunpub'];?></span>
-							</span>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span1"></div><div class="span11">
-							<span class="badge badge-info xbmr10"><?php echo $this->people['editpub']+$this->people['editunpub'];?></span>
-							<?php echo Text::_('XBCULTURE_EDITORS'); ?>
-							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
-							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
-							 	<span class="badge badge-success xbmr10"><?php echo $this->people['editpub'];?></span>
-								<?php echo Text::_('XBCULTURE_UNPUBCOLON'); ?>
-								<span class="badge <?php echo $this->people['editunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['editunpub'];?></span>
-							</span>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span1"></div><div class="span11">
-							<span class="badge badge-info xbmr10"><?php echo $this->people['menpub']+$this->people['menunpub'];?></span>
-							<?php echo Text::_('XBCULTURE_MENTIONED'); ?>
-							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
-							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
-							 	<span class="badge badge-success xbmr10"><?php echo $this->people['menpub'];?></span>
-								<?php echo Text::_('XBCULTURE_UNPUBCOLON'); ?>
-								<span class="badge <?php echo $this->people['menunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['menunpub'];?></span>
-							</span>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span1"></div><div class="span11">
-							<span class="badge badge-info xbmr10"><?php echo $this->people['otherpub']+$this->people['otherunpub'];?></span>
-							<?php echo Text::_('XBCULTURE_OTHERS'); ?>
-							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
-							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
-							 	<span class="badge badge-success xbmr10"><?php echo $this->people['otherpub'];?></span>
-								<?php echo Text::_('XBCULTURE_UNPUBCOLON'); ?>
-								<span class="badge <?php echo $this->people['otherunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['otherunpub'];?></span>
-							</span>
-							<?php if(!empty($this->otherRoles)) :?>
-								<br /><span class="xbnit xbmr10"><?php echo Text::_('XBCULTURE_OTHER_ROLES'); ?>:</span>
-								<?php echo implode(', ',$this->otherRoles); ?>
-							<?php endif; ?>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="xbbox xbboxcyan">
-				<h2 class="xbtitle">
-					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge chcnt xbmr20"><?php echo $this->totChars;?></span>
-					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info "><?php echo $this->charStates['total'];?></span></span>	
-					<?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>
-				</h2>
-				<div class="row-striped">
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge badge-success xbmr10"><?php echo $this->charStates['published']; ?></span>
-							<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->charStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->charStates['unpublished']; ?></span>
-							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge <?php echo $this->charStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->charStates['archived']; ?></span>
-							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->charStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->charStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-            <div class="span5">
-			<div class="xbbox xbboxyell">
-				<h2 class="xbtitle">
-					<span class="badge badge-info pull-right">
-						<?php echo $this->catStates['total']; ?></span> 
-					<?php echo Text::_('XBBOOKS_BOOK_CATEGORIES'); ?>
-				</h2>
-				<div class="row-striped">
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge badge-success xbmr10"><?php echo $this->catStates['published']; ?></span>
-							<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->catStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->catStates['unpublished']; ?></span>
-							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge <?php echo $this->catStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->catStates['archived']; ?></span>
-							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->catStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->catStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-						</div>
-					</div>
-                 <h3 class="xbsubtitle"><?php echo Text::_('XBCULTURE_COUNTS_CATEGORY'); ?><span class="xb09 xbnorm"> <i> (books:reviews)</i></span></h3>
-                 <div class="row-striped">
-					<div class="row-fluid">
-						    <?php echo $this->catlist; ?>
-					</div>
-				</div>
-				<br />
-<?php if ($this->xbpeople_ok !==false) : ?>
- 				<h2 class="xbtitle">
-					<span class="badge badge-info pull-right">
-						<?php echo $this->pcatStates['total']; ?></span> 
-					<?php echo Text::_('XBCULTURE_PEOPLE_CATEGORIES'); ?>
-				</h2>
-				<div class="row-striped">
-					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge badge-success xbmr10"><?php echo $this->pcatStates['published']; ?></span>
-						<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->pcatStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->pcatStates['unpublished']; ?></span>
-							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
-						</div>
- 					</div>
- 					<div class="row-fluid">
-						<div class="span6">
-							<span class="badge <?php echo $this->pcatStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->pcatStates['archived']; ?></span>
-							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-						</div>
-						<div class="span6">
-							<span class="badge <?php echo $this->pcatStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->pcatStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-						</div>
-					</div>
-                 </div>
-                 <h3 class="xbsubtitle"><?php echo Text::_('XBCULTURE_COUNTS_CATEGORY'); ?><span class="xb09 xbnorm"> <i>(people:characters)</i></span></h3>
-                 <div class="row-striped">
-					<div class="row-fluid">
-						    <?php echo $this->pcatlist; ?>
-					</div>
-				</div>
-<?php endif; ?>
-			</div>
-          	</div>
+    			<div class="xbbox xbboxcyan">
+    				<h2 class="xbtitle">
+    					<span class="badge badge-info pull-right"><?php echo $this->bookStates['total']; ?></span> 
+    					<?php echo Text::_('XBCULTURE_BOOKS_U'); ?>
+    				</h2>
+    				<div class="row-striped">
+    					<div class="row-fluid">
+    						<div class="span6">
+    							<span class="badge badge-success xbmr10"><?php echo $this->bookStates['published']; ?></span>
+    							<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
+    						</div>
+    						<div class="span6">
+    							<span class="badge <?php echo $this->bookStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->bookStates['unpublished']; ?></span>
+    							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span6">
+    							<span class="badge <?php echo $this->bookStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->bookStates['archived']; ?></span>
+    							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
+    						</div>
+    						<div class="span6">
+    							<span class="badge <?php echo $this->bookStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->bookStates['trashed']; ?></span>
+    							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span6">
+    							<span class="badge xbml10"><?php echo $this->books['fiction']; ?></span>
+    							<?php echo Text::_('XBCULTURE_FICTION'); ?>
+    						</div>
+    						<div class="span6">
+    							<span class="badge badge-inverse xbml10"><?php echo $this->books['nonfiction']; ?></span>
+    							<?php echo Text::_('XBCULTURE_NONFICTION'); ?>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span6">
+    							<span class="badge badge-success xbml10"><?php echo $this->books['reviewed']; ?></span>
+    							<?php echo Text::_('XBCULTURE_REVIEWED'); ?>
+    						</div>
+    						<div class="span6">
+    							<span class="badge badge-important xbml10"><?php echo $this->bookStates['total']-$this->books['reviewed']; ?></span>
+    							<?php echo Text::_('XBCULTURE_UNREVIEWED'); ?>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="xbbox xbboxmag">
+    				<h2 class="xbtitle">
+    					<span class="badge badge-info pull-right">
+    						<?php echo $this->revStates['total']; ?>
+    					</span> 
+    					<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
+    				</h2>
+    				<div class="row-striped">
+    					<div class="row-fluid">
+    						<div class="span6">
+    							<span class="badge badge-success xbmr10"><?php echo $this->revStates['published']; ?></span>
+    							<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
+    						</div>
+    						<div class="span6">
+    							<span class="badge <?php echo $this->revStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->revStates['unpublished']; ?></span>
+    							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span6">
+    							<span class="badge <?php echo $this->revStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->revStates['archived']; ?></span>
+    							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
+    						</div>
+    						<div class="span6">
+    							<span class="badge <?php echo $this->revStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->revStates['trashed']; ?></span>
+    							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
+    						</div>
+    					</div>
+    				</div>
+    				<h2 class="xbsubtitle"><?php echo Text::_('XBCULTURE_PUBRATINGS');?></h2>
+    				<div class="xbratingrow">
+    					<div class="row-fluid clearfix">
+                        	<table style="width:100%;"><tr>
+                        		<tr>
+    	     						<?php $s = $this->zero_rating ? 0 : 1;
+    	     						for ($i = $s; $i < 8; $i++): ?>
+    		                     		<td class="center xbstarcell">
+    							        	<?php if (($this->zero_rating) && ($i==0)) {
+    							            	echo '<span class="'.$this->zero_class.' "></span>';
+    							        	} else { ?>
+    			                      			<span style="font-size:9px;">
+    			                      				<?php echo str_repeat('&#11088',$i); ?>
+    			                      			</span>
+    			                          	<?php } //endif; ?>
+    		                      		</td>
+    	                      		<?php endfor; ?>
+                          		</tr><tr>
+    								<?php for ($i = $s; $i < 8; $i++): ?>
+                         				<td class="center" style="padding-top:5px;">
+                           					<span class="badge <?php echo (key_exists($i,$this->ratCnts)) ? 'badge-info':''; ?> " >
+                           					<?php echo (key_exists($i,$this->ratCnts))? $this->ratCnts[$i]:'0';?></span>
+    	                    			</td>
+                          			<?php endfor; ?>
+    							</tr>
+    						</table>
+    					</div>
+    				</div>
+    			</div>			
      			<div class="xbbox xbboxgrey">
     				<div class="row-fluid"><div class="span12">
     					<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_NUM_ITEMS_TAGGED'); ?>
     						<span class="pull-right">
     							<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
-            					<span class="badge badge-info" style="border: blue solid 1px;"><?php echo ($this->tags['bookscnt']  + $this->tags['revscnt']) ; ?></span> 
+            					<span class="badge badge-info" style="border: blue solid 1px;">
+            						<?php echo ($this->tags['bookscnt']  + $this->tags['revscnt']) ; ?>
+            					</span> 
     						</span>
     					</h2>
     				</div></div>
@@ -412,20 +232,6 @@ if (!$this->xbpeople_ok) : ?>
     						</div>
     						<div class="span4">
     							<span class="revcnt badge  pull-right"><?php echo $this->tags['revscnt']; ?></span>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="percnt badge  pull-right"><?php echo $this->tags['bookper']; ?></span>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="chcnt badge  pull-right"><?php echo $this->tags['bookchar']; ?></span>
     						</div>
     					</div>
     				</div>
@@ -446,23 +252,143 @@ if (!$this->xbpeople_ok) : ?>
     							<span class="revcnt badge  pull-right"><?php echo $this->tags['revtags']; ?></span>
     						</div>
     					</div>
+    				</div>
+    			</div>
+			</div>
+            <div class="span5">
+    			<div class="xbbox xbboxgrn">
+    				<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>
+    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge percnt xbmr20"><?php echo $this->totPeople;?></span>
+    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info "><?php echo $this->perStates['total'];?></span></span>	
+    				</h2>
+    				<div class="row-striped">
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="percnt badge  pull-right"><?php echo $this->tags['bookpertags']; ?></span>
+    						<div class="span1"></div><div class="span11">
+    							<span class="badge badge-info xbmr10"><?php echo $this->people['authpub']+$this->people['authunpub'];?></span>
+    							<?php echo Text::_('XBCULTURE_AUTHORS'); ?>
+    							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
+    							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
+    							 	<span class="badge badge-success xbmr10"><?php echo $this->people['authpub'];?></span>
+    								<?php echo Text::_('XBCULTURE_UNPUBCOLON'); ?>
+    								<span class="badge <?php echo $this->people['authunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['authunpub'];?></span>
+    							</span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>:
+    						<div class="span1"></div><div class="span11">
+    							<span class="badge badge-info xbmr10"><?php echo $this->people['editpub']+$this->people['editunpub'];?></span>
+    							<?php echo Text::_('XBCULTURE_EDITORS'); ?>
+    							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
+    							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
+    							 	<span class="badge badge-success xbmr10"><?php echo $this->people['editpub'];?></span>
+    								<?php echo Text::_('XBCULTURE_UNPUBCOLON'); ?>
+    								<span class="badge <?php echo $this->people['editunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['editunpub'];?></span>
+    							</span>
     						</div>
-    						<div class="span4">
-    							<span class="chcnt badge  pull-right"><?php echo $this->tags['bookchartags']; ?></span>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span1"></div><div class="span11">
+    							<span class="badge badge-info xbmr10"><?php echo $this->people['menpub']+$this->people['menunpub'];?></span>
+    							<?php echo Text::_('XBCULTURE_MENTIONED'); ?>
+    							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
+    							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
+    							 	<span class="badge badge-success xbmr10"><?php echo $this->people['menpub'];?></span>
+    								<?php echo Text::_('XBCULTURE_UNPUBCOLON'); ?>
+    								<span class="badge <?php echo $this->people['menunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['menunpub'];?></span>
+    							</span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span1"></div><div class="span11">
+    							<span class="badge badge-info xbmr10"><?php echo $this->people['otherpub']+$this->people['otherunpub'];?></span>
+    							<?php echo Text::_('XBCULTURE_OTHERS'); ?>
+    							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
+    							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
+    							 	<span class="badge badge-success xbmr10"><?php echo $this->people['otherpub'];?></span>
+    								<?php echo Text::_('XBCULTURE_UNPUBCOLON'); ?>
+    								<span class="badge <?php echo $this->people['otherunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['otherunpub'];?></span>
+    							</span>
+    							<?php if(!empty($this->otherRoles)) :?>
+    								<br /><span class="xbnit xbmr10"><?php echo Text::_('XBCULTURE_OTHER_ROLES'); ?>:</span>
+    								<?php echo implode(', ',$this->otherRoles); ?>
+    							<?php endif; ?>
     						</div>
     					</div>
     				</div>
     			</div>
-          	</div>
+    			<div class="xbbox xbboxcyan">
+    				<h2 class="xbtitle">
+    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge chcnt xbmr20"><?php echo $this->totChars;?></span>
+    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info "><?php echo $this->charStates['total'];?></span></span>	
+    					<?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>
+    				</h2>
+    			</div>
+    			<div class="xbbox xbboxgrn">
+    				<h2 class="xbtitle">
+    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge grpcnt xbmr20"><?php echo $this->totGroups;?></span>
+    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info "><?php echo $this->groupStates['total'];?></span></span>	
+    					<?php echo Text::_('XBCULTURE_GROUPS'); ?>
+    				</h2>
+    			</div>
+    			<div class="xbbox xbboxyell">
+    				<h2 class="xbtitle">
+    					<span class="badge badge-info pull-right">
+    						<?php echo $this->catStates['total']; ?></span> 
+    					<?php echo Text::_('XBCULTURE_CATEGORIES_U'); ?>
+    				</h2>
+    				<div class="row-striped">
+    					<div class="row-fluid">
+    						<div class="span6">
+    							<span class="badge badge-success xbmr10"><?php echo $this->catStates['published']; ?></span>
+    							<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
+    						</div>
+    						<div class="span6">
+    							<span class="badge <?php echo $this->catStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->catStates['unpublished']; ?></span>
+    							<?php echo Text::_('XBCULTURE_UNPUBLISHED'); ?>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span6">
+    							<span class="badge <?php echo $this->catStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->catStates['archived']; ?></span>
+    							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
+    						</div>
+    						<div class="span6">
+    							<span class="badge <?php echo $this->catStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->catStates['trashed']; ?></span>
+    							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
+    						</div>
+    					</div>
+                         <table style="width:100%"><tr>
+                         	<td><h3 class="xbsubtitle">Counts per category</h3></td>
+                         	<td style="width:65px;"><span class="badge bkcnt">books</span></td>
+                         	<td style="width:65px;"><span class="badge revcnt">reviews</span></td>
+                         </tr></table>
+                         <div class="row-striped">
+        					<div class="row-fluid">
+         						<table style="width:100%; margin-left:30px;">
+                					<?php foreach ($this->cats as $key=>$value) : ?>
+         								<tr><td>
+                        					<?php if ($value['level']>1) {
+                                                echo '&boxur;'.str_repeat('&boxh;', $value['level']-1).'&nbsp;';
+                                            } ?>
+        									<a class="label <?php echo ($value['published']==1) ? 'label-success' : ''; ?>" 
+        										href="<?php echo $clink.$value['id']; ?>"><?php echo $value['title']; ?></a>
+                    					</td><td>
+                    						<?php if($value['bookcnt']>0) : ?>
+                    							<span class="badge bkcnt"><?php echo $value['bookcnt']; ?></span>
+                    						<?php endif; ?>
+                    					</td><td>
+                    						<?php if($value['revcnt']>0) : ?>
+                    						<span class="badge revcnt"><?php echo $value['revcnt']; ?></span>
+                    						<?php endif; ?>
+                    					</td></tr>
+                    				<?php endforeach; ?>        
+                				</table>
+        					</div>
+        				</div>
+        				<br />for People/Groups/Character categories see <a href="index.php?option=com_xbpeople">xbPeople</a>
+        			</div>
+              	</div>
+			</div>
           	
             <div class="span2">
 				<div class="xbbox xbboxwht">

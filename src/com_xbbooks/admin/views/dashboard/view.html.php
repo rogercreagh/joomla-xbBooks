@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/view.html.php
- * @version 0.12.0.1 11th December 2022
+ * @version 1.0.1.1 31st December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -39,11 +39,13 @@ class XbbooksViewDashboard extends JViewLegacy
 	        
 	        $this->bookStates = $this->get('BookStates');
     		$this->catStates = $this->get('CatStates');
-    		$this->pcatStates = $this->get('PcatStates');
+//    		$this->pcatStates = $this->get('PcatStates');
     		$this->revStates = $this->get('RevStates');
     		$this->perStates = $this->get('PerStates');
+    		$this->groupStates = $this->get('GroupStates');
     		$this->charStates = $this->get('CharStates');
     		$this->totPeople = XbcultureHelper::getItemCnt('#__xbpersons');
+    		$this->totGroups = XbcultureHelper::getItemCnt('#__xbgroups');
     		$this->totChars = XbcultureHelper::getItemCnt('#__xbcharacters');
     		$this->otherRoles = $this->get('OtherRoles');
     		    		
@@ -51,7 +53,7 @@ class XbbooksViewDashboard extends JViewLegacy
     		$this->ratCnts = $this->get('RatCnts'); 
     		$this->people = $this->get('RoleCnts');
     		$this->cats = $this->get('Cats');
-    		$this->pcats = $this->get('PeopleCats');
+ //   		$this->pcats = $this->get('PeopleCats');
     		
     		$this->tags = $this->get('Tagcnts');
     		$this->xmldata = Installer::parseXMLInstallFile(JPATH_COMPONENT_ADMINISTRATOR . '/xbbooks.xml');
@@ -102,35 +104,6 @@ class XbbooksViewDashboard extends JViewLegacy
                 throw new Exception(implode("\n", $errors), 500);
             }
     
-            $clink='index.php?option=com_xbbooks&view=bcategory&id=';
-            $this->catlist = '<ul style="list-style-type: none;">';
-            foreach ($this->cats as $key=>$value) {
-            	if ($value['level']==1) {
-            		$this->catlist .= '<li>';
-            	} else {
-            		$this->catlist .= str_repeat('-&nbsp;', $value['level']-1);
-            	}
-            	$this->catlist .='<a class="label label-success" href="'.$clink.$value['id'].'">'.$value['title'].'</a>&nbsp;(<i>'.$value['bookcnt'].':'.$value['revcnt'].'</i>) ';
-            	if ($value['level']==1) {
-            		$this->catlist .= '</li>';
-            	}
-            }
-            $this->catlist .= '</ul>';
-            
-            $this->pcatlist = '<ul style="list-style-type: none;">';
-            foreach ($this->pcats as $key=>$value) {
-            	if ($value['level']==1) {
-            		$this->pcatlist .= '<li>';
-            	} else {
-            		$this->pcatlist .= str_repeat('-&nbsp;', $value['level']-1);
-            	}
-            	$this->pcatlist .='<a class="label label-success" href="'.$clink.$value['id'].'">'.$value['title'].'</a>&nbsp;(<i>'.$value['percnt'].':'.$value['chrcnt'].'</i>) ';
-            	if ($value['level']==1) {
-            		$this->pcatlist .= '</li>';
-            	}
-            }
-            $this->pcatlist .= '</ul>';
-            
             $this->sidebar = JHtmlSidebar::render();
 	    }
         

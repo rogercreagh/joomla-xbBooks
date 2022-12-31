@@ -1,4 +1,4 @@
-# sql installation file for component xbBooks v1.0.0.1 13th December 2022
+# sql installation file for component xbBooks v1.0.1.0 31st December 2022
 # NB no book data is installed with this file, default categories are created by the installation script
 
 INSERT INTO `#__content_types` (`type_title`, `type_alias`, `content_history_options`, `table`, `field_mappings`, `router`,`rules`) 
@@ -143,6 +143,18 @@ CREATE TABLE IF NOT EXISTS `#__xbbookperson` (
   KEY `idx_book_id` (`book_id`),
   KEY `idx_person_id` (`person_id`),
   KEY `idx_role` (`role`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `#__xbbookgroup` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `book_id` int(11) NOT NULL DEFAULT '0',
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `role` varchar(255) NOT NULL DEFAULT '',
+  `role_note` varchar(255) NOT NULL DEFAULT '',
+  `listorder` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_book_id` (`book_id`),
+  KEY `idx_group_id` (`group_id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__xbbookcharacter` (

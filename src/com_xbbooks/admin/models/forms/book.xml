@@ -164,7 +164,7 @@
 				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
-				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
+				<field name="role_note" type="text" label="XBCULTURE_NOTE" size="20" maxlength="200"
 				/>
 			</form>
 		</field>			
@@ -183,7 +183,7 @@
 				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
-				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
+				<field name="role_note" type="text" label="XBCULTURE_NOTE" size="20" maxlength="200"
 				/>
 			</form>
 		</field>						
@@ -202,7 +202,7 @@
 				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
-				<field name="role_note" type="otherrole" label="Role" size="20" maxlength="50"
+				<field name="role_note" type="otherrole" label="Role" size="20" maxlength="200"
 				/>
 			</form>
 		</field>						
@@ -221,8 +221,25 @@
 				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
-				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
+				<field name="role_note" type="text" label="XBCULTURE_NOTE" size="20" maxlength="200"
 				/>
+			</form>
+		</field>						
+
+		<field name= "grouplist" type= "subform"
+			label= "XBCULTURE_FIELD_GROUPS_FEATURED_ADD"
+			description="XBCULTURE_SUBFORM_ADD_DESC"
+			min= "0" max= "10"
+			multiple= "true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" >
+			<form>
+				<field name="group_id" type="allgroups" label="XBCULTURE_GROUP" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="role" type="text" label="XBCULTURE_ROLE_U" size="20" maxlength="50" />
+				<field name="role_note" type="text" label="XBCULTURE_NOTE" size="20" maxlength="200" />
 			</form>
 		</field>						
 
@@ -240,7 +257,7 @@
 				<field name="char_id" type="allcharacters" label="Add characters in the book" >
 					<option value="">JSELECT</option>	
 				</field>
-				<field name="char_note" type="text" label="Note" size="20" maxlength="50"
+				<field name="char_note" type="text" label="XBCULTURE_NOTE" size="20" maxlength="200"
 				/>
 			</form>
 		</field>						

@@ -168,6 +168,9 @@ $document->addStyleDeclaration($style);
 				<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_CHARACTERS_U');?></h4>
 				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
 				<?php echo $this->form->renderField('charlist'); ?>
+				<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_GROUPS');?></h4>
+				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
+				<?php echo $this->form->renderField('grouplist'); ?>
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/xbbooks.php
- * @version 0.12.0 6th December 2022
+ * @version 1.0.1.3 4th January 2022
  * @since 0.2.0 23rd February 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -16,8 +16,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\MVC\Controller\BaseController;
 
+$app = Factory::getApplication();
 if (!Factory::getUser()->authorise('core.manage', 'com_xbbooks')) {
-	Factory::getApplication()->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'),'warning');	
+    $app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'),'warning');	
     return false;
 }
 
@@ -27,7 +28,7 @@ Factory::getLanguage()->load('com_xbculture');
 //add the component, xbculture and fontawesome css
 $params = ComponentHelper::getParams('com_xbbooks');
 if ($params->get('savedata','notset')=='notset') {
-    Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_OPTIONS_UNSAVED'),'Error');
+    $app->enqueueMessage(Text::_('XBCULTURE_OPTIONS_UNSAVED'),'Error');
 }
 $usexbcss = $params->get('use_xbcss',1);
 if ($usexbcss<2) {
@@ -49,19 +50,24 @@ JLoader::register('XbbooksHelper', JPATH_ADMINISTRATOR . '/components/com_xbbook
 JLoader::register('XbbooksGeneral', JPATH_ADMINISTRATOR . '/components/com_xbbooks/helpers/xbbooksgeneral.php');
 JLoader::register('XbcultureHelper', JPATH_ADMINISTRATOR . '/components/com_xbpeople/helpers/xbculture.php');
 
-Factory::getSession()->set('xbbooks_ok',true);
+$sess = Factory::getSession();
+$sess->set('xbbooks_ok',true);
 
 //detect related components and set session flag
-if (!Factory::getSession()->get('xbpeople_ok',false)) {
-    if (file_exists(JPATH_ADMINISTRATOR . '/components/com_xbpeople/helpers/xbculture.php')) {
-        XbcultureHelper::checkComponent('com_xbpeople');
-    } else {
-        $app = Factory::getApplication();
+if ($sess->get('xbpeople_ok',false) != 1) {
+    if (XbbooksGeneral::checkComPeople() != 1) {
         if ($app->input->get('view')!='dashboard') {
             $app->redirect('index.php?option=com_xbbooks&view=dashboard');
             $app->close();
         }
     }
+}
+//if there is no session variable for films/events check them.
+if (!$sess->has('xbfilms_ok')) {
+    XbcultureHelper::checkComponent('com_xbfilms');
+}
+if (!$sess->has('xbevents_ok')) {
+    XbcultureHelper::checkComponent('com_xbevents');
 }
 
 // Get an instance of the controller prefixed

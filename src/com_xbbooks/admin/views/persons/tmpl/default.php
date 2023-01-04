@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.1.3 4th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,13 +40,9 @@ if ($saveOrder) {
 
 $nofile = "media/com_xbbooks/images/nofile.jpg";
 
-$pelink = 'index.php?option=com_xbbooks&view=person&task=person.edit&id=';
-$pvlink = 'index.php?option=com_xbbooks&view=person&task=person.edit&id='; //change this to view view when available
-$celink = 'index.php?option=com_categories&task=category.edit&id=';
+$pelink = 'index.php?option=com_xbpeople&view=person&task=person.edit&id=';
 $cvlink = 'index.php?option=com_xbbooks&view=bcategory&id=';
-$telink = 'index.php?option=com_tags&view=tag&task=tag.edit&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
-$fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
 
 ?>
 <form action="index.php?option=com_xbbooks&view=persons" method="post" id="adminForm" name="adminForm">
@@ -298,12 +294,17 @@ $fplink = 'index.php?option=com_xbfilms&view=person&layout=edit&id=';
                                   </details>
 							<?php endif; ?> 
 						<?php endif; ?> 
-						<?php if ($item->fcnt>0) {
-							echo '<span class="xbnit">';
-							echo Text::_('XBCULTURE_ALSO_WITH').' <a href="'.$fplink.$item->id.'">'.$item->fcnt.' ';
-							echo Text::_(($item->fcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');
-							echo '</a></span>';
-						}?>
+						<?php if (($item->fcnt + $item->ecnt)>0) {
+						    echo '<span class="xbnit">'.Text::_('Also').' ';
+						    echo '</span>';
+						    if ($item->fcnt>0) {
+						        echo $item->fcnt.' '.Text::_(($item->fcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');
+						        echo ($item->ecnt>0) ? ' &amp; ': '';
+						    }
+						    if ($item->ecnt>0) {
+						        echo $item->ecnt.' '.lcfirst(Text::_(($item->ecnt==1)?'XBCULTURE_EVENT':'XBCULTURE_EVENTS'));
+						    }
+						} ?>
 					</td>
 					<td>
 						<p><a  class="label label-success" href="<?php echo $cvlink . $item->catid.'&extension=com_xbbooks'; ?>" 

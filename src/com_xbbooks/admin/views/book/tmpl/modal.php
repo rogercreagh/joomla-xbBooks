@@ -15,7 +15,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 </div>
 <div class="modal-body xbml20 xbmr20">
-	<iframe src="index.php?option=com_xbbooks&view=person&layout=qnew&tmpl=component" title="Quick Person Form" id="newp"></iframe>      
+	<iframe src="index.php?option=com_xbpeople&view=person&layout=qnew&tmpl=component" title="Quick Person Form" id="newp"></iframe>      
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

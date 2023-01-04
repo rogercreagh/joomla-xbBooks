@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/bcategory/tmpl/edit.php
- * @version 0.9.9.9 5th November 2022
+ * @version 1.0.1.3 4th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,6 +15,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 $item = $this->item;
 $celink = 'index.php?option=com_categories&task=category.edit&id=';
 $xblink = 'index.php?option=com_xbbooks';
+$xplink = 'index.php?option=com_xbpeople';
 ?>
 <div class="row-fluid">
 <?php if (!empty( $this->sidebar)) : ?>
@@ -94,7 +95,7 @@ $xblink = 'index.php?option=com_xbbooks';
 					<?php if ($item->pcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->people as $i=>$per) { 
-							echo '<li><a href="'.$xblink.'&view=person&task=person.edit&id='.$per->pid.'">'.$per->title.'</a></li> ';
+							echo '<li><a href="'.$xplink.'&view=person&task=person.edit&id='.$per->pid.'">'.$per->title.'</a></li> ';
 						} ?>				
 						</ul>
 					<?php endif; ?>
@@ -104,7 +105,7 @@ $xblink = 'index.php?option=com_xbbooks';
 					<?php if ($item->chcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->chars as $i=>$char) { 
-							echo '<li><a href="'.$xblink.'&view=character&task=character.edit&id='.$char->pid.'">'.$char->title.'</a></li> ';
+							echo '<li><a href="'.$xplink.'&view=character&task=character.edit&id='.$char->pid.'">'.$char->title.'</a></li> ';
 						} ?>				
 						</ul>
 					<?php endif; ?>

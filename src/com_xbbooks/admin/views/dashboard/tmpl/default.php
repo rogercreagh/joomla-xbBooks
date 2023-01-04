@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 1.0.1.1 31st December 2022
+ * @version 1.0.1.3 4th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,8 +22,10 @@ use Joomla\CMS\Router\Route;
 // $chelink='index.php?option=com_xbbooks&view=character&layout=edit&id=';
 $clink='index.php?option=com_xbbooks&view=bcategory&id=';
 
-if (!$this->xbpeople_ok) : ?>
+if ($this->xbpeople_ok==='0') : ?>
     <div class="alert alert-error"><?php echo Text::_('XBBOOKS_PEOPLE_WARNING'); ?></div>
+<?php elseif ($this->xbpeople_ok != 1) : ?>
+    <div class="alert alert-error"><?php echo Text::_('XBBOOKS_PEOPLE_ERROR'); ?></div>
 <?php else: ?>
 
 <form action="<?php echo Route::_('index.php?option=com_xbbooks&view=dashboard'); ?>" method="post" name="adminForm" id="adminForm">

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 0.9.10.2 14th November 2022
+ * @version 1.0.1.2 1st January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -139,6 +139,7 @@ class XbbooksModelBook extends JModelAdmin {
 	        $data->otherlist=$this->getBookPeoplelist('other');
 	        $data->menlist=$this->getBookPeoplelist('mention');
 	        $data->charlist=$this->getBookCharlist();
+	        $data->grouplist=$this->getBookGrouplist();
         }
              
         $tagsHelper = new TagsHelper;
@@ -253,6 +254,7 @@ class XbbooksModelBook extends JModelAdmin {
             $bookword = ($cnt == 1)? Text::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');
             Factory::getApplication()->enqueueMessage($cnt.$bookword.' deleted');
             return true;
+            //delete char and people and group links happens in table delete() function
         }
     }
     
@@ -268,6 +270,18 @@ class XbbooksModelBook extends JModelAdmin {
             $db->setQuery($query);
             return $db->loadAssocList();
     }
+
+    public function getBookGrouplist() {
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query->select('a.id as person_id, ba.role AS role, ba.role_note AS role_note');
+        $query->from('#__xbbookgroup AS ba');
+        $query->innerjoin('#__xbgroups AS a ON ba.group_id = a.id');
+        $query->where('ba.book_id = '.(int) $this->getItem()->id);
+        $query->order('ba.listorder ASC');
+        $db->setQuery($query);
+        return $db->loadAssocList();
+    }   
     
     public function getBookCharlist() {
             $db = $this->getDbo();
@@ -354,8 +368,10 @@ class XbbooksModelBook extends JModelAdmin {
         	$this->storeBookPersons($bid,'other', $data['otherlist']);
         	$this->storeBookPersons($bid,'mention', $data['menlist']);
             
-            $this->storeBookChars($bid, $data['charlist']);
-
+        	$this->storeBookChars($bid, $data['charlist']);
+        	
+        	$this->storeBookGroups($bid, $data['grouplist']);
+        	
             if ($data['quick_rating'] !='')  {
             	$params = ComponentHelper::getParams('com_xbbooks');
             	$date = Factory::getDate();
@@ -411,6 +427,27 @@ class XbbooksModelBook extends JModelAdmin {
         }
     }
 
+    function storeBookGroups($book_id, $charList) {
+        //delete existing group list
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query->delete($db->quoteName('#__xbbookgroup'));
+        $query->where('book_id = '.$book_id);
+        $db->setQuery($query);
+        $db->execute();
+        //restore the new list
+        foreach ($charList as $pers) {
+            if ($pers['group_id'] > 0) {
+                $query = $db->getQuery(true);
+                $query->insert($db->quoteName('#__xbbookgroup'));
+                $query->columns('book_id,group_id,role,role_note,listorder');
+                $query->values('"'.$book_id.'","'.$pers['group_id'].'","'.$pers['role'].'","'.$pers['role_note'].'","'.$pers['listorder'].'"');
+                $db->setQuery($query);
+                $db->execute();
+            }
+        }    
+    }
+    
     function storeBookChars($book_id, $charList) {
         //delete existing char list
         $db = $this->getDbo();
@@ -429,8 +466,8 @@ class XbbooksModelBook extends JModelAdmin {
                 $db->setQuery($query);
                 $db->execute();              
             }
-        }
-            
+        }        
     }
+    
 }
      

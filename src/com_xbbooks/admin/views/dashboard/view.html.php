@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/view.html.php
- * @version 1.0.1.1 31st December 2022
+ * @version 1.0.1.3 4th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -31,11 +31,9 @@ class XbbooksViewDashboard extends JViewLegacy
 	    if ($err!='') {
 	        $app->enqueueMessage(urldecode($err),'Error');
 	    }
-	    $this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
-	    $this->xbfilms_ok = Factory::getSession()->get('xbfilms_ok');
-	    $this->xbevents_ok = Factory::getSession()->get('xbevents_ok');
+	    $this->xbpeople_ok = XbbooksGeneral::checkComPeople(); 
 	    
-	    if ($this->xbpeople_ok) {
+	    if ($this->xbpeople_ok == 1) {
 	        
 	        $this->bookStates = $this->get('BookStates');
     		$this->catStates = $this->get('CatStates');
@@ -137,7 +135,7 @@ class XbbooksViewDashboard extends JViewLegacy
 	        }
 	        ToolBarHelper::help( '', false,'https://crosborne.uk/xbbooks/doc?tmpl=component#admin-dashboard' );
         } else {
-            ToolBarHelper::title('xbBooks - please install xbPeople','info-2');
+            ToolBarHelper::title('xbBooks - please install/enable xbPeople','info-2');
             ToolBarHelper::help( '', false,'https://www.crosborne.uk/downloads/file/11-xbpeople-component?tmpl=component' );
         }
     }

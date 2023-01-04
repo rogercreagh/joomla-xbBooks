@@ -74,7 +74,7 @@ class XbbooksHelper extends ContentHelper
 				);
 			JHtmlSidebar::addEntry(
 				Text::_('XBCULTURE_ICONMENU_NEWPERSON'),
-				'index.php?option=com_xbbooks&view=person&layout=edit',
+				'index.php?option=com_xbpeople&view=person&layout=edit',
 				$vName == 'person'
 				);
 			JHtmlSidebar::addEntry(
@@ -102,13 +102,6 @@ class XbbooksHelper extends ContentHelper
 			    'index.php?option=com_categories&view=categories&extension=com_xbbooks',
 			    $vName == 'categories'
 			    );
-			if (Factory::getSession()->get('xbpeople_ok')==true) {
-			    JHtmlSidebar::addEntry(
-			        Text::_('XBCULTURE_ICONMENU_SUBPEOPLECATS'),
-			        'index.php?option=com_xbpeople&view=pcategories',
-			        $vName == 'pcategories'
-			        );
-			}
 			JHtmlSidebar::addEntry(
 	            Text::_('XBCULTURE_ICONMENU_TAGS'),
 	            'index.php?option=com_xbbooks&view=tags',

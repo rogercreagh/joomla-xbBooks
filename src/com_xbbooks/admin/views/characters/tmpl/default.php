@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.1.3 4th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,11 +41,8 @@ if ($saveOrder) {
 
 $nofile = "media/com_xbbooks/images/nofile.jpg";
 
-$pelink = 'index.php?option=com_xbbooks&view=person&task=character.edit&id=';
-$pvlink = 'index.php?option=com_xbbooks&view=person&task=character.edit&id='; //change this to view view when available
-$celink = 'index.php?option=com_categories&task=category.edit&id=';
+$chelink = 'index.php?option=com_xbpeople&view=character&task=character.edit&id=';
 $cvlink = 'index.php?option=com_xbbooks&view=bcategory&id=';
-$telink = 'index.php?option=com_tags&view=tag&task=tag.edit&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
@@ -198,7 +195,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
 							} ?>
 							
-							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('XBBOOKS_EDIT_PERSON'); ?>">
+							<a href="<?php echo $chelink.$item->id; ?>" title="<?php echo Text::_('XBBOOKS_EDIT_PERSON'); ?>">
 								<?php echo ' '.$item->name; ?> 
 							</a>
 							<br />
@@ -246,7 +243,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php endif; ?> 
 						<?php if ($item->fcnt>0) {
 							echo '<span class="xbnit">';
-							echo Text::_('XBCULTURE_ALSO_IN').' <a href="'.$pelink.$item->id.'">'.$item->bcnt.' ';
+							echo Text::_('XBCULTURE_ALSO_IN').' <a href="'.$chelink.$item->id.'">'.$item->fcnt.' ';
 							echo Text::_(($item->fcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');
 							echo '</a></span>';
 						}?>

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 0.12.0.1 7th December 2022
+ * @version 1.0.1.2 1st January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -203,8 +203,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').': '.$couname, $item->checked_out_time, 'book.', $canCheckin);
 						} ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
-							<a href="<?php echo Route::_($belink.$item->id);?>"
-								title="<?php echo Text::_('XBBOOKS_EDIT_BOOK'); ?>" >
+							<a href="<?php echo Route::_($belink.$item->id);?>" <?php echo ($item->published<>1) ? 'class="xbhlt"' : ''; ?>
+								title="<?php echo Text::_('XBCULTURE_EDIT'); ?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php else : ?>
 							<?php echo $this->escape($item->title); ?>
@@ -265,8 +265,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php endif; ?>
                                     
 						<p class="xbnit xb095">
-                            <?php $list = '';
-                            if ($item->mencnt>0) : ?>
+                            <?php if ($item->mencnt>0) : ?>
                                 <span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
 								<?php echo strip_tags($item->menlist); ?>
 								">
@@ -274,9 +273,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                                 echo ($item->mencnt==1) ? Text::_('XBCULTURE_SUBJECT') : Text::_('XBCULTURE_SUBJECTS');
                                 echo ' '.Text::_('XBCULTURE_LISTED'); ?>
                                 </span>
-                            <?php endif; ?>
-                            <?php if (($item->mencnt>0) && ($item->charcnt>0)) : ?>
-                                <br />
+                                <?php if (($item->charcnt>0) || ($item->grpcnt>0)) : ?>
+                                    <br />
+                            	<?php endif; ?>
                             <?php endif; 
                             if ($item->charcnt>0) : ?>
 								<span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
@@ -286,12 +285,19 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                                 echo ($item->charcnt==1) ? Text::_('XBCULTURE_CHARACTER') : Text::_('XBCULTURE_CHARACTERS');
                                 echo ' '.Text::_('XBCULTURE_LISTED'); ?>
                                 </span>
-                            <?php endif; 
-                            if (($item->mencnt==0) && ($item->charcnt==0)) : ?>
-                            	<span class="xbnit">
-                            	   <?php echo Text::_('XBCULTURE_NO_PEOPLE_LISTED'); ?>
-                            	</span>
-                            <?php endif; ?>
+                                <?php if ($item->grpcnt>0) : ?>
+                                    <br />
+                            	<?php endif; ?>
+                            <?php endif;  
+                            if ($item->grpcnt>0) : ?>
+								<span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
+								<?php echo strip_tags($item->grplist); ?>
+								">
+								<?php echo $item->grpcnt.' ';
+                                echo ($item->charcnt==1) ? Text::_('XBCULTURE_GROUP') : Text::_('XBCULTURE_GROUPS');
+                                echo ' '.Text::_('XBCULTURE_LISTED'); ?>
+                                </span>
+							<?php endif; ?>
 						</p>
 						<?php if($item->ext_links_cnt >0 ) : ?>
 							<p class="xbnit xb095">	

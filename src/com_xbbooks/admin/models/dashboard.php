@@ -14,11 +14,8 @@ use Joomla\CMS\Factory;
 
 class XbbooksModelDashboard extends JModelList {
 
-    protected $xbfilmsStatus;
     
     public function __construct() {
-        //$this->xbfilmsStatus = XbcultureHelper::checkComponent('com_xbfilms');
-        $this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
         parent::__construct();
     }  
     

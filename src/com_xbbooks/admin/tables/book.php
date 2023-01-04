@@ -183,6 +183,11 @@ class XbbooksTableBook extends Table
 		$query->delete()->from('#__xbbookperson')->where('book_id = '. $pk);
 		$this->_db->setQuery($query);
 		$this->_db->execute();
+		$query = $db->getQuery(true);
+		$query->delete()->from('#__xbbookgroup')->where('book_id = '. $pk);
+		$this->_db->setQuery($query);
+		$this->_db->execute();
+		//TODO should we also delete reviews????
 		return parent::delete($pk);
     }
 

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 1.0.1.3 4th January 2023
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -99,7 +99,7 @@ class com_xbbooksInstallerScript
         $delfiles .= ',/models/fields/revyear.php,/models/forms/booklist.xml,/models/forms/peoplelist.xml';
         $delfiles .= ',/controllers/character.php,/controllers/person.php,/models/character.php,/models/person.php';
         $delfiles .= ',/models/forms/character.xml,/models/forms/person.xml,/tables/character.php,/tables/person.php';
-        $delfiles .= ',/views/character,/views/person';
+        $delfiles .= ',/views/character,/views/person,/views/review/tmpl/view.php,/views/books/tmpl/modal.php';
     	$delfiles = explode(',',$delfiles);
     	$cnt = 0; $dcnt=0;
     	$ecnt = 0;

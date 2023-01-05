@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 0.10.0.1 25th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,8 +16,8 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
-HTMLHelper::_('formbehavior.chosen', 'select');
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
+HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
 
 $user = Factory::getUser();
 $userId = $user->get('id');
@@ -40,13 +40,9 @@ if ($saveOrder) {
 	HTMLHelper::_('sortablelist.sortable', 'xbbookreviewsList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 
-$belink = 'index.php?option=com_xbbooks&view=book&task=book.edit&id=';
-$bvlink = 'index.php?option=com_xbbooks&view=book&task=book.edit&id='; //change this to view view when available
+bvlink = 'index.php?option=com_xbbooks&view=book&task=book.edit&id='; //change this to view view when available
 $relink = 'index.php?option=com_xbbooks&view=review&task=review.edit&id=';
-$rvlink = 'index.php?option=com_xbbooks&view=review&task=review.edit&id='; //change this to view view when available
-$celink = 'index.php?option=com_categories&task=category.edit&id=';
 $cvlink = 'index.php?option=com_xbbooks&view=bcategory&id=';
-$telink = 'index.php?option=com_tags&view=tag&task=tag.edit&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>

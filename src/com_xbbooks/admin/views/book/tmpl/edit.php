@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 0.9.11.2 17th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,19 +23,22 @@ HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search
 HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => Text::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
-//style for quickperson modal
 $document = Factory::getDocument();
-$style = '.controls .btn-group > .btn  {min-width: unset;padding:3px 12px 4px;}'
-        .' .xbqpmodal .modal-body {height:262px;} .xbqpmodal .modal-body iframe { height:232px;}' ;
+$style = '.controls .btn-group > .btn  {min-width: unset;padding:3px 12px 4px;}';
 $document->addStyleDeclaration($style);
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbqpmodal .modal-body {height:270px;} 
+    .xbqpmodal .modal-body iframe { height:240px;}
+</style>
 <form action="<?php echo Route::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
  	<div class="row-fluid">
 		<div class="span10">
          	<div class="row-fluid">
         		<div class="span11">
-        			<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
+        			<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
         		</div>
         		<div class="span1"><?php echo $this->form->renderField('id'); ?></div>
         	</div>
@@ -74,8 +77,8 @@ $document->addStyleDeclaration($style);
         			<h4><?php echo Text::_('XBCULTURE_QUICK_P_ADD');?></h4>
         			<p class="xbnote"><?php echo Text::_('XBCULTURE_QUICK_P_NOTE');?></p> 
     				<a class="btn btn-small" data-toggle="modal" 
-    					href="index.php?option=com_xbbooks&view=book&layout=modal&tmpl=component" 
-    					data-target="#ajax-modal">
+    					href="index.php?option=com_xbbooks&view=book&layout=modalnewp&tmpl=component" 
+    					data-target="#ajax-qpmodal">
     					<i class="icon-new"></i><?php echo Text::_('XBCULTURE_ADD_NEW_P');?></a>
         		</div>
         	</div>
@@ -192,24 +195,39 @@ $document->addStyleDeclaration($style);
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 <script>
-//for quick person modal
-jQuery(document).ready(function(){
-    jQuery('#ajax-modal').on('show', function () {
+//for preview modal
+    jQuery('#ajax-pvmodal').on('show', function () {
         // Load view vith AJAX
         jQuery(this).find('.modal-content').load(jQuery('a[data-target="#'+jQuery(this).attr('id')+'"]').attr('href'));
     })
-    jQuery('#ajax-modal').on('hidden', function () {
-//     document.location.reload(true);
-		Joomla.submitbutton('book.apply');
+    jQuery('#ajax-pvmodal').on('hidden', function () {
+     //document.location.reload(true);
+     //Joomla.submitbutton('group.apply');
     })
+//for quickperson modal
+     jQuery('#ajax-qpmodal').on('show', function () {
+        // Load view vith AJAX
+        jQuery(this).find('.modal-content').load(jQuery('a[data-target="#'+jQuery(this).attr('id')+'"]').attr('href'));
+    })
+    jQuery('#ajax-qpmodal').on('hidden', function () {
+     //document.location.reload(true);
+     Joomla.submitbutton('person.apply');
+    })    
 });
 </script>
-<!-- modal window for quick person add -->
-<div class="modal fade xbqpmodal" id="ajax-modal" style="max-width:1000px;">
+<!-- preview modal window -->
+<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:80%">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->
         </div>
     </div>
 </div>
-
+<!-- quickgroup modal window -->
+<div class="modal fade xbqpmodal" id="ajax-qpmodal" style="max-width:80%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>

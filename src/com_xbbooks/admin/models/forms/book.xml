@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/book.xml v0.12.0.1 8th December 2022 -->
+<!-- xbBooks admin/models/forms/book.xml v1.0.1.3 5th January 2023 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
@@ -112,12 +112,9 @@
 				<option value="2">JARCHIVED</option>
 				<option value="-2">JTRASHED</option>
 		</field>
-		<field 
-				name="tags" 
-				type="tag"
-				label="JTAG" 
-				description="JTAG_DESC"
-				multiple="true"
+		<field name="tags" type="tag"
+			label="JTAG" description="JTAG_DESC"
+			multiple="true" custom="deny"  published="1"
 		>
 		</field>
 		<field name="taggroup1" type="childtags"

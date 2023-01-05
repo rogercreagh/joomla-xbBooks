@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/tmpl/default.php
- * @version 1.0.1.3 4th January 2023
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,8 +16,8 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
-HTMLHelper::_('formbehavior.chosen', 'select');
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
+HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
 
 $user = Factory::getUser();
 $userId = $user->get('id');
@@ -28,8 +28,8 @@ if (!$listOrder) {
 	$listDirn = 'ascending';
 }
 $orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'id'=>'id',
-		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
-		'published'=>Text::_('XBCULTURE_PUBLISHED'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
+    'category_title'=>Text::_('XBCULTURE_CATEGORY'), 'bcnt'=>'books count',
+		'published'=>Text::_('XBCULTURE_PUBSTATE'),'ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 
 $saveOrder      = $listOrder == 'ordering';
@@ -107,18 +107,16 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     				<?php echo Text::_('XBCULTURE_PORTRAIT') ;?>
     			</th>
     			<th >
-					<?php echo HTMLHelper::_('searchtools.sort', 'XBBOOKS_FIRSTNAME', 'name', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'XBBOOKS_NAME', 'name', $listDirn, $listOrder); ?>
     			</th>
     			<th>
     				<?php echo Text::_('XBCULTURE_DETAILS'); ?>
     			</th>
     			<th >
-    				<?php echo Text::_('XBCULTURE_BOOKS_U') ;?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_BOOKS_U', 'bcnt', $listDirn, $listOrder); ?>					
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php if ($this->xbpeople_ok!==false) {
-							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
-						}
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
 						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 				</th>
     			
@@ -216,7 +214,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     							<?php endif; ?>
     						<?php endif; ?>
                            </p>
-                        <?php if ((!empty($item->description)) && (strlen($item->description)>210)) : ?>
+                        <?php if ((!empty($item->description)) && (strlen(strip_tags($item->description))>20)) : ?>
                              <p class="xbnit xb09">   
                              <?php 
                              	echo Text::_('XBBOOKS_FULLBIOG').' '.str_word_count(strip_tags($item->description)).' '.Text::_('XBCULTURE_WORDS'); 
@@ -249,12 +247,10 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						}?>
 					</td>
 					<td>
-						<?php if ($this->xbpeople_ok!==false): ?>						
 						<p><a  class="label label-success" href="<?php echo $cvlink.$item->catid.'&extension=com_xbbooks'; ?>" 
 							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
 								<?php echo $item->category_title; ?>
 						</a></p>						
-						<?php endif; ?>
 						<ul class="inline">
 						<?php foreach ($item->tags as $t) : ?>
 							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label chcnt">

@@ -2,14 +2,14 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 1.0.1.3 4th January 2023
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Uri\Uri;
+//use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
@@ -131,22 +131,22 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     					<div class="row-fluid">
     						<div class="span6">
-    							<span class="badge xbml10"><?php echo $this->books['fiction']; ?></span>
     							<?php echo Text::_('XBCULTURE_FICTION'); ?>
+    							<span class="badge xbml10"><?php echo $this->books['fiction']; ?></span>
     						</div>
     						<div class="span6">
-    							<span class="badge badge-inverse xbml10"><?php echo $this->books['nonfiction']; ?></span>
     							<?php echo Text::_('XBCULTURE_NONFICTION'); ?>
+    							<span class="badge badge-inverse xbml10"><?php echo $this->books['nonfiction']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
     						<div class="span6">
-    							<span class="badge badge-success xbml10"><?php echo $this->books['reviewed']; ?></span>
     							<?php echo Text::_('XBCULTURE_REVIEWED'); ?>
+    							<span class="badge badge-success xbml10"><?php echo $this->books['reviewed']; ?></span>
     						</div>
     						<div class="span6">
-    							<span class="badge badge-important xbml10"><?php echo $this->bookStates['total']-$this->books['reviewed']; ?></span>
     							<?php echo Text::_('XBCULTURE_UNREVIEWED'); ?>
+    							<span class="badge badge-important xbml10"><?php echo $this->bookStates['total']-$this->books['reviewed']; ?></span>
     						</div>
     					</div>
     				</div>
@@ -311,7 +311,8 @@ if ($this->xbpeople_ok==='0') : ?>
     								<span class="badge <?php echo $this->people['otherunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['otherunpub'];?></span>
     							</span>
     							<?php if(!empty($this->otherRoles)) :?>
-    								<br /><span class="xbnit xbmr10"><?php echo Text::_('XBCULTURE_OTHER_ROLES'); ?>:</span>
+    								<br /><span class="xbnit xbmr10">
+    									<?php echo Text::_('XBCULTURE_OTHER_ROLES'); ?>:</span>
     								<?php echo implode(', ',$this->otherRoles); ?>
     							<?php endif; ?>
     						</div>
@@ -327,8 +328,10 @@ if ($this->xbpeople_ok==='0') : ?>
     			</div>
     			<div class="xbbox xbboxgrn">
     				<h2 class="xbtitle">
-    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge grpcnt xbmr20"><?php echo $this->totGroups;?></span>
-    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info "><?php echo $this->groupStates['total'];?></span></span>	
+    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span>
+    					 <span class="badge grpcnt xbmr20"><?php echo $this->totGroups;?></span>
+    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info ">
+    					 <?php echo $this->groupStates['total'];?></span></span>	
     					<?php echo Text::_('XBCULTURE_GROUPS'); ?>
     				</h2>
     			</div>

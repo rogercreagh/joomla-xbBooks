@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooks.php
- * @version 0.9.11.0 15th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -84,7 +84,7 @@ class XbbooksHelper extends ContentHelper
 				);
 			JHtmlSidebar::addEntry(
 				Text::_('XBCULTURE_ICONMENU_NEWCHAR'),
-				'index.php?option=com_xbbooks&view=character&layout=edit',
+				'index.php?option=com_xbpeople&view=character&layout=edit',
 				$vName == 'character'
 				);
 			JHtmlSidebar::addEntry(

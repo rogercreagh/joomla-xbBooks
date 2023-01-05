@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 1.0.1.2 1st January 2023
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -39,7 +39,6 @@ class XbbooksModelBooks extends JModelList
     protected function getListQuery() {
 	
     	$app = Factory::getApplication();
-    	//		$user   = JFactory::getUser();
 		$db = $this->getDbo();
         $query = $db->getQuery(true);
         
@@ -71,19 +70,16 @@ class XbbooksModelBooks extends JModelList
         // Filter by category.
         $categoryId = $app->getUserStateFromRequest('catid', 'catid','');
         $app->setUserState('catid', '');
-//        $subcats=0;
         if ($categoryId=='') {
-        	$categoryId = $this->getState('filter.category_id');
-//        $subcats = $this->getState('filter.subcats');
+            $categoryId = $this->getState('filter.category_id');
         }
         if (is_numeric($categoryId)) {
-//            if ($subcats) {
-//                $query->where('a.catid IN ('.(int)$categoryId.','.self::getSubCategoriesList($categoryId).')');
-//            } else {
-                $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-//            }
+            $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+        } elseif (is_array($categoryId)) {
+            $categoryId = implode(',', $categoryId);
+            $query->where($db->quoteName('a.catid') . ' IN ('.$categoryId.')');
         }
-
+        
         // Filter by search in title/id/synop
         $search = $this->getState('filter.search');
         
@@ -105,7 +101,7 @@ class XbbooksModelBooks extends JModelList
         	$query->where('a.fiction = '.$db->quote($ffilt));
         }
         
-        //filter by person (any role)
+        //filter by person (optional specify role)
         $pfilt = $this->getState('filter.perfilt');
         if (is_numeric($pfilt)) {
         	$query->where('p.person_id = '.$db->quote($pfilt));
@@ -227,7 +223,6 @@ class XbbooksModelBooks extends JModelList
             $item->tags = $tagsHelper->getItemTags('com_xbbooks.book' , $item->id);
             
         } //foreach item
-        //reorder if ordering by review
         return $items;
     }
     

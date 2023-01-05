@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/filter_reviews.xml v0.10.0.1 25th November 2022 -->
+<!-- xbBooks admin/models/forms/filter_reviews.xml v1.0.1.3 5th January 2023 -->
 <form>
 	<fields name="filter"  addfieldpath="administrator/components/com_xbpeople/models/fields">
 		<field
@@ -33,6 +33,7 @@
 			extension="com_xbbooks"
 			itemtable="#__xbbookreviews"
 			multiple="true"
+			class="multipleCats"
 			onchange="this.form.submit();"
 			>		
 		</field>
@@ -61,30 +62,6 @@
 	</fields>
 	<fields name="list">
   		<field name="fullordering" type="hidden" default="" />
-<!-- 
-		<field
-			name="fullordering"
-			type="list"
-			label="COM_CONTENT_LIST_FULL_ORDERING"
-			description="COM_CONTENT_LIST_FULL_ORDERING_DESC"
-			onchange="this.form.submit();"
-			default="a.title ASC"
-			>
-			<option value="">JGLOBAL_SORT_BY</option>
-			<option value="a.ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
-			<option value="a.ordering DESC">JGRID_HEADING_ORDERING_DESC</option>
-			<option value="a.state ASC">JSTATUS_ASC</option>
-			<option value="a.state DESC">JSTATUS_DESC</option>
-			<option value="a.title ASC">JGLOBAL_TITLE_ASC</option>
-			<option value="a.title DESC">JGLOBAL_TITLE_DESC</option>
-			<option value="category_title ASC">JCATEGORY_ASC</option>
-			<option value="category_title DESC">JCATEGORY_DESC</option>
-			<option value="a.created ASC">XBBOOKS_DATE_INSERT_ASC</option>
-            <option value="a.created DESC">XBBOOKS_DATE_INSERT_DESC</option>
-			<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
-			<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
-		</field>
- -->
 		<field
 			name="limit"
 			type="limitbox"

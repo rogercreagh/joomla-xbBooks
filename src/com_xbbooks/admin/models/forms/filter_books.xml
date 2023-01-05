@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/filter_books.xml v0.12.0.1 8th December 2022 -->
+<!-- xbBooks admin/models/forms/filter_books.xml v1.0.1.3 5th January 2023 -->
 <form>
 	<fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
 		<field
@@ -69,6 +69,7 @@
 			extension="com_xbbooks"
 			itemtable="#__xbbooks"
 			multiple="true"
+			class="multipleCats"
 			onchange="this.form.submit();"
 			>
 		</field>

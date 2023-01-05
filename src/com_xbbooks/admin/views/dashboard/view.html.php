@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/view.html.php
- * @version 1.0.1.3 4th January 2023
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -129,7 +129,7 @@ class XbbooksViewDashboard extends JViewLegacy
 	       	ToolbarHelper::custom('dashboard.people', 'info-2', '', 'xbPeople', false) ;
 	        
 	        ToolBarHelper::custom('dashboard.films', 'screen', '', 'xbFilms', false) ;
-	        ToolBarHelper::custom('dashboard.live', 'music', '', 'xbEvents', false) ;
+	        ToolBarHelper::custom('dashboard.events', 'music', '', 'xbEvents', false) ;
 	        if ($canDo->get('core.admin')) {
 	            ToolBarHelper::preferences('com_xbbooks');
 	        }

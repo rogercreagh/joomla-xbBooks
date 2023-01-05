@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controlers/bcategories.php
- * @version 0.9.6.f 9th January 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -29,12 +29,11 @@ class XbbooksControllerBcategories extends JControllerAdmin {
     	$ext = $db->loadResult();
     	if ($ext == 'com_xbbooks') {
     	    $this->setRedirect($this->edcatlink.'com_xbbooks&id='.$id);
-    	} elseif ($ext = 'com_xbpeople') {
-    	    //if (Factory::getSession()->get('xbpeople_ok')==1){
-    	    if (XbcultureHelper::checkComponent('com_xbpeople')==1){
-    	        $this->setRedirect($this->edcatlink.'com_xbpeople&id='.$id);
+    	} else {
+    	    if (XbcultureHelper::checkComponent($ext)==1){
+    	        $this->setRedirect($this->edcatlink.$ext.'&id='.$id);
     	    } else {
-    	        Factory::getApplication()->enqueueMessage('XBBOOKS_NO_COMPEOPLE','error');
+    	        Factory::getApplication()->enqueueMessage($ext.' not available','error');
     	    }
     	}
     }

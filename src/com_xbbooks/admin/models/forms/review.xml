@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/review.xml v0.10.0.1 25th November 2022 -->
+<!-- xbBooks admin/models/forms/review.xml v1.0.1.3 5th January 2023 -->
 <form>
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
 		<field
@@ -27,14 +27,11 @@
 			default="" />
 			
 		<field
-		    name="book_id"
-    		type="sql"
-    		required="true"
-    		class="input-xxlarge input-large-text"
-    		value_field="title"
+		    name="book_id" type="books"
 		    label="XBBOOKS_SELECTBOOK_LABEL"
 		    description="XBBOOKS_SELECTBOOK_DESC"
-    		query="SELECT id AS value, title FROM #__xbbooks ORDER BY title ASC"
+    		required="true"
+    		class="input-xxlarge input-large-text"
     	/>
 
 		<field
@@ -47,7 +44,7 @@
 		
 		<field name="review" type="editor"
 			class="inputbox" label="XBBOOKS_FIELD_REVIEW_LABEL" description="XBBOOKS_FIELD_REVIEW_DESC"
-			filter="JComponentHelper::filterText" buttons="true"  hide="article, pagebreak,readmore" />
+			filter="JComponentHelper::filterText" buttons="true"  hide="article,module,menu,pagebreak,readmore" />
 			
 		<field name="catid" type="xbcats" 
 			extension="com_xbbooks" class="chzn-custom-value"
@@ -71,6 +68,8 @@
 				label="JTAG" 
 				description="JTAG_DESC"
 				multiple="true"
+				custom="deny"
+				published="1"
 		>
 		</field>
 		<field name="revtaggroup" type="xbtags"

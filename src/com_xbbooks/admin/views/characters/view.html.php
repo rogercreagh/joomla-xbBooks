@@ -39,18 +39,13 @@ class XbbooksViewCharacters extends JViewLegacy {
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
         	Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
-        	
             return false;
         }
-        
-        $this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
-        
-        if ($this->getLayout() !== 'modal') {
+                
         // Set the toolbar & sidebar
-            $this->addToolbar();
-            XbbooksHelper::addSubmenu('characters');
-            $this->sidebar = JHtmlSidebar::render();
-        }
+        $this->addToolbar();
+        XbbooksHelper::addSubmenu('characters');
+        $this->sidebar = JHtmlSidebar::render();
         
         // Display the template
         parent::display($tpl);

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/reviews.php
- * @version 0.10.0.1 25th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,10 +79,11 @@ class XbbooksModelReviews extends JModelList {
         if ($categoryId=='') {
         	$categoryId = $this->getState('filter.category_id');
         }
-//        $subcats=0;
-        if (is_numeric($categoryId))
-        {
-        	$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+        if (is_numeric($categoryId)) {
+            $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+        } elseif (is_array($categoryId)) {
+            $categoryId = implode(',', $categoryId);
+            $query->where($db->quoteName('a.catid') . ' IN ('.$categoryId.')');
         }
         
         //Filter by rating

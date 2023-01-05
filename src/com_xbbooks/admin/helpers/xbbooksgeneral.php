@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooksgeneral.php
- * @version 1.0.1.2 1st January 2023
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -137,6 +137,12 @@ class XbbooksGeneral {
         return $list;
     }
     
+    /**
+     * @name getBookGroups()
+     * @desc returns list of groups linked to given book
+     * @param int $filmid
+     * @return array of objects
+     */
     public static function getBookGroups($bookid) {
         $admin = Factory::getApplication()->isClient('administrator');
         $link = 'index.php?option=com_xbpeople'. ($admin) ? '&task=group.edit&id=' : '&view=group&id=';
@@ -150,7 +156,7 @@ class XbbooksGeneral {
         if (!$admin) {
             $query->where('g.state = 1');
         }
-        $query->order('a.book_id, a.listorder', 'ASC');
+        $query->order('a.listorder', 'ASC');
         try {
             $db->setQuery($query);
             $list = $db->loadObjectList();
@@ -183,7 +189,7 @@ class XbbooksGeneral {
         if (is_null($res)) {
             $sess->clear('xbpeople_ok');
         } else {
-            $sess->set('xbpeopele_ok',$res);
+            $sess->set('xbpeople_ok',$res);
         }
         return $res;
     }

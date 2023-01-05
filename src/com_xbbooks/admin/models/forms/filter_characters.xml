@@ -26,12 +26,12 @@
 			extension="com_xbpeople"
 			itemtable="#__xbcharacters"
 			multiple="true"
+			class="multipleCats"
 			onchange="this.form.submit();"
 			>
 		</field>
 		<field
-			name="tagfilt"
-			type="tag"
+			name="tagfilt" type="tag"
 			label="JOPTION_FILTER_TAG"
 			description="JOPTION_FILTER_TAG_DESC"
 			multiple="true"

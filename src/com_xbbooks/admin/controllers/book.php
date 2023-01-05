@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/controllers/book.php
- * @version 0.9.6.f 9th January 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,11 +42,11 @@ class XbbooksControllerBook extends FormController {
 		
 		switch ($task) {
 		    case 'save2NewPer':
-		        $redirectTo =('index.php?option=com_xbbooks&task=person.edit&id=0');
+		        $redirectTo =('index.php?option=com_xbpeople&task=person.edit&id=0');
 		        $this->setRedirect(Route::_($redirectTo,false ));
 		        break;
 		    case 'save2NewChar':
-		        $redirectTo =('index.php?option=com_xbbooks&task=character.edit&id=0');
+		        $redirectTo =('index.php?option=com_xbpeople&task=character.edit&id=0');
 		        $this->setRedirect(Route::_($redirectTo,false ));
 		        break;
 		    case 'save2NewRev':

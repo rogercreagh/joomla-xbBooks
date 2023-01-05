@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/characters.php
- * @version 1.0.1.3 4th January 2023
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,8 +16,6 @@ use Joomla\CMS\Router\Route;
 
 class XbbooksModelCharacters extends JModelList {
 
-    protected $xbfilmsStatus;
-    
     public function __construct($config = array()) {
         
         if (empty($config['filter_fields'])) {
@@ -30,7 +28,6 @@ class XbbooksModelCharacters extends JModelList {
             		'published','a.state'	
             );
         }
-        $this->xbfilmsStatus = Factory::getSession()->get('xbfilms_ok',false);
         
         parent::__construct($config);
     }
@@ -86,36 +83,11 @@ class XbbooksModelCharacters extends JModelList {
         if ($categoryId=='') {
         	$categoryId = $this->getState('filter.category_id');
         }
-//        $subcats=0;
-        if (is_numeric($categoryId))
-        {
-        	$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-        }
-        
-//         //        $subcats = $this->getState('filter.subcats');
-//         if (is_numeric($categoryId)) {
-//             if ($subcats) {
-//                 //                $query->where('a.catid IN ('.(int)$categoryId.','.self::getSubCategoriesList($categoryId).')');
-//             } else {
-//                 $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-//             }
-//         }
-        
-        // filter by in role
-        $rolefilt = $this->getState('filter.inbooks');
-        if (empty($rolefilt)) { $rolefilt = 'book'; }
-        if ($rolefilt!='all') {
-        	if ($rolefilt == 'book') {
-        		$query->where('b.id IS NOT NULL');
-        	} elseif ($rolefilt == 'notbook') {
-        		$query->where('b.id IS NULL');
-        	} elseif ($rolefilt == 'orphans') {
-        		if ($this->xbfilmsStatus) {
-        			$query->join('LEFT OUTER',$db->quoteName('#__xbfilmperson', 'f') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('f.person_id'));
-        			$query->where('f.id IS NULL');
-        		}
-        		$query->where('b.id IS NULL');
-        	}
+        if (is_numeric($categoryId)) {
+            $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+        } elseif (is_array($categoryId)) {
+            $categoryId = implode(',', $categoryId);
+            $query->where($db->quoteName('a.catid') . ' IN ('.$categoryId.')');
         }
         
         //filter by tags
@@ -173,7 +145,7 @@ class XbbooksModelCharacters extends JModelList {
         $orderDirn 	= $this->state->get('list.direction', 'asc');
         
         if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
-        	$orderCol = 'a.category_title '.$orderDirn.', a.ordering';  //TODO change this to category_title rather than id
+        	$orderCol = 'a.category_title '.$orderDirn.', a.ordering';  
         }
         $query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));
         if ($orderCol != 'name') {

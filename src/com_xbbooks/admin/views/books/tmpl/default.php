@@ -17,8 +17,8 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
-HTMLHelper::_('formbehavior.chosen', 'select');
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
+HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
 
 
 $user   = Factory::getUser();
@@ -47,10 +47,8 @@ $nocover = "media/com_xbbooks/images/nocover.jpg";
 $nofile = "media/com_xbbooks/images/nofile.jpg";
 
 $belink = 'index.php?option=com_xbbooks&view=book&task=book.edit&id=';
-$bvlink = 'index.php?option=com_xbbooks&view=book&task=book.edit&id='; //change this to view view when available
 $relink = 'index.php?option=com_xbbooks&view=review&task=review.edit&id=';
 $rvlink = 'index.php?option=com_xbbooks&view=review&task=review.edit&id='; //change this to view view when available
-$celink = 'index.php?option=com_categories&task=category.edit&id='; 
 $cvlink = 'index.php?option=com_xbbooks&view=category&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 

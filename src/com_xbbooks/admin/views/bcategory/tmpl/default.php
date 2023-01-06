@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/bcategory/tmpl/edit.php
- * @version 1.0.1.3 4th January 2023
+ * @version 1.0.1.4 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -45,7 +45,7 @@ $xplink = 'index.php?option=com_xbpeople';
             </div>
 			<div class= "span2">
 				<p><?php echo '<i>'.Text::_('JGRID_HEADING_ID').'</i>: '.$item->id; ?></p>
- xbmb8			</div>
+ 			</div>
 		</div>
 		<div class="row-fluid xbmb8">
 			<div class= "span6">

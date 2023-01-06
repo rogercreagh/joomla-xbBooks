@@ -110,11 +110,11 @@ class com_xbbooksInstallerScript
     	        if (is_dir($name)) {
     	            if ($this->rrmdir($name)) { 
     	               $dcnt ++;
-//    	               $message .= 'RMDIR '.$f.'<br />';
+    	               $message .= 'RMDIR '.$f.'<br />';
     	            }
     	        } else {
         	        if (unlink($name)) {
-//        	            $message .= 'DEL '.$f.'<br />';
+        	            $message .= 'DEL '.$f.'<br />';
         	            $cnt ++;
         	        } else {
         	            $message .= 'DELETE FAILED: '.$f.'<br />';

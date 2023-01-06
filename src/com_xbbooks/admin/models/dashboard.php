@@ -14,7 +14,6 @@ use Joomla\CMS\Factory;
 
 class XbbooksModelDashboard extends JModelList {
 
-    
     public function __construct() {
         parent::__construct();
     }  
@@ -26,10 +25,6 @@ class XbbooksModelDashboard extends JModelList {
 	public function getCatStates() {
 		return $this->stateCnts('#__categories','published','com_xbbooks');
 	}
-	
-// 	public function getPcatStates() {
-// 		return $this->stateCnts('#__categories','published','com_xbpeople');
-// 	}
 	
 	public function getRevStates() {
 		return $this->stateCnts('#__xbbookreviews');
@@ -82,19 +77,6 @@ class XbbooksModelDashboard extends JModelList {
     	$db->setQuery($query);
     	return $db->loadAssocList('alias');    	
     }
-    
-//     public function getPeopleCats() {
-//     	$db = $this->getDbo();
-//     	$query = $db->getQuery(true);
-//     	$query->select('a.*')
-//     	->select('(SELECT COUNT(*) FROM #__xbcharacters AS c WHERE c.catid=a.id) AS chrcnt')
-//     	->select('(SELECT COUNT(*) FROM #__xbpersons AS p WHERE p.catid=a.id) AS percnt')
-//     	->from('#__categories AS a')
-//     	->where('a.extension = '.$db->quote("com_xbpeople"))
-//     	->order($db->quoteName('path') . ' ASC');
-//     	$db->setQuery($query);
-//     	return $db->loadAssocList('alias');
-//     }
     
     public function getRoleCnts() {
         $result = array();

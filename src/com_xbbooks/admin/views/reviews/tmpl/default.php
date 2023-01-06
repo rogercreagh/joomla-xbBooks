@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.1.4 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,6 +18,7 @@ use Joomla\CMS\Router\Route;
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
 HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
+HTMLHelper::_('formbehavior.chosen', 'select');
 
 $user = Factory::getUser();
 $userId = $user->get('id');
@@ -40,7 +41,7 @@ if ($saveOrder) {
 	HTMLHelper::_('sortablelist.sortable', 'xbbookreviewsList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 
-bvlink = 'index.php?option=com_xbbooks&view=book&task=book.edit&id='; //change this to view view when available
+$bvlink = 'index.php?option=com_xbbooks&view=book&task=book.edit&id='; //change this to view view when available
 $relink = 'index.php?option=com_xbbooks&view=review&task=review.edit&id=';
 $cvlink = 'index.php?option=com_xbbooks&view=bcategory&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';

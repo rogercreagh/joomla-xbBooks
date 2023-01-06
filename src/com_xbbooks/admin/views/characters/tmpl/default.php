@@ -18,6 +18,7 @@ use Joomla\CMS\Uri\Uri;
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
 HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
+HTMLHelper::_('formbehavior.chosen', 'select');
 
 $user = Factory::getUser();
 $userId = $user->get('id');

@@ -347,7 +347,8 @@ if ($imgok) {
 		</div>
 	<?php endif; ?>
 </div>
-<div class="row-fluid xbbox xbboxgrey">
+<div class="xbbox xbboxgrey">
+<div class="row-fluid ">
 	<div class="span2">
 		<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="xbpop xbcultpop xbinfo fas fa-info-circle" data-trigger="hover" title 
@@ -369,6 +370,7 @@ if ($imgok) {
 				<?php echo Text::_('XBCULTURE_NEXT'); ?></a>
 	    <?php endif; ?>
 	</div>
+</div>
 </div>
 <div class="clearfix"></div>
 </div>

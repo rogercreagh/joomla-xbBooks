@@ -1,8 +1,8 @@
 <?php
 /*******
  * @package xbBooks
- * @filesource admin/views//tmpl/edit.php
- * @version 0.9.10.2 14th November 2022
+ * @filesource admin/views/review/tmpl/edit.php
+ * @version 1.0.2.2 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -21,6 +21,9 @@ HtmlHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_tex
 HtmlHelper::_('formbehavior.chosen', 'select');
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+</style>
 <form action="<?php echo Route::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
 	<?php if(empty($this->item->id)) : ?>
@@ -90,3 +93,26 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
+<script>
+//for preview modal
+jQuery(document).ready(function(){
+    jQuery('#ajax-pvmodal').on('show', function () {
+        // Load view vith AJAX
+        jQuery(this).find('.modal-content').load(jQuery('a[data-target="#'+jQuery(this).attr('id')+'"]').attr('href'));
+    })
+    jQuery('#ajax-pvmodal').on('hidden', function () {
+     //document.location.reload(true);
+     //Joomla.submitbutton('film.apply');
+    })
+});
+</script>
+<!-- preview modal window -->
+<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+

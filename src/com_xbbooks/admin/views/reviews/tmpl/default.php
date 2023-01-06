@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 1.0.1.4 6th January 2023
+ * @version 1.0.2.2 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -47,6 +47,9 @@ $cvlink = 'index.php?option=com_xbbooks&view=bcategory&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+</style>
 <form action="index.php?option=com_xbbooks&view=reviews" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
@@ -127,6 +130,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                     	<?php echo HTMLHelper::_('searchtools.sort', 'Added', 'a.created', $listDirn, $listOrder); ?>
                     </p>
         		</th>
+    				<th>[pv]</th>
         	</tr>
 		</thead>
 		<tfoot>
@@ -260,6 +264,13 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                             	<?php echo HtmlHelper::date($item->created,'d.m.y'); ?></span>
                             </p>
 						</td>
+					<td>
+						<a href="index.php?option=com_xbbooks&view=review&layout=modalpv&tmpl=component&id=<?php echo $item->id; ?>"
+            				data-toggle="modal" data-target="#ajax-pvmodal"
+            				>
+            				<i class="icon-eye xbeye"></i>
+            			</a>					
+					</td>
 					</tr>
 				<?php endforeach; ?>
 			<?php endif; ?>
@@ -282,3 +293,22 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
+<script>
+jQuery(document).ready(function(){
+//for preview modal
+    jQuery('#ajax-pvmodal').on('show', function () {
+        // Load view vith AJAX
+        jQuery(this).find('.modal-content').load(jQuery('a[data-target="#'+jQuery(this).attr('id')+'"]').attr('href'));
+    })
+});
+</script>
+<!-- preview modal window -->
+<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+

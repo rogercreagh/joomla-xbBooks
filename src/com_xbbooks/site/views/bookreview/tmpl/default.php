@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreview/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.2.2 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -52,8 +52,8 @@ if ($imgok) {
     				<h4><span class="xbnit"><?php echo Text::_('XBBOOKS_REVIEWOF'); ?></span>"
     					 <a href="<?php echo XbbooksHelperRoute::getBookLink($item->book_id); ?>"
         					 <?php if (!empty($item->edauths)) : ?>
-        					 	class="xbpop xbcultpop xbfocus" data-trigger="focus" tabindex="<?php echo $item->id; ?>" 
-        					 	title data-original-title="Author/Editor" data-content="<?php echo $item->edauths; ?>"
+        					 	class="xbpop xbcultpop xbhover" data-trigger="hover" tabindex="<?php echo $item->id; ?>" 
+        					 	title data-original-title="Author/Editor" data-content="<?php echo strip_tags($item->edauths); ?>"
         					 <?php endif; ?>
     					 ><?php echo $item->book_title; ?></a>
     					 <span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
@@ -164,8 +164,8 @@ if ($imgok) {
 	    </div>
 	</div>
 <?php endif; ?>
+	<div class="xbbox xbboxgrey">
 <div class="row-fluid xbmt16"><!-- prev/next -->
-	<div class="span12 xbbox xbboxgrey">
 		<div class="row-fluid">
 			<div class="span2">
 		<?php if (($item->prev>0) || ($item->next>0)) : ?>

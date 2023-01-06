@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.2.1 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -196,13 +196,14 @@ $document->addStyleDeclaration($style);
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 <script>
 //for preview modal
+jQuery(document).ready(function(){
     jQuery('#ajax-pvmodal').on('show', function () {
         // Load view vith AJAX
         jQuery(this).find('.modal-content').load(jQuery('a[data-target="#'+jQuery(this).attr('id')+'"]').attr('href'));
     })
     jQuery('#ajax-pvmodal').on('hidden', function () {
      //document.location.reload(true);
-     //Joomla.submitbutton('group.apply');
+     //Joomla.submitbutton('book.apply');
     })
 //for quickperson modal
      jQuery('#ajax-qpmodal').on('show', function () {
@@ -211,20 +212,20 @@ $document->addStyleDeclaration($style);
     })
     jQuery('#ajax-qpmodal').on('hidden', function () {
      //document.location.reload(true);
-     Joomla.submitbutton('person.apply');
+     Joomla.submitbutton('book.apply');
     })    
 });
 </script>
 <!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:80%">
+<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:80%;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->
         </div>
     </div>
 </div>
-<!-- quickgroup modal window -->
-<div class="modal fade xbqpmodal" id="ajax-qpmodal" style="max-width:80%">
+<!-- quickperson modal window -->
+<div class="modal fade xbqpmodal" id="ajax-qpmodal" style="max-width:1000px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->

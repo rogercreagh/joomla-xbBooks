@@ -62,11 +62,13 @@ class XbbooksViewCharacters extends JViewLegacy {
         ToolBarHelper::title(JText::_('XBBOOKS').': '.JText::_('XBCULTURE_TITLE_CHARMANAGER'), 'users' );
         
         if ($canDo->get('core.create') > 0) {
-            ToolBarHelper::addNew('character.add');
+            ToolbarHelper::custom('characters.charnew','new','','New',false);
         }
         if ($canDo->get('core.edit') || ($canDo->get('core.edit.own'))) {
-            ToolBarHelper::editList('character.edit');
+            ToolbarHelper::editList('characters.charedit');
         }
+        
+/*         
         if ($canDo->get('core.edit.state')) {
             ToolBarHelper::publish('character.publish', 'JTOOLBAR_PUBLISH', true);
             ToolBarHelper::unpublish('character.unpublish', 'JTOOLBAR_UNPUBLISH', true);
@@ -87,11 +89,9 @@ class XbbooksViewCharacters extends JViewLegacy {
         	$batchButtonHtml = $layout->render(array('title' => JText::_('JTOOLBAR_BATCH')));
         	$bar->appendButton('Custom', $batchButtonHtml, 'batch');
         }
-        
+ */        
         ToolbarHelper::custom(); //spacer
-        if ($this->xbpeople_ok) {
-        	ToolbarHelper::custom('characters.people', 'users', '', 'All Characters', false) ;
-        }
+        	ToolbarHelper::custom('characters.allchars', 'users', '', 'All Characters', false) ;
         
         if ($canDo->get('core.admin')) {
             ToolBarHelper::preferences('com_xbbooks');

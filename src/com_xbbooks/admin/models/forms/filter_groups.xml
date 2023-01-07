@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks admin/models/forms/filter_groups.xml v1.0.3.1 7th January 2023 -->
+<form>
+	<fields name="filter"  addfieldpath="administrator/components/com_xbpeople/models/fields">
+		<field
+			name="search"
+			type="text"
+			label="XBCULTURE_SEARCH_IN_NAME"
+			description="XBCULTURE_SEARCH_PERSON"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string"
+		/>
+		<field
+			name="published"
+			type="status"
+			label="JOPTION_SELECT_PUBLISHED"
+			description="JOPTION_SELECT_PUBLISHED_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_PUBLISHED</option>
+		</field>
+		<field
+			name="category_id" type="xbitemcats"
+			label="JOPTION_FILTER_CATEGORY"
+			description="JOPTION_FILTER_CATEGORY_DESC"
+			extension="com_xbpeople"
+			itemtable="#__xbgroups"
+			multiple="true"
+			class="multipleCats"
+			onchange="this.form.submit();"
+			>
+		</field>
+		<field
+			name="tagfilt" type="tag"
+			label="JOPTION_FILTER_TAG"
+			description="JOPTION_FILTER_TAG_DESC"
+			multiple="true" class="multipleTags"
+			mode="nested"
+			onchange="this.form.submit();"
+		/>
+		<field name="taglogic"
+			type="radio"
+			default="0"
+			label="XBCULTURE_MULTITAG_LBL"
+			description="XBCULTURE_MULTITAG_DESC"
+  			class="btn-group btn-small radiotop"
+		>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_EXCLUDE</option>
+		</field>	
+	</fields>
+	<fields name="list">
+  		<field name="fullordering" type="hidden" default="" />
+  		
+		<field
+			name="limit"
+			type="limitbox"
+			class="input-mini"
+			default="25"
+			label="COM_CONTENT_LIST_LIMIT"
+			description="COM_CONTENT_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

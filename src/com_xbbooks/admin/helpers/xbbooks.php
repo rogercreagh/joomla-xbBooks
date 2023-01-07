@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbbooks.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.3.1 7th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -77,6 +77,16 @@ class XbbooksHelper extends ContentHelper
 				'index.php?option=com_xbpeople&view=person&layout=edit',
 				$vName == 'person'
 				);
+			JHtmlSidebar::addEntry(
+			    Text::_('XBCULTURE_ICONMENU_GROUPS'),
+			    'index.php?option=com_xbbooks&view=groups',
+			    $vName == 'groups'
+			    );
+			JHtmlSidebar::addEntry(
+			    Text::_('XBCULTURE_ICONMENU_NEWGROUP'),
+			    'index.php?option=com_xbpeople&view=group&layout=edit',
+			    $vName == 'group'
+			    );
 			JHtmlSidebar::addEntry(
 				Text::_('XBCULTURE_ICONMENU_CHARS'),
 				'index.php?option=com_xbbooks&view=characters',

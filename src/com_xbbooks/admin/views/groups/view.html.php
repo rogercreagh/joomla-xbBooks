@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/groups/view.html.php
- * @version 1.0.3.1 7th January 2023
+ * @version 1.0.3.1 8th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2023
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -94,7 +94,7 @@ class XbbooksViewGroups extends JViewLegacy {
          
  */ 
         ToolbarHelper::custom(); //spacer
-        ToolbarHelper::custom('groups.groups', 'users', '', 'All Groups', false) ;
+        ToolbarHelper::custom('groups.allgroups', 'users', '', 'All Groups', false) ;
 
         
         if ($canDo->get('core.admin')) {

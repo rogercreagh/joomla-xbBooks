@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 1.0.1.2 1st January 2023
+ * @version 1.0.3.2 8th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -427,7 +427,7 @@ class XbbooksModelBook extends JModelAdmin {
         }
     }
 
-    function storeBookGroups($book_id, $charList) {
+    function storeBookGroups($book_id, $grpList) {
         //delete existing group list
         $db = $this->getDbo();
         $query = $db->getQuery(true);
@@ -436,12 +436,14 @@ class XbbooksModelBook extends JModelAdmin {
         $db->setQuery($query);
         $db->execute();
         //restore the new list
-        foreach ($charList as $pers) {
-            if ($pers['group_id'] > 0) {
+        $listorder = 0;
+        foreach ($grpList as $grp) {
+            if ($grp['group_id'] > 0) {
+                $listorder ++;
                 $query = $db->getQuery(true);
                 $query->insert($db->quoteName('#__xbbookgroup'));
                 $query->columns('book_id,group_id,role,role_note,listorder');
-                $query->values('"'.$book_id.'","'.$pers['group_id'].'","'.$pers['role'].'","'.$pers['role_note'].'","'.$pers['listorder'].'"');
+                $query->values('"'.$book_id.'","'.$grp['group_id'].'","'.$grp['role'].'","'.$grp['role_note'].'","'.$listorder.'"');
                 $db->setQuery($query);
                 $db->execute();
             }
@@ -457,12 +459,14 @@ class XbbooksModelBook extends JModelAdmin {
         $db->setQuery($query);
         $db->execute();
         //restore the new list
-        foreach ($charList as $pers) {
+        $listorder = 0;
+        foreach ($charList as $char) {
             if ($pers['char_id'] > 0) {
+                $listorder ++;
                 $query = $db->getQuery(true);
                 $query->insert($db->quoteName('#__xbbookcharacter'));
                 $query->columns('book_id,char_id,char_note,listorder');
-                $query->values('"'.$book_id.'","'.$pers['char_id'].'","'.$pers['char_note'].'","'.$pers['listorder'].'"');
+                $query->values('"'.$book_id.'","'.$char['char_id'].'","'.$char['char_note'].'","'.$listorder.'"');
                 $db->setQuery($query);
                 $db->execute();              
             }

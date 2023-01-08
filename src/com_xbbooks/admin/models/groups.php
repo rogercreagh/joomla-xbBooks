@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/groups.php
- * @version 1.0.3.1 7th January 2023
+ * @version 1.0.3.1 8th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,7 +19,7 @@ class XbbooksModelGroups extends JModelList {
         
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
-                'id', 'a,id',, 'title', 'a.title',
+                'id', 'a.id', 'title', 'a.title',
                 'published', 'a.state', 'ordering', 'a.ordering',
             	'category_title', 'c.title','catid', 'a.catid', 'category_id',
             	'year_formed', 'year_disolved' );

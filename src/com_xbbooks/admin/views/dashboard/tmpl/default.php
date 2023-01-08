@@ -363,9 +363,9 @@ if ($this->xbpeople_ok==='0') : ?>
     						</div>
     					</div>
                          <table style="width:100%"><tr>
-                         	<td style="width:65%;"><h3 class="xbsubtitle">Counts per category</h3></td>
-                         	<td><span class="badge bkcnt">books</span></td>
-                         	<td><span class="badge revcnt">reviews</span></td>
+                         	<td style="width:65%;"><h3 class="xbsubtitle"><?php echo Text::_('XBCULTURE_COUNTS_CATEGORY'); ?></h3></td>
+                         	<td><span class="badge bkcnt"><?php echo Text::_('XBCULTURE_BOOKS'); ?></span></td>
+                         	<td><span class="badge revcnt"><?php echo Text::_('XBCULTURE_REVIEWS'); ?></span></td>
                          </tr></table>
                          <div class="row-striped">
         					<div  style=" margin-left:30px;">
@@ -390,7 +390,7 @@ if ($this->xbpeople_ok==='0') : ?>
                 				</table>
         					</div>
         				</div>
-        				<br />for People/Groups/Character categories see <a href="index.php?option=com_xbpeople">xbPeople</a>
+        				<br /><?php echo Text::_('XBCULTURE_PEOPLE_GROUPS_CHARS'); ?> <a href="index.php?option=com_xbpeople">xbPeople</a>
         			</div>
               	</div>
 			</div>

@@ -260,13 +260,15 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 						<?php endif; ?>
                     </td>
 					<td>
-    					<?php if ($item->ecnt>0) : ?>
+    					<?php if ($item->bcnt>0) : ?>
 							<details>
     							<summary>
-    								<?php echo $item->ecnt; ?> events listed
+    								<?php echo $item->bcnt.' ';
+                                        echo ($item->bcnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');
+                                        echo ' '.Text::_('XBCULTURE_LISTED'); ?>    								
     							</summary>
     							<ul class="xbdetails"> 
-                                	<?php echo $item->eventlist; ?>
+                                	<?php echo $item->booklist; ?>
     							</ul>
 							</details>							
     					<?php endif; ?>	
@@ -287,6 +289,8 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 					</td>					
 					<td align="center">
 						<?php echo $item->id; ?>
+					</td>
+					<td>
 					</td>
 				</tr>
 			<?php endforeach; ?>

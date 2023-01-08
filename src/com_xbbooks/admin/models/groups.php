@@ -39,11 +39,11 @@ class XbbooksModelGroups extends JModelList {
 			a.catid AS catid, a.state AS published, a.created AS created, a.created_by AS created_by,
 			a.created_by_alias AS created_by_alias, a.checked_out AS checked_out, a.checked_out_time AS checked_out_time,
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');            
-        $query->from($db->quoteName('#__xbpersons','a'));
+        $query->from($db->quoteName('#__xbgroups','a'));
         
         $query->select('(SELECT COUNT(DISTINCT(gp.person_id)) FROM #__xbgroupperson AS gp WHERE gp.group_id = a.id) AS pcnt');
         
-        $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookgroup AS bg WHERE bg.group_id = a.id) AS bcnt');
+        $query->select('(SELECT COUNT(DISTINCT(bg.book_id)) FROM #__xbbookgroup AS bg WHERE bg.group_id = a.id) AS bcnt');
 
         if ($sess->get('xbfilms_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(fg.film_id)) FROM #__xbfilmgroup AS fg WHERE fg.group_id = a.id) AS fcnt');
         if ($sess->get('xbevents_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(eg.event_id)) FROM #__xbeventgroup AS eg WHERE eg.group_id = a.id) AS ecnt');

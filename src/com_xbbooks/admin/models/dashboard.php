@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/dashboard.php
- * @version 1.0.1.1 31st December 2022
+ * @version 1.0.3.1 8th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -169,6 +169,9 @@ class XbbooksModelDashboard extends JModelList {
 	    }
 	    if ($table == '#__xbpersons') {
 	        $query->join('LEFT','#__xbbookperson AS bp ON bp.person_id = a.id')->where('bp.id IS NOT NULL');
+	    }
+	    if ($table == '#__xbgroups') {
+	        $query->join('LEFT','#__xbbookgroup AS bg ON bg.group_id = a.id')->where('bg.id IS NOT NULL');
 	    }
 	    if ($table == '#__xbcharacters') {
 	        $query->join('LEFT','#__xbbookcharacter AS bc ON bc.char_id = a.id')->where('bc.id IS NOT NULL');

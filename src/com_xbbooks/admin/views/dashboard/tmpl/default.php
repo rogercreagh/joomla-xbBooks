@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.3.1 8th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -319,13 +319,6 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     				</div>
     			</div>
-    			<div class="xbbox xbboxcyan">
-    				<h2 class="xbtitle">
-    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge chcnt xbmr20"><?php echo $this->totChars;?></span>
-    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info "><?php echo $this->charStates['total'];?></span></span>	
-    					<?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>
-    				</h2>
-    			</div>
     			<div class="xbbox xbboxgrn">
     				<h2 class="xbtitle">
     					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span>
@@ -333,6 +326,13 @@ if ($this->xbpeople_ok==='0') : ?>
     					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info ">
     					 <?php echo $this->groupStates['total'];?></span></span>	
     					<?php echo Text::_('XBCULTURE_GROUPS'); ?>
+    				</h2>
+    			</div>
+    			<div class="xbbox xbboxcyan">
+    				<h2 class="xbtitle">
+    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge chcnt xbmr20"><?php echo $this->totChars;?></span>
+    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info "><?php echo $this->charStates['total'];?></span></span>	
+    					<?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>
     				</h2>
     			</div>
     			<div class="xbbox xbboxyell">
@@ -363,15 +363,15 @@ if ($this->xbpeople_ok==='0') : ?>
     						</div>
     					</div>
                          <table style="width:100%"><tr>
-                         	<td><h3 class="xbsubtitle">Counts per category</h3></td>
-                         	<td style="width:65px;"><span class="badge bkcnt">books</span></td>
-                         	<td style="width:65px;"><span class="badge revcnt">reviews</span></td>
+                         	<td style="width:65%;"><h3 class="xbsubtitle">Counts per category</h3></td>
+                         	<td><span class="badge bkcnt">books</span></td>
+                         	<td><span class="badge revcnt">reviews</span></td>
                          </tr></table>
                          <div class="row-striped">
-        					<div class="row-fluid">
-         						<table style="width:100%; margin-left:30px;">
+        					<div  style=" margin-left:30px;">
+         						<table style="width:100%;">
                 					<?php foreach ($this->cats as $key=>$value) : ?>
-         								<tr><td>
+         								<tr><td style="width:67%;">
                         					<?php if ($value['level']>1) {
                                                 echo '&boxur;'.str_repeat('&boxh;', $value['level']-1).'&nbsp;';
                                             } ?>

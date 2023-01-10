@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreview/view.html.php
- * @version 0.9.7 11th January 2022
+ * @version 1.0.3.2 9th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,19 +41,22 @@ class XbbooksViewBookreview extends JViewLegacy {
 		}
 		
 		$app = Factory::getApplication();
-		$srt = $app->getUserState('bookreviews.sortorder');
-		if (!empty($srt)) {
-			$i = array_search($this->item->id, $srt);
-			if ($i<count($srt)-1) {
-				$this->item->next = $srt[$i+1];
-			} else { $this->item->next = 0; }
-			if ($i>0) {
-				$this->item->prev = $srt[$i-1];
-			} else { $this->item->prev = 0; }
-			
-		} else {
-			$this->item->prev = 0;
-			$this->item->next = 0;
+		$this->tmpl = $app->input->getCmd('tmpl');
+		if ($this->tmpl != 'component') {
+		    $srt = $app->getUserState('bookreviews.sortorder');
+    		if (!empty($srt)) {
+    			$i = array_search($this->item->id, $srt);
+    			if ($i<count($srt)-1) {
+    				$this->item->next = $srt[$i+1];
+    			} else { $this->item->next = 0; }
+    			if ($i>0) {
+    				$this->item->prev = $srt[$i-1];
+    			} else { $this->item->prev = 0; }
+    			
+    		} else {
+    			$this->item->prev = 0;
+    			$this->item->next = 0;
+    		}
 		}
 		
 		$tagsHelper = new TagsHelper;

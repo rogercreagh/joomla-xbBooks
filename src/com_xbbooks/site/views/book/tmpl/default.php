@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 1.0.0.1 22nd December 2022
+ * @version 1.0.3.2 9th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -347,32 +347,34 @@ if ($imgok) {
 		</div>
 	<?php endif; ?>
 </div>
-<div class="xbbox xbboxgrey">
-<div class="row-fluid ">
-	<div class="span2">
-		<?php if (($item->prev>0) || ($item->next>0)) : ?>
-				<span class="xbpop xbcultpop xbinfo fas fa-info-circle" data-trigger="hover" title 
-					data-original-title="Prev-Next Info" data-content="<?php echo JText::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
-				</span>&nbsp;
-		<?php endif; ?>
-		<?php if($item->prev > 0) : ?>
-			<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->prev)); ?>" class="btn btn-small">
-				<?php echo Text::_('XBCULTURE_PREV'); ?></a>
-	    <?php endif; ?>
-	</div>
-	<div class="span8"><center>
-		<a href="<?php echo Route::_($blink); ?>" class="btn btn-small">
-			<?php echo Text::_('XBBOOKS_BOOKLIST'); ?></a></center>
-	</div>
-	<div class="span2">
-		<?php if($item->next > 0) : ?>
-			<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->next)); ?>" class="btn btn-small pull-right">
-				<?php echo Text::_('XBCULTURE_NEXT'); ?></a>
-	    <?php endif; ?>
-	</div>
-</div>
-</div>
-<div class="clearfix"></div>
-</div>
-<p><?php echo XbcultureHelper::credit('xbBooks');?></p>
+<?php if($this->tmpl != 'component') : ?>
+    <div class="xbbox xbboxgrey">
+    <div class="row-fluid ">
+    	<div class="span2">
+    		<?php if (($item->prev>0) || ($item->next>0)) : ?>
+    				<span class="xbpop xbcultpop xbinfo fas fa-info-circle" data-trigger="hover" title 
+    					data-original-title="Prev-Next Info" data-content="<?php echo JText::_('XBBOOKS_INFO_PREVNEXT'); ?>" >
+    				</span>&nbsp;
+    		<?php endif; ?>
+    		<?php if($item->prev > 0) : ?>
+    			<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->prev)); ?>" class="btn btn-small">
+    				<?php echo Text::_('XBCULTURE_PREV'); ?></a>
+    	    <?php endif; ?>
+    	</div>
+    	<div class="span8"><center>
+    		<a href="<?php echo Route::_($blink); ?>" class="btn btn-small">
+    			<?php echo Text::_('XBBOOKS_BOOKLIST'); ?></a></center>
+    	</div>
+    	<div class="span2">
+    		<?php if($item->next > 0) : ?>
+    			<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->next)); ?>" class="btn btn-small pull-right">
+    				<?php echo Text::_('XBCULTURE_NEXT'); ?></a>
+    	    <?php endif; ?>
+    	</div>
+    </div>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+    <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
+<?php endif; ?>
 

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/view.html.php
- * @version 0.9.8.7 5th June 2022
+ * @version 1.0.3.2 9th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -54,20 +54,23 @@ class XbbooksViewBook extends JViewLegacy {
 		//if we have arrived here directly then we probably ought to load a default sort to determine prev/next
 		//we also need to determine where we need to go back to (catlist of allbookslist)
 		$app = Factory::getApplication();
-		$srt = $app->getUserState('books.sortorder');
-		if (!empty($srt)) {
-	      	$i = array_search($this->item->id, $srt);
-	      	if ($i<count($srt)-1) {
-	      		$this->item->next = $srt[$i+1];		    
-			} else { $this->item->next = 0; }
-			if ($i>0) {
-				$this->item->prev = $srt[$i-1];
-			} else { $this->item->prev = 0; }
-	       
-	      } else {
-			$this->item->prev = 0;
-			$this->item->next = 0; 
-	      }
+		$this->tmpl = $app->input->getCmd('tmpl');
+		if ($this->tmpl != 'component') {
+		    $srt = $app->getUserState('books.sortorder');
+    		if (!empty($srt)) {
+    	      	$i = array_search($this->item->id, $srt);
+    	      	if ($i<count($srt)-1) {
+    	      		$this->item->next = $srt[$i+1];		    
+    			} else { $this->item->next = 0; }
+    			if ($i>0) {
+    				$this->item->prev = $srt[$i-1];
+    			} else { $this->item->prev = 0; }
+    	       
+    	      } else {
+    			$this->item->prev = 0;
+    			$this->item->next = 0; 
+    	      }
+		}
 		//TODO now test pagination for next page 
 		
 		$tagsHelper = new TagsHelper;

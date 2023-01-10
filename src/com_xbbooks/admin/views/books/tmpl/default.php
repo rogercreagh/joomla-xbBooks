@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 1.0.2.2 6th January 2023
+ * @version 1.0.3.2 9th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -387,9 +387,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo $item->id; ?>
 					</td>
 					<td>
-						<a href="index.php?option=com_xbbooks&view=book&layout=modalpv&tmpl=component&id=<?php echo $item->id; ?>"
-            				data-toggle="modal" data-target="#ajax-pvmodal"
-            				>
+						<a href="" data-toggle="modal" data-target="#ajax-pvmodal"
+            				 onclick="window.pvid= <?php echo $item->id; ?>;">
             				<i class="icon-eye xbeye"></i>
             			</a>					
 					</td>
@@ -397,12 +396,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 				<?php endforeach;?>
 			</tbody>
 		</table>
-        <?php // load the modal for displaying the batch options
-	    								echo HTMLHelper::_(
-            'bootstrap.renderModal',
-            'collapseModal',
-            array(
-                'title' => Text::_('XBCULTURE_BATCH_TITLE'),
+ 		<?php // load the modal for displaying the batch options
+        echo HTMLHelper::_('bootstrap.renderModal', 'collapseModal',
+            array( 'title' => Text::_('XBCULTURE_BATCH_TITLE'),
                 'footer' => $this->loadTemplate('batch_footer')
             ),
             $this->loadTemplate('batch_body')
@@ -421,12 +417,12 @@ jQuery(document).ready(function(){
 //for preview modal
     jQuery('#ajax-pvmodal').on('show', function () {
         // Load view vith AJAX
-        jQuery(this).find('.modal-content').load(jQuery('a[data-target="#'+jQuery(this).attr('id')+'"]').attr('href'));
+        jQuery(this).find('.modal-content').load('index.php?option=com_xbbooks&view=books&layout=modalpv&tmpl=component');
     })
 });
 </script>
 <!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px">
+<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->

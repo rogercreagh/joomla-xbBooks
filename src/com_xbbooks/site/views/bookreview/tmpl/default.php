@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreview/tmpl/default.php
- * @version 1.0.2.2 6th January 2023
+ * @version 1.0.3.2 9th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -164,6 +164,7 @@ if ($imgok) {
 	    </div>
 	</div>
 <?php endif; ?>
+<?php if($this->tmpl != 'component') : ?>
 	<div class="xbbox xbboxgrey">
 <div class="row-fluid xbmt16"><!-- prev/next -->
 		<div class="row-fluid">
@@ -194,3 +195,4 @@ if ($imgok) {
 <div class="clearfix"></div>
 </div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
+<?php endif; ?>

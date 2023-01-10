@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/view.html.php
- * @version 0.12.0.1 11th December 2022
+ * @version 1.0.3.2 9th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -65,7 +65,7 @@ class XbbooksViewBooks extends JViewLegacy {
 	    $canDo = XbbooksHelper::getActions();
 
 	    
-	    ToolBarHelper::title(Text::_( 'XBBOOKS' ).': '.Text::_( 'XBCULTURE_TITLE_BOOK_MANAGER' ), 'book books' );
+	    ToolBarHelper::title(Text::_( 'XBBOOKS_TITLE_BOOKS_ADMIN' ), 'book books' );
 
 		if ($canDo->get('core.create') > 0) {
             ToolBarHelper::addNew('book.add');
@@ -104,7 +104,7 @@ class XbbooksViewBooks extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(Text::_('XBBOOKS_ADMIN_BOOKS'));
+        $document->setTitle(Text::_('XBBOOKS_TITLE_BOOKS_ADMIN'));
     }
     
     

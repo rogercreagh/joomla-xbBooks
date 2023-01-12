@@ -61,10 +61,16 @@ class XbbooksModelBooklist extends JModelList {
             a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
-            $query->from('#__xbbooks AS a')
-            	->join('LEFT OUTER',$db->quoteName('#__xbbookperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.book_id'))
-            	->join('LEFT OUTER',$db->quoteName('#__xbbookcharacter', 'ch') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('ch.book_id')); 
+            $query->from('#__xbbooks AS a');
+            $query->select('(SELECT COUNT(DISTINCT(bp.person_id)) FROM #__xbbookperson AS bp WHERE bp.book_id = a.id) AS pcnt');
+            $query->select('(SELECT COUNT(DISTINCT(bc.char_id)) FROM #__xbbookcharacter AS bc WHERE bc.book_id = a.id) AS ccnt');
+            $query->select('(SELECT COUNT(DISTINCT(bg.group_id)) FROM #__xbbookgroup AS bg WHERE bg.book_id = a.id) AS gcnt');
+            
+//           	->join('LEFT OUTER',$db->quoteName('#__xbbookperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.book_id'))
+//            	->join('LEFT OUTER',$db->quoteName('#__xbbookcharacter', 'ch') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('ch.book_id')) 
+//            	->join('LEFT OUTER',$db->quoteName('#__xbbookgroup', 'g') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('g.book_id'));
             	//->join('LEFT', $db->quoteName('#__xbbookreviews', 'r').' ON r.book_id = a.id');
+
             $query->select('c.title AS category_title');
             $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
@@ -92,7 +98,7 @@ class XbbooksModelBooklist extends JModelList {
              $searchbar = (int)$this->getState('params')['search_bar'];
             //if a menu filter is set this takes priority and serch filter field is hidden
  
-           // Filter by category and subcats 
+           // Filter by category
              $categoryId = $this->getState('categoryId');
              $this->setState('categoryId','');             
              if (empty($categoryId)) {
@@ -244,15 +250,23 @@ class XbbooksModelBooklist extends JModelList {
 		
 		
 		foreach ($items as $i=>$item) {
-		    $item->people = XbbooksGeneral::getBookPeople($item->id);
-		    $roles = array_column($item->people,'role');
-		    $item->authcnt = count(array_keys($roles, 'author'));
-		    $item->editcnt = count(array_keys($roles, 'editor'));
-		    $item->mencnt = count(array_keys($roles, 'mention'));
-		    $item->othcnt = count(array_keys($roles, 'other'));
-			
-		    $item->chars = XbbooksGeneral::getBookChars($item->id);
-			$item->charcnt = count($item->chars);
+		    if ($item->pcnt>0) {
+    		    $item->people = XbbooksGeneral::getBookPeople($item->id);
+    		    $item->authlist = XbcultureHelper::makeLinkedNameList($item->people,'comma','ul',true,4);
+    		    $roles = array_column($item->people,'role');
+    		    $item->authcnt = count(array_keys($roles, 'author'));
+    		    $item->editcnt = count(array_keys($roles, 'editor'));
+    		    $item->mencnt = count(array_keys($roles, 'mention'));
+    		    $item->othcnt = count($roles) - $item->authcnt - $item->editcnt - $item->mencnt;
+		    }
+		    if ($item->ccnt>0) {
+		        $item->chars = XbbooksGeneral::getBookChars($item->id);
+    			$item->charlist = XbcultureHelper::makeLinkedNameList($item->chars,'','ul',true,5);    			
+		    }
+		    if ($item->gcnt>0) {
+		        $item->groups = XbbooksGeneral::getBookGroups($item->id);
+		        $item->grouplist = XbcultureHelper::makeLinkedNameList($item->groups,'','ul',true,5);
+		    }
 			
 			$item->reviews = XbbooksGeneral::getBookReviews($item->id);
 			$item->revcnt = count($item->reviews);
@@ -260,8 +274,6 @@ class XbbooksModelBooklist extends JModelList {
 			//make author/editor lists
 			$item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','comma',true,5) ;
 			$item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','comma',true,5);
-			
-			$item->charlist = $item->charcnt==0 ? '': XbcultureHelper::makeLinkedNameList($item->chars,'char','li',true,5);
 			
 			$item->tags = $tagsHelper->getItemTags('com_xbbooks.book' , $item->id);			
 			

@@ -185,25 +185,27 @@
 			</form>
 		</field>						
 			
-		<field name= "otherlist"
+		<field name= "bookotherlist"
 			type= "subform"
-			label= "XBBOOKS_FIELD_OTHERS_LABEL"
-			description="XBBOOKS_FIELD_OTHERS_DESC"
-			min= "0"
-			max= "10"
+			label= "XBCULTURE_FIELD_BOOKOTHER_LABEL"
+			description="XBCULTURE_FIELD_BOOKOTHER_DESC"
+			min= "0" max= "10"
 			multiple= "true"
-			buttons= "add,remove"
+			buttons= "add,remove,move"
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>
-				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
+				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" required="true" >
 					<option value="">JSELECT</option>	
 				</field>
-				<field name="role_note" type="otherrole" label="Role" size="20" maxlength="200"
-				/>
+				<field name="role" type="bookrolelist" label="Existing roles" maxlength="50" class="xbwid160" >
+					<option value=""></option>
+				</field>
+				<field name="newrole" type="text" label="Create New Role" size="20" maxlength="50" showon="role:"/>
+				<field name="role_note" type="text" label="XBCULTURE_NOTE" size="20" maxlength="50" />
 			</form>
-		</field>						
-			
+		</field>
+						
 		<field name= "menlist"
 			type= "subform"
 			label= "XBBOOKS_FIELD_MEN_LABEL"

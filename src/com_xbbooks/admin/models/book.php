@@ -404,6 +404,8 @@ class XbbooksModelBook extends JModelAdmin {
     }
      
     function storeBookPersons($book_id, $role, $personList) {
+        $db = Factory::getDbo();
+       
         //delete existing role list
         $db = $this->getDbo();
         $query = $db->getQuery(true);
@@ -414,20 +416,29 @@ class XbbooksModelBook extends JModelAdmin {
         //restore the new list
         $listorder = 0;
          foreach ($personList as $pers) {
-             if ($pers['person_id'] > 0) {
+             $role = ($pers['role']=='') ? $pers['newrole'] : $pers['role'];
+             if (($role !='') && ($pers['person_id'] > 0)) {
              	$listorder ++;
                 $query = $db->getQuery(true);
                 $query->insert($db->quoteName('#__xbbookperson'));
                 $query->columns('book_id,person_id,role,role_note,listorder');
                 $query->values('"'.$book_id.'","'.$pers['person_id'].'","'.$role.'","'.$pers['role_note'].'","'.$listorder.'"');
                 $db->setQuery($query);
-                $db->execute();            
-                
-             }
+                try {
+                    $db->execute();
+                }
+                catch (\RuntimeException $e) {
+                    throw new \Exception($e->getMessage(), 500);
+                    return false;
+                }
+            }
         }
+
     }
 
     function storeBookGroups($book_id, $grpList) {
+        $db = Factory::getDbo();
+        
         //delete existing group list
         $db = $this->getDbo();
         $query = $db->getQuery(true);
@@ -438,14 +449,21 @@ class XbbooksModelBook extends JModelAdmin {
         //restore the new list
         $listorder = 0;
         foreach ($grpList as $grp) {
-            if ($grp['group_id'] > 0) {
+            $role = ($grp['role']=='') ? $grp['newrole'] : $grp['role'];
+            if (($role !='') && ($grp['group_id'] > 0)) {
                 $listorder ++;
                 $query = $db->getQuery(true);
                 $query->insert($db->quoteName('#__xbbookgroup'));
                 $query->columns('book_id,group_id,role,role_note,listorder');
                 $query->values('"'.$book_id.'","'.$grp['group_id'].'","'.$grp['role'].'","'.$grp['role_note'].'","'.$listorder.'"');
                 $db->setQuery($query);
-                $db->execute();
+                try {
+                    $db->execute();
+                }
+                catch (\RuntimeException $e) {
+                    throw new \Exception($e->getMessage(), 500);
+                    return false;
+                }
             }
         }    
     }

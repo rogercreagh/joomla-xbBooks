@@ -173,7 +173,7 @@
 			min= "0"
 			max= "10"
 			multiple= "true"
-			buttons= "add,remove"
+			buttons= "add,remove,move"
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" >
 			<form>

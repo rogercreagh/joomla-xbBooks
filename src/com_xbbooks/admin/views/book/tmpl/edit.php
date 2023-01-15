@@ -84,14 +84,14 @@ $document->addStyleDeclaration($style);
         	</div>
         </div>    
         <div class="span2">
-    		<?php if($this->form->getValue('cover_img')){?>
+     		<?php if($this->form->getValue('cover_img')) : ?>
     			<div class="control-group">
     				<img class="img-polaroid hidden-phone" style="max-width:100%;" 
         				src="<?php echo Uri::root() . $this->form->getValue('cover_img');?>" />
     			</div>
-    		<?php } else {?>
-    			<div class="xbbox xbboxwht xbnit" style="width:100px;height:133%;"><?php echo Text::_('COM_XBFILMS_NO_COVER_IMAGE'); ?></div>
-    		<?php } ?>
+    		<?php else : ?>
+    			<div class="xbbox xbboxwht xbnit xbtc"><?php echo Text::_('XBCULTURE_NO_PICTURE'); ?></div>
+    		<?php endif; ?>
         </div>
     </div>
     <div class="row-fluid form-horizontal">

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.3.3 15th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -20,17 +20,12 @@ class XbbooksModelBooks extends JModelList
     public function __construct($config = array()) {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
-            	'id', 'a.id',
-            	'title', 'a.title',
-        		'ordering','a.ordering',
-        		'category_title', 'c.title',
-        		'catid', 'a.catid', 'category_id',
-                'tagfilt', 'taglogic',                
-                'a.first_read', 'first_read',
-                'a.last_read', 'last_read',
-                'published','a.state',
-                'created', 'a.created',
-                'pubyear','a.pubyear',
+            	'id', 'a.id', 'title', 'a.title',
+        		'ordering','a.ordering', 'category_title', 'c.title',
+        		'catid', 'a.catid', 'category_id', 'tagfilt', 'taglogic',                
+                'a.first_read', 'first_read', 'a.last_read', 'last_read',
+                'published','a.state', 'created', 'a.created',
+                'pubyear','a.pubyear', 'pcnt', 'ccnt', 'gcnt'
             );
         }
         parent::__construct($config);
@@ -50,10 +45,12 @@ class XbbooksModelBooks extends JModelList
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
-		$query->from('#__xbbooks AS a')
+		$query->from('#__xbbooks AS a');
         //join to persons and characters to allow filtering on them
-		->join('LEFT OUTER',$db->quoteName('#__xbbookperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.book_id'))
-		->join('LEFT OUTER',$db->quoteName('#__xbbookcharacter', 'ch') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('ch.book_id'));
+		
+		$query->select('(SELECT COUNT(DISTINCT(bp.person_id)) FROM #__xbbookperson AS bp WHERE bp.book_id = a.id) AS pcnt');
+		$query->select('(SELECT COUNT(DISTINCT(bg.group_id)) FROM #__xbbookgroup AS bg WHERE bg.book_id = a.id) AS gcnt');
+		$query->select('(SELECT COUNT(DISTINCT(bc.char_id)) FROM #__xbbookcharacter AS bgc WHERE bg.book_id = a.id) AS ccnt');
 		
 		$query->select('c.title AS category_title');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
@@ -104,7 +101,8 @@ class XbbooksModelBooks extends JModelList
         //filter by person (optional specify role)
         $pfilt = $this->getState('filter.perfilt');
         if (is_numeric($pfilt)) {
-        	$query->where('p.person_id = '.$db->quote($pfilt));
+            $query->join('LEFT OUTER',$db->quoteName('#__xbbookperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.book_id'));
+            $query->where('p.person_id = '.$db->quote($pfilt));
         	$ptype = $this->getState('filter.pertype');
         	if ($ptype != '') {
         		$query->where('p.role = '.$db->quote($ptype));
@@ -114,6 +112,7 @@ class XbbooksModelBooks extends JModelList
         //filter by character 
         $chfilt = $this->getState('filter.charfilt');
         if (is_numeric($chfilt)) {
+            $query->join('LEFT OUTER',$db->quoteName('#__xbbookcharacter', 'ch') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('ch.book_id'));
             $query->where('ch.char_id = '.$db->quote($chfilt));
         }
         
@@ -192,13 +191,13 @@ class XbbooksModelBooks extends JModelList
             $roles = array_column($item->people,'role');
             $item->authcnt = count(array_keys($roles, 'author'));
             $item->editcnt = count(array_keys($roles, 'editor'));
-            $item->othercnt = count(array_keys($roles, 'other'));
             $item->mencnt = count(array_keys($roles, 'mention'));
+            $item->othercnt = count($item->people) - $item->authcnt - $item->editcnt - $item->mencnt;
             
             $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','comma',true,5);
             $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','comma',true,5);
-            $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','comma',true,4);
             $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','comma',true,4);
+            $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','comma',true,4);
             
             $item->chars = XbbooksGeneral::getBookChars($item->id);
             $item->charcnt = (empty($item->chars)) ? 0 : count($item->chars);

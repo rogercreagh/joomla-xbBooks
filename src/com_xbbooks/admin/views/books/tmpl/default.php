@@ -31,6 +31,7 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_PUBYEARCOL'),
 	'id'=>'id','first_read'=>Text::_('XBBOOKS_FIRST_READ'),'last_read'=>Text::_('XBBOOKS_LAST_READ'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+    'pcnt'=>Text::_('XBCULTURE_PEOPLE'),'gcnt'=>Text::_('XBCULTURE_GROUPS'),'ccnt'=>Text::_('XBCULTURE_CHARACTERS'),
     'published'=>Text::_('XBCULTURE_STATUS'),'ordering'=>Text::_('XBCULTURE_ORDERING'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
 );
 
@@ -43,7 +44,6 @@ if ($saveOrder) {
 }
 
 
-$nocover = "media/com_xbbooks/images/nocover.jpg";
 $nofile = "media/com_xbbooks/images/nofile.jpg";
 
 $belink = 'index.php?option=com_xbbooks&view=book&task=book.edit&id=';
@@ -105,10 +105,10 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo HTMLHelper::_('searchtools.sort', '', 'ordering', 
 						    $listDirn, $listOrder, null, 'asc', 'XBCULTURE_HEADING_ORDERING_DESC', 'icon-menu-2'); ?>
 					</th>
-					<th class="hidden-phone center" style="width:25px;">
+					<th class="hidden-phone center" style="width:20px;">
 						<?php echo HTMLHelper::_('grid.checkall'); ?>
 					</th>
-					<th class="nowrap center" style="width:55px">
+					<th class="nowrap center" style="width:50px">
 						<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
 					</th>
 					<th class="center" style="width:80px">
@@ -119,13 +119,13 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						' <span class="xb095;">'.
      						Text::_('XBCULTURE_AUTHOR').', '.
      						HTMLHelper::_('searchtools.sort','XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder ).' '.
-    					   '</span>';
+    					    '</span>';
 						?>
 					</th>					
 					<th>
 						<?php echo Text::_('XBCULTURE_SUMMARY');?>
 					</th>
-					<th class="hidden-phone" style="width:15%;">
+					<th class="hidden-phone">
 						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
 					<th>
@@ -136,7 +136,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';						
 						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
-					<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
+					<th class="nowrap hidden-tablet hidden-phone">
 						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
 					</th>
     				<th>[pv]</th>
@@ -232,14 +232,14 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							<?php echo $item->authlist; ?>
 						<?php endif; ?>
 						<?php if($item->othercnt>0) :?>
-							<br /><span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
+							<br /><span class="xbnit xb08 hasTooltip"  style="margin:0;" title data-original-title="
 								<?php echo strip_tags($item->otherlist); ?>
 								">
 							<?php echo $item->othercnt.' '.Text::_('XBBOOKS_OTHER_ROLES_LISTED'); ?></span>
 						<?php endif; ?>
 						<br />
 						</span>
-							<span class="xb09">
+							<span class="xb08">
 								<?php echo $item->pubyear > 0 ? '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').': </span>'.$item->pubyear : ''; ?>						
 							</span>
 						</p>						

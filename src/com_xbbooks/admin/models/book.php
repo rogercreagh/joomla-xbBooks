@@ -180,16 +180,7 @@ class XbbooksModelBook extends JModelAdmin {
         if (empty($table->alias)) {
             $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
-        //if acq_date empty then if last_read is set copy it to acq_date
-        //if acq_date empty and last_read not set then set acq_date to today
-//         if (empty($table->acq_date)) {
-//             if (!empty($table->last_read)) {
-//                 $table->acq_date = $table->last_read;
-//             } else {
-//         	   //default to today
-//             	$table->acq_date = $date->toSql();
-//             }
-//         }            
+
         if (empty($table->created)) {
             $table->created = $date->toSql();
         }
@@ -265,7 +256,11 @@ class XbbooksModelBook extends JModelAdmin {
             $query->from('#__xbbookperson AS ba');
             $query->innerjoin('#__xbpersons AS a ON ba.person_id = a.id');
             $query->where('ba.book_id = '.(int) $this->getItem()->id);
-            $query->where('ba.role = "'.$role.'"');
+            if ($role == 'other') {
+                $query->where($db->qn('ba.role')." NOT IN ('author','editor','mention')");
+            } else {
+                $query->where('ba.role = "'.$role.'"');
+            }
             $query->order('ba.listorder ASC');
             $db->setQuery($query);
             return $db->loadAssocList();
@@ -405,57 +400,58 @@ class XbbooksModelBook extends JModelAdmin {
      
     function storeBookPersons($book_id, $role, $personList) {
         $db = Factory::getDbo();
-       
         //delete existing role list
-        $db = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query->delete($db->quoteName('#__xbbookperson'));
-        $query->where('book_id = '.$book_id.' AND role = "'.$role.'"');
-        $db->setQuery($query);
-        $db->execute();
-        //restore the new list
-        $listorder = 0;
-         foreach ($personList as $pers) {
-             $role = ($pers['role']=='') ? $pers['newrole'] : $pers['role'];
-             if (($role !='') && ($pers['person_id'] > 0)) {
-             	$listorder ++;
-                $query = $db->getQuery(true);
-                $query->insert($db->quoteName('#__xbbookperson'));
-                $query->columns('book_id,person_id,role,role_note,listorder');
-                $query->values('"'.$book_id.'","'.$pers['person_id'].'","'.$role.'","'.$pers['role_note'].'","'.$listorder.'"');
-                $db->setQuery($query);
-                try {
-                    $db->execute();
-                }
-                catch (\RuntimeException $e) {
-                    throw new \Exception($e->getMessage(), 500);
-                    return false;
+        $where = $db->qn('book_id').' = '.$db->q($book_id);
+        if ($role == 'other') {
+            $where .= ' AND '.$db->qn('role').' NOT IN ('.$db->q('author').','.$db->q('editor').','.$db->q('mention').')';
+        } else {
+            $where .= ' AND '.$db->qn('role').' = '.$db->q($role);
+        }
+        if (XbcultureHelper::deleteFromTable('#__xbbookperson', $where)) {            
+            //restore the new list
+            $listorder = 0;
+            foreach ($personList as $item) {
+                if ($item['person_id']>0) {
+                     if ($role == 'other') {
+                         $thisrole = ($item['role']=='') ? $item['newrole'] : $item['role'];
+                     } else {
+                         $thisrole = $role;
+                     }
+                     if ($role != '') {
+                     	$listorder ++;
+                        $query = $db->getQuery(true);
+                        $query->insert($db->quoteName('#__xbbookperson'));
+                        $query->columns('book_id,person_id,role,role_note,listorder');
+                        $query->values($db->q($book_id).','.$db->q($item['person_id']).','.$db->q($thisrole).','.$db->q($item['role_note']).','.$db->q($listorder));
+                        $db->setQuery($query);
+                        try {
+                            $db->execute();
+                        }
+                        catch (\RuntimeException $e) {
+                            throw new \Exception($e->getMessage(), 500);
+                            return false;
+                        }                     
+                     }
                 }
             }
         }
-
     }
 
     function storeBookGroups($book_id, $grpList) {
         $db = Factory::getDbo();
-        
         //delete existing group list
-        $db = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query->delete($db->quoteName('#__xbbookgroup'));
-        $query->where('book_id = '.$book_id);
-        $db->setQuery($query);
-        $db->execute();
+        $where = $db->qn('book_id').' = '.$db->q($book_id);
+        if (XbcultureHelper::deleteFromTable('#__xbbookgroup', $where)) {
         //restore the new list
         $listorder = 0;
-        foreach ($grpList as $grp) {
-            $role = ($grp['role']=='') ? $grp['newrole'] : $grp['role'];
-            if (($role !='') && ($grp['group_id'] > 0)) {
+        foreach ($grpList as $item) {
+            $role = ($item['role']=='') ? $item['newrole'] : $item['role'];
+            if (($role !='') && ($item['group_id'] > 0)) {
                 $listorder ++;
                 $query = $db->getQuery(true);
                 $query->insert($db->quoteName('#__xbbookgroup'));
                 $query->columns('book_id,group_id,role,role_note,listorder');
-                $query->values('"'.$book_id.'","'.$grp['group_id'].'","'.$grp['role'].'","'.$grp['role_note'].'","'.$listorder.'"');
+                $query->values('"'.$book_id.'","'.$item['group_id'].'","'.$item['role'].'","'.$item['role_note'].'","'.$listorder.'"');
                 $db->setQuery($query);
                 try {
                     $db->execute();
@@ -469,22 +465,19 @@ class XbbooksModelBook extends JModelAdmin {
     }
     
     function storeBookChars($book_id, $charList) {
+        $db = Factory::getDbo();
         //delete existing char list
-        $db = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query->delete($db->quoteName('#__xbbookcharacter'));
-        $query->where('book_id = '.$book_id);
-        $db->setQuery($query);
-        $db->execute();
+        $where = $db->qn('book_id').' = '.$db->q($book_id);
+        if (XbcultureHelper::deleteFromTable('#__xbbookcharacter', $where)) {
         //restore the new list
         $listorder = 0;
-        foreach ($charList as $char) {
-            if ($pers['char_id'] > 0) {
+        foreach ($charList as $item) {
+            if ($item['char_id'] > 0) {
                 $listorder ++;
                 $query = $db->getQuery(true);
                 $query->insert($db->quoteName('#__xbbookcharacter'));
                 $query->columns('book_id,char_id,char_note,listorder');
-                $query->values('"'.$book_id.'","'.$char['char_id'].'","'.$char['char_note'].'","'.$listorder.'"');
+                $query->values('"'.$book_id.'","'.$item['char_id'].'","'.$item['char_note'].'","'.$listorder.'"');
                 $db->setQuery($query);
                 $db->execute();              
             }

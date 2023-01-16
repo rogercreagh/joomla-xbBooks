@@ -123,10 +123,16 @@ class XbbooksHelper extends ContentHelper
 					$vName == 'tag'
 					);
 			JHtmlSidebar::addEntry(
-	            Text::_('XBCULTURE_ICONMENU_IMPORTEXPORT'),
+	            Text::_('XBCULTURE_ICONMENU_DATAMAN'),
 	            'index.php?option=com_xbbooks&view=importexport',
 	            $vName == 'importexport'
 	        );
+			JHtmlSidebar::addEntry(
+			    Text::_('XBCULTURE_ICONMENU_OPTIONS'),
+			    'index.php?option=com_config&view=component&component=com_xbbooks',
+			    $vName == 'options'
+			    );
+			
 		} else {
 			JHtmlSidebar::addEntry(
 			    Text::_('XBBOOKS_BOOKS_DASHBOARD'),

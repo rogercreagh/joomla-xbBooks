@@ -94,6 +94,11 @@
 				>
 					xbbooks_iconmenu_people
 			</menu>
+			<menu link="option=com_xbpeople&amp;view=groups" 
+				img="class:xbpeople-groups"
+				>
+					xbculture_iconmenu_groups					
+			</menu>
 			<menu link="option=com_xbbooks&amp;view=characters" 
 				img="class:xbbooks-persons" 
 				>
@@ -114,6 +119,10 @@
 				>
 					xbbooks_iconmenu_dataman
 			</menu>
+			<menu link="option=com_config&amp;view=component&amp;component=com_xbbooks"
+					>xbculture_iconmenu_options				
+			</menu>
+			
 		</submenu>
 	</administration>
 	

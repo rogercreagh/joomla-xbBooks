@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbBooks
- * @filesource site/views/booklist/tmpl/onecol.php
+ * @filesource site/views/booklist/tmpl/detailslist.php
  * @version 1.0.3.1 7th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021

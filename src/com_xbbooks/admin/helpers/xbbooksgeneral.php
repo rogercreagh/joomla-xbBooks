@@ -85,6 +85,7 @@ class XbbooksGeneral {
         $db->setQuery($query);
         $people = $db->loadObjectList();
         
+        
         foreach ($people as $i=>$p){
             $p->link = Route::_($plink . $p->id);
             $p->name = ($p->firstname!='') ? $p->firstname.' ' : '';

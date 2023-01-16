@@ -252,12 +252,16 @@ class XbbooksModelBooklist extends JModelList {
 		foreach ($items as $i=>$item) {
 		    if ($item->pcnt>0) {
     		    $item->people = XbbooksGeneral::getBookPeople($item->id);
-    		    $item->authlist = XbcultureHelper::makeLinkedNameList($item->people,'comma','ul',true,4);
     		    $roles = array_column($item->people,'role');
-    		    $item->authcnt = count(array_keys($roles, 'author'));
-    		    $item->editcnt = count(array_keys($roles, 'editor'));
-    		    $item->mencnt = count(array_keys($roles, 'mention'));
-    		    $item->othcnt = count($roles) - $item->authcnt - $item->editcnt - $item->mencnt;
+    		    $rolecnts = array_count_values($roles);
+    		    $item->authcnt = array_key_exists('author', $rolecnts) ? $rolecnts['author'] :0;
+    		    $item->editcnt = array_key_exists('editor', $rolecnts) ? $rolecnts['editor'] :0;
+    		    $item->mencnt = array_key_exists('mention', $rolecnts) ? $rolecnts['mention'] :0;
+    		    $item->othercnt = count($roles) - $item->authcnt - $item->editcnt - $item->mencnt;
+    		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','ul',2,5);
+    		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','ul',2,5);
+    		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','ul',2,5);
+    		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','ul',2,4);
 		    }
 		    if ($item->ccnt>0) {
 		        $item->chars = XbbooksGeneral::getBookChars($item->id);
@@ -265,20 +269,20 @@ class XbbooksModelBooklist extends JModelList {
 		    }
 		    if ($item->gcnt>0) {
 		        $item->groups = XbbooksGeneral::getBookGroups($item->id);
-		        $item->grouplist = XbcultureHelper::makeLinkedNameList($item->groups,'','ul',true,5);
+		        $item->grouplist = XbcultureHelper::makeLinkedNameList($item->groups,'','ul',true,4);
 		    }
 			
 			$item->reviews = XbbooksGeneral::getBookReviews($item->id);
 			$item->revcnt = count($item->reviews);
-			
-			//make author/editor lists
-			$item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','comma',true,5) ;
-			$item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','comma',true,5);
-			
+						
 			$item->tags = $tagsHelper->getItemTags('com_xbbooks.book' , $item->id);			
 			
 		} //foreach item
 		return $items;
 	}	
+	
+	function countRoles($role,array $items) {
+	    
+	}
 		
 }

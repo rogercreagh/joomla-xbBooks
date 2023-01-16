@@ -50,7 +50,7 @@ class XbbooksModelBooks extends JModelList
 		
 		$query->select('(SELECT COUNT(DISTINCT(bp.person_id)) FROM #__xbbookperson AS bp WHERE bp.book_id = a.id) AS pcnt');
 		$query->select('(SELECT COUNT(DISTINCT(bg.group_id)) FROM #__xbbookgroup AS bg WHERE bg.book_id = a.id) AS gcnt');
-		$query->select('(SELECT COUNT(DISTINCT(bc.char_id)) FROM #__xbbookcharacter AS bgc WHERE bg.book_id = a.id) AS ccnt');
+		$query->select('(SELECT COUNT(DISTINCT(bc.char_id)) FROM #__xbbookcharacter AS bc WHERE bc.book_id = a.id) AS ccnt');
 		
 		$query->select('c.title AS category_title');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/view.html.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.3.3 16th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -114,7 +114,8 @@ class XbbooksViewDashboard extends JViewLegacy
     protected function addToolbar() {
         $canDo = XbbooksHelper::getActions();
         $bar = Toolbar::getInstance('toolbar');
-           
+        $sess = Factory::getSession();
+        
         if ($this->xbpeople_ok) {
             ToolBarHelper::title(Text::_( 'XBCULTURE_XBBOOKS' ).': '.Text::_('XBCULTURE_DASHBOARD'),'info-2');
             $samplesexist = XbcultureHelper::getIdFromAlias('#__categories', 'sample-books','com_xbbooks');
@@ -128,8 +129,13 @@ class XbbooksViewDashboard extends JViewLegacy
 	        }
 	       	ToolbarHelper::custom('dashboard.people', 'info-2', '', 'xbPeople', false) ;
 	        
-	        ToolBarHelper::custom('dashboard.films', 'screen', '', 'xbFilms', false) ;
-	        ToolBarHelper::custom('dashboard.events', 'music', '', 'xbEvents', false) ;
+	       	if ($sess->get('xbfilms_ok',false)==1) {
+	       	    ToolBarHelper::custom('dashboard.films', 'screen', '', 'xbFilms', false) ;
+	       	}
+	       	if ($sess->get('xbevents_ok',false)==1) {
+	       	    ToolBarHelper::custom('dashboard.events', 'eye', '', 'xbEvents', false) ;
+	       	}
+	        
 	        if ($canDo->get('core.admin')) {
 	            ToolBarHelper::preferences('com_xbbooks');
 	        }

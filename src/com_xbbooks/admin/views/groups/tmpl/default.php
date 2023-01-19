@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/groups/tmpl/default.php
- * @version 1.0.3.1 7th January 2023
+ * @version 1.0.3.4 19th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -165,7 +165,7 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 					</td>
 					<td class="center">
 						<div class="btn-group">
-							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'person.', true, 'cb'); ?>
+							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'groups.', true, 'cb'); ?>
 							<?php if ($item->note!=''){ ?>
 								<span class="btn btn-micro active hasTooltip" title="" 
 									data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
@@ -296,17 +296,6 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-        <?php // load the modal for displaying the batch options
-//             echo HTMLHelper::_(
-//             'bootstrap.renderModal',
-//             'collapseModal',
-//             array(
-//                 'title' => Text::_('XBCULTURE_BATCH_TITLE'),
-//                 'footer' => $this->loadTemplate('batch_footer')
-//             ),
-//             $this->loadTemplate('batch_body')
-//         ); 
-?>
 	<?php endif; ?>
 	<input type="hidden" name="task" value=""/>
 	<input type="hidden" name="boxchecked" value="0"/>

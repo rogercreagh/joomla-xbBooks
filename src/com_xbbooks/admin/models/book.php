@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 1.0.3.2 8th January 2023
+ * @version 1.0.3.4 19th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -136,7 +136,7 @@ class XbbooksModelBook extends JModelAdmin {
             $data = $this->getItem();          
 	        $data->authorlist=$this->getBookPeoplelist('author');
 	        $data->editorlist=$this->getBookPeoplelist('editor');
-	        $data->otherlist=$this->getBookPeoplelist('other');
+	        $data->bookotherlist=$this->getBookPeoplelist('other');
 	        $data->menlist=$this->getBookPeoplelist('mention');
 	        $data->charlist=$this->getBookCharlist();
 	        $data->grouplist=$this->getBookGrouplist();
@@ -360,7 +360,7 @@ class XbbooksModelBook extends JModelAdmin {
         	//the checkedouttime has been set to null in the table constructor
         	$this->storeBookPersons($bid,'author', $data['authorlist']);
         	$this->storeBookPersons($bid,'editor', $data['editorlist']);
-        	$this->storeBookPersons($bid,'other', $data['otherlist']);
+        	$this->storeBookPersons($bid,'other', $data['bookotherlist']);
         	$this->storeBookPersons($bid,'mention', $data['menlist']);
             
         	$this->storeBookChars($bid, $data['charlist']);

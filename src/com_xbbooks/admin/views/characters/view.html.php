@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/view.html.php
- * @version 0.10.0.0 20th November 2022
+ * @version 1.0.3.4 19th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -68,28 +68,11 @@ class XbbooksViewCharacters extends JViewLegacy {
             ToolbarHelper::editList('characters.charedit');
         }
         
-/*         
         if ($canDo->get('core.edit.state')) {
-            ToolBarHelper::publish('character.publish', 'JTOOLBAR_PUBLISH', true);
-            ToolBarHelper::unpublish('character.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            ToolBarHelper::archiveList('character.archive');
+            ToolBarHelper::publish('characters.publish', 'JTOOLBAR_PUBLISH', true);
+            ToolBarHelper::unpublish('characters.publish', 'JTOOLBAR_UNPUBLISH', true);
         }
-        if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete')) {
-           ToolBarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'character.delete','JTOOLBAR_EMPTY_TRASH');
-        } else if ($canDo->get('core.edit.state')) {
-           ToolBarHelper::trash('character.trash');
-        }
-        
-        // Add a batch button
-        if ($canDo->get('core.create') && $canDo->get('core.edit')
-        		&& $canDo->get('core.edit.state'))
-        {
-        	// we use a standard Joomla layout to get the html for the batch button
-        	$layout = new FileLayout('joomla.toolbar.batch');
-        	$batchButtonHtml = $layout->render(array('title' => JText::_('JTOOLBAR_BATCH')));
-        	$bar->appendButton('Custom', $batchButtonHtml, 'batch');
-        }
- */        
+
         ToolbarHelper::custom(); //spacer
         	ToolbarHelper::custom('characters.allchars', 'users', '', 'All Characters', false) ;
         

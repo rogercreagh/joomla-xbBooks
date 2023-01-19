@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/groups/view.html.php
- * @version 1.0.3.1 8th January 2023
+ * @version 1.0.3.4 19th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2023
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -70,29 +70,11 @@ class XbbooksViewGroups extends JViewLegacy {
         if ($canDo->get('core.edit') || ($canDo->get('core.edit.own'))) {
             ToolbarHelper::editList('groups.groupedit');
         }
-/* 
         if ($canDo->get('core.edit.state')) {
-            ToolbarHelper::publish('groups.publish', 'JTOOLBAR_PUBLISH', true);
-            ToolbarHelper::unpublish('group.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            ToolBarHelper::archiveList('group.archive');
+            ToolBarHelper::publish('groups.publish', 'JTOOLBAR_PUBLISH', true);
+            ToolBarHelper::unpublish('groups.publish', 'JTOOLBAR_UNPUBLISH', true);
         }
-        if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete')) {
-           ToolBarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'group.delete','JTOOLBAR_EMPTY_TRASH');
-        } else if ($canDo->get('core.edit.state')) {
-           ToolBarHelper::trash('group.trash');
-        }
-        // Add a batch button
-        if ($canDo->get('core.create') && $canDo->get('core.edit')
-        		&& $canDo->get('core.edit.state'))
-        {
-        	// we use a standard Joomla layout to get the html for the batch button
-        	$layout = new FileLayout('joomla.toolbar.batch');
-        	$batchButtonHtml = $layout->render(array('title' => Text::_('JTOOLBAR_BATCH')));
-        	$bar->appendButton('Custom', $batchButtonHtml, 'batch');
-        }
-        ToolbarHelper::custom(); //spacer
-         
- */ 
+
         ToolbarHelper::custom(); //spacer
         ToolbarHelper::custom('groups.allgroups', 'users', '', 'All Groups', false) ;
 
@@ -105,7 +87,7 @@ class XbbooksViewGroups extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(Text::_('XBPEOPLE_TITLE_GROUPS_ADMIN'));
+        $document->setTitle(Text::_('XBBOOKS_ADMIN_GROUPS'));
     }
     
 }

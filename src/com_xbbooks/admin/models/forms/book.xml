@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/book.xml v1.0.1.3 5th January 2023 -->
+<!-- xbBooks admin/models/forms/book.xml v1.0.3.4 19th January 2023 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
@@ -185,10 +185,9 @@
 			</form>
 		</field>						
 			
-		<field name= "bookotherlist"
-			type= "subform"
-			label= "XBCULTURE_FIELD_BOOKOTHER_LABEL"
-			description="XBCULTURE_FIELD_BOOKOTHER_DESC"
+		<field name= "bookotherlist" type= "subform"
+			label= "XBCULTURE_OTHER_ROLES"
+			description="XBCULTURE_OTHER_ROLES_DESC"
 			min= "0" max= "10"
 			multiple= "true"
 			buttons= "add,remove,move"
@@ -266,22 +265,8 @@
 			min="0" max="10" multiple="true"
 			buttons= "add,remove,move"
 			layout="joomla.form.field.subform.repeatable-table"
+			formsource="administrator/components/com_xbpeople/models/forms/extlinksform.xml"
 			>
-				<form>
-					<field
-						name="link_text" type="text"
-						label="XBBOOKS_FIELD_LINKTEXT_LABEL" size="20" maxlength="25"
-						/>
-					<field
-						name="link_url" type="url"
-						label="XBBOOKS_FIELD_URL_LABEL"
-						size="40"
-  					/>
-					<field
-						name="link_desc" type="text"
-						label="Description" size="40" maxlength="190"
-						/>
-				</form>
 			</field>
 			
                 

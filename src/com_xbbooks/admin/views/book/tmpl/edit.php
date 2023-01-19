@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/tmpl/edit.php
- * @version 1.0.2.2 6th January 2023
+ * @version 1.0.3.4 19th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -94,34 +94,35 @@ $document->addStyleDeclaration($style);
     		<?php endif; ?>
         </div>
     </div>
-    <div class="row-fluid form-horizontal">
+    <div class="row-fluid form-vertical">
       <div class="span12">
 		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
 
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBCULTURE_DETAILS')); ?>
-		<div class="row-fluid">
-    		<div class="span6">
-    			<div class="row_fluid">
-    				<div class="span6">
-                 		<?php echo $this->form->renderField('first_read'); ?>
+		<div class="rowfluid">
+			<div class="span9">
+				<div class="xbmw1200">
+					<?php echo $this->form->renderField('ext_links'); ?>
+				</div>			
+        		<div class="row-fluid">
+            		<div class="span9">
+              			<h4>Content</h4>
+              			<p>Synopsis</p>
+        				<?php echo $this->form->getInput('synopsis'); ?>
         			</div>
-        			<div class="span6">
-        				<?php echo $this->form->renderField('last_read'); ?>
-        			</div>
-				</div>
-      			<h4>Content</h4>
-      			<p>Synopsis</p>
-				<?php echo $this->form->getInput('synopsis'); ?>
+            		<div class="span3 form-vertical">
+                  		<h4>Book Info</h4>
+                        <?php echo $this->form->renderField('first_read'); ?>
+                		<?php echo $this->form->renderField('last_read'); ?>
+                  		<?php echo $this->form->renderField('fiction'); ?>   					
+                		<?php echo $this->form->renderField('format'); ?>
+                		<?php echo $this->form->renderField('orig_lang'); ?>
+                		<?php echo $this->form->renderField('publisher'); ?>
+                		<?php echo $this->form->renderField('pubyear'); ?>
+                 		<?php echo $this->form->renderField('edition'); ?>
+           			</div>
+           		</div>
 			</div>
-    		<div class="span3 form-vertical">
-          		<h4>Book Info</h4>
-          		<?php echo $this->form->renderField('fiction'); ?>   					
-        		<?php echo $this->form->renderField('format'); ?>
-        		<?php echo $this->form->renderField('orig_lang'); ?>
-        		<?php echo $this->form->renderField('publisher'); ?>
-        		<?php echo $this->form->renderField('pubyear'); ?>
-         		<?php echo $this->form->renderField('edition'); ?>
-   			</div>
 			<div class="span3">
  				<fieldset class="form-vertical">
            			<?php echo $this->form->renderField('cover_img'); ?>
@@ -154,9 +155,7 @@ $document->addStyleDeclaration($style);
  				<h4><?php echo Text::_('XBCULTURE_STATUS_CATS_TAGS'); ?></h4> 				
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>
-   		</div>
-			<hr />
-			<?php echo $this->form->renderField('ext_links'); ?>
+		</div>
  		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', Text::_('XBCULTURE_PEOPLE_U')); ?>
   		<div class="row-fluid">
@@ -164,7 +163,6 @@ $document->addStyleDeclaration($style);
 			<h4><?php echo Text::_('XBCULTURE_BOOK_U').' '.Text::_('XBCULTURE_PEOPLE_U');?></h4>
 				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PEEP_NOTE');?> </p>
 				<?php echo $this->form->renderField('editorlist'); ?>
-				<?php echo $this->form->renderField('otherlist'); ?>
 				<?php echo $this->form->renderField('menlist'); ?>
 			</div>
     		<div class="span6 form-vertical">
@@ -175,6 +173,9 @@ $document->addStyleDeclaration($style);
 				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
 				<?php echo $this->form->renderField('grouplist'); ?>
 			</div>
+		</div>
+		<div class="xbmw1200 xbcentre">
+			<?php echo $this->form->renderField('bookotherlist'); ?>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('XBBOOKS_FIELDSET_PUBLISHING')); ?>

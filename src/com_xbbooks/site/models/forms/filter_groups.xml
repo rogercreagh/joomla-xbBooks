@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/models/forms/filter_groups.xml v1.0.3.5 19th January 2023 -->
+<form>
+    <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
+        <field name="search"
+            type="text"
+            label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description=""
+            hint="JSEARCH_FILTER"
+        /> 
+   		<field
+			name="category_id" type="xbitemcats"
+			label="XBCULTURE_CATFILT_LABEL"
+			description="XBCULTURE_CATFILT_DESC"
+			extension="com_xbpeople"
+			itemtable="#__xbpersons"
+			published="1" multiple="true"
+			onchange="this.form.submit();"
+			class="multipleCats"
+			>
+		</field>
+       
+		<field
+			name="tagfilt" type="tag"
+			label="XBCULTURE_TAGFILT_LABEL"
+			description="XBCULTURE_TAGFILT_DESC"
+			multiple="true"
+			class="multipleTags"
+			mode="ajax"
+			onchange="this.form.submit();"
+		/>
+		<field name="taglogic" type="radio"
+			default="0"
+			label="XBCULTURE_TAGFILT_MULTI_LABEL"
+			description="XBCULTURE_TAGFILT_MULTI_DESC"
+  			class="btn-group btn-small radiotop"
+			showon="tagfilt!:"
+		>
+				<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
+				<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
+				<option value="2" onchange="this.form.submit();">XBCULTURE_NONE</option>
+		</field>	
+				
+    </fields>
+
+</form>

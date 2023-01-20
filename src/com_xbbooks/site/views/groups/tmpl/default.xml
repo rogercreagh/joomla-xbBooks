@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/characters/tmpl/default.xml v0.9.9.4 28th July 2022 -->
+<!-- xbBooks site/views/groups/tmpl/default.xml v1.0.3.5 19th January 2023 -->
 <metadata>
-	<layout title="Book Characters List">
-		<message>Displays a list (table) of characters associated with books. Option to restrict to single category and filter by tags. For a list including films as well as books use the view from xbPeople</message>
+	<layout title="Book Groups List">
+		<message>Displays a list (table) of groups. Option to restrict to single category and filter by tags.</message>
 	</layout>
-	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">
+	<fields name="params" addfieldpath="administrator/components/com_xbpeople/models/fields">
 <!-- Basic options. -->
 		<fieldset name="basic" label="Options">
-			<field name="show_cpiccol" type="radio"
+			<field name="show_gpiccol" type="radio"
 				label="Image Column"
 				description="Show image column by default - can override in menu options"
 				class="btn-group btn-group-yesno btn-small"
@@ -17,7 +17,7 @@
 				<option value="1">Show</option>
 			</field>	
 	 
-	 		<field name="show_csumcol" type="radio"
+	 		<field name="show_gsumcol" type="radio"
 				label="Summary Column"
 				description="Show summary column by default - can override in menu options"
 				class="btn-group btn-group-yesno btn-small"
@@ -27,26 +27,17 @@
 				<option value="1">Show</option>
 			</field>	
 			
-			<field name="showccnts" type="radio"
+			<field name="showgcnts" type="radio"
 				label="Show counts"
-				description="Show counts for books and films per character"
+				description="Show counts for books and films per person"
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
 				<option value="0" >JHIDE</option>
 				<option value="1">JSHOW</option>
 			</field>
-			<field name="showclists" type="list"
-				label="Show item lists"
-				description="Show lists of books/films and roles as popover on the count (more compact) or full list. Popover will be click to show, and in both cases title will be linked to item entry"
-				useglobal="true"
-				showon="showcnts:1"
-				>
-				<option value="0" >JHIDE</option>
-				<option value="1" >Show as popover</option>
-				<option value="2" >Show as list</option>
-			</field>
-			<field name="show_ccat" type="list"
+
+			<field name="show_gcat" type="list"
 		        class="btn-group btn-group-yesno"
 		        label="Show Category"
 		        description="Category will remain hidden if the global Show Category option is No (on General Tab)"
@@ -56,7 +47,7 @@
 					<option value="1">Yes - not linked</option>
 					<option value="2">Yes - linked</option>
 			</field>
-			<field name="show_ctags" type="radio"
+			<field name="show_gtags" type="radio"
 		        class="btn-group btn-group-yesno"
 		        label="Show Tags"
 		        description="If both Category and Tag are hidden the the column will be hidden"
@@ -80,10 +71,12 @@
 				<option value="1">JYES</option>
 			</field>	
 			<field
-				name="menu_category_id" type="category"
+				name="menu_category_id" type="catsubtree"
 				label="XBCULTURE_CATFILT_LABEL"
-				extension="com_xbpeople"
 				description="XBCULTURE_CATFILT_DESC"
+				extension="com_xbpeople"
+				itemtype="char"
+				published="1"
 				>
 					<option value="0">XBCULTURE_ALL_CATS</option>
 			</field>

@@ -103,6 +103,7 @@ class com_xbbooksInstallerScript
         $delfiles .= ',/views/characters/tmpl/default_batch_body.php,/views/characters/tmpl/default_batch_footer.php';
         $delfiles .= ',/views/groups/tmpl/default_batch_body.php,/views/groups/tmpl/default_batch_footer.php';
         $delfiles .= ',/views/persons/tmpl/default_batch_body.php,/views/persons/tmpl/default_batch_footer.php';
+        $delfiles .= ',/models/fields/otherrole.php';
         $delfiles = explode(',',$delfiles);
     	$cnt = 0; $dcnt=0;
     	$ecnt = 0;

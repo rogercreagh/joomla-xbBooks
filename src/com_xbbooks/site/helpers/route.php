@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/helpers/xbbooks.php
- * @version 0.8.1 14th March 2021
+ * @version 1.0.3.5 19th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -167,6 +167,17 @@ class XbbooksHelperRoute
         $items  = self::getItems();
         foreach ($items as $item) {
             if (isset($item->query['view']) && $item->query['view'] === 'people' &&
+                (empty($item->query['layout']) || $item->query['layout'] === 'default')) {
+                    return $item->id;
+                }
+        }
+        return null;
+    }
+    
+    public static function getGroupsRoute() {
+        $items  = self::getItems();
+        foreach ($items as $item) {
+            if (isset($item->query['view']) && $item->query['view'] === 'groups' &&
                 (empty($item->query['layout']) || $item->query['layout'] === 'default')) {
                     return $item->id;
                 }

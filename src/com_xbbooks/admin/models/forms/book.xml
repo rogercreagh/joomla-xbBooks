@@ -219,6 +219,7 @@
 				<field name="person_id" type="allpeople" label="XBBOOKS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
+				<field name="role" type="hidden" />
 				<field name="role_note" type="text" label="XBCULTURE_NOTE" size="20" maxlength="200"
 				/>
 			</form>

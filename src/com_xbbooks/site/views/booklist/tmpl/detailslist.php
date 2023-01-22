@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/detailslist.php
- * @version 1.0.3.1 7th January 2023
+ * @version 1.0.3.6 19th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,7 +50,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist&layout=onecol'); ?>" method="post" name="adminForm" id="adminForm">       
+	<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=booklist&layout=detailslist'); ?>" method="post" name="adminForm" id="adminForm">       
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
@@ -130,20 +130,26 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 	                        	<span class="xbnit">
 	                        		<?php echo $item->authcnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->authlist; 
+                        		<?php echo $item->authlist['commalist']; 
                         	} ?>                          	
 							<br />
 							<?php if ($item->editcnt >0 ) : ?>
 	                        	<span class="icon-checkmark-circle"></span>&nbsp;<span class="xbnit">
 	                        		<?php echo $item->editcnt>1 ? Text::_('XBCULTURE_EDITORS') : Text::_('XBCULTURE_EDITOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->editlist; ?>
+                        		<?php echo $item->editlist['commalist']; ?>
                         	<br />
 							<?php endif; ?>
-							<?php $othercnt = $item->othcnt + $item->mencnt;
+							<?php $othercnt = $item->othercnt + $item->mencnt + $item->gcnt;
 							if ($othercnt>0) : ?>
-								<span class="icon-users"></span>&nbsp;
-								<span class="xbnit"><?php echo $othercnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?> </span>
+								<span class="icon-user"></span>&nbsp;
+								<details>
+    								<summary><span class="xbnit"><?php echo $othercnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?></span>
+    								</summary>
+    								<?php echo ($item->othercnt>0) ? $item->otherlist['ullist'] : ''; ?>
+    								<?php echo ($item->mencnt>0) ? $item->menlist['ullist'] : ''; ?>
+    								<?php echo ($item->gcnt>0) ? $item->grouplist['ullist'] : ''; ?>
+    							</details>
 								<br />
 							<?php endif; ?>	
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">

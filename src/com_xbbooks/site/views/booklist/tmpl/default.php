@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 1.0.3.3 16th January 2023
+ * @version 1.0.3.6 20th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -161,15 +161,15 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         <?php if($item->editcnt>0) : ?>
                            	<span class="xbnit">
                             	<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
-                            </span>: <?php echo $item->editlist; ?>
+                            </span>: <?php echo $item->editlist['commalist']; ?>
 							<?php if ($item->authcnt == 1) : ?>
 								<br /><span class="xbnit">
 									<?php echo Text::_('XBCULTURE_AUTHOR'); ?>
-								</span>: <?php echo $item->authlist; ?>
+								</span>: <?php echo $item->authlist['commalist']; ?>
 							<?php  elseif ($item->authcnt > 1 ) : ?>
 								<details>
 									<summary><span class="xbnit"><?php echo Text::_('XBCULTURE_AUTHORS'); ?></span></summary>
-									<span class="xb09"><?php echo $item->authlist; ?></span>
+									<span class="xb09"><?php echo $item->authlist['commalist']; ?></span>
 								</details>
 							<?php endif; ?>
                         <?php else : ?>
@@ -179,7 +179,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 	                        	<span class="xbnit">
 	                        		<?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->authlist; 
+                        		<?php echo $item->authlist['commalist']; 
                         	} ?>                          	
                         <?php endif; ?>
 						</p>

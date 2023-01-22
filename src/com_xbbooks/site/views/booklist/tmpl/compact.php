@@ -112,22 +112,22 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         <?php if($item->editcnt>0) : ?>
                            	<span class="xbnit">
                             	<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
-                            </span>: <?php echo $item->editlist; ?>
+                            </span>: <?php echo $item->editlist['commalist']; ?>
 							<?php if ($item->authcnt == 1) : ?>
 								<br /><span class="xbnit">
 									<?php echo Text::_('XBCULTURE_AUTHOR'); ?>
-								</span>: <?php echo $item->authlist; ?>
+								</span>: <?php echo $item->authlist['commalist']; ?>
 							<?php  elseif ($item->authcnt > 1 ) : ?>
 								<details>
 									<summary><span class="xbnit"><?php echo Text::_('XBCULTURE_AUTHORS'); ?></span></summary>
-									<span class="xb09"><?php echo $item->authlist; ?></span>
+									<span class="xb09"><?php echo $item->authlist['commalist']; ?></span>
 								</details>
 							<?php endif; ?>
                         <?php else : ?>
                         	<?php if ($item->authcnt==0) {
                         		echo '<span class="xbnit">'.Text::_('XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
-                        		<?php echo $item->authlist; 
+                        		<?php echo $item->authlist['commalist']; 
                         	} ?>                          	
                         <?php endif; ?>
 						</p>

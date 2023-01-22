@@ -258,18 +258,26 @@ class XbbooksModelBooklist extends JModelList {
     		    $item->editcnt = array_key_exists('editor', $rolecnts) ? $rolecnts['editor'] :0;
     		    $item->mencnt = array_key_exists('mention', $rolecnts) ? $rolecnts['mention'] :0;
     		    $item->othercnt = count($roles) - $item->authcnt - $item->editcnt - $item->mencnt;
-    		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','ul',2,5);
-    		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','ul',2,5);
-    		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','ul',2,5);
-    		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','ul',2,4);
+    		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'author','t',1);
+    		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'editor','t',2);
+    		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'mention','tn',3);
+    		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'other','rt',3);
+
+//     		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','ul',2,5);
+//     		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','ul',2,5);
+//     		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','ul',2,5);
+//     		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','ul',2,4);
+    		    
 		    }
 		    if ($item->ccnt>0) {
 		        $item->chars = XbbooksGeneral::getBookChars($item->id);
-    			$item->charlist = XbcultureHelper::makeLinkedNameList($item->chars,'','ul',true,5);    			
+		        $item->charlist = XbcultureHelper::makeItemLists($item->chars,'','t',1);
+//		        $item->charlist = XbcultureHelper::makeLinkedNameList($item->chars,'','ul',true,5);
 		    }
 		    if ($item->gcnt>0) {
 		        $item->groups = XbbooksGeneral::getBookGroups($item->id);
-		        $item->grouplist = XbcultureHelper::makeLinkedNameList($item->groups,'','ul',true,4);
+		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',3);
+//		        $item->grouplist = XbcultureHelper::makeLinkedNameList($item->groups,'','ul',true,4);
 		    }
 			
 			$item->reviews = XbbooksGeneral::getBookReviews($item->id);

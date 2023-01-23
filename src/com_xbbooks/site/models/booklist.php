@@ -272,7 +272,7 @@ class XbbooksModelBooklist extends JModelList {
 		    }
 		    if ($item->gcnt>0) {
 		        $item->groups = XbbooksGeneral::getBookGroups($item->id);
-		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',5,'pvgmodal');
+		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',5,'gpvgmodal');
 		    }
 			
 			$item->reviews = XbbooksGeneral::getBookReviews($item->id);

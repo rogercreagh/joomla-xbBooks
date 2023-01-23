@@ -46,7 +46,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 
 ?>
 <style type="text/css" media="screen">
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+	.xbpvmodal .modal-body {max-height: calc(100vh - 190px); }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 270px);}
 </style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -106,6 +107,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<h3>
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a>
+								&nbsp;<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb08" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
@@ -147,7 +149,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 								<div class="pull-left"><i class="fas fa-user-friends xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $$item->othercnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?></span>
+    								<summary><span class="xbnit"><?php echo $item->othercnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?></span>
     								</summary>
     								<?php echo $item->otherlist['ullist']; ?>
     							</details>
@@ -158,7 +160,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 								<div class="pull-left"><i class="far fa-user xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $$item->mencnt.' '.Text::_('subjects of book, or mentioned in it'); ?></span>
+    								<summary><span class="xbnit"><?php echo $item->mencnt.' '.Text::_('subjects of book, or mentioned in it'); ?></span>
     								</summary>
     								<?php echo $item->menlist['ullist']; ?>
     							</details>
@@ -219,8 +221,10 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     								    	<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
     									<?php else : 
     								        echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
-    	                                endif;                        								    
-    	                                echo ' on '.HtmlHelper::date($item->reviews[0]->rev_date , 'd M Y');?> 
+    	                                endif;  
+    	                                echo ' on '.HtmlHelper::date($item->reviews[0]->rev_date , 'd M Y');?>
+    	                                &nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;"><i class="far fa-eye"></i></a> 
+    	                                
 								    <?php else : ?>
 								        <details><summary><i>
 								        <?php echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEWS_AVE_RATING');?></i>								    
@@ -241,7 +245,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     										<?php else : 
     								            echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating); 
     	                                   endif;                        								    
-    	                                   echo ' on '.HtmlHelper::date($item->reviews[0]->rev_date , 'd M Y');?> 
+    	                                   echo ' on '.HtmlHelper::date($rev->rev_date , 'd M Y');?>
+    	                                   &nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;"><i class="far fa-eye"></i></a> 
     	                                   <br />
         	                             <?php endforeach; ?>
         	                             </details>
@@ -299,4 +304,65 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 </div>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
+<script>
+jQuery(document).ready(function(){
+//for preview modals
+    jQuery('#ajax-ppvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalppv&tmpl=component');
+    })
+    jQuery('#ajax-gpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalgpv&tmpl=component');
+    })
+    jQuery('#ajax-cpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalcpv&tmpl=component');
+    })
+    jQuery('#ajax-bpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalbpv&tmpl=component');
+    })
+    jQuery('#ajax-rpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalrpv&tmpl=component');
+    })
+});
+</script>
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-gpvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-cpvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1000px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1000px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
 

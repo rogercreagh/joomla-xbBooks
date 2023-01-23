@@ -24,7 +24,7 @@ jQuery(document).ready(function(){
 </div>
 <div class="modal-body">
     <div style="margin:0 30px;">
-		<iframe src="<?php echo JURI::root(); ?>/index.php?option=com_xbbooks&view=review&layout=default&tmpl=component&id="
+		<iframe src="<?php echo JURI::root(); ?>/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id="
 			title="Preview Review" id="pv" class="iframe-full-height"></iframe>   
 	</div>
 </div>

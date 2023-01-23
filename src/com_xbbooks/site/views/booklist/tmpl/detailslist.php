@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/detailslist.php
- * @version 1.0.3.6 19th January 2023
+ * @version 1.0.3.6 23rd January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -311,22 +311,37 @@ jQuery(document).ready(function(){
         // Load view vith AJAX
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalppv&tmpl=component');
     })
+    jQuery('#ajax-ppvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
     jQuery('#ajax-gpvmodal').on('show', function () {
         // Load view vith AJAX
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalgpv&tmpl=component');
     })
+    jQuery('#ajax-gpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
     jQuery('#ajax-cpvmodal').on('show', function () {
         // Load view vith AJAX
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalcpv&tmpl=component');
     })
+    jQuery('#ajax-cpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
     jQuery('#ajax-bpvmodal').on('show', function () {
         // Load view vith AJAX
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalbpv&tmpl=component');
     })
+    jQuery('#ajax-bpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
     jQuery('#ajax-rpvmodal').on('show', function () {
         // Load view vith AJAX
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalrpv&tmpl=component');
     })
+    jQuery('#ajax-rpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
 });
 </script>
 <!-- preview modal windows -->

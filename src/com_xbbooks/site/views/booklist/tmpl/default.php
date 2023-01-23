@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/default.php
- * @version 1.0.3.6 20th January 2023
+ * @version 1.0.3.6 23rd January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -47,7 +47,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 
 ?>
 <style type="text/css" media="screen">
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+	.xbpvmodal .modal-body {max-height: calc(100vh - 190px); }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 270px);}
 </style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -153,6 +154,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<p class="xbtitle">
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
+								&nbsp;<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb09"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
@@ -250,6 +252,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                                     			<?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
                                             </span>
                                             <?php if (!empty($rev->summary)) echo '</a>'; ?>
+											&nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;"><i class="far fa-eye"></i></a>
         								</div>
         							<?php endforeach; ?> 
         						<?php endif; ?>
@@ -309,15 +312,46 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 <script>
 jQuery(document).ready(function(){
-//for preview modal
+//for preview modals
     jQuery('#ajax-ppvmodal').on('show', function () {
         // Load view vith AJAX
-       jQuery(this).find('.modal-content').load('index.php?option=com_xbbooks&view=books&layout=modalppv&tmpl=component');
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalppv&tmpl=component');
     })
+    jQuery('#ajax-ppvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+    jQuery('#ajax-bpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalbpv&tmpl=component');
+    })
+    jQuery('#ajax-bpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+    jQuery('#ajax-rpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalrpv&tmpl=component');
+    })
+    jQuery('#ajax-rpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
 });
 </script>
-<!-- preview modal window -->
+<!-- preview modal windows -->
 <div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1000px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1000px">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->

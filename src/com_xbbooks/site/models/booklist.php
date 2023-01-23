@@ -75,7 +75,7 @@ class XbbooksModelBooklist extends JModelList {
             $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
 //           $query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS br WHERE br.book_id=a.id AND br.state=1) AS revcnt');
-            $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
+            $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br JOIN #__xbbookreviews AS r ON r.id = br.id WHERE br.book_id=a.id AND r.state=1) AS averat');
 //          $query->select('(SELECT MAX(r.rev_date) FROM #__xbbookreviews AS r WHERE r.book_id=a.id) AS lastread');
 //            $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
             
@@ -258,26 +258,21 @@ class XbbooksModelBooklist extends JModelList {
     		    $item->editcnt = array_key_exists('editor', $rolecnts) ? $rolecnts['editor'] :0;
     		    $item->mencnt = array_key_exists('mention', $rolecnts) ? $rolecnts['mention'] :0;
     		    $item->othercnt = count($roles) - $item->authcnt - $item->editcnt - $item->mencnt;
-    		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'author','t',1);
-    		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'editor','t',2);
-    		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'mention','tn',3);
-    		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'other','rt',3);
-
-//     		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','ul',2,5);
-//     		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','ul',2,5);
-//     		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','ul',2,5);
-//     		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'other','ul',2,4);
-    		    
+    		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'author','t',4,'ppvmodal');
+    		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'editor','t',4,'ppvmodal');
+    		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'mention','tn',4,'ppvmodal');
+    		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'other','rt',4,'ppvmodal');
+		    } else {
+		        $item->authcnt = 0; $item->editcnt = 0; $item->mencnt = 0; $item->othercnt = 0;		        
 		    }
+		    
 		    if ($item->ccnt>0) {
 		        $item->chars = XbbooksGeneral::getBookChars($item->id);
-		        $item->charlist = XbcultureHelper::makeItemLists($item->chars,'','t',1);
-//		        $item->charlist = XbcultureHelper::makeLinkedNameList($item->chars,'','ul',true,5);
+		        $item->charlist = XbcultureHelper::makeItemLists($item->chars,'','t',5,'cpvmodal');
 		    }
 		    if ($item->gcnt>0) {
 		        $item->groups = XbbooksGeneral::getBookGroups($item->id);
-		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',3);
-//		        $item->grouplist = XbcultureHelper::makeLinkedNameList($item->groups,'','ul',true,4);
+		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',5,'pvgmodal');
 		    }
 			
 			$item->reviews = XbbooksGeneral::getBookReviews($item->id);

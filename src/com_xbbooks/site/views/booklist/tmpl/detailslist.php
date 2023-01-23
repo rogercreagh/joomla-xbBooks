@@ -45,6 +45,9 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+</style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
@@ -84,7 +87,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 					</div>
 				<?php else : ?>
 
-	<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbbooklist">	
+	<table class="table table-hover" style="table-layout:fixed;width:100%;" id="xbbooklist">	
 		<thead>
 			<tr>
 				<th>
@@ -98,7 +101,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>
 				<?php $reviews = ''; ?>
-				<tr class="row<?php echo $i % 2; ?>">	
+				<tr class="xbrow<?php echo $i % 2; ?>">	
 					<td>
 						<h3>
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
@@ -107,8 +110,8 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         	<br /><span class="xb08" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
 						</h3>
-						<table>
-						<tr class="xbrow<?php echo $i % 2; ?>">
+						<table style="width:100%;">
+						<tr>
                   		<?php if($this->show_pic) : ?>
                   			<td style="width:100px;padding-right:20px;">
     							<?php  $src = trim($item->cover_img);
@@ -123,7 +126,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                           </td>   
                         <?php endif; ?>
                         <td>
-						<p><span class="<?php echo ($item->authcnt>1) ? 'icon-users' : 'icon-user'; ?>"></span>&nbsp;
+							<i class="fas fa-user xbpr10"></i>&nbsp;
                         	<?php if ($item->authcnt==0) {
                         		echo '<span class="xbnit">'.Text::_('XBBOOKS_NOAUTHOR').'</span>';
                         	} else { ?> 
@@ -134,30 +137,51 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                         	} ?>                          	
 							<br />
 							<?php if ($item->editcnt >0 ) : ?>
-	                        	<span class="icon-checkmark-circle"></span>&nbsp;<span class="xbnit">
+	                        	<i class="fas fa-user-edit xbpr10"></i>&nbsp;<span class="xbnit">
 	                        		<?php echo $item->editcnt>1 ? Text::_('XBCULTURE_EDITORS') : Text::_('XBCULTURE_EDITOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->editlist['commalist']; ?>
                         	<br />
 							<?php endif; ?>
-							<?php $othercnt = $item->othercnt + $item->mencnt + $item->gcnt;
-							if ($othercnt>0) : ?>
-								<span class="icon-user"></span>&nbsp;
+							<?php if ($item->othercnt>0) : ?>
+								<div class="pull-left"><i class="fas fa-user-friends xbpr10"></i>&nbsp;</div>
+								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $othercnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?></span>
+    								<summary><span class="xbnit"><?php echo $$item->othercnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?></span>
     								</summary>
-    								<?php echo ($item->othercnt>0) ? $item->otherlist['ullist'] : ''; ?>
-    								<?php echo ($item->mencnt>0) ? $item->menlist['ullist'] : ''; ?>
+    								<?php echo $item->otherlist['ullist']; ?>
+    							</details>
+								</div>
+								<div class="clearfix"></div>
+							<?php endif; ?>
+							<?php if ($item->mencnt>0) : ?>
+								<div class="pull-left"><i class="far fa-user xbpr10"></i>&nbsp;</div>
+								<div class="pull-left">
+								<details>
+    								<summary><span class="xbnit"><?php echo $$item->mencnt.' '.Text::_('subjects of book, or mentioned in it'); ?></span>
+    								</summary>
+    								<?php echo $item->menlist['ullist']; ?>
+    							</details>
+								</div>
+								<div class="clearfix"></div>
+							<?php endif; ?>
+							<?php if ($item->gcnt>0) : ?>
+								<div class="pull-left"><i class="fas fa-users xbpr10"></i>&nbsp;</div>
+								<div class="pull-left">
+								<details>
+    								<summary><span class="xbnit"><?php echo $item->gcnt.' '.Text::_('XBCULTURE_GROUPS'); ?></span>
+    								</summary>
     								<?php echo ($item->gcnt>0) ? $item->grouplist['ullist'] : ''; ?>
     							</details>
-								<br />
-							<?php endif; ?>	
-							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
+								</div>
+								<div class="clearfix"></div>
+							<?php endif; ?>
+							<span class="icon-calendar xbpr10"></span>&nbsp;<span class="xbnit">
 								<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
 							</span>
 							<?php if($item->pubyear > 0) { echo ': '.$item->pubyear; } else { echo '<i>'.Text::_('XBCULTURE_UNKNOWN').'</i>';}?>	
 							<br />
-							<span class="icon-book"></span>&nbsp;
+							<i class="fas fa-book xbpr10"></i>&nbsp;
                             <?php if($this->show_sum) : ?>
     							<?php if (!empty($item->summary)) : ?>
     								<?php echo '<i>'.Text::_('XBCULTURE_SUMMARY').'</i>: '.$item->summary; ?>
@@ -179,36 +203,56 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
                                      ?>
                                      </span>
         						<?php endif; ?>
+    							<br />	
                         	<?php endif; ?>
-							<br />	
 							<?php if($this->show_revs) : ?>
-								<span class="icon-pencil-2"></span> &nbsp;
+								<div class="pull-left"><i class="fas fa-book-reader xbpr10"></i>&nbsp;</div>
+								<div class="pull-left">
 								<?php if ($item->revcnt==0) : ?>
 									<i><?php echo Text::_('XBCULTURE_NO_REVIEWS_AVAILABLE'); ?></i>
 								<?php else : ?>
-									<i>
-								    <?php if($item->revcnt==1) {
-								        echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEW_RATING');
-								    } else {
-								        echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEWS_AVE_RATING');
-								    } ?>
-									</i> &nbsp;
-								    <?php $stars = (round(($item->averat)*2)/2); 
-								    if (($this->zero_rating) && ($stars==0)) : ?>
-    								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
-    								<?php else : 
-    								    echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
-    								    if (($item->averat - floor($item->averat))>0) : ?>
-    	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-    	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
-    	                                <?php  endif; ?> 
-    	                             <?php endif; ?>                        								    
+									<!-- TODO add links to modal review details -->
+								    <?php if($item->revcnt==1) : ?>
+								        
+								        <?php $stars = (round(($item->averat)*2)/2);
+								        if (($this->zero_rating) && ($stars==0)) : ?>
+    								    	<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+    									<?php else : 
+    								        echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
+    	                                endif;                        								    
+    	                                echo ' on '.HtmlHelper::date($item->reviews[0]->rev_date , 'd M Y');?> 
+								    <?php else : ?>
+								        <details><summary><i>
+								        <?php echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEWS_AVE_RATING');?></i>								    
+    								    <?php $stars = (round(($item->averat)*2)/2); 
+    								    if (($this->zero_rating) && ($stars==0)) : ?>
+        								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+        								<?php else : 
+        								    echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
+        								    if (($item->averat - floor($item->averat))>0) : ?>
+        	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
+        	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
+        	                                <?php  endif; ?> 
+        	                             <?php endif; ?>
+        	                             </summary>
+        	                             <?php foreach ($item->reviews as $rev) : ?>
+        	                                 <?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
+    								    		<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+    										<?php else : 
+    								            echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating); 
+    	                                   endif;                        								    
+    	                                   echo ' on '.HtmlHelper::date($item->reviews[0]->rev_date , 'd M Y');?> 
+    	                                   <br />
+        	                             <?php endforeach; ?>
+        	                             </details>
+        	                         <?php endif; ?>                    								    
 								<?php endif; ?>
-								<br />
+								</div>
+								<div class="clearfix"></div>
 							<?php endif; ?>					
 		                    <?php if(($this->showcat) || ($this->showtags)) : ?>
          						<?php if($this->showcat) : ?>	
-		     						<span class="icon-folder"></span> &nbsp;	
+		     						<i class="fas fa-folder xbpr10"></i>&nbsp;	
          							<?php if($this->showcat==2) : ?>											
         								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
         							<?php else: ?>
@@ -217,16 +261,17 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
         						<?php endif; ?>
         						<?php if($this->showtags) : ?>
         							<br />
-        						    <span class="icon-tags"></span> &nbsp;
+        						    <i class="fas fa-tags xbpr10"></i>&nbsp;
         							<?php $tagLayout = new FileLayout('joomla.content.tagline');
             						echo $tagLayout->render($item->tags); ?>
         						<?php endif; ?>
-	                		<?php endif; ?>
-	                		<?php if ($this->show_bdates) : ?>       				
         						<br />
+	                		<?php endif; ?>
+	                		<?php if ($this->show_bdates) : ?> 
+	                			<i class="far fa-eye xbpr10"></i>&nbsp;      				
         						<?php if($item->first_read) {
         						    $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'D jS M Y');
-        						    echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('XBBOOKS_FIRST_READ').'</i>: '.HtmlHelper::date($item->first_read , $datefmt); 
+        						    echo '<i>'.Text::_('XBBOOKS_FIRST_READ').'</i>: '.HtmlHelper::date($item->first_read , $datefmt); 
 								}
 								if(($item->last_read) && ($item->last_read != $item->first_read)) {
 								    $datefmt = xbCultureHelper::getDateFmt($item->last_read, 'D jS M Y');
@@ -237,20 +282,15 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
         					   }
         					?>
 							<?php endif; ?>
-	                	</p>
 	                	
 						</td></tr></table>
 					</td>
 				</tr>
 				<?php endforeach;?>
 			</tbody>
-		</table>
-						
-						
-						
-						
+		</table>						
 
-			<?php echo $this->pagination->getListFooter(); ?>
+		<?php echo $this->pagination->getListFooter(); ?>
 	<?php endif; ?>
 	<?php echo HtmlHelper::_('form.token'); ?>
       </div>

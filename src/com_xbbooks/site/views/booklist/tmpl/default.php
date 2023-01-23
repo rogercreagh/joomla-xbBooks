@@ -310,14 +310,14 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 <script>
 jQuery(document).ready(function(){
 //for preview modal
-    jQuery('#ajax-pvmodal').on('show', function () {
+    jQuery('#ajax-ppvmodal').on('show', function () {
         // Load view vith AJAX
-       jQuery(this).find('.modal-content').load('index.php?option=com_xbbooks&view=books&layout=modalpv&tmpl=component');
+       jQuery(this).find('.modal-content').load('index.php?option=com_xbbooks&view=books&layout=modalppv&tmpl=component');
     })
 });
 </script>
 <!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1100px">
+<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->

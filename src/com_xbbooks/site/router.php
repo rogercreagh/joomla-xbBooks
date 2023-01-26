@@ -85,7 +85,7 @@ class XbbooksRouter extends JComponentRouterBase {
 				$vars['view'] = 'categories';
 				break;
 			case 'bookreviews':
-			    $vars['view'] = 'blog';
+			    $vars['view'] = 'bookreviews';
 			    break;
 			case 'tags':
 			    $vars['view'] = 'tags';

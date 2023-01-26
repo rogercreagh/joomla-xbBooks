@@ -1,10 +1,10 @@
 <?php
 /*******
  * @package xbBooks
- * @filesource admin/models/reviews.php
- * @version 1.0.3.7 24th January 2023
+ * @filesource site/models/bookreviews.php
+ * @version 1.0.3.7 26th January 2023
  * @author Roger C-O
- * @copyright Copyright (c) Roger Creagh-Osborne, 2021
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2023
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
@@ -13,7 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Helper\TagsHelper;
 
-class XbbooksModelReviews extends JModelList {
+class XbbooksModelBookreviews extends JModelList {
     
     public function __construct($config = array()) {
         
@@ -21,15 +21,36 @@ class XbbooksModelReviews extends JModelList {
             $config['filter_fields'] = array(
             		'id', 'a.id',
             		'title', 'booktitle',
-            		'rev_date', 'rating',
-            		'published', 'a.state',
-            		'ordering', 'a.ordering',
+            		'rev_date', 'rating',           		
             		'category_title', 'c.title',
-                    'created', 'a.created',
             		'catid', 'a.catid', 'category_id');
         }
         
         parent::__construct($config);
+    }
+
+    protected function populateState($ordering = null, $direction = null) {
+        $app = Factory::getApplication('site');
+        // Load the parameters.
+        $params = $app->getParams();
+        $this->setState('params', $params);
+        
+        $categoryId = $app->getUserStateFromRequest('catid', 'catid','');
+        $app->setUserState('catid', '');
+        $this->setState('categoryId',$categoryId);
+        $tagId = $app->getUserStateFromRequest('tagid', 'tagid','');
+        $app->setUserState('tagid', '');
+        $this->setState('tagId',$tagId);
+        
+        parent::populateState($ordering, $direction);
+        
+        //pagination limit
+        $limit = $this->getUserStateFromRequest($this->context.'.limit', 'limit', 25 );
+        $this->setState('limit', $limit);
+        $this->setState('list.limit', $limit);
+        $limitstart = $app->getUserStateFromRequest('limitstart', 'limitstart', $app->get('start'));
+        $this->setState('list.start', $limitstart);
+        
     }
     
     protected function getListQuery() {
@@ -41,6 +62,7 @@ class XbbooksModelReviews extends JModelList {
         $query->select('a.id AS id, a.title AS title, a.alias AS alias, a.summary AS summary, a.catid AS catid,
             a.review AS review, a.rating AS rating, a.state AS published, a.reviewer AS reviewer,
             a.created_by AS created_by, a.rev_date AS rev_date, a.note as note, a.ordering AS ordering,
+            a.params AS params,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, a.created AS created')
             ->from($db->quoteName('#__xbbookreviews','a'));
                    
@@ -70,25 +92,27 @@ class XbbooksModelReviews extends JModelList {
         }
             
         // Filter by published state
-        $published = $this->getState('filter.published');        
-        if (is_numeric($published)) {
-            $query->where('a.state = ' . (int) $published);
-        }
+            $query->where('a.state = 1 ');
         
-        // Filter by category.
-        $app = Factory::getApplication();
-        $categoryId = $app->getUserStateFromRequest('catid', 'catid','');
-        $app->setUserState('catid', '');
-        if ($categoryId=='') {
-        	$categoryId = $this->getState('filter.category_id');
-        }
-        if (is_numeric($categoryId)) {
-            $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-        } elseif (is_array($categoryId)) {
-            $categoryId = implode(',', $categoryId);
-            $query->where($db->quoteName('a.catid') . ' IN ('.$categoryId.')');
-        }
-        
+            $searchbar = (int)$this->getState('params')['search_bar'];
+            //if a menu filter is set this takes priority and serch filter field is hidden
+            
+            // Filter by category
+            $categoryId = $this->getState('categoryId');
+            $this->setState('categoryId','');
+            if (empty($categoryId)) {
+                $categoryId = $this->getState('params')['menu_category_id'];
+            }
+            if (($searchbar==1) && ($categoryId==0)){
+                $categoryId = $this->getState('filter.category_id');
+            }
+            if ((is_numeric($categoryId)) && ($categoryId > 0) ){
+                $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+            } elseif (is_array($categoryId)) {
+                $catlist = implode(',', $categoryId);
+                $query->where($db->quoteName('a.catid') . ' IN ('.$catlist.')');
+            }
+            
         //Filter by rating
         $ratfilt = $this->getState('filter.ratfilt');
         if (is_numeric($ratfilt)) {
@@ -96,14 +120,21 @@ class XbbooksModelReviews extends JModelList {
         }
         
         //filter by tags
-        $tagId = $app->getUserStateFromRequest('tagid', 'tagid','');
-        $app->setUserState('tagid', '');
-        if (!empty($tagId)) {
-        	$tagfilt = array(abs($tagId));
-        	$taglogic = $tagId>0 ? 0 : 2;
-        } else {
-        	$tagfilt = $this->getState('filter.tagfilt');
-        	$taglogic = $this->getState('filter.taglogic');  //0=ANY 1=ALL 2= None
+        $tagfilt = $this->getState('tagId');
+        // $this->setState('tagId','');
+        $taglogic = 0;
+        if (empty($tagfilt)) { //look for menu options
+            $tagfilt = $this->getState('params')['menu_tag'];
+            $taglogic = $this->getState('params')['menu_taglogic']; //1=AND otherwise OR
+        }
+        if ((!is_array($tagfilt)) && (!empty($tagfilt))) {
+            $tagfilt = array($tagfilt);
+        }
+        
+        if (($searchbar==1) && (empty($tagfilt))) {
+            //look for filter options and ignore menu options
+            $tagfilt = $this->getState('filter.tagfilt');
+            $taglogic = $this->getState('filter.taglogic'); //1=AND otherwise OR
         }
         
         if (empty($tagfilt)) {
@@ -146,13 +177,23 @@ class XbbooksModelReviews extends JModelList {
         } //end if $tagfilt
         
         // Add the list ordering clause.
-        $orderCol	= $this->state->get('list.ordering', 'rev_date');
-        $orderDirn 	= $this->state->get('list.direction', 'desc');
-        
-        if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
-            $orderCol = 'a.category_title '.$orderDirn.', a.ordering';  //TODO change this to category_title rather than id
+        $orderCol       = $this->state->get('list.ordering', 'rev_date');
+        $orderDirn      = $this->state->get('list.direction', 'DESC');
+        switch($orderCol) {
+            case 'a.ordering' :
+            case 'a.catid' :
+                //needs a menu option to set orderCol to ordering. Also menu option to alllow user to reorder on table
+                $query->order('category_title '.$orderDirn.', a.ordering');
+                break;
+            case 'category_title':
+                $query->order('category_title '.$orderDirn.', title');
+                break;
+            default:
+                $query->order($db->escape($orderCol.' '.$orderDirn));
+                break;
         }
-        $query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));
+        
+        $query->group('a.id');
         
         return $query;
     }

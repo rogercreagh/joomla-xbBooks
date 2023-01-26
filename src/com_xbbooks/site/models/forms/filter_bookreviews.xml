@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbBooks site/models/forms/filter_bookreviews.xml v1.0.3.7 24th January 2023 -->
+<form>
+	<fields name="filter"  addfieldpath="administrator/components/com_xbpeople/models/fields">
+		<field
+			name="search"
+			type="text"
+			label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description="XBBOOKS_SEARCH_REVIEW"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string"
+		/>
+		<field
+			name="ratfilt" type="rating" 
+			label="XBFILMS_RATING_LABEL" description="XBFILMS_RATING_DESC" 
+			default="" 
+			onchange="this.form.submit();">
+			<option value="">XBCULTURE_FILTER_BY_RATING</option>
+		</field>
+		<field
+			name="category_id" type="xbitemcats"
+			label="JOPTION_FILTER_CATEGORY"
+			description="JOPTION_FILTER_CATEGORY_DESC"
+			extension="com_xbbooks"
+			itemtable="#__xbbookreviews"
+			multiple="true"
+			class="multipleCats"
+			onchange="this.form.submit();"
+			>		
+		</field>
+		<field
+			name="tagfilt"
+			type="tag"
+			label="JOPTION_FILTER_TAG"
+			description="JOPTION_FILTER_TAG_DESC"
+			multiple="true"
+			class="multipleTags"
+			mode="nested"
+			onchange="this.form.submit();"
+		/>
+		<field name="taglogic"
+			type="radio"
+			default="0"
+			label="XBBOOKS_MULTITAG_LBL"
+			description="XBBOOKS_MULTITAG_DESC"
+  			class="btn-group btn-small radiotop"
+			showon="show_all:1"
+		>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_EXCLUDE</option>
+		</field>	
+	</fields>
+	<fields name="list">
+  		<field name="fullordering" type="hidden" default="" />
+		<field
+			name="limit"
+			type="limitbox"
+			class="input-mini"
+			default="25"
+			label="COM_CONTENT_LIST_LIMIT"
+			description="COM_CONTENT_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

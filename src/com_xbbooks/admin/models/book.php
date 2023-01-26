@@ -269,7 +269,7 @@ class XbbooksModelBook extends JModelAdmin {
     public function getBookGrouplist() {
         $db = $this->getDbo();
         $query = $db->getQuery(true);
-        $query->select('a.id as group_id_id, ba.role AS role, ba.role_note AS role_note');
+        $query->select('ba.group_id as group_id, ba.role AS role, ba.role_note AS role_note');
         $query->from('#__xbbookgroup AS ba');
         $query->innerjoin('#__xbgroups AS a ON ba.group_id = a.id');
         $query->where('ba.book_id = '.(int) $this->getItem()->id);

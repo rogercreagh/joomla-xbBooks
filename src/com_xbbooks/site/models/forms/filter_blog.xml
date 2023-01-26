@@ -10,6 +10,7 @@
         /> 
 		<field name="ratfilt" type="rating" 
 			label="XBBOOKS_RATFILT_LBL" description="XBBOOKS_RATFILT_DESC" 
+			component="com_xbbooks"
 			default=""
 			onchange="this.form.submit();"
 		>

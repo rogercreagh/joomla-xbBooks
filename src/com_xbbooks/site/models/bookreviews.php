@@ -70,7 +70,7 @@ class XbbooksModelBookreviews extends JModelList {
             ->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
         // Join with books table to get the book title
-        $query->select($db->quoteName('b.id','bookid').','.$db->quoteName('b.title', 'booktitle'))
+            $query->select($db->quoteName('b.id','bookid').','.$db->quoteName('b.title', 'booktitle').','.$db->quoteName('b.cover_img', 'bookcover'))
             ->join('LEFT', $db->quoteName('#__xbbooks', 'b') . ' ON b.id = a.book_id');
         
         // Filter by search in title/id/summary/biog

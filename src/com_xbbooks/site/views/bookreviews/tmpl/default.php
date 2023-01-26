@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreviews/tmpl/default.php
- * @version 1.0.3.7 24th January 2023
+ * @version 1.0.3.7 26th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
@@ -28,7 +29,7 @@ if (!$listOrder) {
 	$listOrder='rev_date';
 	$listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'booktitle'=>Text::_('XBBOOKS_BOOKTITLE'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'booktitle'=>Text::_('XBBOOKS_BOOK_TITLE'),
 		'id'=>'id','rev_date'=>Text::_('XBCULTURE_REVIEW_DATE'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_STATUS'),'ordering'=>Text::_('XBCULTURE_ORDERING'),
 		'rating'=>Text::_('XBCULTURE_RATING'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
@@ -40,7 +41,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
 <style type="text/css" media="screen">
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+	.xbpvmodal .modal-body {max-height: calc(100vh - 190px); }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 270px);}
 </style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -67,8 +69,14 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         <?php echo $this->pagination->getPagesLinks(); ?>
     </div>
 	<?php // Search tools bar
-        echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
-    ?>
+		if ($this->search_bar) {
+		    $hide = '';
+		    if ($this->hide_cat) { $hide .= 'filter_category_id,';}
+		    if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
+		    echo '<div class="row-fluid"><div class="span12">';
+		    echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));
+		}
+	?>
 	<div class="clearfix"></div>
 	<?php $search = $this->searchTitle; ?>
 
@@ -79,7 +87,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'r:') === 0)) {
             echo trim(substr($search, 2)).'</b> '.Text::_('XBBOOKS_AS_INREV');
         } else {
-			echo trim($search).'</b> '.Text::_('XBBOOKS_AS_INNAMES');
+			echo trim($search).'</b> '.Text::_('in title');
 		}
 		echo '</p>';
 	} ?> 
@@ -92,6 +100,11 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	<table class="table table-striped table-hover" id="xbbookreviewsList">
 		<thead>
 			<tr>
+				<?php if($this->show_pic) : ?>
+					<th class="center" style="width:80px">
+						<?php echo Text::_( 'XBBOOKS_COVER' ); ?>
+					</th>	
+                <?php endif; ?>
         		<th>
         			<?php echo HTMLHelper::_('searchtools.sort', 'Review Title', 'title', $listDirn, $listOrder); ?>
         		</th>
@@ -104,7 +117,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_DATE', 'rev_date', $listDirn, $listOrder); ?>
         		</th>
         		<th class="hidden-phone">
-        			<?php echo Text::_('XBBOOKS_REVIEW_SUMMARY_LABEL');?>
+        			<?php echo Text::_('XBCULTURE_REVIEW_SUMMARY');?>
         		</th>
  					<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).'<br />'.
@@ -126,6 +139,19 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 				<?php foreach ($this->items as $i => $item) :
 				?>
 				<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid; ?>">	
+              		<?php if($this->show_pic) : ?>
+						<td>
+						<?php  $src = trim($item->bookcover);
+							if ((!$src=='') && (file_exists(JPATH_ROOT.'/'.$src))) : 
+								$src = Uri::root().$src; 
+								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; 
+								?>
+								<img class="img-polaroid hasTooltip xbimgthumb" title="" 
+									data-original-title="<?php echo $tip; ?>" data-placement="right"
+									src="<?php echo $src; ?>" border="0" alt="" />							                          
+	                    	<?php  endif; ?>	                    
+						</td>
+                    <?php endif; ?>
 						<td>
     						<p class="xbtitlelist">
     						<?php if ($item->checked_out) {
@@ -135,7 +161,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo Text::_('XBBOOKS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>
-    						<br /><span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
+    						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid= <?php echo $item->id; ?>;">
+                				<i class="far fa-eye"></i>
+                			</a>					
     						</p>
 							<p>
 								<i>by: </i><b><?php echo $item->reviewer; ?></b> 
@@ -147,6 +175,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 								<p><a href="<?php echo Route::_($bvlink . $item->bookid); ?>">
 	    							<?php echo $item->booktitle; ?>
 								</a>
+        						<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" onclick="window.pvid= <?php echo $item->bookid; ?>;">
+                    				<i class="far fa-eye"></i>
+                    			</a>					
 								</p>
 							<?php endif; ?>
 						</td>
@@ -199,11 +230,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						<?php endforeach; ?>
     						</ul>						    											
 						</td>
-					<td>
-						<a href="" data-toggle="modal" data-target="#ajax-pvmodal" onclick="window.pvid= <?php echo $item->id; ?>;">
-            				<i class="icon-eye xbeye"></i>
-            			</a>					
-					</td>
 					</tr>
 				<?php endforeach; ?>
 			<?php endif; ?>
@@ -219,19 +245,35 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 <script>
 jQuery(document).ready(function(){
 //for preview modal
-    jQuery('#ajax-pvmodal').on('show', function () {
+    jQuery('#ajax-rpvmodal').on('show', function () {
         // Load view vith AJAX
         jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreviews&layout=modalpv&tmpl=component');
     })
+    jQuery('#ajax-rpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+    jQuery('#ajax-bpvmodal').on('show', function () {
+        // Load view vith AJAX
+        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalbpv&tmpl=component');
+    })
+    jQuery('#ajax-bpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
 });
 </script>
 <!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px;">
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1200px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->
         </div>
     </div>
 </div>
-
+<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1200px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
 

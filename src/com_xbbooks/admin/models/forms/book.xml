@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/book.xml v1.0.3.4 19th January 2023 -->
+<!-- xbBooks admin/models/forms/book.xml v1.0.3.1 27th January 2023 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
@@ -30,6 +30,7 @@
 		/>
 		<field name="quick_rating" type="rating" 
 			label="XBBOOKS_QRATING_LABEL" description="XBBOOKS_QRATING_DESC" 
+			component="com_xbbooks"
 			default=""
 			showon="id!:0"
 			>

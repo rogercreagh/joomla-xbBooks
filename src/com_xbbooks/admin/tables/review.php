@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/tables/review.php
- * @version 0.9.11.0 15th November 2022
+ * @version 1.0.3.7 24th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -37,29 +37,29 @@ class XbbooksTableReview extends Table
     	$query->select('COUNT(r.id) as revcnt')->from('#__xbbookreviews AS r')
     	->where('r.book_id = '.$this->book_id);
     	$db->setQuery($query);
-    	$revno = $db->loadResult()+1;
+    	$revno = $db->loadResult();
+    	$revno = $revno==0 ? '' : '-'.($revno+1);
     	//get film title for default review/rating title
-    	$btitle = '"'.XbbooksHelper::getBookTitleById($this->book_id).'"';
+    	$btitle = XbbooksHelper::getBookTitleById($this->book_id);
     	
     	$title = trim($this->title);
     	//check title and create default if none supplied
     	if (($title == '') && (trim($this->summary)=='') && (trim($this->synopsis==''))) {
     		//do quick rating
-    		$title = 'Rating '.$btitle;
+    	    $title = 'rating of "'.$btitle.'"'.$revno;
     		if (trim($this->alias) == '') {
-    			$this->alias = 'rating-'.$revno.'-'.$btitle;
+    			$this->alias = 'rating-'.$btitle.$revno;
     		}
+    	} else if ($title == '') {
+    	    $this->setError(Text::_('Review title not set. Please enter a title (eg "Review of "[book-title]")'));
+    	    return false;
     	} else {
-    		if ($title == '') {
-    			$title = 'Review of '.$btitle;
-    			Factory::getApplication()->enqueueMessage('No review title supplied; default created - please check and change as necessary','Warning');
-    		}
     		if (($this->id == 0) && (XbcultureHelper::checkTitleExists($title,'#__xbbookreviews'))) {
-    			$this->setError(Text::_('Review "'.$title.'" already exists; if this is a different review with the same title please append something to the title to distinguish them'));
+    			$this->setError(Text::_('Review "'.$title.'" already exists; if this is a different review with the same title please append something to the title (eg book title or review date) to distinguish them'));
     			return false;
-    		}
+       		}
     		if (trim($this->alias) == '') {
-    			$this->alias = 'review-'.$revno.'-'.$title;
+    			$this->alias = $title.$revno;
     		}
        	}
     	

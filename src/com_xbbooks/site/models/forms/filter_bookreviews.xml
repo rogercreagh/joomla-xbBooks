@@ -12,15 +12,16 @@
 		/>
 		<field
 			name="ratfilt" type="rating" 
-			label="XBFILMS_RATING_LABEL" description="XBFILMS_RATING_DESC" 
+			label="XBCULTURE_RATING" description="XBCULTURE_RATING" 
+			component="com_xbbooks"
 			default="" 
 			onchange="this.form.submit();">
 			<option value="">XBCULTURE_FILTER_BY_RATING</option>
 		</field>
 		<field
 			name="category_id" type="xbitemcats"
-			label="JOPTION_FILTER_CATEGORY"
-			description="JOPTION_FILTER_CATEGORY_DESC"
+			label="XBCULTURE_CATFILT_LABEL"
+			description="XBCULTURE_CATFILT_DESC"
 			extension="com_xbbooks"
 			itemtable="#__xbbookreviews"
 			multiple="true"
@@ -29,20 +30,18 @@
 			>		
 		</field>
 		<field
-			name="tagfilt"
-			type="tag"
-			label="JOPTION_FILTER_TAG"
-			description="JOPTION_FILTER_TAG_DESC"
+			name="tagfilt" type="tag"
+			label="XBCULTURE_TAGFILT_LABEL"
+			description="XBCULTURE_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="nested"
 			onchange="this.form.submit();"
 		/>
-		<field name="taglogic"
-			type="radio"
+		<field name="taglogic" type="radio"
 			default="0"
-			label="XBBOOKS_MULTITAG_LBL"
-			description="XBBOOKS_MULTITAG_DESC"
+			label="XBCULTURE_TAGFILT_MULTI_LABEL"
+			description="XBCULTURE_TAGFILT_MULTI_DESC"
   			class="btn-group btn-small radiotop"
 			showon="show_all:1"
 		>

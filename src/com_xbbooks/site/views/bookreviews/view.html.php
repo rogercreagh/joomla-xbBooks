@@ -34,21 +34,27 @@ class XbbooksViewBookreviews extends JViewLegacy {
         $this->stars_class = $params->get('stars_class');
         
         $this->header = array();
-        $this->header['showheading'] = $this->params->get('show_page_heading',0,'int');
-        $this->header['heading'] = $this->params->get('page_heading','','text');
+        $this->header['showheading'] = $params->get('show_page_heading',0,'int');
+        $this->header['heading'] = $params->get('page_heading','','text');
         if ($this->header['heading'] =='') {
-            $this->header['heading'] = $this->params->get('page_title','','text');
+            $this->header['heading'] = $params->get('page_title','','text');
         }
-        $this->header['title'] = $this->params->get('list_title','','text');
-        $this->header['subtitle'] = $this->params->get('list_subtitle','','text');
-        $this->header['text'] = $this->params->get('list_headtext','','text');
+        $this->header['title'] = $params->get('list_title','','text');
+        $this->header['subtitle'] = $params->get('list_subtitle','','text');
+        $this->header['text'] = $params->get('list_headtext','','text');
         
-        $this->search_bar = $this->params->get('search_bar','','int');
-        $this->hide_cat = (!$this->showcat || ($this->params->get('menu_category_id',0)>0)) ? true : false;
-        $this->hide_tag = (!$this->showtags || (!empty($this->params->get('menu_tag','')))) ? true : false;
+        $show_cats = $params->get('show_cats','1','int');
+        $this->showcat = ($show_cats) ? $params->get('show_bcat','1','int') : 0;
         
-        $this->show_pic = $this->params->get('show_bpiccol','1','int');
-        $this->show_sum = $this->params->get('show_bsumcol','1','int');
+        $show_tags = $params->get('show_tags','1','int');
+        $this->showtags = ($show_tags) ? $params->get('show_btags','1','int') : 0;
+        
+        $this->search_bar = $params->get('search_bar','','int');
+        $this->hide_cat = (!$this->showcat || ($params->get('menu_category_id',0)>0)) ? true : false;
+        $this->hide_tag = (!$this->showtags || (!empty($params->get('menu_tag','')))) ? true : false;
+        
+        $this->show_pic = $params->get('show_bpiccol','1','int');
+        $this->show_sum = $params->get('show_bsumcol','1','int');
         
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {

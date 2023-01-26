@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 1.0.3.4 19th January 2023
+ * @version 1.0.3.7 24th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -378,8 +378,8 @@ class XbbooksModelBook extends JModelAdmin {
             	$db->setQuery($query);
             	$revs=$db->loadResult()+1;
             	$revs = $revs==0 ? '' : '-'.($revs+1);
-            	$rtitle = 'Quick Rating '.$data['alias'];
-            	$ralias = OutputFilter::stringURLSafe($rtitle.$revs);
+            	$rtitle = 'rating of '.$data['title'].$revs;
+            	$ralias = OutputFilter::stringURLSafe('rating-'.$data['title'].$revs);
             	$reviewer = Factory::getUser()->name;
             	if ($params->get('def_new_revcat')>0) {
             		$catid=$params->get('def_new_revcat');

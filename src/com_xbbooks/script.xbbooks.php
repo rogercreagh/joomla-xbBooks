@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 1.0.3.4 19th January 2023
+ * @version 1.0.3.7 26th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -92,24 +92,31 @@ class com_xbbooksInstallerScript
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbbooks/changelog" target="_blank">
             www.crosborne.co.uk/xbbooks/changelog</a></p>';
     	Factory::getApplication()->enqueueMessage($message,'Message');
+    	//for site files preceed with / for admin files leave the / off, for media files tba
     	$delfiles = '';
-    	$delfiles .= '/models/fields/allpeople.php,/models/fields/bookchars.php,/models/fields/bookpeople.php,/models/fields/bookyear.php';
-        $delfiles .= ',/models/fields/catsubtree.php,/models/fields/characters.php,/models/fields/nationality.php';
-        $delfiles .= ',/models/fields/natlist.php,/models/fields/people.php,/models/fields/revformat.php';
-        $delfiles .= ',/models/fields/revyear.php,/models/forms/booklist.xml,/models/forms/peoplelist.xml';
-        $delfiles .= ',/controllers/character.php,/controllers/person.php,/models/character.php,/models/person.php';
-        $delfiles .= ',/models/forms/character.xml,/models/forms/person.xml,/tables/character.php,/tables/person.php';
-        $delfiles .= ',/views/character,/views/person,/views/review/tmpl/view.php,/views/books/tmpl/modal.php';
-        $delfiles .= ',/views/characters/tmpl/default_batch_body.php,/views/characters/tmpl/default_batch_footer.php';
-        $delfiles .= ',/views/groups/tmpl/default_batch_body.php,/views/groups/tmpl/default_batch_footer.php';
-        $delfiles .= ',/views/persons/tmpl/default_batch_body.php,/views/persons/tmpl/default_batch_footer.php';
-        $delfiles .= ',/models/fields/otherrole.php';
+    	$delfiles .= 'models/fields/allpeople.php,models/fields/bookchars.php,models/fields/bookpeople.php,models/fields/bookyear.php';
+        $delfiles .= ',models/fields/catsubtree.php,models/fields/characters.php,models/fields/nationality.php';
+        $delfiles .= ',models/fields/natlist.php,models/fields/people.php,models/fields/revformat.php';
+        $delfiles .= ',models/fields/revyear.php,models/forms/booklist.xml,models/forms/peoplelist.xml';
+        $delfiles .= ',controllers/character.php,controllers/person.php,models/character.php,models/person.php';
+        $delfiles .= ',models/forms/character.xml,models/forms/person.xml,tables/character.php,tables/person.php';
+        $delfiles .= ',views/character,views/person,views/review/tmpl/view.php,views/books/tmpl/modal.php';
+        $delfiles .= ',views/characters/tmpl/default_batch_body.php,views/characters/tmpl/default_batch_footer.php';
+        $delfiles .= ',views/groups/tmpl/default_batch_body.php,views/groups/tmpl/default_batch_footer.php';
+        $delfiles .= ',views/persons/tmpl/default_batch_body.php,views/persons/tmpl/default_batch_footer.php';
+        $delfiles .= ',/views/booklist/tmpl/onecol.php,/views/booklist/tmpl/onecol.xml';
+        $delfiles .= ',models/fields/otherrole.php,models/fields/rating.php';
         $delfiles = explode(',',$delfiles);
     	$cnt = 0; $dcnt=0;
     	$ecnt = 0;
-    	$message = 'Deleting Redundant Files in '.JPATH_ADMINISTRATOR.'/components/com_xbbooks/ <br />';
+    	$message = 'Deleting Redundant Files in '.JPATH_ROOT.'/[administrator/]components/com_xbbooks/ <br />';
     	foreach ($delfiles as $f) {
-    	    $name = JPATH_ADMINISTRATOR.'/components/com_xbbooks'.$f;
+    	    if (substr($f,0,1)=='/') {
+    	        $name = JPATH_ROOT.'/components/com_xbbooks'.$f;
+    	    } else {
+    	        $name = JPATH_ADMINISTRATOR.'/components/com_xbbooks/'.$f;
+    	    }
+    	    
     	    if (file_exists($name)) {
     	        if (is_dir($name)) {
     	            if ($this->rrmdir($name)) { 

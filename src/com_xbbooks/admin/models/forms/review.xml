@@ -82,7 +82,8 @@
 
 		<field name="rev_date" type="calendar"
 			label="XBBOOKS_FIELD_REVIEWED_LABEL" description="XBBOOKS_FIELD_REVIEWED_DESC"
-			class="inputbox" size="20" format="%Y-%m-%d" filter="user_utc" 
+			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc" 
+			showtime="false" translateformat="true"
 			required = "true"
 		/>
 

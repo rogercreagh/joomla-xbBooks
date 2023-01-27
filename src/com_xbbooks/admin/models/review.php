@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/review.php
- * @version 0.9.10.2 14th November 2022
+ * @version 1.0.3.7 27th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -141,8 +141,7 @@ class XbbooksModelReview extends JModelAdmin {
         if (parent::save($data)) {
             //get the saved id (valid for new items as well where $data['id'] will still = 0
             $rid = $this->getState('review.id');
-            //if ((array_key_exists('rev2read', $data)) && ($data['rev2read']==1)) {    
-            //just do it if the date is later than existing
+            //if rev_date is later than last_read for book then update last_read
                 $db = $this->getDbo();
                 $query= $db->getQuery(true);
                 $query = 'UPDATE `#__xbbooks` SET `last_read` =  '.$db->quote($data['rev_date']).' ';

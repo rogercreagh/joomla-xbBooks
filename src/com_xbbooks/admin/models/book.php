@@ -324,10 +324,7 @@ class XbbooksModelBook extends JModelAdmin {
             $data['tags'] = ($data['tags']) ? array_unique(array_merge($data['tags'],$data['taggroup4'])) : $data['taggroup4'];
         }
         
-        //if only first_seen or last_seen is set then copy to other one
-        if (($data['first_read']=='') && ($data['last_read']!='')) {
-            $data['first_read']=$data['last_read'];
-        }
+        //first_read is required, if last_read empty copy first_read to it
         if (($data['last_read']=='') && ($data['first_read']!='')) {
             $data['last_read']=$data['first_read'];
         }
@@ -388,7 +385,7 @@ class XbbooksModelBook extends JModelAdmin {
             	}
             	$qry = 'INSERT INTO '.$db->quoteName('#__xbbookreviews').' (title, alias, book_id, catid, reviewer, rating, rev_date, created, created_by, state ) ';
               	$qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$bid.','.$catid.','.$db->quote($reviewer).','.
-              	$data['quick_rating'].','.$db->quote($data['first_read']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
+              	$data['quick_rating'].','.$db->quote($data['last_read']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
               	$db->setQuery($qry);
               	$db->execute();
             }

@@ -376,9 +376,9 @@ class XbbooksModelBook extends JModelAdmin {
             	$query->select('COUNT(r.id) as revcnt')->from('#__xbbookreviews AS r')
             	->where('r.book_id = '.$bid);
             	$db->setQuery($query);
-            	$revs=$db->loadResult()+1;
+            	$revs=$db->loadResult();
             	$revs = $revs==0 ? '' : '-'.($revs+1);
-            	$rtitle = 'rating of '.$data['title'].$revs;
+            	$rtitle = 'rating of "'.$data['title'].'"'.$revs;
             	$ralias = OutputFilter::stringURLSafe('rating-'.$data['title'].$revs);
             	$reviewer = Factory::getUser()->name;
             	if ($params->get('def_new_revcat')>0) {

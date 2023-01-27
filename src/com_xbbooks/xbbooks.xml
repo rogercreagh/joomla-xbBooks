@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbbooks</name>
-	<creationDate>26th January 2023</creationDate>
+	<creationDate>27th January 2023</creationDate>
 	<version>1.0.3.7</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>

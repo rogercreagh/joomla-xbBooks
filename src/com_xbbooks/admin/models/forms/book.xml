@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks admin/models/forms/book.xml v1.0.3.1 27th January 2023 -->
+<!-- xbBooks admin/models/forms/book.xml v1.0.3.7 27th January 2023 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
@@ -76,7 +76,7 @@
 		<field name="first_read" type="calendar"
 			label="First Read" description="Date book was first read"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
-			required="false"
+			required="true"
 			showtime="false" translateformat="true" 
 			/>
 

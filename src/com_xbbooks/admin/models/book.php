@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/book.php
- * @version 1.0.3.7 24th January 2023
+ * @version 1.0.3.7 27th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -388,7 +388,7 @@ class XbbooksModelBook extends JModelAdmin {
             	}
             	$qry = 'INSERT INTO '.$db->quoteName('#__xbbookreviews').' (title, alias, book_id, catid, reviewer, rating, rev_date, created, created_by, state ) ';
               	$qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$bid.','.$catid.','.$db->quote($reviewer).','.
-              	$data['quick_rating'].','.$db->quote($data['acq_date']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
+              	$data['quick_rating'].','.$db->quote($data['first_read']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
               	$db->setQuery($qry);
               	$db->execute();
             }

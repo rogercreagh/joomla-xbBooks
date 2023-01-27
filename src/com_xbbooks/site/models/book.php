@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.9.11.2 17th November 2022
+ * @version 1.0.3.8 27th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -38,6 +38,9 @@ class XbbooksModelBook extends JModelItem {
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata, a.created AS created ');
 			$query->from('#__xbbooks AS a');
 			$query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id) AS averat');
+			$query->select('(SELECT COUNT(DISTINCT(bp.person_id)) FROM #__xbbookperson AS bp WHERE bp.book_id = a.id) AS pcnt');
+			$query->select('(SELECT COUNT(DISTINCT(bc.char_id)) FROM #__xbbookcharacter AS bc WHERE bc.book_id = a.id) AS ccnt');
+			$query->select('(SELECT COUNT(DISTINCT(bg.group_id)) FROM #__xbbookgroup AS bg WHERE bg.book_id = a.id) AS gcnt');
 			$query->select('c.title AS category_title');
 			$query->leftJoin('#__categories AS c ON c.id = a.catid');
 			$query->where('a.id = '.$id);
@@ -84,15 +87,21 @@ class XbbooksModelBook extends JModelItem {
 				$item->mencnt = count(array_keys($roles, 'mention'));
 				$item->othcnt = count(array_keys($roles, 'other'));
 				
-				$item->alist = $item->authcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'author','comma');
-				$item->elist = $item->editcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'editor','comma');
-				$item->mlist = $item->mencnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'mention','ul',true,1);
-				$item->olist =$item->othcnt==0 ? '' :  XbcultureHelper::makeLinkedNameList($item->people,'other','ul',true,1);				
+				$item->alist = $item->authcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'author','tn',5,'ppvmodal');
+				$item->elist = $item->editcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'editor','tn',5,'ppvmodal');
+				$item->mlist = $item->mencnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'mention','tn',5,'ppvmodal');
+				$item->olist =$item->othcnt==0 ? '' :  XbcultureHelper::makeItemLists($item->people,'other','rtn',5,'ppvmodal');				
 				
-				$item->chars = XbbooksGeneral::getBookChars($item->id);
-				$item->charcnt = empty($item->chars) ? 0 : count($item->chars);
-				$item->clist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','ul',true,1);
+				if ($item->ccnt>0) {
+    				$item->chars = XbbooksGeneral::getBookChars($item->id);
+    				$item->clist = $item->ccnt==0 ? '' : XbcultureHelper::makeItemLists($item->chars,'char','tn',5,'cpvmodal');				    
+				}
 								
+				if ($item->gcnt>0) {
+				    $item->groups = XbbooksGeneral::getBookGroups($item->id);
+				    $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','rtn',5,'gpvgmodal');
+				}
+				
 				//order by review rating or date?
 				$item->reviews = XbbooksGeneral::getBookReviews($item->id);
 				$item->revcnt = count($item->reviews);

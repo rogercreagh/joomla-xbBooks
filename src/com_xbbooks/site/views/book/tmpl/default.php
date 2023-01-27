@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 1.0.3.2 9th January 2023
+ * @version 1.0.3.8 27th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,16 +33,23 @@ if ($imgok) {
 }
 
 ?>
+<style type="text/css" media="screen">
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; z-index-2 }
+	.xbpvmodal .modal-body {max-height: calc(100vh - 190px); }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 270px);}
+</style>
 <div class="xbculture ">
-<div class="xbbox xbboxcyan">
+<div class="xbbox bkbox">
 	<div class="row-fluid">
-		<?php if ($imgok && ($this->show_image == 1 )) : ?>
+		<?php if ($this->show_image !=2 ) : ?>
 			<div class="span2">
-				<img class="hasTooltip" title="" data-original-title="<?php echo $tip; ?>"
-					data-placement="right" src="<?php echo $src; ?>" border="0" alt="" style="max-width:100%;" />
+				<?php if($imgok) : ?>
+    				<img class="hasTooltip" title="" data-original-title="<?php echo $tip; ?>"
+    					data-placement="right" src="<?php echo $src; ?>" border="0" alt="" style="max-width:100%;" />
+    			<?php endif; ?>
 			</div>
 		<?php endif; ?>
-		<div class="<?php echo $imgok==true ? 'span10' : 'span12'; ?>">
+		<div class="span10">
 			<div class="pull-right xbmr20" style="text-align:right;">
 	    	    <div class="xb12">
 					<?php if ($item->revcnt>0) : ?>
@@ -53,20 +60,26 @@ if ($imgok) {
 	                         <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
 	                         <?php if (($item->averat - floor($item->averat))>0) : ?>
 	                              <i class="<?php echo $this->halfstar_class; ?>"></i>
-	                              <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
 	                          <?php  endif; ?> 
 	                    <?php endif; ?> 
+	                    <br /><span class="xb09" style="color:darkgray;">
+	                    <?php if ($item->revcnt >1) : ?>
+	                    	<?php echo round($item->averat,1); ?> average from <?php echo $item->revcnt; ?> ratings<br />	
+	                    <?php else : ?>                                               
+    	                    One review on <?php echo $item->reviews[0]->rev_date;?>
+	                    <?php endif; ?>
+	                    </span> 
 	                <?php else : ?>
-	                   	<p> </p>                   
+	                   	<p class="xbnote">no reviews available</p>                   
 					<?php endif; ?>						
                 </div>
-				<h4 ><?php if ($item->pubyear>0) { 
-					echo Text::_('XBBOOKS_FIRSTPUB').': '.$item->pubyear; 
-				} ?></h4>
+				<p class="xb11"><?php if ($item->pubyear>0) { 
+					echo Text::_('XBBOOKS_FIRSTPUB').': <b>'.$item->pubyear.'</b>'; 
+				} ?></p>
 				<?php if($this->show_fict) : ?>
 				<p>
 					<?php if ($item->fiction==1) : ?>
-						<span class="label">'<?php echo Text::_('XBCULTURE_FICTION'); ?></span>
+						<span class="label"><?php echo Text::_('XBCULTURE_FICTION'); ?></span>
 					<?php else : ?>
 						<span class="label label-inverse"><?php echo Text::_('XBCULTURE_NONFICTION'); ?></span>
 					<?php endif; ?>	
@@ -77,141 +90,165 @@ if ($imgok) {
 			<?php if ($item->subtitle != '') : ?>
 				<h3><?php  echo $item->subtitle; ?></h3>
 			<?php endif; ?>
-			<div class="row-fluid">
-        	    <?php if ($item->editcnt>0) : ?>
-					<div class="span5">
-						<h4><span class="xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITOR').': '; ?></span>: 
-			                <?php  echo $item->elist; ?> 
-                         </h4> 
-					</div>
-			    <?php endif; ?>
-				<div class="span<?php echo ($item->editcnt>0)? '7' : '12'; ?>"><p class="xbmt10">
-	                 <?php if ($item->authcnt>0) : ?>
-    	                  <h4>
-    						<span class="xbnit xbmr10">
-    							<?php echo Text::_(($item->authcnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_AUTHORS').': '; ?>
-    						</span> 
-    						<?php echo $item->alist; ?> 
-						</h4>
-					<?php else : ?>
-						<p class="xbnit"><?php echo Text::_('XBBOOKS_NOAUTHOR'); ?></p>                         
-	                 <?php endif; ?>						
-				</div>
-			</div>   
-  		</div>
+    	    <?php if ($item->editcnt>0) : ?>
+					<h4><span class="xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITOR').': '; ?></span>: 
+		                <?php  echo $item->elist['commalist']; ?> 
+                     </h4> 
+		    <?php endif; ?>
+             <?php if ($item->authcnt>0) : ?>
+                  <h4>
+					<span class="xbnit xbmr10">
+						<?php echo Text::_(($item->authcnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_AUTHORS').': '; ?>
+					</span> 
+					<?php echo $item->alist['commalist']; ?> 
+				</h4>
+			<?php else : ?>
+				<p class="xbnit"><?php echo Text::_('XBBOOKS_NOAUTHOR'); ?></p>                         
+             <?php endif; ?>
+             <div class="clearfix"></div>
+             <?php if (trim($item->summary)!='') {
+                 $sum = '<i>'.Text::_('XBCULTURE_SUMMARY').'</i>: '.$item->summary;
+             } elseif (trim($item->synopsis)!='') {
+                 $sum = '<i>'.Text::_('XBBOOKS_SYNOPSIS_EXTRACT').'</i>: '.XbcultureHelper::makeSummaryText($item->synopsis,200);                
+             } else {
+                 $sum = '<i>'.Text::_('XBBOOKS_NO_SUMMARY_SYNOPSIS').'</i>';
+             } ?>						
+    			<div class="xbbox xbboxwht">
+    				<div><?php echo $sum; ?></div> 
+    			</div>
+            <div class="row-fluid">
+            	<div class="span5">
+                	<?php if ((!$item->publisher=='') || (!$hide_empty)) : ?>
+             			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_PUBLISHER').': '; ?></div>
+               			<div class="pull-left" style="margin:2px 0 0 0;">
+            				<?php echo (!$item->publisher=='') ? $item->publisher : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
+            			</div>
+                  		<div class="clearfix"></div>
+                 	<?php endif; ?>
+                   	<?php if ((!$item->orig_lang=='') || (!$hide_empty)) : ?>
+            			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_ORIG_LANG').': '; ?></div>
+            			<div class="pull-left" style="margin:2px 0 0 0;">
+            				<?php echo (!$item->orig_lang=='') ? $item->orig_lang : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
+                        </div>
+            			<div class="clearfix"></div> 
+               		<?php endif; ?>
+                </div>               
+            	<div class="span1"></div>
+            	<div class= "span6">
+                   	<?php if ((!$item->edition=='') || (!$hide_empty)) : ?>
+            			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITION').': '; ?></div>
+            			<div class="pull-left" style="margin:2px 0 0 0;">
+            				<?php echo (!$item->edition=='') ? $item->edition : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
+                        </div>
+            			<div class="clearfix"></div> 
+               		<?php endif; ?>
+                   	<?php if ((!$item->format=='') || (!$hide_empty)) : ?>
+            			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_FORMAT').': '; ?></div>
+            			<div class="pull-left" style="margin:2px 0 0 0;">
+            				<?php echo (!$item->format=='') ? $item->format : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
+                        </div>
+            			<div class="clearfix"></div> 
+               		<?php endif; ?>
+               		<!-- insert reading notes here -->
+            	</div>
+            </div>
+            <?php if ((($item->mencnt + $item->othcnt + $item->ccnt + $item->gcnt) > 0) || (!$hide_empty)) : ?>
+                <hr />
+                <div class="row-fluid">
+                	<?php if ((($item->mencnt + $item->ccnt) > 0) || (!$hide_empty)) : ?>
+                		<div class="span6">
+                        	<p><b><i>People mentioned & Characters</i></b></p>
+                          	<?php if (($item->mencnt > 0) || (!$hide_empty)) : ?>
+                      			<div class="pull-left xbnit xbmr10">
+                        			<?php echo Text::_('XBBOOKS_APPEARING_BOOK'); ?>: 
+                        		</div>
+                        		<?php if ($item->mencnt == 0) : ?>
+                        			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
+                        		<?php else : ?>
+                        			<div class="clearfix"></div>
+                        			<div class="xbmt2 xbml20"><?php echo $item->mlist['ullist'] ; ?></div>
+                        		<?php  endif; ?>
+                        		<div class="clearfix"></div>
+                        	<?php endif; ?>
+                        	<?php if (($item->ccnt > 0) || (!$hide_empty)) : ?>
+                        		<div class="pull-left xbnit xbmr10">
+                        			<?php echo Text::_('XBBOOKS_FICTIONAL_CHARS'); ?>: 
+                        		</div>
+                        		<?php if ($item->ccnt == 0) : ?>
+                        			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
+                        		<?php else : ?>
+                        			<div class="clearfix"></div>
+                        			<div class="xbmt2 xbml20"><?php echo $item->clist['ullist'] ; ?></div>
+                        		<?php  endif; ?>
+                        	<?php endif; ?>
+                		</div>
+                	<?php endif; ?>
+               		<?php if ((($item->othcnt + $item->gcnt) > 0) || (!$hide_empty)) : ?>
+                		<div class="span6">
+                    		<?php if (($item->othcnt > 0) || (!$hide_empty)) : ?>
+                            	<p><b><i>Other Production Roles</i></b></p>
+                    			<?php if ($item->othcnt == 0) : ?>
+                    				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOOTHERS'); ?></div>
+                    			<?php else : ?>
+                    				<div class="xbmt2"><?php echo $item->olist['ullist'] ; ?></div>
+                    			<?php  endif; ?>
+                    		<?php endif; ?>
+                        	<?php if (($item->gcnt > 0) || (!$hide_empty)) : ?>
+                            	<p><b><i>Groups</i></b></p>
+                    			<?php if ($item->gcnt == 0) : ?>
+                    				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOGROUPS'); ?></div>
+                    			<?php else : ?>
+                    				<div class="xbmt2"><?php echo $item->grouplist['ullist'] ; ?></div>
+                    			<?php  endif; ?>
+                        	<?php endif; ?>
+                		</div>
+                	<?php endif; ?>
+                </div>
+            <?php endif; ?>
+            <?php if ($item->ext_links_cnt > 0) : ?>
+                <hr />
+            	<div class="row-fluid">
+                	<div class="span<?php echo (($item->mencnt > 0) || ($item->ccnt > 0) || ($item->othcnt > 0))? '6' : '12'; ?>">
+                		<p><b><i><?php echo Text::_('XBBOOKS_EXT_LINKS'); ?></i></b></p>   					
+                		<?php echo $item->ext_links_list; ?>		
+                	</div>
+                </div>
+             <?php endif; ?>
+            <div class="row-fluid xbmt16">
+    			<?php if ($this->show_bcat >0) : ?>       
+    	        	<div class="span4">
+    					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_BOOK_CAT'); ?></div>
+    					<div class="pull-left">
+        					<?php if($this->show_bcat==2) : ?>
+        						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
+        							<?php echo $item->category_title; ?></a>
+        					<?php else: ?>
+        						<span class="label label-success">
+        						<?php echo $item->category_title; ?></span>
+        					<?php endif; ?>		
+    					</div>
+    		        </div>
+    	        <?php endif; ?>
+            	<?php if (($this->show_btags>0) && (!empty($item->tags))) : ?>
+            	<div class="span<?php echo ($this->show_bcat>0) ? '8' : '12'; ?>">
+    				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?>
+    				</div>
+    				<div class="pull-left">
+    					<?php  $tagLayout = new FileLayout('joomla.content.tags');
+    	    				echo $tagLayout->render($item->tags); ?>
+    				</div>
+            	</div>
+    			<?php endif; ?>
+            </div>
+ 		</div>        
 		<?php if ($imgok && ($this->show_image == 2 )) : ?>
 			<div class="span2">
 				<img class="hasTooltip" title="" data-original-title="<?php echo $tip; ?>"
 				 data-placement="left" src="<?php echo $src; ?>" border="0" alt="" style="max-width:100%;" />
 			</div>
 		<?php endif; ?>
- 	</div>        
+  	</div>
 </div> 
-<?php if (trim($item->summary) != '') : ?>
-    <div class="row-fluid">
-    	<div class="span2"></div>
-    	<div class="span8">
-			<div class="xbbox xbboxwht">
-				<div class="pull-left">
-					<span class="xbnit"><?php echo Text::_('XBCULTURE_SUMMARY'); ?>  : </span>
-				</div>
-				<div><?php echo $item->summary; ?></div> 
-			</div>
-		</div>
-		<div class="span2"></div>
-	</div>
-<?php  endif;?>
-<div class="row-fluid">
-	<div class="span5">
-    	<?php if ((!$item->publisher=='') || (!$hide_empty)) : ?>
- 			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_PUBLISHER').': '; ?></div>
-   			<div class="pull-left" style="margin:2px 0 0 0;">
-				<?php echo (!$item->publisher=='') ? $item->publisher : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
-			</div>
-      		<div class="clearfix"></div>
-     	<?php endif; ?>
-       	<?php if ((!$item->orig_lang=='') || (!$hide_empty)) : ?>
-			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_ORIG_LANG').': '; ?></div>
-			<div class="pull-left" style="margin:2px 0 0 0;">
-				<?php echo (!$item->orig_lang=='') ? $item->orig_lang : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
-            </div>
-			<div class="clearfix"></div> 
-   		<?php endif; ?>
-    </div>               
-	<div class="span1"></div>
-	<div class= "span6">
-       	<?php if ((!$item->edition=='') || (!$hide_empty)) : ?>
-			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITION').': '; ?></div>
-			<div class="pull-left" style="margin:2px 0 0 0;">
-				<?php echo (!$item->edition=='') ? $item->edition : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
-            </div>
-			<div class="clearfix"></div> 
-   		<?php endif; ?>
-       	<?php if ((!$item->format=='') || (!$hide_empty)) : ?>
-			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_FORMAT').': '; ?></div>
-			<div class="pull-left" style="margin:2px 0 0 0;">
-				<?php echo (!$item->format=='') ? $item->format : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
-            </div>
-			<div class="clearfix"></div> 
-   		<?php endif; ?>
-   		<!-- insert reading notes here -->
-	</div>
-</div>
-<hr />
-<?php if ((($item->mencnt + $item->othcnt + $item->charcnt) > 0) || (!$hide_empty)) : ?>
-    <div class="row-fluid">
-    	<?php if ((($item->mencnt + $item->charcnt) > 0) || (!$hide_empty)) : ?>
-    		<div class="span6">
-            	<p><b><i>People mentioned & Characters</i></b></p>
-              	<?php if (($item->mencnt > 0) || (!$hide_empty)) : ?>
-          			<div class="pull-left xbnit xbmr10">
-            			<?php echo Text::_('XBBOOKS_APPEARING_BOOK'); ?>: 
-            		</div>
-            		<?php if ($item->mencnt == 0) : ?>
-            			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
-            		<?php else : ?>
-            			<div class="clearfix"></div>
-            			<div class="xbmt2 xbml20"><?php echo $item->mlist ; ?></div>
-            		<?php  endif; ?>
-            		<div class="clearfix"></div>
-            	<?php endif; ?>
-            	<?php if (($item->charcnt > 0) || (!$hide_empty)) : ?>
-            		<div class="pull-left xbnit xbmr10">
-            			<?php echo Text::_('XBBOOKS_FICTIONAL_CHARS'); ?>: 
-            		</div>
-            		<?php if ($item->charcnt == 0) : ?>
-            			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
-            		<?php else : ?>
-            			<div class="clearfix"></div>
-            			<div class="xbmt2 xbml20"><?php echo $item->clist ; ?></div>
-            		<?php  endif; ?>
-            	<?php endif; ?>
-    		</div>
-    	<?php endif; ?>
-    	<?php if (($item->othcnt > 0) || (!$hide_empty)) : ?>
-    		<div class="span6">
-            	<p><b><i>Other Production Roles</i></b></p>
-        		<?php if (($item->othcnt > 0) || (!$hide_empty)) : ?>
-        			<?php if ($item->othcnt == 0) : ?>
-        				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOOTHERS'); ?></div>
-        			<?php else : ?>
-        				<div class="xbmt2"><?php echo $item->olist ; ?></div>
-        			<?php  endif; ?>
-        		<?php endif; ?>
-    		</div>
-    	<?php endif; ?>
-    </div>
-    <hr />
-<?php endif; ?>
-<?php if ($item->ext_links_cnt > 0) : ?>
-	<div class="row-fluid">
-    	<div class="span<?php echo (($item->mencnt > 0) || ($item->charcnt > 0) || ($item->othcnt > 0))? '6' : '12'; ?>">
-    		<p><b><i><?php echo Text::_('XBBOOKS_EXT_LINKS'); ?></i></b></p>   					
-    		<?php echo $item->ext_links_list; ?>		
-    	</div>
-    </div>
-    <hr />
- <?php endif; ?>
 <?php if ($this->show_bdates) : ?>
 	<div class="row-fluid">
 		<div class="span4">
@@ -249,32 +286,6 @@ if ($imgok) {
 				echo $item->synopsis; 
             } ?> 
 		</div>
-        <div class="row-fluid xbmt16">
-			<?php if ($this->show_bcat >0) : ?>       
-	        	<div class="span4">
-					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_BOOK_CAT'); ?></div>
-					<div class="pull-left">
-    					<?php if($this->show_bcat==2) : ?>
-    						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
-    							<?php echo $item->category_title; ?></a>
-    					<?php else: ?>
-    						<span class="label label-success">
-    						<?php echo $item->category_title; ?></span>
-    					<?php endif; ?>		
-					</div>
-		        </div>
-	        <?php endif; ?>
-        	<?php if (($this->show_btags>0) && (!empty($item->tags))) : ?>
-        	<div class="span<?php echo ($this->show_bcat>0) ? '8' : '12'; ?>">
-				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?>
-				</div>
-				<div class="pull-left">
-					<?php  $tagLayout = new FileLayout('joomla.content.tags');
-	    				echo $tagLayout->render($item->tags); ?>
-				</div>
-        	</div>
-			<?php endif; ?>
-        </div>
 	</div>
 	<?php if ($this->show_brevs>0) : ?>
 		<div class="span6 xbmb12">
@@ -284,7 +295,7 @@ if ($imgok) {
 			<?php else : ?>
 				<?php foreach ($item->reviews as $rev) : ?>
 					<div class="xbrevlist ">
-						<div class="xbbox xbboxmag">
+						<div class="xbbox revbox">
 							<?php if ($this->show_brevs>0) : ?>
 								<div style="padding-bottom:5px;">
 									<?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
@@ -377,4 +388,68 @@ if ($imgok) {
     </div>
     <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 <?php endif; ?>
+<script>
+jQuery(document).ready(function(){
+//for preview modals
+    jQuery('#ajax-ppvmodal').on('show', function () {
+        // Load view vith AJAX
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-ppvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+    jQuery('#ajax-gpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=group&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-gpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+    jQuery('#ajax-cpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=character&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-cpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+});
+</script>
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:1000px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-gpvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Group</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-cpvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Character</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+
 

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/book/view.html.php
- * @version 1.0.2.2 6th January 2023
+ * @version 1.0.3.8 27th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -90,8 +90,6 @@ class XbbooksViewBook extends JViewLegacy {
         ToolbarHelper::save('book.save');
         ToolbarHelper::save2new('book.save2new');
         ToolbarHelper::save2copy('book.save2copy');
-        ToolbarHelper::custom('book.save2NewPer', 'user', '', 'XBCULTURE_BTN_SAVE2PER', false) ;
-        ToolbarHelper::custom('book.save2NewChar', 'user', '', 'XBCULTURE_BTN_SAVE2CHAR', false) ;
         ToolbarHelper::custom('book.save2NewRev', 'comment', '', 'XBCULTURE_BTN_SAVE2REV', false) ;
         if ($isNew) {
             ToolbarHelper::cancel('book.cancel','JTOOLBAR_CANCEL');
@@ -104,7 +102,7 @@ class XbbooksViewBook extends JViewLegacy {
         if ($this->item->id > 0) {
             $dhtml = '<a href="index.php?option=com_xbbooks&view=book&layout=modalpv&tmpl=component&id='.$this->item->id.'"
             	data-toggle="modal" data-target="#ajax-pvmodal"
-            	class="btn btn-small btn-primary"><i class="icon-eye"></i> '.Text::_('Preview').'</a>';
+            	class="btn btn-small btn-primary"><i class="far fa-eye"></i> '.Text::_('Preview').'</a>';
             $bar->appendButton('Custom', $dhtml);
         }
         ToolbarHelper::help( '', false,'https://crosborne.uk/xbbooks/doc?tmpl=component#bookedit' );

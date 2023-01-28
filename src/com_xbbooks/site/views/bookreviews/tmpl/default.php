@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreviews/tmpl/default.php
- * @version 1.0.3.7 26th January 2023
+ * @version 1.0.3.9 28th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,7 +35,8 @@ $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'booktitle'=>Text::_('XB
 		'rating'=>Text::_('XBCULTURE_RATING'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
 );
 
-$bvlink = 'index.php?option=com_xbbooks&view=book&id='; 
+$bvlink = 'index.php?option=com_xbbooks&view=book&id=';
+$rvlink = 'index.php?option=com_xbbooks&view=bookreview&id=';
 $cvlink = 'index.php?option=com_xbbooks&view=category&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
@@ -158,7 +159,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						    $couname = Factory::getUser($item->checked_out)->username;
     						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').': '.$couname, $item->checked_out_time, 'review.', $canCheckin);
     						} ?>
-    						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo Text::_('XBBOOKS_EDIT_REVIEW'); ?>">
+    						<a href="<?php echo Route::_($rvlink . $item->id); ?>" title="<?php echo Text::_('XBBOOKS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>
     						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid= <?php echo $item->id; ?>;">

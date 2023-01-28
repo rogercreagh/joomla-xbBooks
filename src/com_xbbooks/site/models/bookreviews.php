@@ -2,13 +2,14 @@
 /*******
  * @package xbBooks
  * @filesource site/models/bookreviews.php
- * @version 1.0.3.7 26th January 2023
+ * @version 1.0.3.9 28th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2023
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Helper\TagsHelper;
@@ -16,6 +17,11 @@ use Joomla\CMS\Helper\TagsHelper;
 class XbbooksModelBookreviews extends JModelList {
     
     public function __construct($config = array()) {
+        $showrevs = ComponentHelper::getParams('com_xbbooks')->get('show_revs',1);
+        if (!$showrevs) {
+            header('Location: index.php?option=com_xbbooks&view=booklist');
+            exit();
+        }
         
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(

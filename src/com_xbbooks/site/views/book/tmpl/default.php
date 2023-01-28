@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 1.0.3.8 27th January 2023
+ * @version 1.0.3.9 28th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -34,14 +34,15 @@ if ($imgok) {
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; z-index-2 }
-	.xbpvmodal .modal-body {max-height: calc(100vh - 190px); }
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 270px);}
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    <?php if($this->tmpl == 'component') : ?>
+        .fa-eye {visibility:hidden;}
+    <?php endif; ?>
 </style>
 <div class="xbculture ">
 <div class="xbbox bkbox">
 	<div class="row-fluid">
-		<?php if ($this->show_image !=2 ) : ?>
+		<?php if ($imgok && ($this->show_image ==1 )) : ?>
 			<div class="span2">
 				<?php if($imgok) : ?>
     				<img class="hasTooltip" title="" data-original-title="<?php echo $tip; ?>"
@@ -49,7 +50,7 @@ if ($imgok) {
     			<?php endif; ?>
 			</div>
 		<?php endif; ?>
-		<div class="span10">
+		<div class="span<?php echo ($imgok && ($this->show_image > 0 )) ? '10' : '12'; ?>">
 			<div class="pull-right xbmr20" style="text-align:right;">
 	    	    <div class="xb12">
 					<?php if ($item->revcnt>0) : ?>
@@ -66,7 +67,7 @@ if ($imgok) {
 	                    <?php if ($item->revcnt >1) : ?>
 	                    	<?php echo round($item->averat,1); ?> average from <?php echo $item->revcnt; ?> ratings<br />	
 	                    <?php else : ?>                                               
-    	                    One review on <?php echo $item->reviews[0]->rev_date;?>
+    	                    One review on <?php echo HtmlHelper::date($item->reviews[0]->rev_date ,'d M Y');?>
 	                    <?php endif; ?>
 	                    </span> 
 	                <?php else : ?>
@@ -113,9 +114,10 @@ if ($imgok) {
              } else {
                  $sum = '<i>'.Text::_('XBBOOKS_NO_SUMMARY_SYNOPSIS').'</i>';
              } ?>						
-			<div class="xbbox xbboxwht">
+			<div class="xbbox xbboxwht" style="max-width:700px; margin:auto;">
 				<div><?php echo $sum; ?></div> 
 			</div>
+			<br />
 		</div>
 		<?php if ($imgok && ($this->show_image == 2 )) : ?>
 			<div class="span2">
@@ -171,7 +173,7 @@ if ($imgok) {
                 			<?php echo Text::_('XBBOOKS_APPEARING_BOOK'); ?>: 
                 		</div>
                 		<?php if ($item->mencnt == 0) : ?>
-                			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
+                			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?><br /></div>
                 		<?php else : ?>
                 			<div class="clearfix"></div>
                 			<div class="xbmt2 xbml20"><?php echo $item->mlist['ullist'] ; ?></div>
@@ -183,7 +185,7 @@ if ($imgok) {
                 			<?php echo Text::_('XBBOOKS_FICTIONAL_CHARS'); ?>: 
                 		</div>
                 		<?php if ($item->ccnt == 0) : ?>
-                			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?></div>
+                			<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?><br /></div>
                 		<?php else : ?>
                 			<div class="clearfix"></div>
                 			<div class="xbmt2 xbml20"><?php echo $item->clist['ullist'] ; ?></div>
@@ -196,7 +198,7 @@ if ($imgok) {
             		<?php if (($item->othcnt > 0) || (!$hide_empty)) : ?>
                     	<p><b><i>Other Production Roles</i></b></p>
             			<?php if ($item->othcnt == 0) : ?>
-            				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOOTHERS'); ?></div>
+            				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOOTHERS'); ?><br /></div>
             			<?php else : ?>
             				<div class="xbmt2"><?php echo $item->olist['ullist'] ; ?></div>
             			<?php  endif; ?>
@@ -204,7 +206,7 @@ if ($imgok) {
                 	<?php if (($item->gcnt > 0) || (!$hide_empty)) : ?>
                     	<p><b><i>Groups</i></b></p>
             			<?php if ($item->gcnt == 0) : ?>
-            				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NOGROUPS'); ?></div>
+            				<div class="xbnit xbmt2"><?php echo Text::_('XBBOOKS_NONELISTED'); ?><br /></div>
             			<?php else : ?>
             				<div class="xbmt2"><?php echo $item->grouplist['ullist'] ; ?></div>
             			<?php  endif; ?>

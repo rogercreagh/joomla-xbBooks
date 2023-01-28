@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/book.php
- * @version 0.9.11.0 15th November 2022
+ * @version 1.0.3.9 28th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -81,15 +81,15 @@ class XbbooksModelBookreview extends JModelItem {
 						$item->edauths .= Text::_( 'XBBOOKS_NOAUTHOR' ).'</i>';
 					} else {
 						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_AUTHORS'):Text::_('XBCULTURE_AUTHOR');
-						$item->edauths .= '</i>: '.XbcultureHelper::makeLinkedNameList($item->people,'author','comma',false);
+						$item->edauths .= '</i>: '.XbcultureHelper::makeItemLists($item->people,'author','t',3,'ppvmodal')['commalist'];
 					}
 				} else {
 					$item->edauths .= Text::_('XBCULTURE_EDITOR').'</i>: '.
-							XbcultureHelper::makeLinkedNameList($item->people,'editor','comma',false);
+									XbcultureHelper::makeItemLists($item->people,'editor','t',3,'ppvmodal')['commalist'];
 				}
 				
 				//get other reviews
-				$item->reviews = XbbooksGeneral::getBookReviews($item->book_id);				
+				$item->allbookreviews = XbbooksGeneral::getBookReviews($item->book_id);				
 			} //end if loadobject			
             return $this->item;			
 		} //end if item not set already and we have an id				

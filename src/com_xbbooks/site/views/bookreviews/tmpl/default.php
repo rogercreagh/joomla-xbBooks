@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreviews/tmpl/default.php
- * @version 1.0.3.9 28th January 2023
+ * @version 1.0.3.9 29th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -154,10 +154,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                     <?php endif; ?>
 						<td>
     						<p class="xbtitlelist">
-    						<?php if ($item->checked_out) {
-    						    $couname = Factory::getUser($item->checked_out)->username;
-    						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').': '.$couname, $item->checked_out_time, 'review.', $canCheckin);
-    						} ?>
     						<a href="<?php echo Route::_($rvlink . $item->id); ?>" title="<?php echo Text::_('XBBOOKS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>

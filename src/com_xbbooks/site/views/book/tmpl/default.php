@@ -127,40 +127,23 @@ if ($imgok) {
 		<?php endif; ?>
   	</div>
     <div class="row-fluid">
-    	<div class="span5">
-        	<?php if ((!$item->publisher=='') || (!$hide_empty)) : ?>
+        <?php if ((!$item->publisher=='') || (!$hide_empty)) : ?>
+        	<div class="span5">
      			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_PUBLISHER').': '; ?></div>
        			<div class="pull-left" style="margin:2px 0 0 0;">
     				<?php echo (!$item->publisher=='') ? $item->publisher : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
     			</div>
-          		<div class="clearfix"></div>
-         	<?php endif; ?>
-           	<?php if ((!$item->orig_lang=='') || (!$hide_empty)) : ?>
+    		</div>
+        	<div class="span1"></div>
+        <?php endif; ?>
+        <?php if ((!$item->orig_lang=='') || (!$hide_empty)) : ?>
+           	<div class= "span6">
     			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_ORIG_LANG').': '; ?></div>
     			<div class="pull-left" style="margin:2px 0 0 0;">
     				<?php echo (!$item->orig_lang=='') ? $item->orig_lang : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
                 </div>
-    			<div class="clearfix"></div> 
-       		<?php endif; ?>
-        </div>               
-    	<div class="span1"></div>
-    	<div class= "span6">
-           	<?php if ((!$item->edition=='') || (!$hide_empty)) : ?>
-    			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITION').': '; ?></div>
-    			<div class="pull-left" style="margin:2px 0 0 0;">
-    				<?php echo (!$item->edition=='') ? $item->edition : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
-                </div>
-    			<div class="clearfix"></div> 
-       		<?php endif; ?>
-           	<?php if ((!$item->format=='') || (!$hide_empty)) : ?>
-    			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_FORMAT').': '; ?></div>
-    			<div class="pull-left" style="margin:2px 0 0 0;">
-    				<?php echo (!$item->format=='') ? $item->format : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
-                </div>
-    			<div class="clearfix"></div> 
-       		<?php endif; ?>
-       		<!-- insert reading notes here -->
-    	</div>
+            </div>               
+       	<?php endif; ?>
     </div>
     <?php if ((($item->mencnt + $item->othcnt + $item->ccnt + $item->gcnt) > 0) || (!$hide_empty)) : ?>
         <hr />
@@ -261,6 +244,11 @@ if ($imgok) {
     			<?php else: 
     			     echo Text::_('unknown');
     			endif; ?>
+               	<?php if ((!$item->format=='') || (!$hide_empty)) : ?>
+        			<p><span class="bnit xbmr10"><?php echo Text::_('XBCULTURE_FORMAT').': '; ?></span>&nbsp;
+        				<?php echo (!$item->format=='') ? $item->format : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
+                    </p>
+           		<?php endif; ?>
     		</div>
     		<div class="span4">
     	    	<?php if (($item->last_read) && ($item->last_read <> $item->first_read)) : ?>
@@ -269,6 +257,11 @@ if ($imgok) {
     	    		<?php $datefmt = xbCultureHelper::getDateFmt($item->last_read, 'D jS M Y');
     	    		echo HtmlHelper::date($item->last_read , $datefmt) ; ?>
         		<?php endif; ?>
+               	<?php if ((!$item->edition=='') || (!$hide_empty)) : ?>
+        			<p><span class="xbnit xbmr10"><?php echo Text::_('XBCULTURE_EDITION').': '; ?></span>
+        				<?php echo (!$item->edition=='') ? $item->edition : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
+                    </p>
+           		<?php endif; ?>
     		</div>
     		<div class="span4">
     			   <span class="xbnit xbgrey"><?php echo  Text::_('XBCULTURE_CATALOGUED').': '.HtmlHelper::date($item->created ,'jS M Y'); ?>
@@ -326,7 +319,6 @@ if ($imgok) {
     								} else { //summary doesn't get shown here if there is a review - OK????
     									echo $rev->review;
     								}  ?>
-    								<?php //TODO extlinks?>
     	                    		<div class="row-fluid">
     	            	        		<?php if($this->show_rcat) : ?>
     	                        			<div class="span4">

@@ -314,28 +314,17 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 <script>
 jQuery(document).ready(function(){
 //for preview modals
+    // Load view vith AJAX
     jQuery('#ajax-ppvmodal').on('show', function () {
-        // Load view vith AJAX
-       //jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalppv&tmpl=component');
       jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-ppvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
     jQuery('#ajax-bpvmodal').on('show', function () {
-        // Load view vith AJAX
-       //jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalbpv&tmpl=component');
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-bpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
     jQuery('#ajax-rpvmodal').on('show', function () {
-        // Load view vith AJAX
-       //jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalrpv&tmpl=component');
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=review&layout=default&tmpl=component&id='+window.pvid);
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-rpvmodal').on('hidden', function () {
+    jQuery('#ajax-ppvmodal,#ajax-bpvmodal,#ajax-rpvmodal').on('hidden', function () {
        document.location.reload(true);
     })    
 });

@@ -207,6 +207,14 @@ class XbbooksModelBookreviews extends JModelList {
     public function getItems() {
         $items  = parent::getItems();
         $tagsHelper = new TagsHelper;
+
+        $app = Factory::getApplication();
+        $revs = array();
+        for ($i = 0; $i < count($items); $i++) {
+            $revs[$i] = $items[$i]->id;
+        }
+        $app->setUserState('bookreviews.sortorder', $revs);
+        
         foreach ($items as $i=>$item) {
         	$item->tags = $tagsHelper->getItemTags('com_xbbooks.review' , $item->id);            
         } 

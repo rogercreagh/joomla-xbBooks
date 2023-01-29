@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 1.0.3.6 23rd January 2023
+ * @version 1.0.3.9 29th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,8 +33,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-body {max-height: calc(100vh - 190px); }
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 270px);}
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
 </style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -187,18 +186,14 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 <script>
 jQuery(document).ready(function(){
 //for preview modals
+    // Load view vith AJAX
     jQuery('#ajax-ppvmodal').on('show', function () {
-        // Load view vith AJAX
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalppv&tmpl=component');
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-ppvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
     jQuery('#ajax-bpvmodal').on('show', function () {
-        // Load view vith AJAX
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalbpv&tmpl=component');
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-bpvmodal').on('hidden', function () {
+    jQuery('#ajax-ppvmodal,#ajax-bpvmodal').on('hidden', function () {
        document.location.reload(true);
     })    
 });
@@ -206,17 +201,26 @@ jQuery(document).ready(function(){
 <!-- preview modal windows -->
 <div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
     <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
+        </div>
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->
         </div>
     </div>
 </div>
 <div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Book</h4>
+        </div>
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->
         </div>
     </div>
 </div>
-
 

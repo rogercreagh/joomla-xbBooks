@@ -64,22 +64,17 @@ if ($imgok) {
             	          	</span>
             	        <?php endif; ?>	
 	                    <br /><span class="xb09" style="color:darkgray;">
-    	                    reviewed on <?php echo HtmlHelper::date($item->rev_date ,'d M Y');?>
+    	                    <span class="xbnit"><?php echo Text::_('reviewed on'); ?></span> <?php echo HtmlHelper::date($item->rev_date ,'d M Y');?>
+    	                    <span class="xbnit"><?php echo Text::_('reviewed by'); ?></span><?php echo $item->reviewer; ?>					 
     	                </span>
 	    	    	</div>
 				</div>
 				<h3><?php echo $item->title; ?></h3>
 				<h4><span class="xbnit"><?php echo Text::_('XBBOOKS_REVIEWOF'); ?></span>"
-					 <a href="<?php echo XbbooksHelperRoute::getBookLink($item->book_id); ?>"
-    					 <?php if (!empty($item->edauths)) : ?>
-    					 	class="xbpop xbcultpop xbhover" data-trigger="hover" tabindex="<?php echo $item->id; ?>" 
-    					 	title data-original-title="Author/Editor" data-content="<?php echo strip_tags($item->edauths); ?>"
-    					 <?php endif; ?>
-					 ><?php echo $item->book_title; ?></a>"&nbsp;
+					 <a href="<?php echo XbbooksHelperRoute::getBookLink($item->book_id); ?>"><?php echo $item->book_title; ?></a>"&nbsp;
 					 <a href="" class="xbpv" data-toggle="modal" data-target="#ajax-bpvmodal" 
 					 	onclick="window.pvid=<?php echo $item->book_id; ?>;"><i class="far fa-eye"></i></a>&nbsp;
-					 <span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
-					 <?php echo $item->reviewer; ?>
+					 <?php echo $item->edauths; ?>
     			</h4>
                  <div class="clearfix"></div>
                  <?php if (trim($item->summary)!='') {
@@ -152,7 +147,7 @@ if ($imgok) {
     		        			<?php endif; ?> 	
     	                    </div>
     	                    <a href="<?php echo $brlink.$rev->id; ?>"><b><?php echo $rev->title; ?></b></a>
-    	                     by <?php echo $rev->created_by_alias.', '.HtmlHelper::date($rev->created ,'d M Y'); ?>
+    	                     by <?php echo $rev->reviewer.', '.HtmlHelper::date($rev->created ,'d M Y'); ?>
     	                     <br />
     	                <?php endif; ?>
     				<?php endforeach; ?>
@@ -195,21 +190,14 @@ if ($imgok) {
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 <script>
 jQuery(document).ready(function(){
-//for preview modals
+//for preview modals Load view vith AJAX
     jQuery('#ajax-ppvmodal').on('show', function () {
-        // Load view vith AJAX
-       //jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalppv&tmpl=component');
       jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-ppvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
     jQuery('#ajax-bpvmodal').on('show', function () {
-        // Load view vith AJAX
-       //jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalbpv&tmpl=component');
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-bpvmodal').on('hidden', function () {
+    jQuery('#ajax-ppvmodal,#ajax-bpvmodal').on('hidden', function () {
        document.location.reload(true);
     })    
 });

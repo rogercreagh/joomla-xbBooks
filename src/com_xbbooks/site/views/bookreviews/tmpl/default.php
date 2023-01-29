@@ -42,15 +42,14 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-body {max-height: calc(100vh - 190px); }
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 270px);}
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
 </style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
-<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=bookreviews'); ?>"" method="post" id="adminForm" name="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=bookreviews'); ?>" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
 			<?php echo $this->sidebar; ?>
@@ -245,32 +244,37 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 <script>
 jQuery(document).ready(function(){
-//for preview modal
+//for preview modals Load view vith AJAX
     jQuery('#ajax-rpvmodal').on('show', function () {
-        // Load view vith AJAX
-        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreviews&layout=modalpv&tmpl=component');
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-rpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
     jQuery('#ajax-bpvmodal').on('show', function () {
-        // Load view vith AJAX
-        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=booklist&layout=modalbpv&tmpl=component');
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-bpvmodal').on('hidden', function () {
+    jQuery('#ajax-rpvmodal,#ajax-bpvmodal').on('hidden', function () {
        document.location.reload(true);
     })    
 });
 </script>
-<!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1200px;">
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:800px">
     <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Review</h4>
+        </div>
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->
         </div>
     </div>
 </div>
-<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1200px;">
+<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Book</h4>
+        </div>
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->

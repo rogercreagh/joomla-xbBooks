@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/booklist.php
- * @version 0.12.0.1 12th December 2022
+ * @version 1.0.3.9 29th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -258,21 +258,21 @@ class XbbooksModelBooklist extends JModelList {
     		    $item->editcnt = array_key_exists('editor', $rolecnts) ? $rolecnts['editor'] :0;
     		    $item->mencnt = array_key_exists('mention', $rolecnts) ? $rolecnts['mention'] :0;
     		    $item->othercnt = count($roles) - $item->authcnt - $item->editcnt - $item->mencnt;
-    		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'author','t',4,'ppvmodal');
-    		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'editor','t',4,'ppvmodal');
-    		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'mention','tn',4,'ppvmodal');
-    		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'other','rt',4,'ppvmodal');
+    		    $item->authlist = $item->authcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'author','t',3,'ppvmodal');
+    		    $item->editlist = $item->editcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'editor','t',3,'ppvmodal');
+    		    $item->menlist = $item->mencnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'mention','tn',3,'ppvmodal');
+    		    $item->otherlist = $item->othercnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'other','rt',3,'ppvmodal');
 		    } else {
 		        $item->authcnt = 0; $item->editcnt = 0; $item->mencnt = 0; $item->othercnt = 0;		        
 		    }
 		    
 		    if ($item->ccnt>0) {
 		        $item->chars = XbbooksGeneral::getBookChars($item->id);
-		        $item->charlist = XbcultureHelper::makeItemLists($item->chars,'','t',5,'cpvmodal');
+		        $item->charlist = XbcultureHelper::makeItemLists($item->chars,'','t',3,'cpvmodal');
 		    }
 		    if ($item->gcnt>0) {
 		        $item->groups = XbbooksGeneral::getBookGroups($item->id);
-		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',5,'gpvgmodal');
+		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',3,'gpvmodal');
 		    }
 			
 			$item->reviews = XbbooksGeneral::getBookReviews($item->id);

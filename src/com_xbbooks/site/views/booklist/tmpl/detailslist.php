@@ -177,6 +177,17 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 								</div>
 								<div class="clearfix"></div>
 							<?php endif; ?>
+							<?php if ($item->ccnt>0) : ?>
+								<div class="pull-left"><i class="fas fa-theater-masks xbpr10"></i>&nbsp;</div>
+								<div class="pull-left">
+								<details>
+    								<summary><span class="xbnit"><?php echo $item->ccnt.' '.Text::_('XBCULTURE_CHARS'); ?></span>
+    								</summary>
+    								<?php echo ($item->ccnt>0) ? $item->charlist['ullist'] : ''; ?>
+    							</details>
+								</div>
+								<div class="clearfix"></div>
+							<?php endif; ?>
 							<span class="icon-calendar xbpr10"></span>&nbsp;<span class="xbnit">
 								<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
 							</span>
@@ -212,7 +223,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 								<?php if ($item->revcnt==0) : ?>
 									<i><?php echo Text::_('XBCULTURE_NO_REVIEWS_AVAILABLE'); ?></i>
 								<?php else : ?>
-									<!-- TODO add links to modal review details -->
+									
 								    <?php if($item->revcnt==1) : ?>
 								        
 								        <?php $stars = (round(($item->averat)*2)/2);
@@ -243,9 +254,17 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     								    		<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
     										<?php else : 
     								            echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating); 
-    	                                   endif;                        								    
-    	                                   echo ' on '.HtmlHelper::date($rev->rev_date , 'd M Y');?>
-    	                                   &nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;"><i class="far fa-eye"></i></a> 
+    	                                   endif;  ?>  
+    	                                   <?php if (($rev->summary.$rev->review)=='') : 
+    	                                       echo Text::_('Rating only on ').HtmlHelper::date($rev->rev_date , 'd M Y');    
+    	                                   else :
+        	                                   echo ' on '.HtmlHelper::date($rev->rev_date , 'd M Y');
+    	                                       echo ' by '.$rev->reviewer; ?>
+        	                                   &nbsp;
+        	                                   <a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;">
+        	                                   		<i class="far fa-eye"></i>
+        	                                   </a> 
+    	                                   <?php endif; ?>                    								    
     	                                   <br />
         	                             <?php endforeach; ?>
         	                             </details>
@@ -319,7 +338,10 @@ jQuery(document).ready(function(){
     jQuery('#ajax-bpvmodal').on('show', function () {
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-bpvmodal,#ajax-ppvmodal,#ajax-gpvmodal,#ajax-cpvmodal').on('hidden', function () {
+    jQuery('#ajax-rpvmodal').on('show', function () {
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-bpvmodal,#ajax-ppvmodal,#ajax-gpvmodal,#ajax-cpvmodal,#ajax-rpvmodal').on('hidden', function () {
        document.location.reload(true);
     })    
 });
@@ -366,6 +388,18 @@ jQuery(document).ready(function(){
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
             	style="opacity:unset;line-height:unset;border:none;">&times;</button>
              <h4 class="modal-title" style="margin:5px;">Preview Book</h4>
+        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:800px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Book Review</h4>
         </div>
     <div class="modal-dialog">
         <div class="modal-content">

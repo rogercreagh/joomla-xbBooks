@@ -244,17 +244,22 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     										<?php if ($item->revcnt>1) : ?>
     											<b><?php echo $rev->rating;?></b> <i class="<?php echo $this->star_class; ?>"></i> 
     			                            <?php endif; ?>
-                                            <?php if (!empty($rev->summary)) echo '<a href="'.$rlink.$rev->id.'">'; ?>
-                                            <span class="xbpop xbcultpop xbhover xbmb8 xb09" data-trigger="hover" 
-                                            	tabindex="<?php echo $rev->id; ?>" title 
-    											data-content="<?php echo htmlentities($rev->summary.'<br /><i>by '.$rev->reviewer.'</i>'); ?>"
-    											data-original-title="<?php echo htmlentities($rev->title); ?>" 
-                                    		>
-                                    			<?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
-                                            </span>
-                                            <?php if (!empty($rev->summary)) echo '</a>'; ?>
-											&nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;"><i class="far fa-eye"></i></a>
-        								</div>
+    			                            
+                                            <?php if (($rev->summary.$rev->review) !='') : ?>
+                                                <a href="<?php echo $rlink.$rev->id; ?>"> 
+                                    				<?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
+												</a>&nbsp;
+												<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;">
+													<i class="far fa-eye"></i>
+												</a>
+                                            <?php else : ?>
+                                                <span class="xbpop xbcultpop xbhover xbmb8 xb09" data-trigger="hover" 
+                                                	tabindex="<?php echo $rev->id; ?>" title 
+        											data-content="<?php echo '<i>by '.$rev->reviewer.'<br />No summary or review text available</i>'; ?>"
+        											data-original-title="Rating only" 
+                                        		><?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?></span>                                            
+                                            <?php endif; ?>
+                                        </div>
         							<?php endforeach; ?> 
         						<?php endif; ?>
      						<?php endif; ?>   											

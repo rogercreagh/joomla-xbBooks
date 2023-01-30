@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 1.0.3.9 28th January 2023
+ * @version 1.0.4.0 30th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -389,21 +389,15 @@ jQuery(document).ready(function(){
         // Load view vith AJAX
       jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-ppvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
     jQuery('#ajax-gpvmodal').on('show', function () {
         // Load view vith AJAX
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=group&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-gpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
     jQuery('#ajax-cpvmodal').on('show', function () {
         // Load view vith AJAX
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=character&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-cpvmodal').on('hidden', function () {
+    jQuery('#ajax-ppvmodal,#ajax-gpvmodal,#ajax-cpvmodal').on('hidden', function () {
        document.location.reload(true);
     })    
 });

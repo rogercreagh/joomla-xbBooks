@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 1.0.3.3 15th January 2023
+ * @version 1.0.4.0 3rd February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -146,7 +146,7 @@ if ($this->xbpeople_ok==='0') : ?>
     						</div>
     						<div class="span6">
     							<?php echo Text::_('XBCULTURE_UNREVIEWED'); ?>
-    							<span class="badge badge-important xbml10"><?php echo $this->bookStates['total']-$this->books['reviewed']; ?></span>
+    							<span class="badge <?php echo $notrev>0 ? 'badge-important' :''; ?> xbml10"><?php echo $this->bookStates['total']-$this->books['reviewed']; ?></span>
     						</div>
     					</div>
     				</div>
@@ -323,7 +323,7 @@ if ($this->xbpeople_ok==='0') : ?>
     				<h2 class="xbtitle">
     					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span>
     					 <span class="badge grpcnt xbmr20"><?php echo $this->totGroups;?></span>
-    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge badge-info ">
+    					 <span class="xbnit xbmr10 xb09">In Books: </span><span class="badge bkcnt ">
     					 <?php echo $this->groupStates['total'];?></span></span>	
     					<?php echo Text::_('XBCULTURE_GROUPS'); ?>
     				</h2>
@@ -337,8 +337,12 @@ if ($this->xbpeople_ok==='0') : ?>
     			</div>
     			<div class="xbbox catbox">
     				<h2 class="xbtitle">
-    					<span class="badge catcnt pull-right">
-    						<?php echo $this->catStates['total']; ?></span> 
+    					<span class="pull-right">
+     						<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
+    						<span class="badge badge-success pull-right">
+    							<?php echo $this->catStates['total']; ?>
+    						</span> 
+    					</span>
     					<?php echo Text::_('XBCULTURE_CATEGORIES_U'); ?>
     				</h2>
     				<div class="row-striped">

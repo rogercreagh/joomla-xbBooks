@@ -47,6 +47,9 @@ $cvlink = 'index.php?option=com_xbbooks&view=bcategory&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
+<style type="text/css" media="screen">
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+</style>
 <form action="index.php?option=com_xbbooks&view=characters" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
@@ -196,7 +199,10 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							
 							<a href="<?php echo $chelink.$item->id; ?>" title="<?php echo Text::_('XBBOOKS_EDIT_PERSON'); ?>">
 								<?php echo ' '.$item->name; ?> 
-							</a>
+							</a>&nbsp;
+    						<a href="" data-toggle="modal"  class="xbpv" data-target="#ajax-cpvmodal"  onclick="window.pvid= <?php echo $item->id; ?>;">
+                				<i class="far fa-eye"></i>
+                			</a>					
 							<br />
 							<span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
 						</p>
@@ -227,7 +233,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<td>
 						<?php if (($item->bcnt==1) || ($item->bcnt==2)) : ?> 
                             <ul class="xbdetails">
-								<?php echo $item->booklist; ?>
+								<?php echo $item->booklist['ullist']; ?>
 							</ul>
 						<?php elseif ($item->bcnt>2) : ?> 
 						    <details>
@@ -236,7 +242,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						    echo Text::_('XBCULTURE_BOOKS');   ?>
                             </span></summary>
                             <ul class="xbdetails">
-								<?php echo $item->booklist; ?>
+								<?php echo $item->booklist['ullist']; ?>
 							</ul>
                           </details>
 						<?php endif; ?> 
@@ -274,3 +280,45 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
+<script>
+jQuery(document).ready(function(){
+//for preview modals
+    jQuery('#ajax-cpvmodal').on('show', function () {
+        // Load view vith AJAX
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=character&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-bpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-cpvmodal,#ajax-bpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+});
+</script>
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-cpvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Character</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1000px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Book</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+

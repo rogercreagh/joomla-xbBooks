@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 1.0.3.7 26th January 2023
+ * @version 1.0.4.0 3rd February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -106,6 +106,7 @@ class com_xbbooksInstallerScript
         $delfiles .= ',views/persons/tmpl/default_batch_body.php,views/persons/tmpl/default_batch_footer.php';
         $delfiles .= ',/views/booklist/tmpl/onecol.php,/views/booklist/tmpl/onecol.xml';
         $delfiles .= ',models/fields/otherrole.php,models/fields/rating.php';
+        $delfiles .= ',controllers/group.php';
         $delfiles = explode(',',$delfiles);
     	$cnt = 0; $dcnt=0;
     	$ecnt = 0;

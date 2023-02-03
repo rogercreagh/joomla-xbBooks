@@ -169,7 +169,7 @@ class XbbooksModelCharacters extends JModelList {
             if ($item->bcnt>0) {
                 $item->books = XbcultureHelper::getCharBooks($item->id);
                 $item->bookcnt = count($item->books);
-                $item->booklist = $item->bookcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'','ul',true,4);
+                $item->booklist = $item->bookcnt==0 ? '' : XbcultureHelper::makeItemLists($item->books,'','t',4,'bpvmodal');
             } //bcnt is the number of books, bookcnt is the number of roles (maybe 2 roles in a book)
             
 	        $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);

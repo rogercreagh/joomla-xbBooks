@@ -44,17 +44,17 @@ class XbbooksViewBookreviews extends JViewLegacy {
         $this->header['text'] = $params->get('list_headtext','','text');
         
         $show_cats = $params->get('show_cats','1','int');
-        $this->showcat = ($show_cats) ? $params->get('show_bcat','1','int') : 0;
+        $this->showcat = ($show_cats) ? $params->get('show_rcat','1','int') : 0;
         
         $show_tags = $params->get('show_tags','1','int');
-        $this->showtags = ($show_tags) ? $params->get('show_btags','1','int') : 0;
+        $this->showtags = ($show_tags) ? $params->get('show_rtags','1','int') : 0;
         
         $this->search_bar = $params->get('search_bar','','int');
         $this->hide_cat = (!$this->showcat || ($params->get('menu_category_id',0)>0)) ? true : false;
         $this->hide_tag = (!$this->showtags || (!empty($params->get('menu_tag','')))) ? true : false;
         
         $this->show_pic = $params->get('show_bpiccol','1','int');
-        $this->show_sum = $params->get('show_bsumcol','1','int');
+        $this->show_sum = $params->get('show_rsumcol','1','int');
         
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {

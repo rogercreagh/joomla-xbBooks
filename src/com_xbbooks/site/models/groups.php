@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/groups.php
- * @version 1.0.3.5 19th January 2023
+ * @version 1.0.4.0 5th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2022
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -91,17 +91,16 @@ class XbbooksModelGroups extends JModelList {
             
         // Filter by search in title/id/synop
         $search = $this->getState('filter.search');
-            
-            if (!empty($search)) {
-            	if (stripos($search,'s:')===0) {
-            		$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim(substr($search,2)), true) . '%'));
-            		$query->where('(a.biography LIKE ' . $search.' OR a.summary LIKE '.$search.')');
-            	} else {
-            		$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
-            		$query->where('(a.firstname LIKE ' . $search . ' OR a.lastname LIKE ' . $search . ')');
-            	}
+        if (!empty($search)) {
+            if ((stripos($search,'d:')===0) || (stripos($search,'s:')===0)) {
+                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim(substr($search,2)), true) . '%'));
+                $query->where('(a.description LIKE ' . $search.' OR a.summary LIKE '.$search.')');
+            } else {
+                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
+                $query->where('(a.title LIKE ' . $search .')');
             }
-
+        }
+        
             // Filter by category and subcats
             $categoryId = $this->getState('categoryId');
             $this->setState('categoryId','');
@@ -185,9 +184,6 @@ class XbbooksModelGroups extends JModelList {
                 case 'category_title':
                 	$query->order('category_title '.$orderDirn.', lastname');
                 	break;
-//                 case 'bcnt':
-//                 	$query->order('bcnt '.$orderDirn.', lastname');
-//                 	break;
                 default:
                     $query->order($db->escape($orderCol.' '.$orderDirn));
                     break;
@@ -214,19 +210,11 @@ class XbbooksModelGroups extends JModelList {
 	
 			if ($item->bcnt>0) {
 			    $item->books = XbcultureHelper::getGroupBooks($item->id);
-    			$item->booklist = XbcultureHelper::makeLinkedNameList($item->books,'','ul',true,2);
-			}
-			if ($item->ecnt>0) {
-			    $item->events = XbcultureHelper::getGroupEvents($item->id);
-			    $item->eventlist = XbcultureHelper::makeLinkedNameList($item->events,'','ul',true,2);
-			}
-			if ($item->fcnt>0) {
-			    $item->films = XbcultureHelper::getGroupFilms($item->id);
-			    $item->filmlist = XbcultureHelper::makeLinkedNameList($item->films,'','ul',true,2);
+			    $item->booklist = XbcultureHelper::makeItemLists($item->books,'','tr',3,'bpvmodal');
 			}
 			if ($item->pcnt>0) {
 			    $item->members = XbcultureHelper::getGroupMembers($item->id);
-			    $item->memberlist = XbcultureHelper::makeLinkedNameList($item->members,'','ul',true,2);
+			    $item->memberlist = XbcultureHelper::makeItemLists($item->members,'','tr',3,'gpvmodal');
 			}
 			
 			

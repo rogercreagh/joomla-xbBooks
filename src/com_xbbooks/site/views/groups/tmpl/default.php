@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/groups/tmpl/default.php
- * @version 1.0.3.5 19th January 2023
+ * @version 1.0.4.0 5th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -45,11 +45,11 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
-<form action="<?php echo Route::_('index.php?option=com_xbpeople&view=groups'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbbooks&view=groups'); ?>" method="post" name="adminForm" id="adminForm">
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
-				if ((!$this->showcat) || ($this->hide_cat)) { $hide .= 'filter_category_id, filter_subcats,';}
+				if ((!$this->showcat) || ($this->hide_cat)) { $hide .= 'filter_category_id,';}
 				if (!$this->showtags || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 				echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));
@@ -101,22 +101,10 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 					<?php echo JText::_('XBCULTURE_SUMMARY');?>
 				</th>
                 <?php endif; ?>
-                <?php if ($this->showccnts) : ?>
-    				<?php if($this->xbbooksStatus) : ?>
-        				<th>
-        					<?php echo HtmlHelper::_('searchtools.sort','Books','bcnt',$listDirn,$listOrder ); ?>
-        				</th>
-                   <?php endif; ?>
-    				<?php if($this->xbeventsStatus) : ?>
-        				<th>
-        					<?php echo HtmlHelper::_('searchtools.sort','Events','ecnt',$listDirn,$listOrder ); ?>
-        				</th>
-                   <?php endif; ?>
-    				<?php if($this->xbfilmsStatus) : ?>
-        				<th>
-        					<?php echo HtmlHelper::_('searchtools.sort','Films','fcnt',$listDirn,$listOrder ); ?>
-        				</th>
-                   <?php endif; ?>
+                <?php if ($this->showgcnts) : ?>
+    				<th>
+    					<?php echo HtmlHelper::_('searchtools.sort','Books','bcnt',$listDirn,$listOrder ); ?>
+    				</th>
                 <?php endif; ?>
 				<?php if($this->showcat || $this->showtags) : ?>
     				<th class="hidden-tablet hidden-phone">
@@ -178,7 +166,7 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 								<?php echo $item->pcnt.' ';
 								    echo $item->pcnt ==1 ? Text::_('XBCULTURE_MEMBER') : lcfirst(Text::_('XBCULTURE_MEMBERS')); ?>       					
     						</span></summary>
-    						<?php echo $item->memberlist; ?>    						
+    						<?php echo $item->memberlist['ullist']; ?>    						
     					</details>
 					<?php else : ?>
 						<p class="xbnit"><?php echo Text::_('None listed')?></p>
@@ -206,46 +194,37 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 					<?php endif; ?>
 				</td>
 				<?php endif; ?>
-                <?php if ($this->showccnts) : ?>
-    				<?php if ($this->xbbooksStatus) : ?>
-        				<td>
-    						<?php if ($item->bcnt>0) :?>
-        					<details>
-        						<summary><span class="xbnit">
-    								<?php echo $item->bcnt.' ';
-    								    echo $item->bcnt ==1 ? Text::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS'); ?>
-        						</span></summary>
-        						<?php echo $item->booklist; ?>    						
-        					</details>
-        					<?php endif; ?>
-        				</td>
-        			<?php endif; ?>
-    				<?php if ($this->xbeventsStatus) : ?>
-        				<td>
-    						<?php if ($item->ecnt>0) :?>
-        					<details>
-        						<summary><span class="xbnit">
-    								<?php echo $item->ecnt.' ';
-    								    echo $item->ecnt ==1 ? lcfirst(Text::_('XBCULTURE_EVENT')) : lcfirst(Text::_('XBCULTURE_EVENTS')); ?>
-        						</span></summary>
-        						<?php echo $item->eventlist; ?>    						
-        					</details>
-        					<?php endif; ?>
-        				</td>
-        			<?php endif; ?>
-        			<?php if ($this->xbfilmsStatus) : ?>
-        				<td>
-    						<?php if ($item->fcnt>0) :?>
-        					<details>
-        						<summary><span class="xbnit">
-    								<?php echo $item->fcnt.' ';
-    								    echo $item->fcnt ==1 ? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS'); ?>       					
-        						</span></summary>
-        						<?php echo $item->filmlist; ?>    						
-        					</details>
-        					<?php endif; ?>
-        				</td>
-        			<?php endif; ?>
+                <?php if ($this->showgcnts) : ?>
+    				<td>
+						<?php if ($item->bcnt>0) :?>
+    					<details>
+    						<summary><span class="xbnit">
+								<?php echo $item->bcnt.' ';
+								    echo $item->bcnt ==1 ? Text::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS'); ?>
+    						</span></summary>
+    						<?php echo $item->booklist['ullist']; ?>    						
+    					</details>
+    					<?php endif; ?>
+    					<p class="xbnit">
+    						<?php if (($item->fcnt + $item->ecnt)>0) : ?>
+    							<?php echo Text::_('also in').' ';
+                                    if ($item->fcnt>0) {
+     								    echo $item->fcnt.' ';
+    								    echo $item->fcnt ==1 ? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');
+                                    }
+                                    if (($item->fcnt>0) && ($item->ecnt)>0) {
+                                        echo ' and ';
+                                    }
+                                    if ($item->ecnt>0) {
+                                        echo $item->ecnt.' ';
+                                        echo $item->ecnt ==1 ? Text::_('XBCULTURE_EVENT') : Text::_('XBCULTURE_EVENTS');
+                                    } ?>
+    							&nbsp;<a href="" data-toggle="modal"  class="xbpv" data-target="#ajax-gpvmodal"  onclick="window.pvid= <?php echo $item->id; ?>;">
+                					<i class="far fa-eye"></i>
+                				</a>					    						
+    						<?php endif; ?>
+                        </p>
+    				</td>
     			<?php endif; ?>
     			<?php if($this->show_ctcol) : ?>
 					<td class="hidden-phone">

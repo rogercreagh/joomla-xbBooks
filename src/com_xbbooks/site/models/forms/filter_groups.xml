@@ -13,7 +13,7 @@
 			label="XBCULTURE_CATFILT_LABEL"
 			description="XBCULTURE_CATFILT_DESC"
 			extension="com_xbpeople"
-			itemtable="#__xbpersons"
+			itemtable="#__xbgroups"
 			published="1" multiple="true"
 			onchange="this.form.submit();"
 			class="multipleCats"

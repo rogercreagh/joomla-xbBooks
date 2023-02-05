@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/booklist/default.xml v0.9.9.3 14th July 2022 -->
+<!-- xbBooks site/views/booklist/default.xml v1.0.3.5 5th February 2023 -->
 <metadata>
 	<layout title="Book List">
 		<message>Displays a list (table) of books. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
@@ -108,24 +108,16 @@
 					<option value="2">XBCULTURE_FICTION</option>
 			</field>	
 			<field
-				name="menu_category_id"
-				type="category"
+				name="menu_category_id" type="xbitemcats"
 				label="XBCULTURE_CATFILT_LABEL"
-				extension="com_xbbooks"
 				description="XBCULTURE_CATFILT_DESC"
+				extension="com_xbbooks"
+				itemtable="#__xbbooks"
+				published="1" multiple="true"
+				class="multipleCats"
+				onchange="this.form.submit();"
 				>
-					<option value="0">XBCULTURE_ALL_CATS</option>
 			</field>
-			<field name="menu_subcats" type="radio"
-				default=""
-				label="XBCULTURE_CATFILT_SUBS_LABEL"
-				description="XBCULTURE_CATFILT_SUBS_DESC"
-	  			class="btn-group btn-small radiotop"
-	  			showon="menu_category_id!:0"
-				>
-					<option value="" >XBCULTURE_EXCLUDE</option>
-					<option value="1">XBCULTURE_INCLUDE</option>
-			</field>	
 			<field
 				name="menu_tag" type="tag"
 				label="XBCULTURE_TAGFILT_LABEL"

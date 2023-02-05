@@ -53,7 +53,7 @@ class XbbooksViewGroups extends JViewLegacy {
 		$this->xbbooksStatus = Factory::getSession()->get('xbbooks_ok',false);
 		$this->xbeventsStatus = Factory::getSession()->get('xbevents_ok',false);
 		
-		$this->showccnts = $this->params->get('showccnts',1);
+		$this->showgcnts = $this->params->get('showgcnts',1);
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');

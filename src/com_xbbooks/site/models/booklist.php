@@ -86,7 +86,7 @@ class XbbooksModelBooklist extends JModelList {
             // Search in title/id/synop
             $search = $this->getState('filter.search');            
             if (!empty($search)) {
-            	if (stripos($search,'s:')===0) {
+                if ((stripos($search,'d:')===0) || (stripos($search,'s:')===0)) {
             		$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim(substr($search,2)), true) . '%'));
             		$query->where('(a.synopsis LIKE ' . $search.' OR a.summary LIKE '.$search.')');
             	} else {
@@ -283,9 +283,4 @@ class XbbooksModelBooklist extends JModelList {
 		} //foreach item
 		return $items;
 	}	
-	
-	function countRoles($role,array $items) {
-	    
-	}
-		
 }

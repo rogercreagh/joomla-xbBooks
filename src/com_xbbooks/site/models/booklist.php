@@ -75,7 +75,7 @@ class XbbooksModelBooklist extends JModelList {
             $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
 //           $query->select('(SELECT COUNT(*) FROM #__xbbookreviews AS br WHERE br.book_id=a.id AND br.state=1) AS revcnt');
-            $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br JOIN #__xbbookreviews AS r ON r.id = br.id WHERE br.book_id=a.id AND r.state=1) AS averat');
+            $query->select('(SELECT AVG(br.rating) FROM #__xbbookreviews AS br WHERE br.book_id=a.id AND r.state=1) AS averat');
 //          $query->select('(SELECT MAX(r.rev_date) FROM #__xbbookreviews AS r WHERE r.book_id=a.id) AS lastread');
 //            $query->select('GREATEST(a.acq_date, COALESCE(a.last_read, 0)) AS sort_date');
             

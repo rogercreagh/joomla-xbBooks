@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 1.0.3.9 29th January 2023
+ * @version 1.0.4 0 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -75,6 +75,16 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				<?php else : ?>
 
 	<table class="table table-striped table-hover"  id="xbbooklist">	
+		<colgroup>
+			<col ><!-- title -->
+			<col ><!-- director -->
+            <?php if ($this->show_revs != 0 ) : ?>			
+				<col class="hidden-phone" style="width:150px;" ><!-- ratings -->
+            <?php endif; ?>
+            <?php if ($this->show_fdates) : ?>
+				<col class="hidden-phone" style="width:105px;" ><!-- seendates -->
+            <?php endif; ?>
+			</colgroup>	
 		<thead>
 			<tr>
 				<th>
@@ -90,9 +100,9 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     				</th>
 				<?php endif; ?>
 				<?php if ($this->show_bdates) : ?>				
-    				<th class="hidden-phone">
-    					<?php echo HTMLHelper::_('searchtools.sort','First','first_read',$listDirn,$listOrder ).'-'; ?>
-    					<?php echo HTMLHelper::_('searchtools.sort','Last','last_read',$listDirn,$listOrder ).' read'; ?>
+    				<th>
+    					<?php echo HTMLHelper::_('searchtools.sort','First read','first_read',$listDirn,$listOrder ).'<br />'; ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Last read','last_read',$listDirn,$listOrder ); ?>
     				</th>
     			<?php endif; ?>
 			</tr>
@@ -105,7 +115,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 						<p class="xbtitle">
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
-								&nbsp;<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
+								&nbsp;<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb09 xbnorm" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
@@ -139,32 +149,54 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 					<?php if ($this->showrevs != 0 ) : ?>					
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->showrevs == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBBOOKS_NOREVIEW' ); ?></i><br />
-    						<?php else : ?> 
-	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
-	                            <div class="xbstar">
-								<?php if (($this->zero_rating) && ($stars==0)) : ?>
-								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+    						   <i><?php  echo ($this->show_revs == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
+    						<?php else : ?>
+    	                        <?php $starcnt = (round(($item->averat)*2)/2); ?>
+								<?php if (($this->zero_rating) && ($starcnt==0)) : ?>
+									<?php $stars = '<span class="'.$this->zero_class.'" style="color:red;"></span>'; ?>								    
 								<?php else : ?>
-	                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
+	                                <?php $stars = str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
 	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
-	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
+	                                    <?php $stars .= '<i class="<?php echo $this->halfstar_class; ?>"></i>'; ?>
 	                                <?php  endif; ?> 
 	                             <?php endif; ?>                        
-	                            </div>
-    						<?php endif; ?>    											
+         					<?php endif; ?>											
+	    					<?php if($item->revcnt == 1) : ?>
+    							<?php echo $stars; ?>&nbsp;	
+        						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;">
+                    				<i class="far fa-eye"></i>
+                    			</a>					
+        					<?php elseif ($item->revcnt>1) : ?> 
+	                             <details>
+	                             	<summary>
+    	                             <?php echo $stars; ?>
+    	                             <br /><span class="xbnit"><?php echo round($item->averat,1); ?>
+	                             	 from <?php echo $item->revcnt; ?> Rating(s)</span>
+	                             	</summary>
+    	                            <?php foreach ($item->reviews as $rev) : ?>
+       	                            	<?php if($rev->rating==0) {
+    	                            	    echo '<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>';
+    	                            	} else {
+    	                            	    echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating);
+    	                            	} ?>
+                						&nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $rev->id; ?>;">
+                            				<i class="far fa-eye"></i>
+                            			</a>&nbsp;
+										<br />					
+    	                            <?php  endforeach; ?>
+	                             </details>                                   
+         					<?php endif; ?>   
     					</td>
     				<?php endif; ?>
     				<?php if ($this->show_bdates ) : ?>   				
     					<td class="hidden-phone">
         					<p><?php if($item->first_read) {
-        					    $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'j M Y');
+        					    $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'j M \'y');
         					    echo HtmlHelper::date($item->first_read , $datefmt);
         					   }
-    					       echo ' - ';
     					       if(($item->last_read) && ($item->last_read != $item->first_read)) {
-        					       $datefmt = xbCultureHelper::getDateFmt($item->last_read, 'j M Y');
+        					       echo '<br />';
+        					       $datefmt = xbCultureHelper::getDateFmt($item->last_read, 'j M \'y');
         					       echo HtmlHelper::date($item->last_read , $datefmt); 
         					   }
         					?> </p>
@@ -193,10 +225,25 @@ jQuery(document).ready(function(){
     jQuery('#ajax-bpvmodal').on('show', function () {
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-ppvmodal,#ajax-bpvmodal').on('hidden', function () {
-       document.location.reload(true);
+    jQuery('#ajax-rpvmodal').on('show', function () {
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=filmreview&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-ppvmodal,#ajax-bpvmodal,#ajax-rpvmodal').on('hidden', function () {
+//    // reload the document if using non-static backdrops
+//       document.location.reload(true);
+    // cleanup the modal-content that was loaded
+		jQuery(this).find(".modal-content").html("");
     })    
 });
+// fix multiple backdrops
+jQuery(document).bind('DOMNodeInserted', function(e) {
+    var element = e.target;
+    if (jQuery(element).hasClass('modal-backdrop')) {
+         if (jQuery(".modal-backdrop").length > 1) {
+           jQuery(".modal-backdrop").not(':last').remove();
+       }
+	}    
+})
 </script>
 <!-- preview modal windows -->
 <div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
@@ -216,6 +263,18 @@ jQuery(document).ready(function(){
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
             	style="opacity:unset;line-height:unset;border:none;">&times;</button>
              <h4 class="modal-title" style="margin:5px;">Preview Book</h4>
+        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Film Review</h4>
         </div>
     <div class="modal-dialog">
         <div class="modal-content">

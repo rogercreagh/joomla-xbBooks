@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/view.html.php
- * @version 0.9.9.3 14th July 2022
+ * @version 1.0.4.0 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -52,8 +52,8 @@ class XbbooksViewBooklist extends JViewLegacy {
 
 		$this->show_pic = $this->params->get('show_bpiccol','1','int');
 		$this->show_sum = $this->params->get('show_bsumcol','1','int');
-		$this->show_revs = $this->params->get('show_revs','1','int');
-		$this->showrevs = ($this->show_revs) ? $this->params->get('show_brevcol','2','int') : 0;
+		$show_revs = $this->params->get('show_revs','1','int');
+		$this->showrevs = ($show_revs) ? $this->params->get('show_brevcol','2','int') : 0;
 
 
 		$this->show_bdates = $this->params->get('show_bdates','1','int');

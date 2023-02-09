@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 1.0.3.2 9th January 2023
+ * @version 1.0.4.0 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -223,17 +223,17 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 								<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
 							: </span>
 							<span class="hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo ($item->editcnt>0)? Text::_('XBCULTURE_AUTHOR').': '.strip_tags($item->authlist) : ''; ?>
+								<?php echo ($item->editcnt>0)? Text::_('XBCULTURE_AUTHOR').': '.strip_tags($item->authlist['commalist']) : ''; ?>
 								"> 
-								<?php echo $item->editlist; ?>
+								<?php echo $item->editlist['commalist']; ?>
 							</span>						
 						<?php elseif ($item->authcnt>0) : ?>
 							<span class="xbnit"><?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>: </span>
-							<?php echo $item->authlist; ?>
+							<?php echo $item->authlist['commalist']; ?>
 						<?php endif; ?>
 						<?php if($item->othercnt>0) :?>
 							<br /><span class="xbnit xb08 hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo strip_tags($item->otherlist); ?>
+							<?php echo strip_tags($item->otherlist['commalist']); ?>
 								">
 							<?php echo $item->othercnt.' '.Text::_('XBBOOKS_OTHER_ROLES_LISTED'); ?></span>
 						<?php endif; ?>
@@ -269,7 +269,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<p class="xbnit xb095">
                             <?php if ($item->mencnt>0) : ?>
                                 <span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo strip_tags($item->menlist); ?>
+                                <?php echo strip_tags($item->menlist['ullist']); ?>
 								">
                                 <?php echo $item->mencnt.' ';
                                 echo ($item->mencnt==1) ? Text::_('XBCULTURE_SUBJECT') : Text::_('XBCULTURE_SUBJECTS');
@@ -281,7 +281,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                             <?php endif; 
                             if ($item->charcnt>0) : ?>
 								<span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo strip_tags($item->charlist); ?>
+								<?php echo strip_tags($item->charlist['ullist']); ?>
 								">
 								<?php echo $item->charcnt.' ';
                                 echo ($item->charcnt==1) ? Text::_('XBCULTURE_CHARACTER') : Text::_('XBCULTURE_CHARACTERS');
@@ -293,7 +293,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                             <?php endif;  
                             if ($item->grpcnt>0) : ?>
 								<span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo strip_tags($item->grplist); ?>
+								<?php echo strip_tags($item->grplist['ullist']); ?>
 								">
 								<?php echo $item->grpcnt.' ';
                                 echo ($item->charcnt==1) ? Text::_('XBCULTURE_GROUP') : Text::_('XBCULTURE_GROUPS');

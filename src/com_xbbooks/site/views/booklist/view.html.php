@@ -53,7 +53,7 @@ class XbbooksViewBooklist extends JViewLegacy {
 		$this->show_pic = $this->params->get('show_bpiccol','1','int');
 		$this->show_sum = $this->params->get('show_bsumcol','1','int');
 		$show_revs = $this->params->get('show_revs','1','int');
-		$this->showrevs = ($show_revs) ? $this->params->get('show_brevcol','2','int') : 0;
+		$this->show_revs = ($show_revs) ? $this->params->get('show_brevcol','2','int') : 0;
 
 
 		$this->show_bdates = $this->params->get('show_bdates','1','int');

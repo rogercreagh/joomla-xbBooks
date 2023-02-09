@@ -81,7 +81,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
             <?php if ($this->show_revs != 0 ) : ?>			
 				<col class="hidden-phone" style="width:150px;" ><!-- ratings -->
             <?php endif; ?>
-            <?php if ($this->show_fdates) : ?>
+            <?php if ($this->show_bdates) : ?>
 				<col class="hidden-phone" style="width:105px;" ><!-- seendates -->
             <?php endif; ?>
 			</colgroup>	
@@ -94,7 +94,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				<th>
 					<?php echo Text::_('XBCULTURE_AUTHOR');?>
 				</th>
-                <?php if ($this->showrevs != 0 ) : ?>
+                <?php if ($this->show_revs != 0 ) : ?>
     				<th class="xbtc">
     					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
     				</th>
@@ -146,7 +146,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         <?php endif; ?>
 						</p>
 					</td>
-					<?php if ($this->showrevs != 0 ) : ?>					
+					<?php if ($this->show_revs != 0 ) : ?>					
     					<td>
     						<?php if ($item->revcnt==0) : ?>
     						   <i><?php  echo ($this->show_revs == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
@@ -226,11 +226,9 @@ jQuery(document).ready(function(){
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
     })
     jQuery('#ajax-rpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=filmreview&layout=default&tmpl=component&id='+window.pvid);
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id='+window.pvid);
     })
     jQuery('#ajax-ppvmodal,#ajax-bpvmodal,#ajax-rpvmodal').on('hidden', function () {
-//    // reload the document if using non-static backdrops
-//       document.location.reload(true);
     // cleanup the modal-content that was loaded
 		jQuery(this).find(".modal-content").html("");
     })    

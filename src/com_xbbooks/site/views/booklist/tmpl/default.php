@@ -97,10 +97,10 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 			<?php if($this->show_sum) : ?>
 				<col class="hidden-phone" style="width:230px;"><!-- summary -->
             <?php endif; ?>
-            <?php if ($this->show_rev != 0 ) : ?>
+            <?php if ($this->show_revs != 0 ) : ?>
 				<col style="width:150px;"><!-- rating -->
 			<?php endif; ?>
-            <?php if ($this->show_fdates) : ?>
+            <?php if ($this->show_bdates) : ?>
 				<col  style="width:105px;"><!-- dates -->
 			<?php endif; ?>
 			<?php if($this->showcat || $this->showtags) : ?>
@@ -125,7 +125,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 					<?php echo Text::_('XBCULTURE_SUMMARY');?>
 				</th>
                 <?php endif; ?>
-                <?php if ($this->showrevs != 0 ) : ?>
+                <?php if ($this->show_revs != 0 ) : ?>
 					<th class="xbtc">
 						<?php echo HtmlHelper::_('searchtools.sort','Rating','averat',$listDirn,$listOrder); ?>
 					</th>
@@ -235,7 +235,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 						<?php endif; ?>
 					</td>
                 	<?php endif; ?>
-					<?php if ($this->showrevs != 0 ) : ?>
+					<?php if ($this->show_revs != 0 ) : ?>
     					<td>
     						<?php if ($item->revcnt==0) : ?>
     						   <i><?php  echo ($this->show_revs == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />

@@ -35,9 +35,6 @@ if ($imgok) {
 ?>
 <style type="text/css" media="screen">
 	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
-    <?php if($this->tmpl == 'component') : ?>
-        .fa-eye {visibility:hidden;}
-    <?php endif; ?>
 </style>
 <div class="xbculture ">
 <div class="xbbox bkbox">

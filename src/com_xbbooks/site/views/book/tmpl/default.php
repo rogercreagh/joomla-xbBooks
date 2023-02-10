@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 1.0.4.0 30th January 2023
+ * @version 1.0.4.0 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Layout\FileLayout;
@@ -41,10 +42,8 @@ if ($imgok) {
 	<div class="row-fluid">
 		<?php if ($imgok && ($this->show_image ==1 )) : ?>
 			<div class="span2">
-				<?php if($imgok) : ?>
-    				<img class="hasTooltip" title="" data-original-title="<?php echo $tip; ?>"
-    					data-placement="right" src="<?php echo $src; ?>" border="0" alt="" style="max-width:100%;" />
-    			<?php endif; ?>
+    			<img class="hasTooltip" title="" data-original-title="<?php echo $tip; ?>"
+    				data-placement="right" src="<?php echo $src; ?>" border="0" alt="" style="max-width:100%;" />
 			</div>
 		<?php endif; ?>
 		<div class="span<?php echo ($imgok && ($this->show_image > 0 )) ? '10' : '12'; ?>">
@@ -107,9 +106,9 @@ if ($imgok) {
              <?php if (trim($item->summary)!='') {
                  $sum = '<i>'.Text::_('XBCULTURE_SUMMARY').'</i>: '.$item->summary;
              } elseif (trim($item->synopsis)!='') {
-                 $sum = '<i>'.Text::_('XBBOOKS_SYNOPSIS_EXTRACT').'</i>: '.XbcultureHelper::makeSummaryText($item->synopsis,200);                
+                 $sum = '<i>'.Text::_('XBCULTURE_SYNOPSIS_EXTRACT').'</i>: '.XbcultureHelper::makeSummaryText($item->synopsis,200);                
              } else {
-                 $sum = '<i>'.Text::_('XBBOOKS_NO_SUMMARY_SYNOPSIS').'</i>';
+                 $sum = '<i>'.Text::_('XBCULTURE_NO_SUMMARY_SYNOPSIS').'</i>';
              } ?>						
 			<div class="xbbox xbboxwht" style="max-width:700px; margin:auto;">
 				<div><?php echo $sum; ?></div> 
@@ -379,62 +378,6 @@ if ($imgok) {
 </div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 <?php endif; ?>
-<script>
-jQuery(document).ready(function(){
-//for preview modals
-    jQuery('#ajax-ppvmodal').on('show', function () {
-        // Load view vith AJAX
-      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-gpvmodal').on('show', function () {
-        // Load view vith AJAX
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=group&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-cpvmodal').on('show', function () {
-        // Load view vith AJAX
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=character&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-ppvmodal,#ajax-gpvmodal,#ajax-cpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
-});
-</script>
-<!-- preview modal windows -->
-<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:1000px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-gpvmodal" style="max-width:800px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Group</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-cpvmodal" style="max-width:800px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Character</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
 
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgc'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 

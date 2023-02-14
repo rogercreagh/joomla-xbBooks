@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/review/view.html.php
- * @version 0.9.10.2 14th November 2022
+ * @version 1.0.4.0d 12th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -72,6 +72,14 @@ class XbbooksViewReview extends JViewLegacy {
             ToolBarHelper::cancel('review.cancel','JTOOLBAR_CANCEL');
         } else {
             ToolBarHelper::cancel('review.cancel','JTOOLBAR_CLOSE');
+        }
+        ToolbarHelper::custom(); //spacer
+        $bar = Toolbar::getInstance( 'toolbar' );
+        if ($this->item->id > 0) {
+            $dhtml = '<a href="index.php?option=com_xbbooks&view=review&layout=modalpv&tmpl=component&id='.$this->item->id.'"
+            	data-toggle="modal" data-target="#ajax-pvmodal" data-backdrop="static"
+            	class="btn btn-small btn-primary"><i class="far fa-eye"></i> '.Text::_('Preview').'</a>';
+            $bar->appendButton('Custom', $dhtml);
         }
     }
     

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/books.php
- * @version 1.0.4.0 4th February 2023
+ * @version 1.0.4.0d 14th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,7 +50,7 @@ class XbbooksModelBooks extends JModelList
 		
 		$query->select('(SELECT COUNT(DISTINCT(bp.person_id)) FROM #__xbbookperson AS bp WHERE bp.book_id = a.id) AS pcnt');
 		$query->select('(SELECT COUNT(DISTINCT(bg.group_id)) FROM #__xbbookgroup AS bg WHERE bg.book_id = a.id) AS gcnt');
-		$query->select('(SELECT COUNT(DISTINCT(bc.char_id)) FROM #__xbbookcharacter AS bc WHERE bc.book_id = a.id) AS ccnt');
+		$query->select('(SELECT COUNT(DISTINCT(bc.char_id)) FROM #__xbbookcharacter AS bc WHERE bc.book_id = a.id) AS chcnt');
 		
 		$query->select('c.title AS category_title');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
@@ -208,12 +208,12 @@ class XbbooksModelBooks extends JModelList
             
             if ($item->gcnt > 0) {
                 $item->groups = XbbooksGeneral::getBookGroups($item->id);
-                $item->grplist = $item->grpcnt==0 ? '' : XbcultureHelper::makeItemLists($item->groups,'','t',3,'gpvmodal');
+                $item->grplist = $item->gcnt==0 ? '' : XbcultureHelper::makeItemLists($item->groups,'','t',3,'gpvmodal');
             }
             
             if ($item->chcnt > 0) {
                 $item->chars = XbbooksGeneral::getBookChars($item->id);
-                $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeItemLists($item->chars,'char','t',3,'cpvmodal');
+                $item->charlist = $item->chcnt==0 ? '' : XbcultureHelper::makeItemLists($item->chars,'char','t',3,'cpvmodal');
             }
             
             $item->reviews = XbbooksGeneral::getBookReviews($item->id);

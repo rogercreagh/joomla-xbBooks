@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/books/tmpl/default.php
- * @version 1.0.4.0 9th February 2023
+ * @version 1.0.4.0d 14th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -31,7 +31,7 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_PUBYEARCOL'),
 	'id'=>'id','first_read'=>Text::_('XBBOOKS_FIRST_READ'),'last_read'=>Text::_('XBBOOKS_LAST_READ'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
-    'pcnt'=>Text::_('XBCULTURE_PEOPLE'),'gcnt'=>Text::_('XBCULTURE_GROUPS'),'ccnt'=>Text::_('XBCULTURE_CHARACTERS'),
+    'pcnt'=>Text::_('XBCULTURE_PEOPLE'),'gcnt'=>Text::_('XBCULTURE_GROUPS'),'chcnt'=>Text::_('XBCULTURE_CHARACTERS'),
     'published'=>Text::_('XBCULTURE_STATUS'),'ordering'=>Text::_('XBCULTURE_ORDERING'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
 );
 
@@ -54,7 +54,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
 <style type="text/css" media="screen">
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
 </style>
 <form action="<?php echo Route::_('index.php?option=com_xbbooks&view=books'); ?>" method="post" name="adminForm" id="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
@@ -98,20 +98,33 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 			<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 		</div>
 	<?php else : ?>	
-		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbbooksList">	
+		<table class="table table-striped table-hover"" id="xbbooksList">	
+			<colgroup>
+				<col class="hidden-phone" style="width:25px;"><!-- ordering -->
+				<col class="hidden-phone" style="width:25px;"><!-- checkbox -->
+				<col style="width:55px;"><!-- status -->
+				<col style="width:80px;"><!-- picture -->
+				<col ><!-- title, year -->
+				<col ><!-- people -->
+				<col class="hidden-phone" style="width:230px;" ><!-- summary, extlinks -->
+				<col ><!-- reviews -->
+				<col class="hidden-phone" style="width:105px;" ><!-- seendates -->
+				<col class="hidden-tablet hidden-phone" style="width:230px;"><!-- cats & tags -->
+				<col class="hidden-phone" style="width:45px;"><!-- id -->
+			</colgroup>	
 			<thead>
 				<tr>
-					<th class="nowrap center hidden-phone" style="width:25px;">
+					<th class="nowrap center">
 						<?php echo HTMLHelper::_('searchtools.sort', '', 'ordering', 
 						    $listDirn, $listOrder, null, 'asc', 'XBCULTURE_HEADING_ORDERING_DESC', 'icon-menu-2'); ?>
 					</th>
-					<th class="hidden-phone center" style="width:20px;">
+					<th class="center">
 						<?php echo HTMLHelper::_('grid.checkall'); ?>
 					</th>
-					<th class="nowrap center" style="width:50px">
+					<th class="nowrap center">
 						<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
 					</th>
-					<th class="center" style="width:80px">
+					<th class="center">
 						<?php echo Text::_( 'XBBOOKS_COVER' ); ?>
 					</th>			
 					<th>
@@ -123,23 +136,25 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						?>
 					</th>					
 					<th>
+						<?php echo ucfirst(Text::_('XBCULTURE_PEOPLE'));?>
+					</th>
+					<th>
 						<?php echo Text::_('XBCULTURE_SUMMARY');?>
 					</th>
-					<th class="hidden-phone">
+					<th>
 						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
 					<th>
 						<?php echo HTMLHelper::_('searchtools.sort','First','first_read',$listDirn,$listOrder ).'/'; 
-						echo HTMLHelper::_('searchtools.sort','Last','last_read',$listDirn,$listOrder ).' read'; ?>					    
+						echo HTMLHelper::_('searchtools.sort','Last','last_read',$listDirn,$listOrder ); ?>					    
 					</th>
-					<th class="hidden-tablet hidden-phone" style="width:15%;">
+					<th>
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';						
 						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
-					<th class="nowrap hidden-tablet hidden-phone">
+					<th class="nowrap>
 						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
 					</th>
-    				<th>[pv]</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -207,7 +222,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php if ($canEdit || $canEditOwn) : ?>
 							<a href="<?php echo Route::_($belink.$item->id);?>" <?php echo ($item->published<>1) ? 'class="xbhlt"' : ''; ?>
 								title="<?php echo Text::_('XBCULTURE_EDIT'); ?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a> 
+								<b><?php echo $this->escape($item->title); ?></b>
+							</a>&nbsp;<a href="" 
+								data-toggle="modal" data-target="#ajax-bpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 						<?php else : ?>
 							<?php echo $this->escape($item->title); ?>
 						<?php endif; ?>
@@ -218,31 +235,63 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php $alias = Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
                         <span class="xbnit xb08"><?php echo $alias;?></span>
 						<br /><span class="xb09">
-						<?php if ($item->editcnt>0) : ?>
-							<span class="xbnit">
-								<?php echo Text::_($item->editcnt>1 ? 'XBCULTURE_EDITORS' : 'XBCULTURE_EDITOR' ); ?>
+							<?php echo $item->pubyear > 0 ? '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').': </span>'.$item->pubyear : ''; ?>						
+						</span>
+						</p>						
+					</td>
+					<td>
+						<span class="xb095">
+						<?php if ($item->authcnt>0) : ?>
+							<span class="xbnit"><?php echo $item->authcnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR'); ?>
 							: </span>
-							<span class="hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo ($item->editcnt>0)? Text::_('XBCULTURE_AUTHOR').': '.strip_tags($item->authlist['commalist']) : ''; ?>
-								"> 
-								<?php echo $item->editlist['commalist']; ?>
-							</span>						
-						<?php elseif ($item->authcnt>0) : ?>
-							<span class="xbnit"><?php echo Text::_($item->authcnt>1 ? 'XBCULTURE_AUTHORS' : 'XBCULTURE_AUTHOR' ); ?>: </span>
 							<?php echo $item->authlist['commalist']; ?>
+						<?php else : ?>
+							<span class="xbnit">No author listed</span>
+						<?php endif; ?>
+						<?php if($item->editcnt>0) :?>
+							<details>
+								<summary class="xbnit">
+									<?php echo $item->editcnt.' ';
+									echo ($item->editcnt>1) ? Text::_('XBCULTURE_EDITORS') : Text::_('XBCULTURE_EDITOR').' '.Text::_('XBCULTURE_LISTED'); ?>
+								</summary>
+								<?php echo $item->editlist['ullist']; ?>	
+							</details>
 						<?php endif; ?>
 						<?php if($item->othercnt>0) :?>
-							<br /><span class="xbnit xb08 hasTooltip"  style="margin:0;" title data-original-title="
-							<?php echo strip_tags($item->otherlist['commalist']); ?>
-								">
-							<?php echo $item->othercnt.' '.Text::_('XBBOOKS_OTHER_ROLES_LISTED'); ?></span>
+							<details>
+								<summary class="xbnit">
+									<?php echo ($item->othercnt).' '.Text::_('other roles').' '.Text::_('XBCULTURE_LISTED'); ?></span>
+								</summary>
+								<?php echo $item->otherlist['ullist']; ?>	
+							</details>
 						<?php endif; ?>
-						<br />
-						</span>
-							<span class="xb08">
-								<?php echo $item->pubyear > 0 ? '<span class="xbnit">'.Text::_('XBCULTURE_PUBLISHED').': </span>'.$item->pubyear : ''; ?>						
-							</span>
-						</p>						
+						<?php if($item->mencnt>0) :?>
+							<details>
+								<summary class="xbnit">
+									<?php echo ($item->mencnt).' ';
+									echo ($item->mencnt>1) ? Text::_('XBCULTURE_APPEARANCES') : Text::_('XBCULTURE_APPEARANCE').' '.Text::_('XBCULTURE_LISTED'); ?>
+								</summary>
+								<?php echo $item->menlist['ullist']; ?>	
+							</details>
+						<?php endif; ?>
+						<?php if($item->gcnt>0) :?>
+							<details>
+								<summary class="xbnit">
+									<?php echo ($item->gcnt).' ';
+									echo ($item->gcnt>1) ? Text::_('XBCULTURE_GROUPS') : Text::_('XBCULTURE_GROUP').' '.Text::_('XBCULTURE_LISTED'); ?>
+								</summary>
+								<?php echo $item->grplist['ullist']; ?>	
+							</details>
+						<?php endif; ?>
+						<?php if($item->chcnt>0) :?>
+							<details>
+								<summary class="xbnit">
+									<?php echo ($item->chcnt).' ';
+									echo ($item->chcnt>1) ? Text::_('XBCULTURE_CHARACTERS') : Text::_('XBCULTURE_CHARACTER').' '.Text::_('XBCULTURE_LISTED'); ?>
+								</summary>
+								<?php echo $item->charlist['ullist']; ?>	
+							</details>
+						<?php endif; ?>	
 					</td>
 					<td>
 						<p class="xb095">
@@ -266,41 +315,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							</p>
 						<?php endif; ?>
                                     
-						<p class="xbnit xb095">
-                            <?php if ($item->mencnt>0) : ?>
-                                <span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
-                                <?php echo strip_tags($item->menlist['ullist']); ?>
-								">
-                                <?php echo $item->mencnt.' ';
-                                echo ($item->mencnt==1) ? Text::_('XBCULTURE_SUBJECT') : Text::_('XBCULTURE_SUBJECTS');
-                                echo ' '.Text::_('XBCULTURE_LISTED'); ?>
-                                </span>
-                                <?php if (($item->charcnt>0) || ($item->grpcnt>0)) : ?>
-                                    <br />
-                            	<?php endif; ?>
-                            <?php endif; 
-                            if ($item->charcnt>0) : ?>
-								<span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo strip_tags($item->charlist['ullist']); ?>
-								">
-								<?php echo $item->charcnt.' ';
-                                echo ($item->charcnt==1) ? Text::_('XBCULTURE_CHARACTER') : Text::_('XBCULTURE_CHARACTERS');
-                                echo ' '.Text::_('XBCULTURE_LISTED'); ?>
-                                </span>
-                                <?php if ($item->grpcnt>0) : ?>
-                                    <br />
-                            	<?php endif; ?>
-                            <?php endif;  
-                            if ($item->grpcnt>0) : ?>
-								<span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
-								<?php echo strip_tags($item->grplist['ullist']); ?>
-								">
-								<?php echo $item->grpcnt.' ';
-                                echo ($item->charcnt==1) ? Text::_('XBCULTURE_GROUP') : Text::_('XBCULTURE_GROUPS');
-                                echo ' '.Text::_('XBCULTURE_LISTED'); ?>
-                                </span>
-							<?php endif; ?>
-						</p>
 						<?php if($item->ext_links_cnt >0 ) : ?>
 							<p class="xbnit xb095">	
 								<?php echo Text::_('XBCULTURE_EXTLINK_LBL').': '; 
@@ -309,44 +323,35 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 	                    	</p>
 						<?php endif; ?>
 					</td>
-					<td class="hidden-phone">
+					<td>
 						<?php if ($item->revcnt==0) : ?>
                             <i><?php echo Text::_('XBBOOKS_NOREVIEW'); ?></i><br /> 
 						<?php else: ?>
-                        	<?php $stars = (round(($item->averat)*2)/2); ?>
-                            <div class="xbbb1">
-							<?php if (($this->zero_rating) && ($stars==0)) : ?>
-							    <span class="<?php echo $this->zero_class; ?> "></span>
-							<?php else : ?>
-                                <span style="font-size:10px;">
-                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
-                                <?php if (($item->averat - floor($item->averat))>0) : ?>
-                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-                                    </span> <span style="color:darkgray;">(<?php echo round($item->averat,1); ?>)                                  
-                                <?php  endif; ?> 
-                                </span> 
-                             <?php endif; ?>                        
-                            </div>
-							<?php foreach ($item->reviews as $rev) : ?>
+                           	<?php if ($item->revcnt>1) : ?>
+                                <div class="xbbb1">Average: 
+    								<?php echo XbcultureHelper::getStarStr($item->averat,'com_xbbooks')?>
+                                    <?php if (($item->averat - floor($item->averat))>0) : ?>
+                                        <span style="color:darkgray;">
+                                        	(<?php echo round($item->averat,1); ?>)                                  
+                                        </span> 
+                                     <?php endif; ?>                        
+                                </div>
+                            <?php endif; ?>
+   							<?php foreach ($item->reviews as $rev) : ?>
 								<div class="xbbb1">
-	                              	<?php if ($item->revcnt>1) : ?>
-										<span>
-											<?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
-												<i class="<?php echo $this->zero_class; ?>"></i>
-											<?php else : ?>
-										 		<?php echo $rev->rating;?><i class="<?php echo $this->star_class; ?>"></i> 
-										 	<?php endif; ?>
-										 </span>
-	                                <?php endif; ?>
-									<a href="<?php echo Route::_($rvlink.$rev->id);?>">
+    								<?php echo XbcultureHelper::getStarStr($rev->rating,'com_xbfilms')?>
+									<br /><a href="<?php echo Route::_($rvlink.$rev->id);?>">
 	    								<span class="xbnit"><?php echo Text::_('XBCULTURE_BY').':';?>
-	    								<?php if ($rev->reviewer) {
-	    								    echo $rev->reviewer;
-	    								} else {
-	    								    echo Factory::getUser($rev->created_by)->name;
-	    								} ?>
+    	    								<?php if ($rev->reviewer) {
+    	    								    echo $rev->reviewer;
+    	    								} else {
+    	    								    echo Factory::getUser($rev->created_by)->name;
+    	    								} ?>
 	    								</span>
-	    								<span class="xb09"> <?php echo HtmlHelper::date($rev->rev_date ,'d M Y'); ?></span>
+	    								<span class="xb09"> <?php echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?></span>
+									</a>&nbsp;
+									<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $rev->id; ?>;">
+										<i class="far fa-eye"></i>
 									</a>
 								</div>
 							<?php endforeach; ?>
@@ -386,12 +391,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<td class="center hidden-phone">
 						<?php echo $item->id; ?>
 					</td>
-					<td>
-						<a href="" data-toggle="modal" data-target="#ajax-pvmodal"
-            				 onclick="window.pvid= <?php echo $item->id; ?>;">
-            				<i class="icon-eye xbeye"></i>
-            			</a>					
-					</td>
 				</tr>
 				<?php endforeach;?>
 			</tbody>
@@ -412,21 +411,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
-<script>
-jQuery(document).ready(function(){
-//for preview modal
-    jQuery('#ajax-pvmodal').on('show', function () {
-        // Load view vith AJAX
-        jQuery(this).find('.modal-content').load('index.php?option=com_xbbooks&view=books&layout=modalpv&tmpl=component');
-    })
-});
-</script>
-<!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
+
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgcbo'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 

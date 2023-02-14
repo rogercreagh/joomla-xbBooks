@@ -238,7 +238,7 @@ class XbbooksModelPeople extends JModelList {
 			
 			$item->books = XbcultureHelper::getPersonBooks($item->id);
 			$item->brolecnt = count($item->books);
-			$item->booklist = $item->brolecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->books,'','ul',true,3);
+			$item->booklist = $item->brolecnt==0 ? '' : XbcultureHelper::makeItemLists($item->books,'','t',3,'bpvmodal');
 						
 		} //end foreach item
 		return $items;

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/default.php
- * @version 1.0.3.1 7th January 2023
+ * @version 1.0.4.0d 14th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -198,7 +198,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
              					    )</span>
              					<?php endif; ?>
     						</span></summary>
-    						<?php echo $item->booklist; ?>    						
+    						<?php echo $item->booklist['ullist']; ?>    						
     					</details>
     					<?php endif; ?>
     				<?php if ($item->fcnt > 0) : ?>

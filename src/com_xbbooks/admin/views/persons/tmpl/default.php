@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/people/tmpl/default.php
- * @version 1.0.3.4 19th January 2023
+ * @version 1.0.4.0d 12th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -335,3 +335,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
+
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgcfi'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+  
+

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/review/tmpl/edit.php
- * @version 1.0.2.2 6th January 2023
+ * @version 1.0.4.0d 12th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,7 +22,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
 ?>
 <style type="text/css" media="screen">
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
 </style>
 <form action="<?php echo Route::_('index.php?option=com_xbbooks&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
@@ -104,6 +104,15 @@ jQuery(document).ready(function(){
      //document.location.reload(true);
      //Joomla.submitbutton('film.apply');
     })
+});
+// fix multiple backdrops
+jQuery(document).bind('DOMNodeInserted', function(e) {
+    var element = e.target;
+    if (jQuery(element).hasClass('modal-backdrop')) {
+         if (jQuery(".modal-backdrop").length > 1) {
+           jQuery(".modal-backdrop").not(':last').remove();
+       }
+	}    
 });
 </script>
 <!-- preview modal window -->

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 1.0.3.2 9th January 2023
+ * @version 1.0.4.0d 12th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -193,6 +193,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo Text::_('XBBOOKS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>
+							<a href="" data-toggle="modal" data-target="#ajax-opvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->id; ?>;">
+            					<i class="far fa-eye"></i>
+            				</a>					
     						<br /><span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
     						</p>
 							<p>
@@ -205,6 +208,9 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 								<p><a href="<?php echo Route::_($bvlink . $item->bookid); ?>">
 	    							<?php echo $item->booktitle; ?>
 								</a>
+							<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->bookid; ?>;">
+            					<i class="far fa-eye"></i>
+            				</a>					
 								</p>
 							<?php endif; ?>
 						</td>
@@ -264,11 +270,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
                             	<?php echo HtmlHelper::date($item->created,'d.m.y'); ?></span>
                             </p>
 						</td>
-					<td>
-						<a href="" data-toggle="modal" data-target="#ajax-pvmodal" onclick="window.pvid= <?php echo $item->id; ?>;">
-            				<i class="icon-eye xbeye"></i>
-            			</a>					
-					</td>
 					</tr>
 				<?php endforeach; ?>
 			<?php endif; ?>
@@ -291,22 +292,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
-<script>
-jQuery(document).ready(function(){
-//for preview modal
-    jQuery('#ajax-pvmodal').on('show', function () {
-        // Load view vith AJAX
-        jQuery(this).find('.modal-content').load('index.php?option=com_xbbooks&view=reviews&layout=modalpv&tmpl=component');
-    })
-});
-</script>
-<!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
 
-
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'bo'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+  

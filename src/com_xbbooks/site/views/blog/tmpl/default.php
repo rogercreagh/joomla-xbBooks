@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/blog/tmpl/default.php
- * @version 1.0.3.1 7th January 2023
+ * @version 1.0.4.0d 14th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -134,7 +134,7 @@ $clink = 'index.php?option=com_xbbooks&view=category' . $itemid.'&id=';
 									<h4><span class="xbnit xbmr10">
 										<?php echo Text::_(($item->acnt==1) ? 'XBCULTURE_AUTHOR' : 'XBCULTURE_AUTHORS'); ?>
 									: </span>
-									<?php echo $item->alist; ?>                          
+									<?php echo $item->alist['commalist']; ?>                          
 									</h4>
 								<?php else: ?>
 									<p class="xbnit"><?php echo Text::_('XBBOOKS_NOAUTHOR'); ?></p>

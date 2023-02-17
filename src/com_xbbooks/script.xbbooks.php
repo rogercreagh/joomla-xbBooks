@@ -35,7 +35,7 @@ class com_xbbooksInstallerScript
         $xbp = $this->checkXbPeople($this->pminver);
         
         if ($xbp === false ) {
-            $message = 'Component xbPeople appears not to be installed. Please install and enable it before installing xbFilms.';
+            $message = 'Component xbPeople appears not to be installed. Please install and enable it before installing xbBooks.';
             Factory::getApplication()->enqueueMessage($message);
             throw new RuntimeException('xbPeople not found: install aborted');
         }

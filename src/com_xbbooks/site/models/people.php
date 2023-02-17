@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -238,7 +238,7 @@ class XbbooksModelPeople extends JModelList {
 			
 			$item->books = XbcultureHelper::getPersonBooks($item->id);
 			$item->brolecnt = count($item->books);
-			$item->booklist = $item->brolecnt==0 ? '' : XbcultureHelper::makeItemLists($item->books,'','t',3,'bpvmodal');
+			$item->booklist = $item->brolecnt==0 ? '' : XbcultureHelper::makeItemLists($item->books,'','t',3,'book');
 						
 		} //end foreach item
 		return $items;

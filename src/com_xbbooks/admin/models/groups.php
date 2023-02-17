@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/groups.php
- * @version 1.0.4.0 3rd February 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -164,10 +164,10 @@ class XbbooksModelGroups extends JModelList {
             
             if ($item->pcnt>0) {
                 $item->members = XbcultureHelper::getGroupMembers($item->id);
-                $item->memberlist = XbcultureHelper::makeItemLists($item->members,'','tr',4,'ppvmodal');
+                $item->memberlist = XbcultureHelper::makeItemLists($item->members,'','tr',4,'person');
             }
             $item->books = XbcultureHelper::getGroupBooks($item->id);
-            $item->booklist = XbcultureHelper::makeItemLists($item->books,'','t',4, 'bpvmodal');
+            $item->booklist = XbcultureHelper::makeItemLists($item->books,'','t',4, 'book');
             
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';

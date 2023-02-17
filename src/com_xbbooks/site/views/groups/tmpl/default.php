@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/groups/tmpl/default.php
- * @version 1.0.4.0 5th February 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,6 +40,10 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
 <div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
@@ -76,11 +80,30 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 		<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 	</div>
 <?php } else { ?>
-		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbcharacters">	
+		<table class="table table-striped table-hover" id="xbcharacters">	
+    		<colgroup>
+    			<?php if($this->show_pic) : ?>
+    				<col style="width:80px"><!-- picture -->
+                <?php endif; ?>
+    			<col ><!-- title -->
+				<?php if($this->show_gdates) : ?>
+    				<col ><!-- dates -->
+    			<?php endif; ?>
+    			<col ><!-- members -->
+    			<?php if($this->show_sum) : ?>
+    				<col class="hidden-phone" style="width:230px;"><!-- summary -->
+                <?php endif; ?>
+                <?php if ($this->showgcnts) : ?>
+    				<col  class="hidden-phone"><!-- rating -->
+    			<?php endif; ?>
+    			<?php if($this->showcat || $this->showtags) : ?>
+    				<col class="hidden-tablet hidden-phone"><!-- cats&tags -->
+    			<?php endif; ?>
+    		</colgroup>
 		<thead>
 			<tr>
 				<?php if($this->show_pic) : ?>
-					<th class="center" style="width:80px">
+					<th class="center">
 						<?php echo Text::_( 'XBCULTURE_PICTURE' ); ?>
 					</th>	
                 <?php endif; ?>
@@ -143,7 +166,9 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 					<p class="xbtitlelist">
 						<a href="<?php echo Route::_($plink.$item->id);?>" >
 							<b><?php echo $this->escape($item->title); ?></b>
-						</a>
+						</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal"  class="xbpv" data-target="#ajax-xbmodal"  
+							onclick="window.com='people';window.view='group';window.pvid=<?php echo $item->id; ?>;"
+							><i class="far fa-eye"></i></a>					
 					</p>
 				</td>
 				<?php if($this->show_gdates) : ?>
@@ -219,9 +244,6 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
                                         echo $item->ecnt.' ';
                                         echo $item->ecnt ==1 ? Text::_('XBCULTURE_EVENT') : Text::_('XBCULTURE_EVENTS');
                                     } ?>
-    							&nbsp;<a href="" data-toggle="modal"  class="xbpv" data-target="#ajax-gpvmodal"  onclick="window.pvid= <?php echo $item->id; ?>;">
-                					<i class="far fa-eye"></i>
-                				</a>					    						
     						<?php endif; ?>
                         </p>
     				</td>
@@ -260,3 +282,6 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>
+
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+

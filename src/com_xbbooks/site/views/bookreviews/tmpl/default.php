@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreviews/tmpl/default.php
- * @version 1.0.3.9 29th January 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,7 +42,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
 </style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -98,10 +99,24 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 		</div>
 	<?php else : ?>	
 	<table class="table table-striped table-hover" id="xbbookreviewsList">
+		<colgroup>
+			<?php if($this->show_pic) : ?>
+				<col style="width:80px"><!-- picture -->
+            <?php endif; ?>
+			<col ><!-- title -->
+			<col ><!-- book -->
+			<col style="width:150px;"><!-- rating -->
+			<?php if($this->show_sum) : ?>
+				<col class="hidden-phone" style="width:230px;"><!-- summary -->
+            <?php endif; ?>
+			<?php if($this->showcat || $this->showtags) : ?>
+				<col class="hidden-tablet hidden-phone"><!-- cats&tags -->
+			<?php endif; ?>
+		</colgroup>
 		<thead>
 			<tr>
 				<?php if($this->show_pic) : ?>
-					<th class="center" style="width:80px">
+					<th class="center">
 						<?php echo Text::_( 'XBBOOKS_COVER' ); ?>
 					</th>	
                 <?php endif; ?>
@@ -116,10 +131,10 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
         			<br />
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_DATE', 'rev_date', $listDirn, $listOrder); ?>
         		</th>
-        		<th class="hidden-phone">
+        		<th>
         			<?php echo Text::_('XBCULTURE_REVIEW_SUMMARY');?>
         		</th>
- 					<th class="hidden-tablet hidden-phone" style="width:15%;">
+ 					<th>
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).'<br />'.
 						Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
@@ -156,10 +171,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						<p class="xbtitlelist">
     						<a href="<?php echo Route::_($rvlink . $item->id); ?>" title="<?php echo Text::_('XBBOOKS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
-    						</a>
-    						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid= <?php echo $item->id; ?>;">
-                				<i class="far fa-eye"></i>
-                			</a>					
+    						</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+    							onclick="window.com='books';window.view='bookreview';window.pvid= <?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>					
     						</p>
 							<p>
 								<i>by: </i><b><?php echo $item->reviewer; ?></b> 
@@ -170,10 +183,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							<?php  else : ?>
 								<p><a href="<?php echo Route::_($bvlink . $item->bookid); ?>">
 	    							<?php echo $item->booktitle; ?>
-								</a>
-        						<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" onclick="window.pvid= <?php echo $item->bookid; ?>;">
-                    				<i class="far fa-eye"></i>
-                    			</a>					
+								</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static"
+        							onclick="window.com='books';window.view='book';window.pvid= <?php echo $item->bookid; ?>;"><i class="far fa-eye"></i></a>					
 								</p>
 							<?php endif; ?>
 						</td>
@@ -238,43 +249,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 </div>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
-<script>
-jQuery(document).ready(function(){
-//for preview modals Load view vith AJAX
-    jQuery('#ajax-rpvmodal').on('show', function () {
-      jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-bpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-rpvmodal,#ajax-bpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
-});
-</script>
-<!-- preview modal windows -->
-<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:800px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Review</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1000px">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Book</h4>
-        </div>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
+
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 

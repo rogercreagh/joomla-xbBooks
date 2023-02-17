@@ -193,7 +193,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo Text::_('XBBOOKS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>
-							<a href="" data-toggle="modal" data-target="#ajax-opvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->id; ?>;">
+							<a href="" data-toggle="modal" data-target="#ajax-opvmodal" data-backdrop="static" 
+							onclick="window.com='books';window.view='bookreview';window.pvid= <?php echo $item->id; ?>;">
             					<i class="far fa-eye"></i>
             				</a>					
     						<br /><span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>

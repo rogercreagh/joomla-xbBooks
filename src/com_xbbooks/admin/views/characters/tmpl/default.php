@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/characters/tmpl/default.php
- * @version 1.0.4.0d 12th February 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,7 +48,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
 </style>
 <form action="index.php?option=com_xbbooks&view=characters" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
@@ -199,8 +200,8 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							
 							<a href="<?php echo $chelink.$item->id; ?>" title="<?php echo Text::_('XBBOOKS_EDIT_PERSON'); ?>">
 								<?php echo ' '.$item->name; ?> 
-							</a>&nbsp;
-    						<a href="" data-toggle="modal" class="xbpv" data-target="#ajax-cpvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->id; ?>;">
+							</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" class="xbpv" data-target="#ajax-xbmodal" data-backdrop="static" 
+								onclick="window.com='people';window.view='character';window.pvid= <?php echo $item->id; ?>;">
                 				<i class="far fa-eye"></i>
                 			</a>					
 							<br />
@@ -281,5 +282,5 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 
-<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'cb'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
-  
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+

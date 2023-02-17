@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/views/people/tmpl/default.php
- * @version 1.0.4.0d 12th February 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -46,6 +46,10 @@ $cvlink = 'index.php?option=com_xbbooks&view=bcategory&id=';
 $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
 <form action="index.php?option=com_xbbooks&view=persons" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
@@ -120,8 +124,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.
 						Text::_( 'XBCULTURE_TAGS_U' ); ?>
-					</th>
-    			
+				</th>    			
     			<th class="nowrap hidden-phone" style="width:45px;">
 					<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
     			</th>
@@ -198,7 +201,10 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('XBBOOKS_EDIT_PERSON'); ?>">
 								<?php echo ($item->firstname=='')? '... ' : $item->firstname; ?>
 								<?php echo ' '.$item->lastname; ?> 
-							</a>
+							</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal"  class="xbpv" data-target="#ajax-xbmodal" data-backdrop="static" 
+    							onclick="window.com='people';window.view='person';window.pvid= <?php echo $item->id; ?>;">
+                				<i class="far fa-eye"></i>
+                			</a>					
 							<br />
 							<span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
 						</p>
@@ -245,14 +251,14 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 					<td>
 						<?php if ($item->acnt>0) : ?>						
         					<?php if (($item->brcnt == 1) && ($item->acnt < 3)) : ?>
-        						<?php echo $item->alist; ?>
+        						<?php echo $item->alist['ullist']; ?>
 							<?php else : ?>
                                 <details>
                                 <summary><span class="xbnit">
                                 	<?php echo Text::_('XBCULTURE_AUTHOR_OF').' '.$item->acnt.' ';
                                     echo ($item->acnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
                                 </span></summary>
-                                <?php echo $item->alist; ?>
+                                <?php echo $item->alist['ullist']; ?>
                                 </details>
         					<?php endif; ?>
 						<?php endif; ?> 
@@ -265,33 +271,33 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
          								<?php echo Text::_('XBCULTURE_EDITOR_OF').' '.$item->ecnt.' ';
                                         echo ($item->ecnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
                                     </span></summary>
-         							<?php echo $item->elist; ?>
+         							<?php echo $item->elist['ullist']; ?>
                                   </details>
 							<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->ocnt>0) : ?>
         					<?php if (($item->brcnt == 1) && ($item->ocnt < 3)) : ?>
-        						<?php echo $item->olist; ?>
+        						<?php echo $item->olist['ullist']; ?>
 							<?php else : ?>
                                   <details>
                                   	<summary><span class="xbnit">
          								<?php echo Text::_('XBCULTURE_OTHER_ROLE_ON').' '.$item->ocnt.' '; 
                                         echo ($item->ocnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
                                     </span></summary>
-         							<?php echo $item->olist; ?>
+         							<?php echo $item->olist['ullist']; ?>
                                   </details>
 							<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->mcnt>0) : ?>
         					<?php if (($item->brcnt == 1) && ($item->mcnt < 3)) : ?>
-        						<?php echo $item->mlist; ?>
+        						<?php echo $item->mlist['ullist']; ?>
 							<?php else : ?>
                                   <details>
                                   	<summary><span class="xbnit">
          								<?php echo Text::_('XBBOOKS_MENTION_IN').' '.$item->mcnt.' ';
                                         echo ($item->mcnt==1)?Text ::_('XBCULTURE_BOOK') : Text::_('XBCULTURE_BOOKS');   ?>
                                     </span></summary>
-         							<?php echo $item->mlist; ?>
+         							<?php echo $item->mlist['ullist']; ?>
                                   </details>
 							<?php endif; ?> 
 						<?php endif; ?> 
@@ -336,6 +342,6 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 
-<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgcfi'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
-  
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+
 

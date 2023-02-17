@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/people/tmpl/default.php
- * @version 1.0.4.0d 14th February 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,6 +41,10 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
@@ -78,7 +82,25 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 		<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 	</div>
 <?php } else { ?>
-		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbpeople">	
+		<table class="table table-striped table-hover" id="xbpeople">	
+    		<colgroup>
+    			<?php if($this->show_pic) : ?>
+    				<col style="width:80px"><!-- picture -->
+                <?php endif; ?>
+    			<col ><!-- title -->
+    			<?php if($this->show_pdates) : ?>
+        			<col class="hidden-phone"><!-- dates -->
+        		<?php endif; ?>
+    			<?php if($this->show_sum) : ?>
+    				<col class="hidden-phone" style="width:230px;"><!-- summary -->
+                <?php endif; ?>
+                    <?php if ($this->showcnts) : ?>
+        				<col><!-- books -->
+        			<?php endif; ?>
+    			<?php if($this->showcat || $this->showtags) : ?>
+    				<col class="hidden-tablet hidden-phone"><!-- cats&tags -->
+    			<?php endif; ?>
+    		</colgroup>
 		<thead>
 			<tr>
 				<?php if($this->show_pic) : ?>
@@ -142,7 +164,10 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 					<p class="xbtitlelist">
 						<a href="<?php echo Route::_($plink.$item->id);?>" >
 							<b><?php echo $this->escape($item->firstname).' '.$this->escape($item->lastname); ?></b>
-						</a>
+						</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static"  
+							onclick="window.com='people';window.view='person';window.pvid=<?php echo $item->id; ?>;">
+            				<i class="far fa-eye"></i>
+            			</a>					
 					</p>
 				</td>
 				<?php if($this->show_pdates) : ?>
@@ -243,3 +268,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
 </div>
+
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+
+

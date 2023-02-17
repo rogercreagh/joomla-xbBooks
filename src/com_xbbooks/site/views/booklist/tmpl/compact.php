@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/compact.php
- * @version 1.0.4 0 9th February 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,7 +33,8 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
 </style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -114,8 +115,9 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 					<td>
 						<p class="xbtitle">
 							<a href="<?php echo Route::_(XbbooksHelperRoute::getBookLink($item->id)) ;?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a> 
-								&nbsp;<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
+								<b><?php echo $this->escape($item->title); ?></b>
+							</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+								onclick="window.com='books';window.view='book';window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb09 xbnorm" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
@@ -162,10 +164,8 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 	                             <?php endif; ?>                        
          					<?php endif; ?>											
 	    					<?php if($item->revcnt == 1) : ?>
-    							<?php echo $stars; ?>&nbsp;	
-        						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;">
-                    				<i class="far fa-eye"></i>
-                    			</a>					
+    							<?php echo $stars; ?>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+        						onclick="window.com='books';window.view='bookreview';window.pvid=<?php echo $item->reviews[0]->id; ?>;"><i class="far fa-eye"></i></a>					
         					<?php elseif ($item->revcnt>1) : ?> 
 	                             <details>
 	                             	<summary>
@@ -179,9 +179,8 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     	                            	} else {
     	                            	    echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating);
     	                            	} ?>
-                						&nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $rev->id; ?>;">
-                            				<i class="far fa-eye"></i>
-                            			</a>&nbsp;
+                						&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+                						onclick="window.com='books';window.view='bookreview';window.pvid=<?php echo $rev->id; ?>;"><i class="far fa-eye"></i></a>
 										<br />					
     	                            <?php  endforeach; ?>
 	                             </details>                                   
@@ -215,69 +214,6 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 </div>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbBooks');?></p>
-<script>
-jQuery(document).ready(function(){
-//for preview modals
-    // Load view vith AJAX
-    jQuery('#ajax-ppvmodal').on('show', function () {
-      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-bpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-rpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-ppvmodal,#ajax-bpvmodal,#ajax-rpvmodal').on('hidden', function () {
-    // cleanup the modal-content that was loaded
-		jQuery(this).find(".modal-content").html("");
-    })    
-});
-// fix multiple backdrops
-jQuery(document).bind('DOMNodeInserted', function(e) {
-    var element = e.target;
-    if (jQuery(element).hasClass('modal-backdrop')) {
-         if (jQuery(".modal-backdrop").length > 1) {
-           jQuery(".modal-backdrop").not(':last').remove();
-       }
-	}    
-})
-</script>
-<!-- preview modal windows -->
-<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1000px">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Book</h4>
-        </div>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1000px">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Film Review</h4>
-        </div>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
+
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 

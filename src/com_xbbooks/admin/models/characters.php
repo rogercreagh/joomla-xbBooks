@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/characters.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -169,7 +169,7 @@ class XbbooksModelCharacters extends JModelList {
             if ($item->bcnt>0) {
                 $item->books = XbcultureHelper::getCharBooks($item->id);
                 $item->bookcnt = count($item->books);
-                $item->booklist = $item->bookcnt==0 ? '' : XbcultureHelper::makeItemLists($item->books,'','t',4,'bpvmodal');
+                $item->booklist = $item->bookcnt==0 ? '' : XbcultureHelper::makeItemLists($item->books,'','t',4,'book');
             } //bcnt is the number of books, bookcnt is the number of roles (maybe 2 roles in a book)
             
 	        $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);

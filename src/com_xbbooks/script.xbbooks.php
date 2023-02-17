@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource script.xbbooks.php
- * @version 1.0.4.0 3rd February 2023
+ * @version 1.0.4.0e 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021,2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -23,6 +23,7 @@ class com_xbbooksInstallerScript
     protected $extension = 'com_xbbooks';
     protected $ver = 'v0';
     protected $date = '';
+    protected $pminver = '1.0.3.14';
     
     function preflight($type, $parent){
         $jversion = new Version();
@@ -31,6 +32,23 @@ class com_xbbooksInstallerScript
             throw new RuntimeException('xbBooks requires Joomla version greater than '.$this->jminver. ' and less than '.$this->jmaxver.'. You have '.$jverthis);
         }
         $message='';
+        $xbp = $this->checkXbPeople($this->pminver);
+        
+        if ($xbp === false ) {
+            $message = 'Component xbPeople appears not to be installed. Please install and enable it before installing xbFilms.';
+            Factory::getApplication()->enqueueMessage($message);
+            throw new RuntimeException('xbPeople not found: install aborted');
+        }
+        if ($xbp === 0 ) {
+            Factory::getApplication()->enqueueMessage('Component xbPeople appears to be disabled. Please enable it and save options before running xbFilms.','alert');
+        } elseif (is_array($xbp)) {
+            $message = 'xbPeople version '.$xbp['version'].' is out of date. Please update xbPeople to '.$this->pminver.' or higher before installing xbFilms.';
+            Factory::getApplication()->enqueueMessage($message);
+            throw new RuntimeException('xbPeople version out of date: install aborted' );
+        } elseif ($xbp !==1) {
+            Factory::getApplication()->enqueueMessage('unknow value checking com_xbpeople');
+            throw new RuntimeException();
+        }
         if ($type=='update') {
         	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbbooks/xbbooks.xml'));
         	$this->ver = $componentXML['version'];
@@ -362,6 +380,30 @@ class com_xbbooksInstallerScript
         }        
         return false;
     }
+
+    protected static function checkXbPeople(string $minver = '') {
+        $db = Factory::getDBO();
+        $qry = $db->getQuery(true);
+        $qry->select('enabled, manifest_cache')
+        ->from($db->quoteName('#__extensions'))
+        ->where($db->quoteName('element').' = '.$db->quote('com_xbpeople'));
+        $db->setQuery($qry);
+        $res = $db->loadAssoc();
+        if (is_null($res)) {
+            return false;
+        } elseif($res['enabled']==0) {
+            return 0;
+        } else {
+            if ($minver != '') {
+                $manifest = json_decode($res['manifest_cache'],true);
+                if (version_compare($minver, $manifest['version']) == 1) {
+                    return $manifest;
+                }
+            }
+        }
+        return 1;
+    }
+    
     
 }
 

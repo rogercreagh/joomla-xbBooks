@@ -194,7 +194,7 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
     						<?php echo $item->memberlist['ullist']; ?>    						
     					</details>
 					<?php else : ?>
-						<p class="xbnit"><?php echo Text::_('None listed')?></p>
+						<p class="xbnit"><?php echo Text::_('XBCULTURE_NONE_LISTED')?></p>
 					<?php endif; ?>
 				</td>
 				<?php if($this->show_sum) : ?>
@@ -232,7 +232,7 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
     					<?php endif; ?>
     					<p class="xbnit">
     						<?php if (($item->fcnt + $item->ecnt)>0) : ?>
-    							<?php echo Text::_('also in').' ';
+    							<?php echo Text::_('XBCULTURE_ALSO_IN').' ';
                                     if ($item->fcnt>0) {
      								    echo $item->fcnt.' ';
     								    echo $item->fcnt ==1 ? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');

@@ -200,7 +200,7 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENEDBY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
 							} ?>
 							
-							<a href="<?php echo $gelink.$item->id; ?>" title="<?php echo Text::_('XBPEOPLE_EDIT_GROUP'); ?>">
+							<a href="<?php echo $gelink.$item->id; ?>" title="<?php echo Text::_('XBCULTURE_EDIT_GROUP'); ?>">
 								<?php echo ' '.$item->title; ?> 
 							</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal"  class="xbpv" data-target="#ajax-xbmodal" data-backdrop="static" 
     							onclick="window.com='people';window.view='group';window.pvid= <?php echo $item->id; ?>;">

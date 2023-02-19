@@ -91,13 +91,11 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 	<table class="table table-hover" style="table-layout:fixed;width:100%;" id="xbbooklist">	
 		<thead>
 			<tr>
-				<th>
-					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
-    						', '.Text::_('XBCULTURE_AUTHOR').', '.
-    						HtmlHelper::_('searchtools.sort','XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );
-					?>
-					<?php echo HtmlHelper::_('searchtools.sort','First Read','first_read',$listDirn,$listOrder).', ';
-					   echo HtmlHelper::_('searchtools.sort','Last Read','last_read',$listDirn,$listOrder); ?>
+				<th><span class="xbnit"><?php echo Text::_('XBCULTURE_SORT_LIST_BY')?></span>: 
+					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).', '.
+						HtmlHelper::_('searchtools.sort','XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder ).', '.
+					   HtmlHelper::_('searchtools.sort','XBCULTURE_FIRST_READ','first_read',$listDirn,$listOrder).', '.
+					   HtmlHelper::_('searchtools.sort','XBCULTURE_LAST_READ','last_read',$listDirn,$listOrder); ?>
 				</th>					
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>
@@ -161,7 +159,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 								<div class="pull-left"><i class="far fa-user xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $item->mencnt.' '.Text::_('subjects of book, or mentioned in it'); ?></span>
+    								<summary><span class="xbnit"><?php echo $item->mencnt.' '.Text::_('XBCULTURE_BOOK_MENTIONED'); ?></span>
     								</summary>
     								<?php echo $item->menlist['ullist']; ?>
     							</details>
@@ -259,9 +257,9 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     								            echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating); 
     	                                   endif;  ?>  
     	                                   <?php if (($rev->summary.$rev->review)=='') : 
-    	                                       echo Text::_('Rating only on ').HtmlHelper::date($rev->rev_date , 'd M Y');    
+    	                                       echo Text::_('XBCULTURE_RATING_ONLY_ON').' '.HtmlHelper::date($rev->rev_date , 'd M Y');    
     	                                   else :
-        	                                   echo ' on '.HtmlHelper::date($rev->rev_date , 'd M Y');
+    	                                   echo Text::_('XBCULTURE_ON').' '.HtmlHelper::date($rev->rev_date , 'd M Y');
     	                                       echo ' by '.$rev->reviewer; ?>
         	                                   &nbsp;
         	                                   <a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal"  data-backdrop="static" 

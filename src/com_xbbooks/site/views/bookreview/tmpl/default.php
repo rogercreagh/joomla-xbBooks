@@ -64,8 +64,8 @@ if ($imgok) {
             	          	</span>
             	        <?php endif; ?>	
 	                    <br /><span class="xb09" style="color:darkgray;">
-    	                    <span class="xbnit"><?php echo Text::_('reviewed on'); ?></span> <?php echo HtmlHelper::date($item->rev_date ,'d M Y');?>
-    	                    <span class="xbnit"><?php echo Text::_('reviewed by'); ?></span><?php echo $item->reviewer; ?>					 
+    	                    <span class="xbnit"><?php echo Text::_('XBCULTURE_REVIEWED_BY'); ?></span><?php echo $item->reviewer; ?> 					 
+    	                    <span class="xbnit"><?php echo Text::_('XBCULTURE_ON'); ?></span> <?php echo HtmlHelper::date($item->rev_date ,'d M Y');?>
     	                </span>
 	    	    	</div>
 				</div>

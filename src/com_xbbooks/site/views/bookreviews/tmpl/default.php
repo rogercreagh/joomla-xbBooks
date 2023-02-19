@@ -88,7 +88,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'r:') === 0)) {
             echo trim(substr($search, 2)).'</b> '.Text::_('XBBOOKS_AS_INREV');
         } else {
-			echo trim($search).'</b> '.Text::_('in title');
+			echo trim($search).'</b> '.Text::_('XBCULTURE_IN_TITLE');
 		}
 		echo '</p>';
 	} ?> 

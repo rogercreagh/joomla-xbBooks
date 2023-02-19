@@ -262,7 +262,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php if($item->othercnt>0) :?>
 							<details>
 								<summary class="xbnit">
-									<?php echo ($item->othercnt).' '.Text::_('other roles').' '.Text::_('XBCULTURE_LISTED'); ?></span>
+									<?php echo ($item->othercnt).' '.Text::_('XBCULTURE_OTHER_ROLES').' '.Text::_('XBCULTURE_LISTED'); ?></span>
 								</summary>
 								<?php echo $item->otherlist['ullist']; ?>	
 							</details>

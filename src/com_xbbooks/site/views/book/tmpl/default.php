@@ -142,7 +142,7 @@ if ($imgok) {
        	<?php endif; ?>
     </div>
     <?php if ((($item->mencnt + $item->othcnt + $item->ccnt + $item->gcnt) > 0) || (!$hide_empty)) : ?>
-        <hr />
+        <hr style="margin:10px 0;" />
         <div class="row-fluid">
         	<?php if ((($item->mencnt + $item->ccnt) > 0) || (!$hide_empty)) : ?>
         		<div class="span6">
@@ -195,7 +195,7 @@ if ($imgok) {
         </div>
     <?php endif; ?>
 	<?php if ($item->ext_links_cnt > 0) : ?>
-        <hr />
+        <hr style="margin:10px 0;" />
     	<div class="row-fluid">
         	<div class="span<?php echo (($item->mencnt > 0) || ($item->ccnt > 0) || ($item->othcnt > 0))? '6' : '12'; ?>">
         		<p><b><i><?php echo Text::_('XBBOOKS_EXT_LINKS'); ?></i></b></p>   					
@@ -238,7 +238,7 @@ if ($imgok) {
     				<?php $datefmt = xbCultureHelper::getDateFmt($item->first_read, 'D jS M Y');
     				echo HtmlHelper::date($item->first_read , $datefmt) ; ?>
     			<?php else: 
-    			     echo Text::_('unknown');
+    			     echo Text::_('XBCULTURE_UNKNOWN');
     			endif; ?>
                	<?php if ((!$item->format=='') || (!$hide_empty)) : ?>
         			<p><span class="bnit xbmr10"><?php echo Text::_('XBCULTURE_FORMAT').': '; ?></span>&nbsp;
@@ -264,7 +264,7 @@ if ($imgok) {
     	    		</span>
     		</div>
     	</div>
-        <hr />
+        <hr style="margin:10px 0;" />
     <?php endif; ?>
     <div class="row-fluid">
     	<div class="span<?php echo ($this->show_brevs ==0)? 12 : 6; ?>">

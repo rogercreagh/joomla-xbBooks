@@ -302,7 +302,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 							<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if (($item->fcnt + $item->ecnt)>0) {
-						    echo '<span class="xbnit">'.Text::_('Also').' ';
+						    echo '<span class="xbnit">'.Text::_('XBCULTURE_ALSO').' ';
 						    echo '</span>';
 						    if ($item->fcnt>0) {
 						        echo $item->fcnt.' '.Text::_(($item->fcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');

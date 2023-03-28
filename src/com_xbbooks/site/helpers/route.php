@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/helpers/xbbooks.php
- * @version 1.0.3.5 19th January 2023
+ * @version 1.1.0.1 27th Marcg 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,7 +60,7 @@ class XbbooksHelperRoute
                     return $blink.'&Itemid='.$item->id;
                 }
         }
-        return $flink.'&view=booklist';
+        return $blink.'&view=booklist';
     }
     
     /**
@@ -98,21 +98,21 @@ class XbbooksHelperRoute
     
     /**
      * @name getBookRoute
-     * @desc returns the itemid for a menu item for book view with id  $fd, if not found returns menu id for a booklist, if not found null
-     * @param int $fid
+     * @desc returns the itemid for a menu item for book view with id  $bd, if not found returns menu id for a booklist, if not found null
+     * @param int $bid
      * @return int|string|NULL
      */
-    public static function getBookRoute($fid) {
+    public static function getBookRoute($bid) {
         $items  = self::getItems();
         foreach ($items as $item) {
-            if (isset($item->query['view']) && $item->query['view'] === 'book' && isset($item->query['id']) && $item->query['id'] == $fid ) {
+            if (isset($item->query['view']) && $item->query['view'] === 'book' && isset($item->query['id']) && $item->query['id'] == $bid ) {
                 return $item->id;
             }
         }
         foreach ($items as $item) {
             if (isset($item->query['view']) && $item->query['view'] === 'booklist' &&
                 (empty($item->query['layout']) || $item->query['layout'] === 'default')) {
-                    return $item->id.'&view=book&id='.$fid;
+                    return $item->id.'&view=book&id='.$bid;
                 }
         }
         return null;
@@ -121,24 +121,24 @@ class XbbooksHelperRoute
     /**
      * @name getBookLink
      * @desc gets a comlete link for a book menu item either dedicated, or booklist menu or generic
-     * @param int $fid
+     * @param int $bid
      * @return string
      */
-    public static function getBookLink($fid) {
-        $flink = 'index.php?option=com_xbbooks';
+    public static function getBookLink($bid) {
+        $blink = 'index.php?option=com_xbbooks';
         $items  = self::getItems();
         foreach ($items as $item) {
-            if (isset($item->query['view']) && $item->query['view'] === 'book' && isset($item->query['id']) && $item->query['id'] == $fid ) {
-                return $flink.'&Itemid='.$item->id;
+            if (isset($item->query['view']) && $item->query['view'] === 'book' && isset($item->query['id']) && $item->query['id'] == $bid ) {
+                return $blink.'&Itemid='.$item->id;
             }
         }
         foreach ($items as $item) {
             if (isset($item->query['view']) && $item->query['view'] === 'booklist' &&
                 (empty($item->query['layout']) || $item->query['layout'] === 'default')) {
-                    return $flink.'&Itemid='.$item->id.'&view=book&id='.$fid;
+                    return $blink.'&Itemid='.$item->id.'&view=book&id='.$bid;
                 }
         }
-        return $flink.'&view=book&id='.$fid;
+        return $blink.'&view=book&id='.$bid;
     }
     
     public static function getBlogRoute() {

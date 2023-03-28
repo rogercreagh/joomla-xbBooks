@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/view.html.php
- * @version 1.0.4.0 9th February 2023
+ * @version 1.1.0.1 27th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,6 +42,7 @@ class XbbooksViewBooklist extends JViewLegacy {
 		
 		$this->show_ctcol = $this->showcat + $this->showtags + $this->showfict;
 		
+		$this->hide_empty = $this->params->get('hide_empty',1);
 		
 		$this->search_bar = $this->params->get('search_bar','','int');
 		$this->hide_cat = (!$this->showcat || ($this->params->get('menu_category_id',0)>0)) ? true : false;

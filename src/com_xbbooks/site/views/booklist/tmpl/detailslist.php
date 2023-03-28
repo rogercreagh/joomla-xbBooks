@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/booklist/tmpl/detailslist.php
- * @version 1.0.4.0e 17th February 2023
+ * @version 1.1.0.1 27th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -232,10 +232,15 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     									<?php else : 
     								        echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
     	                                endif;  
-    	                                echo ' on '.HtmlHelper::date($item->reviews[0]->rev_date , 'd M Y');?>
+    	                                echo '&nbsp; ';
+    	                                if (($rev->summary.$rev->review)=='') {
+    	                                    echo Text::_('XBCULTURE_RATING_ONLY_ON');
+    	                                } else {
+    	                                    echo $item->reviews[0]->title .' '.Text::_('XBCULTURE_ON');
+    	                                }
+    	                                echo ' '.HtmlHelper::date($item->reviews[0]->rev_date , 'd M Y'); ?>
     	                                &nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal"  data-backdrop="static" 
-    	                                	onclick="window.com='books';window.view='bookreview';window.pvid=<?php echo $item->reviews[0]->id; ?>;"><i class="far fa-eye"></i></a> 
-    	                                
+    	                                	onclick="window.com='books';window.view='bookreview';window.pvid=<?php echo $item->reviews[0]->id; ?>;"><i class="far fa-eye"></i></a>    	                                
 								    <?php else : ?>
 								        <details><summary><i>
 								        <?php echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEWS_AVE_RATING');?></i>								    
@@ -259,8 +264,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
     	                                   <?php if (($rev->summary.$rev->review)=='') : 
     	                                       echo Text::_('XBCULTURE_RATING_ONLY_ON').' '.HtmlHelper::date($rev->rev_date , 'd M Y');    
     	                                   else :
-    	                                   echo Text::_('XBCULTURE_ON').' '.HtmlHelper::date($rev->rev_date , 'd M Y');
-    	                                       echo ' by '.$rev->reviewer; ?>
+    	                                   echo '&nbsp; '.$item->reviews[0]->title .' '.Text::_('XBCULTURE_ON').' '.HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
         	                                   &nbsp;
         	                                   <a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal"  data-backdrop="static" 
         	                                   	onclick="window.com='books';window.view='bookreview';window.pvid=<?php echo $rev->id; ?>;"><i class="far fa-eye"></i></a> 
@@ -274,22 +278,24 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
 								<div class="clearfix"></div>
 							<?php endif; ?>					
 		                    <?php if(($this->showcat) || ($this->showtags)) : ?>
-         						<?php if($this->showcat) : ?>	
-		     						<i class="fas fa-folder xbpr10"></i>&nbsp;	
-         							<?php if($this->showcat==2) : ?>											
-        								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
-        							<?php else: ?>
-        								<span class="label label-success"><?php echo $item->category_title; ?></span>
-        							<?php endif; ?>
-        						<?php endif; ?>
-        						<?php if($this->showtags) : ?>
-        							<br />
+	                		<?php endif; ?>
+     						<?php if($this->showcat) : ?>	
+	     						<i class="fas fa-folder xbpr10"></i>&nbsp;	
+     							<?php if($this->showcat==2) : ?>											
+    								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
+    							<?php else: ?>
+    								<span class="label label-success"><?php echo $item->category_title; ?></span>
+    							<?php endif; ?>
+    							<br />
+    						<?php endif; ?>
+    						<?php if($this->showtags) : ?>
+    							<?php if ((!empty($item->tags)) || (!$this->hide_empty)) : ?>
         						    <i class="fas fa-tags xbpr10"></i>&nbsp;
         							<?php $tagLayout = new FileLayout('joomla.content.tagline');
             						echo $tagLayout->render($item->tags); ?>
-        						<?php endif; ?>
-        						<br />
-	                		<?php endif; ?>
+            						<br />
+    							<?php endif; ?>
+    						<?php endif; ?>
 	                		<?php if ($this->show_bdates) : ?> 
 	                			<i class="far fa-eye xbpr10"></i>&nbsp;      				
         						<?php if($item->first_read) {

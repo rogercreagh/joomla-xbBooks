@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 1.0.4.0 9th February 2023
+ * @version 1.1.0.1 27th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,26 +49,28 @@ if ($imgok) {
 		<div class="span<?php echo ($imgok && ($this->show_image > 0 )) ? '10' : '12'; ?>">
 			<div class="pull-right xbmr20" style="text-align:right;">
 	    	    <div class="xb12">
-					<?php if ($item->revcnt>0) : ?>
-						<?php $stars = (round(($item->averat)*2)/2); ?>
-						<?php if (($this->zero_rating) && ($stars==0)) : ?>
-				 		    <span class="<?php echo $this->zero_class; ?>"></span>
-						<?php else : ?>
-	                         <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
-	                         <?php if (($item->averat - floor($item->averat))>0) : ?>
-	                              <i class="<?php echo $this->halfstar_class; ?>"></i>
-	                          <?php  endif; ?> 
-	                    <?php endif; ?> 
-	                    <br /><span class="xb09" style="color:darkgray;">
-	                    <?php if ($item->revcnt >1) : ?>
-	                    	<?php echo round($item->averat,1); ?> average from <?php echo $item->revcnt; ?> ratings<br />	
-	                    <?php else : ?>                                               
-    	                    One review on <?php echo HtmlHelper::date($item->reviews[0]->rev_date ,'d M Y');?>
-	                    <?php endif; ?>
-	                    </span> 
-	                <?php else : ?>
-	                   	<p class="xbnote">no reviews available</p>                   
-					<?php endif; ?>						
+	    	    	<?php if ($this->show_brevs) : ?>
+    					<?php if ($item->revcnt>0) : ?>
+    						<?php $stars = (round(($item->averat)*2)/2); ?>
+    						<?php if (($this->zero_rating) && ($stars==0)) : ?>
+    				 		    <span class="<?php echo $this->zero_class; ?>"></span>
+    						<?php else : ?>
+    	                         <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
+    	                         <?php if (($item->averat - floor($item->averat))>0) : ?>
+    	                              <i class="<?php echo $this->halfstar_class; ?>"></i>
+    	                          <?php  endif; ?> 
+    	                    <?php endif; ?> 
+    	                    <br /><span class="xb09" style="color:darkgray;">
+    	                    <?php if ($item->revcnt >1) : ?>
+    	                    	<?php echo round($item->averat,1); ?> average from <?php echo $item->revcnt; ?> ratings<br />	
+    	                    <?php else : ?>                                               
+        	                    One review on <?php echo HtmlHelper::date($item->reviews[0]->rev_date ,'d M Y');?>
+    	                    <?php endif; ?>
+    	                    </span> 
+    	                <?php else : ?>
+    	                   	<p class="xbnote">no reviews available</p>                   
+    					<?php endif; ?>						
+	    	    	<?php endif; ?>
                 </div>
 				<p class="xb11"><?php if ($item->pubyear>0) { 
 					echo Text::_('XBBOOKS_FIRSTPUB').': <b>'.$item->pubyear.'</b>'; 
@@ -114,6 +116,25 @@ if ($imgok) {
 				<div><?php echo $sum; ?></div> 
 			</div>
 			<br />
+            <div class="row-fluid">
+                <?php if ((!$item->publisher=='') || (!$hide_empty)) : ?>
+                	<div class="span5">
+             			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_PUBLISHER').': '; ?></div>
+               			<div class="pull-left" style="margin:2px 0 0 0;">
+            				<?php echo (!$item->publisher=='') ? $item->publisher : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
+            			</div>
+            		</div>
+                	<div class="span1"></div>
+                <?php endif; ?>
+                <?php if ((!$item->orig_lang=='') || (!$hide_empty)) : ?>
+                   	<div class= "span6">
+            			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_ORIG_LANG').': '; ?></div>
+            			<div class="pull-left" style="margin:2px 0 0 0;">
+            				<?php echo (!$item->orig_lang=='') ? $item->orig_lang : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
+                        </div>
+                    </div>               
+               	<?php endif; ?>
+            </div>
 		</div>
 		<?php if ($imgok && ($this->show_image == 2 )) : ?>
 			<div class="span2">
@@ -122,31 +143,14 @@ if ($imgok) {
 			</div>
 		<?php endif; ?>
   	</div>
-    <div class="row-fluid">
-        <?php if ((!$item->publisher=='') || (!$hide_empty)) : ?>
-        	<div class="span5">
-     			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_PUBLISHER').': '; ?></div>
-       			<div class="pull-left" style="margin:2px 0 0 0;">
-    				<?php echo (!$item->publisher=='') ? $item->publisher : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
-    			</div>
-    		</div>
-        	<div class="span1"></div>
-        <?php endif; ?>
-        <?php if ((!$item->orig_lang=='') || (!$hide_empty)) : ?>
-           	<div class= "span6">
-    			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_ORIG_LANG').': '; ?></div>
-    			<div class="pull-left" style="margin:2px 0 0 0;">
-    				<?php echo (!$item->orig_lang=='') ? $item->orig_lang : '<span class="xbnit">'.Text::_('XBBOOKS_UNKNOWN').'</span>'; ?>
-                </div>
-            </div>               
-       	<?php endif; ?>
-    </div>
     <?php if ((($item->mencnt + $item->othcnt + $item->ccnt + $item->gcnt) > 0) || (!$hide_empty)) : ?>
         <hr style="margin:10px 0;" />
         <div class="row-fluid">
         	<?php if ((($item->mencnt + $item->ccnt) > 0) || (!$hide_empty)) : ?>
         		<div class="span6">
-                	<p><b><i>People mentioned & Characters</i></b></p>
+                	<p><b><i>People mentioned 
+                	<?php if ($item->fiction==1) echo '&amp; Characters'; ?>
+                	</i></b></p>
                   	<?php if (($item->mencnt > 0) || (!$hide_empty)) : ?>
               			<div class="pull-left xbnit xbmr10">
                 			<?php echo Text::_('XBBOOKS_APPEARING_BOOK'); ?>: 

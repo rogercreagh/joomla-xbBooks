@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/groups.php
- * @version 1.0.4.0e 17th February 2023
+ * @version 1.1.1.1 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -45,8 +45,18 @@ class XbbooksModelGroups extends JModelList {
         
         $query->select('(SELECT COUNT(DISTINCT(bg.book_id)) FROM #__xbbookgroup AS bg WHERE bg.group_id = a.id) AS bcnt');
 
-        if ($sess->get('xbfilms_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(fg.film_id)) FROM #__xbfilmgroup AS fg WHERE fg.group_id = a.id) AS fcnt');
-        if ($sess->get('xbevents_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(eg.event_id)) FROM #__xbeventgroup AS eg WHERE eg.group_id = a.id) AS ecnt');
+        if ($sess->get('xbfilms_ok',false)==1) {
+            $query->select('(SELECT COUNT(DISTINCT(fg.film_id)) FROM #__xbfilmgroup AS fg WHERE fg.group_id = a.id) AS fcnt');
+        } else {
+            $query->select('0 as fcnt');
+        }
+        
+        if ($sess->get('xbevents_ok',false)==1) {
+            $query->select('(SELECT COUNT(DISTINCT(eg.event_id)) FROM #__xbeventgroup AS eg WHERE eg.group_id = a.id) AS ecnt');
+        } else {
+            $query->select('0 as ecnt');
+        }
+        
         
         $query->join('LEFT',$db->quoteName('#__xbbookgroup', 'b') . ' ON ' . $db->quoteName('b.group_id') . ' = ' .$db->quoteName('a.id'));
         
@@ -153,14 +163,11 @@ class XbbooksModelGroups extends JModelList {
     }
     
     public function getItems() {
-        $sess = Factory::getSession();
         $items  = parent::getItems();
         // we are going to add the list of people (with roles) for each book
          $tagsHelper = new TagsHelper;
         
         foreach ($items as $i=>$item) { 
-            if ($sess->get('xbfilms_ok',false)!=1) $item->fcnt = 0;
-            if ($sess->get('xbevents_ok',false)!=1) $item->ecnt = 0;
             
             if ($item->pcnt>0) {
                 $item->members = XbcultureHelper::getGroupMembers($item->id);

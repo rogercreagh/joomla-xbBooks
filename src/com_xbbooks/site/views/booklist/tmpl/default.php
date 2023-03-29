@@ -96,7 +96,7 @@ $rlink = 'index.php?option=com_xbbooks&view=bookreview'.$itemid.'&id=';
             <?php endif; ?>
 			<col ><!-- title -->
 			<?php if($this->show_sum) : ?>
-				<col class="hidden-phone" style="width:230px;"><!-- summary -->
+				<col class="hidden-phone" style="min-width:230px;"><!-- summary -->
             <?php endif; ?>
             <?php if ($this->show_revs != 0 ) : ?>
 				<col style="width:150px;"><!-- rating -->

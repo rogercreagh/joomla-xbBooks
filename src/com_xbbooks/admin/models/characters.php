@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/models/characters.php
- * @version 1.0.4.0e 17th February 2023
+ * @version 1.1.1.1 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -47,8 +47,18 @@ class XbbooksModelCharacters extends JModelList {
             ->from($db->quoteName('#__xbcharacters','a'));
         
         $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookcharacter AS bp WHERE bp.char_id = a.id) AS bcnt');
-        if ($sess->get('xbfilms_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmcharacter AS fp WHERE fp.char_id = a.id) AS fcnt');
-        if ($sess->get('xbevents_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(ep.event_id)) FROM #__xbeventcharacter AS ep WHERE ep.char_id = a.id) AS ecnt');
+        if ($sess->get('xbfilms_ok',false)==1) { 
+            $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmcharacter AS fp WHERE fp.char_id = a.id) AS fcnt');
+        } else {
+            $query->select('0 as fcnt');
+        }
+        
+        if ($sess->get('xbevents_ok',false)==1) {
+            $query->select('(SELECT COUNT(DISTINCT(ep.event_id)) FROM #__xbeventcharacter AS ep WHERE ep.char_id = a.id) AS ecnt');
+        } else {
+            $query->select('0 as ecnt');
+        }
+        
         //        $query->select('(GROUP_CONCAT(b.film_id SEPARATOR '.$db->quote(',') .')) AS filmlist');
         $query->join('LEFT OUTER',$db->quoteName('#__xbbookcharacter', 'b') . ' ON ' . $db->quoteName('b.char_id') . ' = ' .$db->quoteName('a.id'));
                     
@@ -157,13 +167,10 @@ class XbbooksModelCharacters extends JModelList {
     }
     
     public function getItems() {
-        $sess = Factory::getSession();
         $items  = parent::getItems();
         // we are going to add the list of characters for each book
         $tagsHelper = new TagsHelper;
         foreach ($items as $i=>$item) { 
-            if ($sess->get('xbfilms_ok',false)!=1) $item->fcnt = 0;
-            if ($sess->get('xbevents_ok',false)!=1) $item->ecnt = 0;
             $item->bookcnt = 0;
             $item->booklist='';
             if ($item->bcnt>0) {

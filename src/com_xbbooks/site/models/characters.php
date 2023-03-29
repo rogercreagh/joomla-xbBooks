@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/characters.php
- * @version 1.0.4.0e 17th February 2023
+ * @version 1.1.1.1 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -61,7 +61,11 @@ class XbbooksModelCharacters extends JModelList {
             a.ordering AS ordering, a.params AS params, a.note AS note');
         $query->from('#__xbcharacters AS a');
         $query->select('(SELECT COUNT(DISTINCT(bc.book_id)) FROM #__xbbookcharacter AS bc WHERE bc.char_id = a.id) AS bcnt');
-        if ($this->xbfilmsStatus) $query->select('(SELECT COUNT(DISTINCT(fc.film_id)) FROM #__xbfilmcharacter AS fc WHERE fc.char_id = a.id) AS fcnt');
+        if ($this->xbfilmsStatus==1) {
+            $query->select('(SELECT COUNT(DISTINCT(fc.film_id)) FROM #__xbfilmcharacter AS fc WHERE fc.char_id = a.id) AS fcnt');
+        } else {
+            $query->select('0 as fcnt');
+        }
         
         //only get book chars
         $query->join('INNER','#__xbbookcharacter AS bp ON bp.char_id = a.id');

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/book/tmpl/default.php
- * @version 1.1.0.1 27th March 2023
+ * @version 1.1.1.2 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -135,6 +135,20 @@ if ($imgok) {
                     </div>               
                	<?php endif; ?>
             </div>
+    		<?php if ($this->show_brevs == 0 ) : ?>
+                <div class="row-fluid">
+                	<div class="span12">
+                		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>
+                		<div class="xbbox xbboxcyan">
+                			<?php if (empty($item->synopsis)) { 
+                				echo '<p class="xbnit">'.Text::_('XBBOOKS_NO_SYNOPSIS').'</p>';				    
+                            } else { 
+                				echo $item->synopsis; 
+                            } ?> 
+                		</div>
+                	</div>
+        		</div>
+        	<?php endif; ?>
 		</div>
 		<?php if ($imgok && ($this->show_image == 2 )) : ?>
 			<div class="span2">
@@ -270,87 +284,89 @@ if ($imgok) {
     	</div>
         <hr style="margin:10px 0;" />
     <?php endif; ?>
-    <div class="row-fluid">
-    	<div class="span<?php echo ($this->show_brevs ==0)? 12 : 6; ?>">
-    		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>
-    		<div class="xbbox xbboxcyan">
-    			<?php if (empty($item->synopsis)) { 
-    				echo '<p class="xbnit">'.Text::_('XBBOOKS_NO_SYNOPSIS').'</p>';				    
-                } else { 
-    				echo $item->synopsis; 
-                } ?> 
-    		</div>
-    	</div>
-    	<?php if ($this->show_brevs>0) : ?>
-    		<div class="span6 xbmb12">
-    			<h4><?php echo Text::_('XBCULTURE_REVIEWS_U'); ?></h4>
-    			<?php if(empty($item->reviews)) : ?>
-    				<p><i><?php echo Text::_( 'XBBOOKS_NOREVIEW' ); ?></i></p>
-    			<?php else : ?>
-    				<?php foreach ($item->reviews as $rev) : ?>
-    					<div class="xbrevlist ">
-    						<div class="xbbox revbox">
-    							<?php if ($this->show_brevs>0) : ?>
-    								<div style="padding-bottom:5px;">
-    									<?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
-    										<span class="<?php echo $this->zero_class; ?>"></span>
-    									<?php else: ?>
-    										<?php echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating); ?>
-    									<?php endif; ?>
-    								</div>
-    							<?php endif; ?>
-    							<?php if ($this->show_brevs==2) : ?>
-    								<?php if (!empty($rev->title) && ((!empty($rev->summary)) || (!empty($rev->review)) )) : ?>
-    									<p><span class="xbtitle"><?php echo $rev->title; ?></span></p>				
-    								<?php endif; ?>
-    							<?php endif; ?>
-    							<?php if ($this->show_brevs>0) : ?>
-    								<p><?php echo ' by '.$rev->reviewer;
-    									echo ' on '.HtmlHelper::date($rev->rev_date ,'D jS M Y').'. '; ?>
-    								</p>
-    							<?php endif; ?>
-    							<?php if ($this->show_brevs==2) : ?>
-    								<?php if (empty($rev->review)) {
-    									if (empty($rev->summary)) {
-    										echo '<span class="xbnit">'.Text::_('XBBOOKS_NO_REV_TEXT').'</span>';
-    									} else {
-    										echo $rev->summary;
-    									}
-    								} else { //summary doesn't get shown here if there is a review - OK????
-    									echo $rev->review;
-    								}  ?>
-    	                    		<div class="row-fluid">
-    	            	        		<?php if($this->show_rcat) : ?>
-    	                        			<div class="span4">
-    	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_REV_CAT'); ?></div>
-    	                						<div class="pull-left">
-    	               								<?php if($this->show_rcat==2) : ?>
-    													<a class="label label-success" href="<?php echo Route::_($clink.$rev->catid); ?>">
-    													<?php echo $rev->category_title; ?></a>
-    												<?php else: ?>
-    													<span class="label label-success"><?php echo $rev->category_title; ?></a></span>
-    												<?php endif; ?>
-    	                						</div>
-    	                            		</div>
-    	            					<?php endif; ?>
-    	             	       		 	<?php if(($this->show_rtags>0) && ($rev->tagcnt>0)) : ?>
-    	                            		<div class="span<?php echo ($this->show_rtags>0) ? '8' : '12'; ?>">
-    	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?></div>
-    	                						<div class="pull-left">	                	
-    	                                			<?php $tagLayout = new FileLayout('joomla.content.tags');
-    	                            				echo $tagLayout->render($rev->tags); ?>              
-    	                                		</div>
-    	                            		</div>
-    									<?php endif; ?>
-    	            				</div>
-    	            			<?php  endif;?>
-    	            		</div>
-    					</div>
-    	        	<?php endforeach; ?>
-    	    	<?php endif; ?>
-    		</div>
-    	<?php endif; ?>
-    </div> 
+    <?php if ($this->show_brevs > 0 ) : ?>
+        <div class="row-fluid">
+        	<div class="span<?php echo ($this->show_brevs ==0)? 12 : 6; ?>">
+        		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>
+        		<div class="xbbox xbboxcyan">
+        			<?php if (empty($item->synopsis)) { 
+        				echo '<p class="xbnit">'.Text::_('XBBOOKS_NO_SYNOPSIS').'</p>';				    
+                    } else { 
+        				echo $item->synopsis; 
+                    } ?> 
+        		</div>
+        	</div>
+        	<?php if ($this->show_brevs>0) : ?>
+        		<div class="span6 xbmb12">
+        			<h4><?php echo Text::_('XBCULTURE_REVIEWS_U'); ?></h4>
+        			<?php if(empty($item->reviews)) : ?>
+        				<p><i><?php echo Text::_( 'XBBOOKS_NOREVIEW' ); ?></i></p>
+        			<?php else : ?>
+        				<?php foreach ($item->reviews as $rev) : ?>
+        					<div class="xbrevlist ">
+        						<div class="xbbox revbox">
+        							<?php if ($this->show_brevs>0) : ?>
+        								<div style="padding-bottom:5px;">
+        									<?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
+        										<span class="<?php echo $this->zero_class; ?>"></span>
+        									<?php else: ?>
+        										<?php echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating); ?>
+        									<?php endif; ?>
+        								</div>
+        							<?php endif; ?>
+        							<?php if ($this->show_brevs==2) : ?>
+        								<?php if (!empty($rev->title) && ((!empty($rev->summary)) || (!empty($rev->review)) )) : ?>
+        									<p><span class="xbtitle"><?php echo $rev->title; ?></span></p>				
+        								<?php endif; ?>
+        							<?php endif; ?>
+        							<?php if ($this->show_brevs>0) : ?>
+        								<p><?php echo ' by '.$rev->reviewer;
+        									echo ' on '.HtmlHelper::date($rev->rev_date ,'D jS M Y').'. '; ?>
+        								</p>
+        							<?php endif; ?>
+        							<?php if ($this->show_brevs==2) : ?>
+        								<?php if (empty($rev->review)) {
+        									if (empty($rev->summary)) {
+        										echo '<span class="xbnit">'.Text::_('XBBOOKS_NO_REV_TEXT').'</span>';
+        									} else {
+        										echo $rev->summary;
+        									}
+        								} else { //summary doesn't get shown here if there is a review - OK????
+        									echo $rev->review;
+        								}  ?>
+        	                    		<div class="row-fluid">
+        	            	        		<?php if($this->show_rcat) : ?>
+        	                        			<div class="span4">
+        	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBBOOKS_REV_CAT'); ?></div>
+        	                						<div class="pull-left">
+        	               								<?php if($this->show_rcat==2) : ?>
+        													<a class="label label-success" href="<?php echo Route::_($clink.$rev->catid); ?>">
+        													<?php echo $rev->category_title; ?></a>
+        												<?php else: ?>
+        													<span class="label label-success"><?php echo $rev->category_title; ?></a></span>
+        												<?php endif; ?>
+        	                						</div>
+        	                            		</div>
+        	            					<?php endif; ?>
+        	             	       		 	<?php if(($this->show_rtags>0) && ($rev->tagcnt>0)) : ?>
+        	                            		<div class="span<?php echo ($this->show_rtags>0) ? '8' : '12'; ?>">
+        	                						<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?></div>
+        	                						<div class="pull-left">	                	
+        	                                			<?php $tagLayout = new FileLayout('joomla.content.tags');
+        	                            				echo $tagLayout->render($rev->tags); ?>              
+        	                                		</div>
+        	                            		</div>
+        									<?php endif; ?>
+        	            				</div>
+        	            			<?php  endif;?>
+        	            		</div>
+        					</div>
+        	        	<?php endforeach; ?>
+        	    	<?php endif; ?>
+        		</div>
+        	<?php endif; ?>
+        </div> 
+    <?php endif; ?>
 </div>
 <?php if($this->tmpl != 'component') : ?>
     <div class="xbbox xbboxgrey">

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/models/people.php
- * @version 1.0.4.0e 17th February 2023
+ * @version 1.1.1.1 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -75,7 +75,11 @@ class XbbooksModelPeople extends JModelList {
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
 		$query->from($db->quoteName('#__xbpersons','a'));
 		
-		if ($this->xbfilmsStatus) $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
+		if ($this->xbfilmsStatus == 1) {
+		    $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
+		} else {
+		    $query->select('0 AS fcnt');
+		}
 		$query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
 		
 		//only get book people
@@ -234,7 +238,8 @@ class XbbooksModelPeople extends JModelList {
 		$showcnts = $this->getState('params')['showcnts'];
 		
 		foreach ($items as $i=>$item) {
-			$item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
+		    
+		    $item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
 			
 			$item->books = XbcultureHelper::getPersonBooks($item->id);
 			$item->brolecnt = count($item->books);

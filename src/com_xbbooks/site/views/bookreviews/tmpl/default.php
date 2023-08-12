@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource site/views/bookreviews/tmpl/default.php
- * @version 1.0.4.0e 17th February 2023
+ * @version 1.1.1.2 12th Auguust 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,19 +79,19 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 		}
 	?>
 	<div class="clearfix"></div>
-	<?php $search = $this->searchTitle; ?>
+	<?php // $search = strip_tags($this->searchTitle); ?>
 
-	<?php if ($search) {
-		echo '<p>Searched for <b>'; 
-		if (stripos($search, 'i:') === 0) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_AS_ID');
-		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'r:') === 0)) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('XBBOOKS_AS_INREV');
-        } else {
-			echo trim($search).'</b> '.Text::_('XBCULTURE_IN_TITLE');
-		}
-		echo '</p>';
-	} ?> 
+	<?php // if ($search) {
+		//echo '<p>Searched for <b>'; 
+		//if (stripos($search, 'i:') === 0) {
+        //    echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_AS_ID');
+		//} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'r:') === 0)) {
+        //    echo trim(substr($search, 2)).'</b> '.Text::_('XBBOOKS_AS_INREV');
+        //} else {
+		//	echo trim($search).'</b> '.Text::_('XBCULTURE_IN_TITLE');
+		//}
+		//echo '</p>';
+	//} ?> 
 
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">

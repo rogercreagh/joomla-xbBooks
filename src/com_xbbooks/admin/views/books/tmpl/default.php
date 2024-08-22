@@ -153,7 +153,7 @@ $tvlink = 'index.php?option=com_xbbooks&view=tag&id=';
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';						
 						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
-					<th class="nowrap>
+					<th class="nowrap">
 						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
 					</th>
 				</tr>
